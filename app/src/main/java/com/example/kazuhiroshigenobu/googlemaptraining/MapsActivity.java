@@ -38,7 +38,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     LocationManager locationManager;
+    
     android.location.LocationListener locationListener;
+
+
 //    LocationManager locationManager;
 //    android.location.LocationListener
 
