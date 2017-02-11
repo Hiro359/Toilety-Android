@@ -34,10 +34,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter><!-- ATTENTION: This intent was auto-generated. Follow instructions at
+            <!-- ATTENTION: This intent was auto-generated. Follow instructions at
   https://g.co/AppIndexing/AndroidStudio to publish your URLs. -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -62,11 +59,12 @@
 
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
