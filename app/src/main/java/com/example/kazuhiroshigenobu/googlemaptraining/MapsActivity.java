@@ -18,6 +18,9 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -29,6 +32,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,6 +46,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     android.location.LocationListener locationListener;
 
+    private DatabaseReference databaseReference;
+    private GeoFire geoFire;
+
+
+    DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference();
+//    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("path/to/geofire");
+    //GeoFire geoFire = new GeoFire(ref);
 
 //    LocationManager locationManager;
 //    android.location.LocationListener
@@ -108,6 +120,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                toiletSearch(location);
                 //Toast.makeText(MapsActivity.this, location.toString(), Toast.LENGTH_SHORT).show();
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                 try {
@@ -179,21 +192,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         else{
 
+
             if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
 
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
 
-            }else{
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+            }else {
+                Log.i("HeyHey2", "locationManager.requestLocationUpdates");
+
+//
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                 Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+
+
+              if (lastKnownLocation != null){
+                  Log.i("lastKnown != null","");
 
                 mMap.clear();
                 LatLng userLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
 
+                //Commented fot tryout
 
 
+            }
 
 
             }
@@ -210,6 +233,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //     //   }
     }
 
+    public void toiletSearch(Location location){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        //LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude())
+        geoFire = new GeoFire(ref);
+        Log.i("location.getLatitude()",String.valueOf(location.getLatitude()));
+        Log.i("location.getLongitude()",String.valueOf(location.getLongitude()));
+
+
+
+
+
+        //GeoLocation geoLocation = new GeoFire(location.getLatitude(),location.getLongitude());
+
+        //GeoQuery geoQuery = geoFire.queryAtLocation(geoLocation,2.5);
+
+
+        //GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(37.7832, -122.4056), 0.6);
+
+//        Geofire geofire = new Geofire(ref);
+
+
+//            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("path/to/geofire");
+//    GeoFire geoFire = new GeoFire(ref);
+
+
+
+
+
+    }
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
