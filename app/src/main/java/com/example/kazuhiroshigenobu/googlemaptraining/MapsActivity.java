@@ -9,7 +9,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -32,8 +35,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,6 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     android.location.LocationListener locationListener;
 
     private DatabaseReference databaseReference;
+    private DatabaseReference toiletRef;
     private GeoFire geoFire;
 
 
@@ -92,9 +100,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
 
 
@@ -120,7 +130,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                Log.i("toiletSearch","willBeCalled");
                 toiletSearch(location);
+                Log.i("toiletSearch","AlreadyCalled");
+
                 //Toast.makeText(MapsActivity.this, location.toString(), Toast.LENGTH_SHORT).show();
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                 try {
@@ -234,34 +247,293 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void toiletSearch(Location location){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        //LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude())
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
+        Log.i("toiletSearch","Called");
+
         geoFire = new GeoFire(ref);
-        Log.i("location.getLatitude()",String.valueOf(location.getLatitude()));
-        Log.i("location.getLongitude()",String.valueOf(location.getLongitude()));
+        Log.i("Geo.getLatitude()",String.valueOf(location.getLatitude()));
+        Log.i("Geo.getLongitude()",String.valueOf(location.getLongitude()));
+
+
+        Double centerLatitude = location.getLatitude();
+        Double centerLongitude = location.getLongitude();
+
+        Double centerRadius = 3.0;
+        //This value should be changed depending on the filter...
+
+        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+
+
+        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(centerLatitude, centerLongitude), centerRadius);
+
+        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+
+            @Override
+            public void onKeyEntered(final String key, GeoLocation location) {
+
+                Log.i("Geokey",key);
+                Log.i("Geolocation",String.valueOf(location));
+                toiletRef.child(key).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                       // for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
+                        {
+                            Boolean removedToilet = false;
+                            Toilet toilet =  new Toilet();
+                            Filter filter =  new Filter();
+                            //String key = (String) dataSnapshot.child("key").getValue();
+                            toilet.key = key;
+                            //Not sure about how to call key....
+
+                            String urlOne = (String) dataSnapshot.child("urlOne").getValue();
+                            toilet.urlOne = urlOne;
+
+                            String urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
+                            toilet.urlTwo = urlTwo;
+
+                            String urlThree= (String) dataSnapshot.child("urlThree").getValue();
+                            toilet.urlThree = urlThree;
+
+                            String type = (String) dataSnapshot.child("type").getValue();
+                            toilet.type = type;
+
+                            Double star  = (Double) dataSnapshot.child("star").getValue();
+                            toilet.star = star;
+
+
+                            Boolean washlet= (Boolean) dataSnapshot.child("washlet").getValue();
+                            toilet.washlet = washlet;
+
+
+                            Boolean wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
+                            toilet.wheelchair = wheelchair;
+
+
+                            Boolean onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
+                            toilet.onlyFemale = onlyFemale;
+
+
+                            Boolean unisex = (Boolean) dataSnapshot.child("unisex").getValue();
+                            toilet.unisex = unisex;
+
+
+                            Boolean makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
+                            toilet.makeuproom = makeuproom;
+
+
+                            Boolean milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
+                            toilet.milkspace = milkspace;
+
+
+                            Boolean omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+                            toilet.omutu = omutu;
+
+
+                            Boolean ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
+                            toilet.ostomate = ostomate;
+
+
+                            Boolean japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
+                            toilet.japanesetoilet = japanesetoilet;
+
+                            Boolean westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
+                            toilet.westerntoilet = westerntoilet;
+
+
+                            Boolean warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
+                            toilet.warmSeat = warmSeat;
+
+
+                            Boolean baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+                            toilet.baggageSpace = baggageSpace;
+
+
+                            Boolean available = (Boolean) dataSnapshot.child("available").getValue();
+                            toilet.available = available;
+
+
+                            String howtoaceess = (String) dataSnapshot.child("howtoaceess").getValue();
+                            toilet.howtoaccess = howtoaceess;
+
+
+                            Integer waitingtime = (Integer) dataSnapshot.child("waitingtime").getValue();
+                            toilet.waitingtime = waitingtime;
+                            //I dont think this will be needed anymore......
+
+                            String openinghours = (String) dataSnapshot.child("openinghours").getValue();
+                            toilet.openinghours = openinghours;
+
+
+                            String addedBy  = (String) dataSnapshot.child("addedBy").getValue();
+                            toilet.addedBy = addedBy;
+
+                            String editedBy = (String) dataSnapshot.child("editedBy").getValue();
+                            toilet.editedBy = editedBy;
+
+                            Double averageStar = (Double) dataSnapshot.child("averageStar").getValue();
+                            toilet.averageStar = averageStar;
+
+                            Integer star1 = (Integer) dataSnapshot.child("star1").getValue();
+                            toilet.star1 = star1;
+
+                            Integer star2 = (Integer) dataSnapshot.child("star2").getValue();
+                            toilet.star2 = star2;
+
+                            Integer star3 = (Integer) dataSnapshot.child("star3").getValue();
+                            toilet.star3 = star3;
+
+                            Integer star4 = (Integer) dataSnapshot.child("star4").getValue();
+                            toilet.star4 = star4;
+
+                            Integer star5 = (Integer) dataSnapshot.child("star5").getValue();
+                            toilet.star5 = star5;
+
+                            Integer star6 = (Integer) dataSnapshot.child("star6").getValue();
+                            toilet.star6 = star6;
+
+                            Integer star7 = (Integer) dataSnapshot.child("star7").getValue();
+                            toilet.star7 = star7;
+
+                            Integer star8 = (Integer) dataSnapshot.child("star8").getValue();
+                            toilet.star8 = star8;
+
+                            Integer star9 = (Integer) dataSnapshot.child("star9").getValue();
+                            toilet.star9 = star9;
+
+                            Integer reviewCount = (Integer) dataSnapshot.child("reviewCount").getValue();
+                            toilet.reviewCount = reviewCount;
+
+
+                            Integer wait1 = (Integer) dataSnapshot.child("wait1").getValue();
+                            toilet.wait1 = wait1;
+
+                            Integer wait2 = (Integer) dataSnapshot.child("wait2").getValue();
+                            toilet.wait2 = wait2;
+
+                            Integer wait3 = (Integer) dataSnapshot.child("wait3").getValue();
+                            toilet.wait3 = wait3;
+
+                            Integer wait4 = (Integer) dataSnapshot.child("wait4").getValue();
+                            toilet.wait4 = wait4;
+
+                            Integer wait5 = (Integer) dataSnapshot.child("wait5").getValue();
+                            toilet.wait5 = wait5;
+
+                            Integer averageWait = (Integer) dataSnapshot.child("averageWait").getValue();
+                            toilet.averageWait = averageWait;
+
+                            if (filter.starFilterSetted == true && toilet.averageStar < filter.starFilter) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.washletFilter == true && toilet.washlet == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.wheelchairFilter == true && toilet.wheelchair == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.onlyFemaleFilter == true && toilet.onlyFemale == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.unisexFilter == true && toilet.unisex == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.makeroomFilter == true && toilet.makeuproom == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.milkspaceFilter == true && toilet.milkspace == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.omutuFilter == true && toilet.omutu == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.ostomateFilter == true && toilet.ostomate == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.japaneseFilter == true && toilet.japanesetoilet == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.westernFilter == true && toilet.westerntoilet == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.warmSearFilter == true && toilet.warmSeat == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.baggageSpaceFilter == true && toilet.baggageSpace == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.availableFilter == true && toilet.available == false) {
+                                removedToilet = true;
+                            }
+
+                            if (filter.typeFilterOn == true && toilet.type != filter.typeFilter) {
+                                removedToilet = true;
+                            }
+
+                            if removedToilet == false{
+                            //Added to the array
+
+                            //Make markers
+
+
+                        }
 
 
 
 
 
-        //GeoLocation geoLocation = new GeoFire(location.getLatitude(),location.getLongitude());
-
-        //GeoQuery geoQuery = geoFire.queryAtLocation(geoLocation,2.5);
-
-
-        //GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(37.7832, -122.4056), 0.6);
-
-//        Geofire geofire = new Geofire(ref);
-
-
-//            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("path/to/geofire");
-//    GeoFire geoFire = new GeoFire(ref);
 
 
 
 
 
-    }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        String TAG = "Error";
+                        Log.w(TAG, "DatabaseError",databaseError.toException());
+
+                    }
+                });
+
+
+            }
+
+
+            @Override
+            public void onKeyExited(String key) {
+
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+                Log.i("GeoQueryReady","Fuckkkk");
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+
+            }
+        });}
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
