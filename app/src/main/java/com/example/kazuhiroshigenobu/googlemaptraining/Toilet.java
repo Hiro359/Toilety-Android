@@ -48,7 +48,7 @@ public class Toilet {
     Integer star8;
     Integer star9;
     Integer star10;
-    Double averageStar;
+    String averageStar;
     Integer waitingtime;
     Integer wait1;
     Integer wait2;

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Build;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -43,6 +44,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,6 +58,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private DatabaseReference databaseReference;
     private DatabaseReference toiletRef;
     private GeoFire geoFire;
+    private Toilet toilet = new Toilet();
+    private Filter filter = new Filter();
+    private List toilets = new ArrayList();
+    //Not sure this array works
+
 
 
     DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference();
@@ -130,6 +137,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14.0f));
+
+
+                //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 12.0f));
                 Log.i("toiletSearch","willBeCalled");
                 toiletSearch(location);
                 Log.i("toiletSearch","AlreadyCalled");
@@ -269,7 +280,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
 
             @Override
-            public void onKeyEntered(final String key, GeoLocation location) {
+            public void onKeyEntered(final String key, final GeoLocation location) {
 
                 Log.i("Geokey",key);
                 Log.i("Geolocation",String.valueOf(location));
@@ -285,6 +296,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             toilet.key = key;
                             //Not sure about how to call key....
 
+                            Log.i("toilet777.key",toilet.key);
                             String urlOne = (String) dataSnapshot.child("urlOne").getValue();
                             toilet.urlOne = urlOne;
 
@@ -297,8 +309,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             String type = (String) dataSnapshot.child("type").getValue();
                             toilet.type = type;
 
-                            Double star  = (Double) dataSnapshot.child("star").getValue();
-                            toilet.star = star;
+                            Log.i("toilet777.type",toilet.type);
+//                            Double star  = (Double) dataSnapshot.child("star").getValue();
+//                            toilet.star = star;
+                            //commented
+
+                            //Log.i("toilet777.star",toilet.type);
 
 
                             Boolean washlet= (Boolean) dataSnapshot.child("washlet").getValue();
@@ -315,6 +331,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             Boolean unisex = (Boolean) dataSnapshot.child("unisex").getValue();
                             toilet.unisex = unisex;
+                            Log.i("toilet777.unisex",String.valueOf(toilet.unisex));
 
 
                             Boolean makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
@@ -342,6 +359,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             Boolean warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
                             toilet.warmSeat = warmSeat;
+                            Log.i("toilet777.warmSeat",String.valueOf(toilet.warmSeat));
+
 
 
                             Boolean baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
@@ -350,18 +369,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             Boolean available = (Boolean) dataSnapshot.child("available").getValue();
                             toilet.available = available;
+                            Log.i("toilet777.ave",String.valueOf(toilet.available));
 
 
-                            String howtoaceess = (String) dataSnapshot.child("howtoaceess").getValue();
+                            String howtoaceess = (String) dataSnapshot.child("howtoaccess").getValue();
                             toilet.howtoaccess = howtoaceess;
+                            Log.i("toilet777.waitingtime",toilet.howtoaccess);
 
 
-                            Integer waitingtime = (Integer) dataSnapshot.child("waitingtime").getValue();
-                            toilet.waitingtime = waitingtime;
-                            //I dont think this will be needed anymore......
+//                            Integer waitingtime = (Integer) dataSnapshot.child("waitingtime").getValue();
+//                            toilet.waitingtime = waitingtime;
+//                            Log.i("toilet777.waitingtime",String.valueOf(toilet.waitingtime));
+//                            //I dont think this will be needed anymore......
 
+                            Log.i("toilet777.heyheyyyy",toilet.howtoaccess);
                             String openinghours = (String) dataSnapshot.child("openinghours").getValue();
                             toilet.openinghours = openinghours;
+                            Log.i("toilet777.openingHours",toilet.openinghours);
 
 
                             String addedBy  = (String) dataSnapshot.child("addedBy").getValue();
@@ -369,60 +393,94 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             String editedBy = (String) dataSnapshot.child("editedBy").getValue();
                             toilet.editedBy = editedBy;
+                            Log.i("toilet777.editBt",String.valueOf(toilet.editedBy));
 
-                            Double averageStar = (Double) dataSnapshot.child("averageStar").getValue();
+
+
+
+                            String averageStar = (String) dataSnapshot.child("averageStar").getValue();
                             toilet.averageStar = averageStar;
 
-                            Integer star1 = (Integer) dataSnapshot.child("star1").getValue();
-                            toilet.star1 = star1;
+                            Log.i("toilet777.aveStar",String.valueOf(toilet.averageStar));
 
-                            Integer star2 = (Integer) dataSnapshot.child("star2").getValue();
-                            toilet.star2 = star2;
-
-                            Integer star3 = (Integer) dataSnapshot.child("star3").getValue();
-                            toilet.star3 = star3;
-
-                            Integer star4 = (Integer) dataSnapshot.child("star4").getValue();
-                            toilet.star4 = star4;
-
-                            Integer star5 = (Integer) dataSnapshot.child("star5").getValue();
-                            toilet.star5 = star5;
-
-                            Integer star6 = (Integer) dataSnapshot.child("star6").getValue();
-                            toilet.star6 = star6;
-
-                            Integer star7 = (Integer) dataSnapshot.child("star7").getValue();
-                            toilet.star7 = star7;
-
-                            Integer star8 = (Integer) dataSnapshot.child("star8").getValue();
-                            toilet.star8 = star8;
-
-                            Integer star9 = (Integer) dataSnapshot.child("star9").getValue();
-                            toilet.star9 = star9;
-
-                            Integer reviewCount = (Integer) dataSnapshot.child("reviewCount").getValue();
-                            toilet.reviewCount = reviewCount;
+                            //Its asking for Double, but somtimes it got Integer, which makes an error....
 
 
-                            Integer wait1 = (Integer) dataSnapshot.child("wait1").getValue();
-                            toilet.wait1 = wait1;
+//
+//                            Log.i("toilet777.averageStar",String.valueOf(toilet.averageStar));
+//
+//
+//                            Log.i("I dont getiiiit",String.valueOf(toilet.averageStar));
+//
+//
 
-                            Integer wait2 = (Integer) dataSnapshot.child("wait2").getValue();
-                            toilet.wait2 = wait2;
+//                            //Integer star1 = (Integer) dataSnapshot.child("star1").getValue();
+//                            Log.i("What;'s wrog this","");
+//
+//                           // toilet.star1 = star1;
+//                            //Log.i("toilet777.star1",String.valueOf(toilet.star1));
+//                            Log.i("What;'s wrog this","22");
+                            Double averaegeStarDouble = Double.parseDouble(toilet.averageStar);
 
-                            Integer wait3 = (Integer) dataSnapshot.child("wait3").getValue();
-                            toilet.wait3 = wait3;
 
-                            Integer wait4 = (Integer) dataSnapshot.child("wait4").getValue();
-                            toilet.wait4 = wait4;
+                            Long star1 = (Long) dataSnapshot.child("star1").getValue();
+                            toilet.star1 = star1.intValue();
 
-                            Integer wait5 = (Integer) dataSnapshot.child("wait5").getValue();
-                            toilet.wait5 = wait5;
+                            Long star2 = (Long) dataSnapshot.child("star2").getValue();
+                            toilet.star2 = star2.intValue();
+                            Log.i("toilet.star2",String.valueOf(toilet.star2));
 
-                            Integer averageWait = (Integer) dataSnapshot.child("averageWait").getValue();
-                            toilet.averageWait = averageWait;
+                            Long star3 = (Long) dataSnapshot.child("star3").getValue();
+                            toilet.star3 = star3.intValue();
 
-                            if (filter.starFilterSetted == true && toilet.averageStar < filter.starFilter) {
+                            Long star4 = (Long) dataSnapshot.child("star4").getValue();
+                            toilet.star4 = star4.intValue();
+
+                            Long star5 = (Long) dataSnapshot.child("star5").getValue();
+                            toilet.star5 = star5.intValue();
+
+                            Long star6 = (Long) dataSnapshot.child("star6").getValue();
+                            toilet.star6 = star6.intValue();
+
+                            Long star7 = (Long) dataSnapshot.child("star7").getValue();
+                            toilet.star7 = star7.intValue();
+
+                            Long star8 = (Long) dataSnapshot.child("star8").getValue();
+                            toilet.star8 = star8.intValue();
+
+                            Long star9 = (Long) dataSnapshot.child("star9").getValue();
+                            toilet.star9 = star9.intValue();
+
+                            Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
+                            toilet.reviewCount = reviewCount.intValue();
+
+                            Log.i("toilet777.reviewCount",String.valueOf(toilet.reviewCount));
+
+                            Long wait1 = (Long) dataSnapshot.child("wait1").getValue();
+                            toilet.wait1 = wait1.intValue();
+
+                            Long wait2 = (Long) dataSnapshot.child("wait2").getValue();
+                            toilet.wait2 = wait2.intValue();
+
+                            Long wait3 = (Long) dataSnapshot.child("wait3").getValue();
+                            toilet.wait3 = wait3.intValue();
+
+                            Long wait4 = (Long) dataSnapshot.child("wait4").getValue();
+                            toilet.wait4 = wait4.intValue();
+
+                            Long wait5 = (Long) dataSnapshot.child("wait5").getValue();
+                            toilet.wait5 = wait5.intValue();
+
+                            Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
+                            toilet.averageWait = averageWait.intValue();
+
+
+                            Log.i("toilet777.aveWait",String.valueOf(toilet.averageWait));
+
+
+                            if (filter.starFilterSetted == true && averaegeStarDouble < filter.starFilter) {
+
+                                //Not sure averaegeStarDouble works......
                                 removedToilet = true;
                             }
 
@@ -482,10 +540,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 removedToilet = true;
                             }
 
-                            if removedToilet == false{
-                            //Added to the array
+                            if (removedToilet == false){
+                                toilets.add(toilet);
 
-                            //Make markers
+                                LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
+
+                                //LatLng sydney = new LatLng(-33.852, 151.211);
+                                mMap.addMarker(new MarkerOptions().position(toiletLocation)
+                                        .title(key));
+
+                                System.out.println(toilets);
+
 
 
                         }

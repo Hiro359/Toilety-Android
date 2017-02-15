@@ -209,9 +209,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        final String email = mEmailView.getText().toString();
+//        final String email = mEmailView.getText().toString();
+//
+//        final String password = mPasswordView.getText().toString();
 
-        final String password = mPasswordView.getText().toString();
+        final String email = "kazushige12343@gmail.com";
+        final String password = "kazu34565";
 
         boolean cancel = false;
         View focusView = null;
@@ -247,6 +250,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                        Toast.makeText(LoginActivity.this, "ログイン中", Toast.LENGTH_SHORT).show();
+
 
                         finish();
                         startActivity(intent);
@@ -277,8 +282,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        final String email = mEmailView.getText().toString();
-        final String password = mPasswordView.getText().toString();
+//        final String email = mEmailView.getText().toString();
+//        final String password = mPasswordView.getText().toString();
+
+        //////I use the static email and password/....
+
+        final String email = "kazushige12343@gmail.com";
+        final String password = "kazu34565";
+
+
+
 
         boolean cancel = false;
         View focusView = null;
