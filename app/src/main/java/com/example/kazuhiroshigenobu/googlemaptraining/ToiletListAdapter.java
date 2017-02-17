@@ -121,7 +121,11 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
             Log.i("current.key", String.valueOf(position));
 
 
-            holder.name.setText(current.openinghours);
+            holder.name.setText(current.key);
+            holder.starRate.setText(current.averageStar);
+            holder.waitingTime.setText(String.valueOf(current.averageWait));
+            holder.type.setText(current.type);
+
            // holder.name.setText(String.valueOf(toiletData.get(position)));
            // holder.name.setText();
 
@@ -153,13 +157,17 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
-       // TextView type;
-//        TextView waitingTime;
-//        TextView starRate;
+        TextView type;
+        TextView waitingTime;
+        TextView starRate;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.listText);
+            type = (TextView) itemView.findViewById(R.id.tv_name);
+            waitingTime = (TextView) itemView.findViewById(R.id.tv_waitingTime);
+            starRate = (TextView) itemView.findViewById(R.id.tv_starRate);
+
            // type = (TextView) itemView.findViewById(R.id.listText);
 
 //            waitingTime = (TextView) itemView.findViewById(R.id.tv_waitingTime);
