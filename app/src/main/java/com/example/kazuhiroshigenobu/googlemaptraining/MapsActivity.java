@@ -2,6 +2,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.*;
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -18,7 +19,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
@@ -58,9 +67,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private DatabaseReference databaseReference;
     private DatabaseReference toiletRef;
     private GeoFire geoFire;
-    private Toilet toilet = new Toilet();
+   // private Toilet toilet = new Toilet();
+    //Maybe delete this and use toiletList.....
     private Filter filter = new Filter();
     private List toilets = new ArrayList();
+    private ListView lvtoilet;
+    private ToiletListAdapter adapter;
+    private List<Toilet> toiletList;
+
+    private List<Toilet> toiletData;
+    private RecyclerView recyclertView;
+    private RecyclerView.LayoutManager layoutManager;
+    private LayoutInflater inflater;
+    private ViewGroup container;
+    private LinearLayoutManager mLinearLayoutManager;
+
+    String[] toiletNames = {"toilet1","toilet2","toilet3","toilet4","toilet5","toilet6"};
+    
+
+
+
+
+
+
+
+
     //Not sure this array works
 
 
@@ -108,12 +139,110 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        Log.i("createRecyclerView()","111111");
+        createRecyclerView();
+        Log.i("createRecyclerView()","222222");
+
+
+
+
+
+
+
+
+
+
+
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+//        lvtoilet = (ListView) findViewById(R.id.listview_toilet);
+//        //I want to change the name later....
+//
+//        toiletList = new ArrayList<>();
+
+//        LayoutInflater inflater;
+//        ViewGroup container;
+//
+//        View layout = inflater.inflate(R.layout.activity_maps, container, false);
+//        recyclertView = (RecyclerView) layout.findViewById(R.id.toiletRecycleList);
+//        adapter = new ToiletListAdapter(this,toiletData);
+//
+//        //not sure what is going on......
+//        recyclertView.setAdapter(adapter);
+//        recyclertView.setLayoutManager(new LinearLayoutManager(this));
+//        return  layout;
+//
+       // recyclertView = (RecyclerView) (R.id.toiletRecycleList);
+
+
+
+//       // View layout = inflater.inflate(R.layout.activity_maps, container, false);
+//        recyclertView = (RecyclerView) findViewById(R.id.toiletRecycleList);
+//        adapter = new ToiletListAdapter(toiletData);
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclertView.setLayoutManager(layoutManager);
+//        recyclertView.setHasFixedSize(true);
+//        recyclertView.setAdapter(adapter);
+
+//        mLinearLayoutManager = new LinearLayoutManager(this);
+//
+//
+        //adapter = new ToiletListAdapter();
+//        recyclertView.setAdapter(adapter);
+//        recyclertView.setLayoutManager(new LinearLayoutManager(this));
+//        setContentView(layout);
+
+
+
 
     }
 
+    public void createRecyclerView(){
+        recyclertView = (RecyclerView) findViewById(R.id.toiletRecycleList);
+        adapter = new ToiletListAdapter(toiletNames);
+        layoutManager = new LinearLayoutManager(this);
+        recyclertView.setLayoutManager(layoutManager);
+        recyclertView.setHasFixedSize(true);
+        recyclertView.setAdapter(adapter);
+
+
+    }
+
+
+
+
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        View layout = inflater.inflate(R.layout.activity_maps, container, false);
+//        recyclertView = (RecyclerView) layout.findViewById(R.id.toiletRecycleList);
+//        adapter = new ToiletListAdapter(this,toiletData);
+//
+//        //not sure what is going on......
+//        recyclertView.setAdapter(adapter);
+//        recyclertView.setLayoutManager(new LinearLayoutManager(this));
+//        return  layout;
+//
+//        //Im not sure what is going on?......
+//
+//
+////        return super.onCreateView(name, context, attrs);
+//    }
+
+
+
+
+//    public static List<Toilet> prepareData(){
+//        List<Toilet> toiletData = new ArrayList<>();
+//
+//
+//
+//
+//
+//
+//     return toiletData;
+//    }
 
     /**
      * Manipulates the map once available.
@@ -274,6 +403,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
 
+        toiletList = new ArrayList<>();
+
+        //final List<Toilet>
+                toiletData = new ArrayList<>();
+
+
 
         GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(centerLatitude, centerLongitude), centerRadius);
 
@@ -290,9 +425,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                        // for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
                         {
                             Boolean removedToilet = false;
+
                             Toilet toilet =  new Toilet();
                             Filter filter =  new Filter();
-                            //String key = (String) dataSnapshot.child("key").getValue();
+                            String key = (String) dataSnapshot.child("key").getValue();
                             toilet.key = key;
                             //Not sure about how to call key....
 
@@ -451,6 +587,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             Long star9 = (Long) dataSnapshot.child("star9").getValue();
                             toilet.star9 = star9.intValue();
 
+
                             Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
                             toilet.reviewCount = reviewCount.intValue();
 
@@ -541,7 +678,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             }
 
                             if (removedToilet == false){
-                                toilets.add(toilet);
+
+                                //toiletData.add(toilet);
+                                //toiletList.add(toilet);
+                                //What should i do here.....
+                               // toilets.add(toilet);
+
+//                                adapter = new ToiletListAdapter(getApplicationContext(),toiletList);
+//                                lvtoilet.setAdapter(adapter);
+//
+//                                lvtoilet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                                    @Override
+//                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                                        //Toast.makeText(getApplicationContext(), view.getTag(), Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(MapsActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
 
                                 LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
 
@@ -554,12 +706,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                         }
-
-
-
-
-
-
 
 
 
@@ -591,7 +737,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onGeoQueryReady() {
+               // prepareData();
                 Log.i("GeoQueryReady","Fuckkkk");
+                //createRecyclerView();
             }
 
             @Override
