@@ -1,8 +1,6 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
-import android.*;
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -10,10 +8,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Build;
-import android.provider.ContactsContract;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -21,12 +16,9 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,14 +30,12 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -74,16 +64,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ListView lvtoilet;
     private ToiletListAdapter adapter;
     private List<Toilet> toiletList;
+    //<Toilet> to <String>
 
     private List<Toilet> toiletData;
+    //<Toilet> to <String>
     private RecyclerView recyclertView;
     private RecyclerView.LayoutManager layoutManager;
     private LayoutInflater inflater;
     private ViewGroup container;
     private LinearLayoutManager mLinearLayoutManager;
 
-    String[] toiletNames = {"toilet1","toilet2","toilet3","toilet4","toilet5","toilet6"};
-    
+    //String[] toiletNames = {"toilet1","toilet2","toilet3","toilet4","toilet5","toilet6"};
+
 
 
 
@@ -100,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("path/to/geofire");
     //GeoFire geoFire = new GeoFire(ref);
 
-//    LocationManager locationManager;
+  //  LocationManager locationManager;
 //    android.location.LocationListener
 
 //    android.location.LocationListener locationListener ;
@@ -139,9 +131,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Log.i("createRecyclerView()","111111");
-        createRecyclerView();
-        Log.i("createRecyclerView()","222222");
+//        Log.i("createRecyclerView()","111111");
+//       // createRecyclerView();
+//        Log.i("createRecyclerView()","222222");
 
 
 
@@ -199,13 +191,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void createRecyclerView(){
+    public void createRecyclerView(List toiletData){
+        Log.i("createReclerView()Caled","");
         recyclertView = (RecyclerView) findViewById(R.id.toiletRecycleList);
-        adapter = new ToiletListAdapter(toiletNames);
+        adapter = new ToiletListAdapter(toiletData);
         layoutManager = new LinearLayoutManager(this);
         recyclertView.setLayoutManager(layoutManager);
         recyclertView.setHasFixedSize(true);
         recyclertView.setAdapter(adapter);
+        Log.i("createReclerView()Ended","");
 
 
     }
@@ -398,18 +392,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Double centerLatitude = location.getLatitude();
         Double centerLongitude = location.getLongitude();
 
-        Double centerRadius = 3.0;
-        //This value should be changed depending on the filter...
+        Double centerRadius = 100.0;
 
+        final List<Toilet> toiletData = new ArrayList<>();
+        //This value should be changed depending on the filter...
+//
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
 
-        toiletList = new ArrayList<>();
+        //toiletList = new ArrayList<>();
 
         //final List<Toilet>
-                toiletData = new ArrayList<>();
-
-
-
+        // toiletData = new ArrayList<>();
+//
+//
+//
         GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(centerLatitude, centerLongitude), centerRadius);
 
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
@@ -422,17 +418,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 toiletRef.child(key).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.i("OnDataChangeCalled","777");
                        // for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
                         {
+
+                            Log.i("OnDataChangeCalled","777888");
                             Boolean removedToilet = false;
 
+                            Log.i("OnDataChangeCalled","777888999");
                             Toilet toilet =  new Toilet();
+                           // List<String> toiletData = new ArrayList<>();
+
+
+                            Log.i("OnDataChangeCalled","777888999000");
                             Filter filter =  new Filter();
-                            String key = (String) dataSnapshot.child("key").getValue();
+                            Log.i("OnDataChangeCalled","777888999000111");
+
+                            Log.i("toilet777.key","777888999000111");
+
                             toilet.key = key;
                             //Not sure about how to call key....
 
-                            Log.i("toilet777.key",toilet.key);
+                            Log.i("toilet777888.key",toilet.key);
                             String urlOne = (String) dataSnapshot.child("urlOne").getValue();
                             toilet.urlOne = urlOne;
 
@@ -450,7 +457,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                            toilet.star = star;
                             //commented
 
-                            //Log.i("toilet777.star",toilet.type);
+                            Log.i("toilet777.star",toilet.type);
 
 
                             Boolean washlet= (Boolean) dataSnapshot.child("washlet").getValue();
@@ -486,6 +493,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             toilet.ostomate = ostomate;
 
 
+                            Log.i("OnDataChangeCalled","777888999");
                             Boolean japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
                             toilet.japanesetoilet = japanesetoilet;
 
@@ -542,20 +550,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //Its asking for Double, but somtimes it got Integer, which makes an error....
 
 
-//
-//                            Log.i("toilet777.averageStar",String.valueOf(toilet.averageStar));
-//
-//
-//                            Log.i("I dont getiiiit",String.valueOf(toilet.averageStar));
-//
-//
 
-//                            //Integer star1 = (Integer) dataSnapshot.child("star1").getValue();
-//                            Log.i("What;'s wrog this","");
-//
-//                           // toilet.star1 = star1;
-//                            //Log.i("toilet777.star1",String.valueOf(toilet.star1));
-//                            Log.i("What;'s wrog this","22");
+                            Log.i("toilet777.averageStar",String.valueOf(toilet.averageStar));
+
+
+                            Log.i("I dont getiiiit",String.valueOf(toilet.averageStar));
+
+
+
+                            //Integer star1 = (Integer) dataSnapshot.child("star1").getValue();
+                            Log.i("What;'s wrog this","");
+
+                           // toilet.star1 = star1;
+                            //Log.i("toilet777.star1",String.valueOf(toilet.star1));
+                            Log.i("What;'s wrog this","22");
                             Double averaegeStarDouble = Double.parseDouble(toilet.averageStar);
 
 
@@ -679,29 +687,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             if (removedToilet == false){
 
-                                //toiletData.add(toilet);
-                                //toiletList.add(toilet);
-                                //What should i do here.....
-                               // toilets.add(toilet);
 
-//                                adapter = new ToiletListAdapter(getApplicationContext(),toiletList);
-//                                lvtoilet.setAdapter(adapter);
+                              // toiletData.add(new Toilet(key));
+                                Log.i("toiletData0",String.valueOf(toiletData));
+                                //Toilet obj = new Toilet(toilet.key);
+                               // Toilet objt = new Toilet(key);
+
+
+
+                               // toiletData.add(String.valueOf(toilet.key));
+                                toiletData.add(toilet);
+
+
+
+//                                Information information = new Information();
+//                                information.title = titles[i];
+//                                information.iconId = icons[i];
+//                                data.add(information);
+
+
+
+                                //Data objt = new Data(name, address, contact);
+                                Log.i("toiletData1",String.valueOf(toiletData));
+//                                //toiletList.add(toilet);
+//                                //What should i do here.....
+//                               // toilets.add(toilet);
 //
-//                                lvtoilet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                                    @Override
-//                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                                        //Toast.makeText(getApplicationContext(), view.getTag(), Toast.LENGTH_SHORT).show();
-//                                        Toast.makeText(MapsActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
+////                                adapter = new ToiletListAdapter(getApplicationContext(),toiletList);
+////                                lvtoilet.setAdapter(adapter);
+////
+////                                lvtoilet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+////                                    @Override
+////                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////                                        //Toast.makeText(getApplicationContext(), view.getTag(), Toast.LENGTH_SHORT).show();
+////                                        Toast.makeText(MapsActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+                                   // }
+                              // }
 
+                       // );
+//
+                                Log.i("Trying to set a pin!!!", "");
                                 LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
 
                                 //LatLng sydney = new LatLng(-33.852, 151.211);
                                 mMap.addMarker(new MarkerOptions().position(toiletLocation)
                                         .title(key));
+                                Log.i("set set set a pin!!!", "");
 
-                                System.out.println(toilets);
+                                //System.out.println(toilets);
+
+                                createRecyclerView(toiletData);
 
 
 
@@ -719,7 +754,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Log.w(TAG, "DatabaseError",databaseError.toException());
 
                     }
-                });
+                }
+        );
 
 
             }
@@ -739,14 +775,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onGeoQueryReady() {
                // prepareData();
                 Log.i("GeoQueryReady","Fuckkkk");
-                //createRecyclerView();
+               // createRecyclerView();
+                Log.i("GeoQueryReady","Sorry");
             }
 
             @Override
             public void onGeoQueryError(DatabaseError error) {
+                Log.i("Firebase111Error", String.valueOf(error));
 
             }
-        });}
+        }
+  );
+}
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.

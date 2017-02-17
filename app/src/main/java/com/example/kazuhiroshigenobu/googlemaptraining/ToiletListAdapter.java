@@ -23,23 +23,23 @@ import java.util.List;
 public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.MyViewHolder> {
 
     private LayoutInflater inflator;
-    //List<Toilet> toiletData = Collections.emptyList();
-    String [] toiletNames;
+    List<Toilet> toiletData;
+    //String [] toiletNames;
 
 
 
-    public ToiletListAdapter(String[] toiletNames){
-        this.toiletNames = toiletNames;
 
-    }
-
-//    public ToiletListAdapter( List<Toilet> toiletData){
-//
-//
-//        this.toiletData = toiletData;
-//
+//    public ToiletListAdapter(String[] toiletNames){
+//        this.toiletNames = toiletNames;
 //
 //    }
+
+    public ToiletListAdapter( List<Toilet> toiletData){
+
+        this.toiletData = toiletData;
+
+
+    }
 
 //    public ToiletListAdapter(Context context, List<Toilet> toiletData){
 //
@@ -66,7 +66,7 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
 //    public int getCount() {
 //        return toiletList.size();
 //    }
-//
+////
 //    @Override
 //    public Object getItem(int position) {
 //        return toiletList.get(position);
@@ -77,6 +77,8 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        View view = inflator.inflate(R.layout.custom_row,parent,false);
 //        MyViewHolder holder = new MyViewHolder(view);
+
+        Log.i("MyMyholder12345", "12345");
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_row,parent,false);
 
@@ -104,11 +106,30 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
 //            //This code is wrong....
 //        }
 
-        Log.i("toiletNames[position]",toiletNames[position]);
-        holder.name.setText(toiletNames[position]);
+        if (toiletData.isEmpty()) {
+            Log.i("current.key", "Its empty");
 
+        } else {
+            Log.i("toiletDataContent.get0", String.valueOf(toiletData.get(0)));
+            Log.i("current.key", "Its Not empty");
+            Log.i("current.position", String.valueOf(position));
+            Log.i("current.holder", String.valueOf(holder));
+
+
+            Toilet current = toiletData.get(position);
+
+            Log.i("current.key", String.valueOf(position));
+
+
+            holder.name.setText(current.openinghours);
+           // holder.name.setText(String.valueOf(toiletData.get(position)));
+           // holder.name.setText();
+
+           // Log.i("current.key", current.key);
+//        holder.name.setText(toiletNames[position]);
+
+        }
     }
-
 //    @Override
 //    public long getItemId(int position) {
 //        return position;
@@ -116,8 +137,15 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
 
     @Override
     public int getItemCount() {
-        Log.i("toiletNames.length",String.valueOf(toiletNames.length));
-        return toiletNames.length;
+
+        Log.i("toiletData.size()",String.valueOf(toiletData.size()));
+        return toiletData.size();
+       // return toiletData.
+        //Log.i("toiletData.size()",String.valueOf(toiletData.size()));
+        //Log.i("toiletData.size()",String.valueOf(toiletData.size()));
+
+//        Log.i("toiletNames.length",String.valueOf(toiletNames.length));
+//        return toiletNames.length;
 
     }
 
@@ -125,12 +153,15 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
+       // TextView type;
 //        TextView waitingTime;
 //        TextView starRate;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.listText);
+           // type = (TextView) itemView.findViewById(R.id.listText);
+
 //            waitingTime = (TextView) itemView.findViewById(R.id.tv_waitingTime);
 //            starRate = (TextView) itemView.findViewById(R.id.tv_starRate);
             //Not sure R.id.tv_name works well.....
