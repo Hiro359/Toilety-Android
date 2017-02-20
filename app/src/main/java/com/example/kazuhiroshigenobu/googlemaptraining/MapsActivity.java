@@ -3,6 +3,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -14,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,6 +38,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,11 +47,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+    //extends FramgementActivity to AppCompatActivity
 
     private GoogleMap mMap;
     LocationManager locationManager;
@@ -74,6 +84,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ViewGroup container;
     private LinearLayoutManager mLinearLayoutManager;
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+
+
     //String[] toiletNames = {"toilet1","toilet2","toilet3","toilet4","toilet5","toilet6"};
 
 
@@ -92,7 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("path/to/geofire");
     //GeoFire geoFire = new GeoFire(ref);
 
-  //  LocationManager locationManager;
+    //LocationManager locationManager;
 //    android.location.LocationListener
 
 //    android.location.LocationListener locationListener ;
@@ -111,6 +126,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.i("Permission","Permission111");
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     Log.i("Permission","Permission222");
+                    mMap.setMyLocationEnabled(true);
+
+                    //mapUserCenterZoon();
 
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                     Log.i("Permission","Permission333");
@@ -131,17 +149,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-//        Log.i("createRecyclerView()","111111");
-//       // createRecyclerView();
-//        Log.i("createRecyclerView()","222222");
-
-
-
-
-
-
-
-
 
 
 
@@ -149,6 +156,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.i("FireAuth","onAuthStateChanged:signed_in:" + user.getUid());
+                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.i("FireAuth","onAuthStateChanged:signed_out");
+                    //Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+
+
 //        lvtoilet = (ListView) findViewById(R.id.listview_toilet);
 //        //I want to change the name later....
 //
@@ -191,6 +220,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        // ...
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if (user != null) {
+//                    // User is signed in
+//                    Log.i("FireAuth","onAuthStateChanged:signed_in:" + user.getUid());
+//                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+//                } else {
+//                    // User is signed out
+//                    Log.i("FireAuth","onAuthStateChanged:signed_out");
+//                    //Log.d(TAG, "onAuthStateChanged:signed_out");
+//                }
+//                // ...
+//            }
+//        };
+//        // ...
+//    }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        mAuth.addAuthStateListener(mAuthListener);
+//    }
+
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+//        }
+//    }
+
+    public void mapUserCenterZoon(Location location){
+
+
+
+
+
+
+
+    }
+
     public void createRecyclerView(List toiletData){
         Log.i("createReclerView()Caled","");
         recyclertView = (RecyclerView) findViewById(R.id.toiletRecycleList);
@@ -227,16 +302,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-//    public static List<Toilet> prepareData(){
-//        List<Toilet> toiletData = new ArrayList<>();
-//
-//
-//
-//
-//
-//
-//     return toiletData;
-//    }
+
 
     /**
      * Manipulates the map once available.
@@ -252,65 +318,82 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+
+
+
+
+
+        //LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+
+
+
+
         locationListener = new android.location.LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+
+                Log.i("onLocationChanged","Called");
+
+
                 // Add a marker in Sydney and move the camera
-                mMap.clear();
-                LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14.0f));
-
-
-                //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 12.0f));
-                Log.i("toiletSearch","willBeCalled");
-                toiletSearch(location);
-                Log.i("toiletSearch","AlreadyCalled");
-
-                //Toast.makeText(MapsActivity.this, location.toString(), Toast.LENGTH_SHORT).show();
-                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                try {
-                    List<Address> listAddresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-                    if (listAddresses != null && listAddresses.size() > 0){
-
-                        Log.i("Address", listAddresses.get(0).toString());
-
-                        String address = "";
-
-                        if (listAddresses.get(0).getSubThoroughfare() != null){
-
-                            address += listAddresses.get(0).getSubThoroughfare() + ",";
-                            Log.i("AddressAdress", address);
-
-
-                        }
-                        if (listAddresses.get(0).getLocality() != null){
-
-                            address += listAddresses.get(0).getLocality() + ",";
-                            Log.i("AddressAdress", address);
-
-                        }
-                        if (listAddresses.get(0).getPostalCode() != null){
-
-                            address += listAddresses.get(0).getPostalCode() + ",";
-                            Log.i("AddressAdress", address);
-
-                        }
-                        if (listAddresses.get(0).getCountryName() != null){
-
-                            address += listAddresses.get(0).getCountryName() + "";
-                            Log.i("AddressAdress", address);
-
-                        }
-                        Log.i("AddressAdress", address);
-                        Toast.makeText(MapsActivity.this, address, Toast.LENGTH_SHORT).show();
-
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+//                mMap.clear();
+//                LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+//                mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location111"));
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+//                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14.0f));
+//
+//
+//
+//                //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 12.0f));
+//                Log.i("toiletSearch","willBeCalled");
+//                toiletSearch(location);
+//                Log.i("toiletSearch","AlreadyCalled");
+//
+//                //Toast.makeText(MapsActivity.this, location.toString(), Toast.LENGTH_SHORT).show();
+//                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+//                try {
+//                    List<Address> listAddresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+//                    if (listAddresses != null && listAddresses.size() > 0){
+//
+//                        Log.i("Address", listAddresses.get(0).toString());
+//
+//                        String address = "";
+//
+//                        if (listAddresses.get(0).getSubThoroughfare() != null){
+//
+//                            address += listAddresses.get(0).getSubThoroughfare() + ",";
+//                            Log.i("AddressAdress", address);
+//
+//
+//                        }
+//                        if (listAddresses.get(0).getLocality() != null){
+//
+//                            address += listAddresses.get(0).getLocality() + ",";
+//                            Log.i("AddressAdress", address);
+//
+//                        }
+//                        if (listAddresses.get(0).getPostalCode() != null){
+//
+//                            address += listAddresses.get(0).getPostalCode() + ",";
+//                            Log.i("AddressAdress", address);
+//
+//                        }
+//                        if (listAddresses.get(0).getCountryName() != null){
+//
+//                            address += listAddresses.get(0).getCountryName() + "";
+//                            Log.i("AddressAdress", address);
+//
+//                        }
+//                        Log.i("AddressAdress", address);
+//                        Toast.makeText(MapsActivity.this, address, Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
 
             }
 
@@ -336,63 +419,91 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.i("Build.VERSION.SDK_INT ","Build.VERSION.SDK_INT ");
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
 
+
             }
         else{
-
+            Log.i("Build.VERSION.SDK_INT>23 ","Build.VERSION.SDK_INT ");
 
             if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
 
+
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
 
+
+
             }else {
-                Log.i("HeyHey2", "locationManager.requestLocationUpdates");
+                //When the permission is granted....
+                Log.i("HeyHey333", "locationManager.requestLocationUpdates");
+
 
 //
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                 Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+                mMap.setMyLocationEnabled(true);
+                Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
+
+
 
 
               if (lastKnownLocation != null){
-                  Log.i("lastKnown != null","");
+                  Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
+
 
                 mMap.clear();
-                LatLng userLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
 
-                //Commented fot tryout
+                LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
 
 
-            }
+                mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
+                  mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
+                  toiletSearch(lastKnownLocation);
+
+
+
+              } else {
+                  //When you could not get the last known location...
+
+
+
+              }
 
 
             }
         }
-            // I dont think this is right but i will take a shot
 
-
-
-
-//            // Add a marker in Sydney and move the camera
-//            LatLng sydney = new LatLng(-34, 151);
-//            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker In L0"));
-//            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-//     //   }
     }
 
     public void toiletSearch(Location location){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
+
+
         Log.i("toiletSearch","Called");
 
         geoFire = new GeoFire(ref);
-        Log.i("Geo.getLatitude()",String.valueOf(location.getLatitude()));
-        Log.i("Geo.getLongitude()",String.valueOf(location.getLongitude()));
+
+        Log.i("LastKnownLocation is here", String.valueOf(location));
 
 
-        Double centerLatitude = location.getLatitude();
-        Double centerLongitude = location.getLongitude();
 
-        Double centerRadius = 100.0;
+       // Log.i("Geo.getLatitude()",String.valueOf(location.getLatitude()));
+        //Log.i("Geo.getLongitude()",String.valueOf(location.getLongitude()));
+
+
+        final Double centerLatitude = location.getLatitude();
+        final Double centerLongitude = location.getLongitude();
+
+        //LatLng centerLocation = new LatLng(centerLatitude,centerLongitude);
+
+        Log.i("centerLatitude", String.valueOf(centerLatitude));
+        Log.i("centerLongitude", String.valueOf(centerLongitude));
+
+//        Double centerLatitude =
+//        Double centerLongitude = location.getLongitude();
+
+
+        Double centerRadius = 5.0;
 
         final List<Toilet> toiletData = new ArrayList<>();
         //This value should be changed depending on the filter...
@@ -403,15 +514,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //final List<Toilet>
         // toiletData = new ArrayList<>();
+
 //
+  //GeoQuery geoQuery = geoFire.queryAtLocation(centerlocation), centerRadius);
 //
-//
-        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(centerLatitude, centerLongitude), centerRadius);
+        Log.i("toiletSearch","BeforeDeoQueryCalled");
+        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(centerLatitude,centerLongitude), centerRadius);
+        final LatLng centerLocation = new LatLng(centerLatitude,centerLongitude);
 
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
 
+
+
             @Override
             public void onKeyEntered(final String key, final GeoLocation location) {
+
+
 
                 Log.i("Geokey",key);
                 Log.i("Geolocation",String.valueOf(location));
@@ -435,6 +553,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             Log.i("OnDataChangeCalled","777888999000111");
 
                             Log.i("toilet777.key","777888999000111");
+
+                            LatLng centerLocation = new LatLng(centerLatitude, centerLongitude);
+                            LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
+
+                            double distance = CalculationByDistance(centerLocation,toiletLocation);
+
+                            if (distance > 1){
+                                toilet.distance = String.valueOf(round(distance, 1)) + "km";
+                                Log.i("toilet.distance", String.valueOf(toilet.distance));
+                                //Km
+
+
+
+                            }else{
+                                Double meterDistance = distance * 100;
+                                Integer meterA = meterDistance.intValue();
+                                Integer meterB = meterA * 10;
+
+
+                                toilet.distance = String.valueOf(meterB) + "m";
+
+                                Log.i("toilet.distance", String.valueOf(toilet.distance));
+
+
+
+
+
+                            }
+
+
+                            //Log.i("toilet.distance", String.valueOf(toilet.distance));
+
+
+
+
 
                             toilet.key = key;
                             //Not sure about how to call key....
@@ -555,6 +708,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                             Log.i("I dont getiiiit",String.valueOf(toilet.averageStar));
+
 
 
 
@@ -727,7 +881,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                        // );
 //
                                 Log.i("Trying to set a pin!!!", "");
-                                LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
+
+//                                LatLng centerLocation = new LatLng(centerLatitude,centerLongitude);
+//                                LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
 
                                 //LatLng sydney = new LatLng(-33.852, 151.211);
                                 mMap.addMarker(new MarkerOptions().position(toiletLocation)
@@ -787,6 +943,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
   );
 }
+
+
+    public static Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
+
+        return Radius * c;
+    }
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -811,6 +1011,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         AppIndex.AppIndexApi.start(client, getIndexApiAction());
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
@@ -821,5 +1022,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 }

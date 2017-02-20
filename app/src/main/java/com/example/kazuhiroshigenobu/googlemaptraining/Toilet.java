@@ -17,7 +17,7 @@ public class Toilet {
     String urlOne;
     String urlTwo;
     String urlThree;
-    Double distance;
+    String distance;
     Boolean washlet = false;
     Boolean wheelchair = false;
     Boolean onlyFemale = false;
@@ -135,9 +135,9 @@ public class Toilet {
             return urlThree;
         }public void setUrlThree(String urlThree) {
             this.urlThree = urlThree;
-        }public Double getDistance() {
+        }public String getDistance() {
             return distance;
-        }public void setDistance(Double distance) {
+        }public void setDistance(String distance) {
             this.distance = distance;
         }public Boolean getWashlet() {
             return washlet;

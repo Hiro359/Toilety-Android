@@ -2,6 +2,12 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,11 +16,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+
+
 
 /**
  * Created by KazuhiroShigenobu on 15/2/17.
@@ -121,10 +142,47 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
             Log.i("current.key", String.valueOf(position));
 
 
+            Uri uri = Uri.parse(current.urlOne);
+
+
+//            Image image = null;
+//            URL url = new URL("http://bks6.books.google.ca/books?id=5VTBuvfZDyoC&printsec=frontcover&img=1& zoom=5&edge=curl&source=gbs_api");
+//            image = ImageIO.read(url);
+
+
+            Context context = holder.image.getContext();
+
+            float starFloatValue = Float.parseFloat(current.averageStar);
+
+
             holder.name.setText(current.key);
             holder.starRate.setText(current.averageStar);
-            holder.waitingTime.setText(String.valueOf(current.averageWait));
-            holder.type.setText(current.type);
+            holder.waitingTime.setText("待ち時間"+ String.valueOf(current.averageWait) +"分");
+            holder.ratingBar.setRating(starFloatValue);
+            holder.distance.setText(current.distance);
+
+            Picasso.with(context).load(uri).into(holder.image);
+            
+
+
+
+//            holder.image.setImageResource(Integer.parseInt(current.urlOne));
+
+//            holder.image = new DownloadImageTask().execute(current.urlOne);
+//
+//            new DownloadImageTask((ImageView) findViewById(R.id.imageView1))
+//                    .execute(MY_URL_STRING);
+
+
+
+
+//            //Image image = null;
+//            URL url = new URL();
+//            URLConnection connection = url.openConnection();
+//            connection.setRequestProperty("User-Agent", "xxxxxx");
+
+
+            //holder.type.setText(current.type);
 
            // holder.name.setText(String.valueOf(toiletData.get(position)));
            // holder.name.setText();
@@ -160,13 +218,31 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
         TextView type;
         TextView waitingTime;
         TextView starRate;
+        RatingBar ratingBar;
+        TextView distance;
+        ImageView image;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.listText);
-            type = (TextView) itemView.findViewById(R.id.tv_name);
+            name = (TextView) itemView.findViewById(R.id.tv_name);
+//            type = (TextView) itemView.findViewById(R.id.);
             waitingTime = (TextView) itemView.findViewById(R.id.tv_waitingTime);
             starRate = (TextView) itemView.findViewById(R.id.tv_starRate);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.tv_starRateBar);
+            distance = (TextView) itemView.findViewById(R.id.distance);
+            image = (ImageView) itemView.findViewById(R.id.imageView);
+
+
+
+
+
+
+//            image = new DownloadImageTask((ImageView) itemView.findViewById(R.id.imageView))
+//                    .execute();
+
+
+
 
            // type = (TextView) itemView.findViewById(R.id.listText);
 
@@ -285,6 +361,58 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
 //        return convertView;
 //    }
 //
+//  public static Drawable LoadImageFromWebOperations(String url) {
+//    try {
+//        InputStream is = (InputStream) new URL(url).getContent();
+//        Drawable d = Drawable.createFromStream(is, "src name");
+//        return d;
+//    } catch (Exception e) {
+//        return null;
+//    }
+//}
+
+//    private Bitmap getBitMapFromUrl( String imageuri){
+//        HttpURLConnection connection=null;
+//
+//        try {
+//            URL url=new URL(imageuri);
+//            connection= (HttpURLConnection) url.openConnection();
+//            connection.setDoInput(true);
+//            connection.connect();
+//            InputStream is=connection.getInputStream();
+//            Bitmap mybitmap=BitmapFactory.decodeStream(is);
+//            return mybitmap;
+//
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//            return null;
+//        }}
+
+
+//    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+//        ImageView bmImage;
+//
+//        public DownloadImageTask(ImageView bmImage) {
+//            this.bmImage = bmImage;
+//        }
+//
+//        protected Bitmap doInBackground(String... urls) {
+//            String urldisplay = urls[0];
+//            Bitmap mIcon11 = null;
+//            try {
+//                InputStream in = new java.net.URL(urldisplay).openStream();
+//                mIcon11 = BitmapFactory.decodeStream(in);
+//            } catch (Exception e) {
+//                Log.e("Error", e.getMessage());
+//                e.printStackTrace();
+//            }
+//            return mIcon11;
+//        }
+//
+//        protected void onPostExecute(Bitmap result) {
+//            bmImage.setImageBitmap(result);
+//        }
+//    }
 //
 
 }

@@ -50,9 +50,9 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
-
-
+public class LoginActivity extends AppCompatActivity
+        //implements LoaderCallbacks<Cursor>
+         {
 
 
     /**
@@ -61,25 +61,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      *
      * Id to identity READ_CONTACTS permission request.
      */
-   // private static final int REQUEST_READ_CONTACTS = 0;
+    // private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+//    private static final String[] DUMMY_CREDENTIALS = new String[]{
+//            "foo@example.com:hello", "bar@example.com:world"
+//    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    //private UserLoginTask mAuthTask = null;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private DatabaseReference databaseReference;
-
 
 
     // UI references.
@@ -97,13 +96,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        //mDatabase = FirebaseDatabase.getInstance();
 //        DatabaseReference mDatabase = database.getReference("message");
 
 
-        if (firebaseAuth.getCurrentUser() != null){
+        if (firebaseAuth.getCurrentUser() != null) {
 
             Log.i("Already Loged in", "");
 //            Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
@@ -122,7 +120,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
                     attemptLogin();
-                    Log.i("setOnEditor12321","");
+                    Log.i("setOnEditor12321", "");
                     return true;
                 }
                 return false;
@@ -154,7 +152,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //            return;
 //        }
 
-        getLoaderManager().initLoader(0, null, this);
+        //getLoaderManager().initLoader(0, null, this);
     }
 
 //    private boolean mayRequestContacts() {
@@ -200,9 +198,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+//        if (mAuthTask != null) {
+//            return;
+//        }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -244,12 +242,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
 
-            mAuthTask = new UserLoginTask(email, password);
-            firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+           // mAuthTask = new UserLoginTask(email, password);
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
-                        Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                    if (task.isSuccessful()) {
+                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                         Toast.makeText(LoginActivity.this, "ログイン中", Toast.LENGTH_SHORT).show();
 
 
@@ -258,8 +256,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         Toast.makeText(LoginActivity.this, "ログインをしました", Toast.LENGTH_SHORT).show();
 
 
-
-                    }else{
+                    } else {
                         Toast.makeText(LoginActivity.this, "ログインできませんでした", Toast.LENGTH_SHORT).show();
 
 
@@ -268,14 +265,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 }
             });
-            mAuthTask.execute((Void) null);
+           // mAuthTask.execute((Void) null);
         }
     }
 
     private void attemtRegister() {
-        if (mAuthTask != null) {
-            return;
-        }
+//        if (mAuthTask != null) {
+//            return;
+//        }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -289,8 +286,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         final String email = "kazushige12343@gmail.com";
         final String password = "kazu34565";
-
-
 
 
         boolean cancel = false;
@@ -321,19 +316,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
 
-            mAuthTask = new UserLoginTask(email, password);
-            firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+           // mAuthTask = new UserLoginTask(email, password);
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 //User is successfully registered and logged in
-                                Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
                                 finish();
                                 startActivity(intent);
                                 Toast.makeText(LoginActivity.this, "登録できました", Toast.LENGTH_SHORT).show();
                                 firebaseUpdate(email, password);
-                            }else{
+                            } else {
                                 Toast.makeText(LoginActivity.this, "登録できませんでした", Toast.LENGTH_SHORT).show();
 
 
@@ -341,21 +336,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         }
                     }
             );
-            mAuthTask.execute((Void) null);
+            //mAuthTask.execute((Void) null);
         }
     }
 
 
+    private void firebaseUpdate(String email, String password) {
 
 
-
-
-
-
-    private void firebaseUpdate(String email, String password){
-
-
-        User user = new User(email,password,"https://firebasestorage.googleapis.com/v0/b/problemsolving-299e4.appspot.com/o/images%2Fdefault%20picture.png?alt=media&token=b407a188-5a9d-4b0f-8b43-3bf6c2060573",email,0,0,0);
+        User user = new User(email, password, "https://firebasestorage.googleapis.com/v0/b/problemsolving-299e4.appspot.com/o/images%2Fdefault%20picture.png?alt=media&token=b407a188-5a9d-4b0f-8b43-3bf6c2060573", email, 0, 0, 0);
 
         FirebaseUser userID = firebaseAuth.getCurrentUser();
         databaseReference.child("users").push().setValue(user);
@@ -368,8 +357,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         //Auto id should be added
         //private EditText mPasswordView;
-
-
 
 
     }
@@ -420,129 +407,135 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
-                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
+//    @Override
+//    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+//        return new CursorLoader(this,
+//                // Retrieve data rows for the device user's 'profile' contact.
+//                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
+//                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
+//
+//                // Select only email addresses.
+//                ContactsContract.Contacts.Data.MIMETYPE +
+//                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
+//                .CONTENT_ITEM_TYPE},
+//
+//                // Show primary email addresses first. Note that there won't be
+//                // a primary email address if the user hasn't specified one.
+//                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+//    }
 
-                // Select only email addresses.
-                ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                .CONTENT_ITEM_TYPE},
+//    @Override
+//    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+//        List<String> emails = new ArrayList<>();
+//        cursor.moveToFirst();
+//        while (!cursor.isAfterLast()) {
+//            emails.add(cursor.getString(ProfileQuery.ADDRESS));
+//            cursor.moveToNext();
+//        }
+//
+//        addEmailsToAutoComplete(emails);
+//    }
 
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
-                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
-        }
-
-        addEmailsToAutoComplete(emails);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-    }
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
-    }
+//    @Override
+//    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+//
+//    }
+//
+//    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
+//        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
+//        ArrayAdapter<String> adapter =
+//                new ArrayAdapter<>(LoginActivity.this,
+//                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
+//
+//        mEmailView.setAdapter(adapter);
+//    }
+}
 
 
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
+//    private interface ProfileQuery {
+//        String[] PROJECTION = {
+//                ContactsContract.CommonDataKinds.Email.ADDRESS,
+//                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
+//        };
+//
+//        int ADDRESS = 0;
+//        int IS_PRIMARY = 1;
+//    }
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-
-            mEmail = email;
-            mPassword = password;
-            Log.i("This is the email",mEmail);
-            Log.i("This is the password",mPassword);
-
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
+//    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 //
-//                Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+//        private final String mEmail;
+//        private final String mPassword;
 //
-//                finish();
-//                startActivity(intent);
-
-                //Testing
-
-
-
-                // I assume i can change finish() to other codes in order to move to next acitivity
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-    }
-}
-
+//        UserLoginTask(String email, String password) {
+//
+//            mEmail = email;
+//            mPassword = password;
+//            Log.i("This is the email",mEmail);
+//            Log.i("This is the password",mPassword);
+//
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//            // TODO: attempt authentication against a network service.
+//
+//            try {
+//                Log.i("backback", "111111");
+//                // Simulate network access.
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                Log.i("backback", "222222");
+//                return false;
+//            }
+//
+//            Log.i("backback", "333333");
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                Log.i("backback", "44444444");
+//                if (pieces[0].equals(mEmail)) {
+//                    Log.i("backback", "5555555");
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equals(mPassword);
+//                }
+//            }
+//
+//            // TODO: register the new account here.
+//            return true;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(final Boolean success) {
+//            mAuthTask = null;
+//            showProgress(false);
+//
+//            if (success) {
+////
+////                Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+////
+////                finish();
+////                startActivity(intent);
+//
+//                //Testing
+//
+//
+//
+//                // I assume i can change finish() to other codes in order to move to next acitivity
+//            } else {
+//                mPasswordView.setError(getString(R.string.error_incorrect_password));
+//                mPasswordView.requestFocus();
+//            }
+//        }
+//
+//        @Override
+//        protected void onCancelled() {
+//            mAuthTask = null;
+//            showProgress(false);
+//        }
+//    }
+//}
+//

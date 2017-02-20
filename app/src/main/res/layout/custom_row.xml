@@ -1,59 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="100dp"
               android:paddingLeft="10dp"
               android:paddingRight="10dp"
               android:paddingBottom="5dp"
               android:paddingTop="5dp"
-              android:background="#00a7f5">
-    
+
+              android:background="#f4f6f7">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dip"
+        android:contentDescription="TODO"/>
+
     <!--<ImageView-->
         <!--android:id="@+id/listIcon"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:src="drawable/ic_launcher"/>-->
     <TextView
-        android:id="@+id/listText"
+        android:id="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dammy text"
+        android:text="560m"
         android:layout_gravity="center_vertical"
-        />
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="false"
+        android:layout_centerVertical="true"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="260dp"
+        android:layout_height="30dp"
         android:id="@+id/tv_name"
         android:text="Name"
         android:textSize="20dp"
-        android:textColor="#00a7f5"
-        />
+        android:textColor="#080808"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="30dp"
         android:id="@+id/tv_waitingTime"
         android:text="平均待ち　2分"
         android:textSize="18dp"
-        android:textColor="#f92a3f"
-        />
+        android:textColor="#5c5859"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="true"/>
 
-    <TextView
+    <!--<RatingBar-->
+        <!--android:layout_width="180dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:scaleX="1"-->
+        <!--android:scaleY="1"-->
+        <!--android:max="5"-->
+
+        <!--android:theme="@style/RatingBar"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:numStars="5"/>-->
+
+
+        <!--style="@style/Widget.AppCompat.RatingBar.Indicator"-->
+        <!--android:progressTint="@android:color/holo_red_light"-->
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:layout_alignTop="@+id/tv_name"
+        android:layout_toStartOf="@+id/tv_waitingTime"
+        android:id="@+id/imageView"
+        android:accessibilityLiveRegion="assertive"
+        android:layout_toLeftOf="@+id/tv_waitingTime"/>
+
+    <RatingBar
+        android:theme="@style/RatingBar"
+        android:id="@+id/tv_starRateBar"
+        android:rating="3"
+        android:stepSize="0.5"
+        android:numStars="5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView"/>
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="25dp"
         android:id="@+id/tv_starRate"
         android:text="2.0"
         android:textSize="18dp"
-        android:textColor="#000"
-        />
+        android:textColor="#dec107"
+        android:textAlignment="textStart"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/ratingBar2"/>
 
 
-
-
-
-
-
-
-</LinearLayout>
+</RelativeLayout>
