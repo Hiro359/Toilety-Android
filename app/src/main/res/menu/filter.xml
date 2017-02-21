@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+    >
+
+
+
+    <!--<item android:id="@+id/filter2"-->
+          <!--android:title="Filter"-->
+          <!--android:icon="@drawable/planet-earth"-->
+          <!--android:orderInCategory="100"-->
+        <!--/>-->
+
+    <!-- "Mark Favorite", should appear as action button if possible -->
+    <item
+        android:id="@+id/filter"
+        android:icon="@drawable/earth"
+        android:title="Filter"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="100">
+
+    </item>
+
+
+
+
+
+
+</menu>

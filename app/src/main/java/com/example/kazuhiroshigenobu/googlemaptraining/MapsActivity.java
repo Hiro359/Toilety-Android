@@ -18,8 +18,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -86,31 +90,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private Toolbar toolbar;
 
-
-
-    //String[] toiletNames = {"toilet1","toilet2","toilet3","toilet4","toilet5","toilet6"};
-
-
-
-
-
-
-
-
-
-    //Not sure this array works
 
 
 
     DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference();
-//    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("path/to/geofire");
-    //GeoFire geoFire = new GeoFire(ref);
 
-    //LocationManager locationManager;
-//    android.location.LocationListener
-
-//    android.location.LocationListener locationListener ;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -149,8 +135,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
+//        getActionBar().setIcon(R.drawable.earth);
+        setSupportActionBar(toolbar);
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -176,93 +163,36 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // ...
             }
         };
-
-
-//        lvtoilet = (ListView) findViewById(R.id.listview_toilet);
-//        //I want to change the name later....
-//
-//        toiletList = new ArrayList<>();
-
-//        LayoutInflater inflater;
-//        ViewGroup container;
-//
-//        View layout = inflater.inflate(R.layout.activity_maps, container, false);
-//        recyclertView = (RecyclerView) layout.findViewById(R.id.toiletRecycleList);
-//        adapter = new ToiletListAdapter(this,toiletData);
-//
-//        //not sure what is going on......
-//        recyclertView.setAdapter(adapter);
-//        recyclertView.setLayoutManager(new LinearLayoutManager(this));
-//        return  layout;
-//
-       // recyclertView = (RecyclerView) (R.id.toiletRecycleList);
-
-
-
-//       // View layout = inflater.inflate(R.layout.activity_maps, container, false);
-//        recyclertView = (RecyclerView) findViewById(R.id.toiletRecycleList);
-//        adapter = new ToiletListAdapter(toiletData);
-//        layoutManager = new LinearLayoutManager(this);
-//        recyclertView.setLayoutManager(layoutManager);
-//        recyclertView.setHasFixedSize(true);
-//        recyclertView.setAdapter(adapter);
-
-//        mLinearLayoutManager = new LinearLayoutManager(this);
-//
-//
-        //adapter = new ToiletListAdapter();
-//        recyclertView.setAdapter(adapter);
-//        recyclertView.setLayoutManager(new LinearLayoutManager(this));
-//        setContentView(layout);
-
-
-
-
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        // ...
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if (user != null) {
-//                    // User is signed in
-//                    Log.i("FireAuth","onAuthStateChanged:signed_in:" + user.getUid());
-//                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-//                } else {
-//                    // User is signed out
-//                    Log.i("FireAuth","onAuthStateChanged:signed_out");
-//                    //Log.d(TAG, "onAuthStateChanged:signed_out");
-//                }
-//                // ...
-//            }
-//        };
-//        // ...
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        mAuth.addAuthStateListener(mAuthListener);
-//    }
 
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        if (mAuthListener != null) {
-//            mAuth.removeAuthStateListener(mAuthListener);
-//        }
-//    }
+        getMenuInflater().inflate(R.menu.filter, menu);
+
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menufile);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.menu.filter){
+            Toast.makeText(this, "Hey Did you Click it??", Toast.LENGTH_SHORT).show();
+            return  true;
+
+
+
+        }
+
+//        if id == R.id.
+        return super.onOptionsItemSelected(item);
+    }
 
     public void mapUserCenterZoon(Location location){
-
-
-
-
-
-
 
     }
 
@@ -279,31 +209,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-
-
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View layout = inflater.inflate(R.layout.activity_maps, container, false);
-//        recyclertView = (RecyclerView) layout.findViewById(R.id.toiletRecycleList);
-//        adapter = new ToiletListAdapter(this,toiletData);
-//
-//        //not sure what is going on......
-//        recyclertView.setAdapter(adapter);
-//        recyclertView.setLayoutManager(new LinearLayoutManager(this));
-//        return  layout;
-//
-//        //Im not sure what is going on?......
-//
-//
-////        return super.onCreateView(name, context, attrs);
-//    }
-
-
-
-
-
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -318,17 +223,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-
-
-
-
-
-        //LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-
-
-
-
 
         locationListener = new android.location.LocationListener() {
             @Override
@@ -465,14 +359,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
               } else {
                   //When you could not get the last known location...
 
-
-
               }
-
-
             }
         }
-
     }
 
     public void toiletSearch(Location location){
@@ -484,11 +373,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         geoFire = new GeoFire(ref);
 
         Log.i("LastKnownLocation is here", String.valueOf(location));
-
-
-
-       // Log.i("Geo.getLatitude()",String.valueOf(location.getLatitude()));
-        //Log.i("Geo.getLongitude()",String.valueOf(location.getLongitude()));
 
 
         final Double centerLatitude = location.getLatitude();
@@ -564,8 +448,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 Log.i("toilet.distance", String.valueOf(toilet.distance));
                                 //Km
 
-
-
                             }else{
                                 Double meterDistance = distance * 100;
                                 Integer meterA = meterDistance.intValue();
@@ -575,10 +457,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 toilet.distance = String.valueOf(meterB) + "m";
 
                                 Log.i("toilet.distance", String.valueOf(toilet.distance));
-
-
-
-
 
                             }
 
@@ -853,32 +731,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 toiletData.add(toilet);
 
 
-
-//                                Information information = new Information();
-//                                information.title = titles[i];
-//                                information.iconId = icons[i];
-//                                data.add(information);
-
-
-
                                 //Data objt = new Data(name, address, contact);
                                 Log.i("toiletData1",String.valueOf(toiletData));
-//                                //toiletList.add(toilet);
-//                                //What should i do here.....
-//                               // toilets.add(toilet);
-//
-////                                adapter = new ToiletListAdapter(getApplicationContext(),toiletList);
-////                                lvtoilet.setAdapter(adapter);
-////
-////                                lvtoilet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-////                                    @Override
-////                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                                        //Toast.makeText(getApplicationContext(), view.getTag(), Toast.LENGTH_SHORT).show();
-////                                        Toast.makeText(MapsActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-                                   // }
-                              // }
-
-                       // );
 //
                                 Log.i("Trying to set a pin!!!", "");
 
@@ -893,13 +747,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 //System.out.println(toilets);
 
                                 createRecyclerView(toiletData);
-
-
-
                         }
-
-
-
 
                         }
                     }
@@ -944,16 +792,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
   );
 }
 
-
-    public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+//
+//    public static Drawable LoadImageFromWebOperations(String url) {
+//        try {
+//            InputStream is = (InputStream) new URL(url).getContent();
+//            Drawable d = Drawable.createFromStream(is, "src name");
+//            return d;
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
 
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
