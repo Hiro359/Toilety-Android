@@ -9,6 +9,9 @@
     android:background="@color/colorForBackground"
     tools:context="com.example.kazuhiroshigenobu.googlemaptraining.FilterSearchActivity">
 
+   
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -39,7 +42,6 @@
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:layout_alignParentRight="true"
-                   android:layout_toRightOf="@+id/distanceTextView"
                    android:background="@color/colorLabel"
 
 
@@ -65,15 +67,12 @@
 
                 />
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/spinner2"
                 android:textColor="@color/colorText"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_toRightOf="@+id/distanceTextView"
                 android:background="@color/colorLabel"
-
 
                 />
 
@@ -97,7 +96,7 @@
 
                 />
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/spinner3"
                 android:textColor="@color/colorText"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
@@ -129,7 +128,7 @@
 
                 />
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/spinner4"
                 android:textColor="@color/colorText"
                 android:textAlignment="center"
                 android:layout_width="match_parent"

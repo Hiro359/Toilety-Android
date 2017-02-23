@@ -30,6 +30,35 @@
 
         </string-array>
 
+    <string-array name="order_names">
+        <item> 現在地から近い順</item>
+        <item> 評価が高い順</item>
+        <item> 感想が多い順</item>
+
+    </string-array>
+
+    <string-array name="places_names">
+        <item> 全てのトイレ</item>
+        <item> 公衆トイレ</item>
+        <item> コンビニ</item>
+        <item> カフェ</item>
+        <item> レストラン</item>
+        <item> 商業施設</item>
+        <item> 観光地・スタジアム</item>
+        <item> 仮設トイレ</item>
+    </string-array>
+
+    <string-array name="star_numbers">
+        <item> ★</item>
+        <item> ★★</item>
+        <item> ★★★</item>
+        <item> ★★★★</item>
+
+    </string-array>
+
+
+
+
 
 
     <!-- Strings related to Settings -->

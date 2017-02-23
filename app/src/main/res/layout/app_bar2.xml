@@ -6,7 +6,7 @@
     android:layout_height="200dp"
     android:minHeight="?attr/actionBarSize"
     android:background="#5c5859"
-    android:id="@+id/app_bar"
+    android:id="@+id/app_bar2"
 
 
     >
