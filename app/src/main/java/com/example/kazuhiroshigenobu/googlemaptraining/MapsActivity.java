@@ -2,6 +2,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -16,6 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -91,6 +94,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Toolbar toolbar;
+    private ActionMenuView amvMenu;
 
 
 
@@ -129,6 +133,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final Context context;
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -136,8 +141,38 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar.setNavigationIcon(R.drawable.earth);
+
+        //amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
+//        amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                return onOptionsItemSelected(menuItem);
+//            }
+//        });
+
 //        getActionBar().setIcon(R.drawable.earth);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("YouareThebest", "11");
+
+                Intent intent = new Intent(v.getContext(),FilterSearchActivity.class);
+                startActivity(intent);
+
+
+//                v.startActivity(SettingsActivity.class);
+
+//                Intent intent = new Intent(SettingsActivity.class);
+              //  startActivity(intent);
+
+            }
+        }
+        );
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -169,27 +204,59 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onCreateOptionsMenu(Menu menu) {
 
 
-        getMenuInflater().inflate(R.menu.filter, menu);
+       getMenuInflater().inflate(R.menu.filter, menu);
+        //Commented for adding below code at 5pm
+        //getMenuInflater().inflate(R.menu.filter,amvMenu.getMenu());
+
 
 //        MenuInflater inflater = getMenuInflater();
 //        inflater.inflate(R.menu.menufile);
         return super.onCreateOptionsMenu(menu);
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.menu.filter){
-            Toast.makeText(this, "Hey Did you Click it??", Toast.LENGTH_SHORT).show();
+
+        Log.i("R.menu.account",String.valueOf(R.id.account));
+        Log.i("R.menu.filter",String.valueOf(R.id.filter));
+        Log.i("R.menu.toolbar",String.valueOf(R.id.toolbar));
+        Log.i("R.id.app_bar",String.valueOf(R.id.app_bar));
+
+        Log.i("YouSelect", String.valueOf(item));
+        Log.i("GetSupportActionBar",String.valueOf(getSupportActionBar()));
+        Log.i("Earth", String.valueOf(R.drawable.earth));
+
+
+
+
+//        Log.i("R.menu.filter",String.valueOf(R.menu.filter));
+//        Log.i("R.menu.appBar",String.valueOf(R.layout.app_bar));
+//        Log.i("Home", String.valueOf(R.id.home));
+
+
+        if (id == R.id.account){
+            Toast.makeText(this, "Hey Did you Click Account??", Toast.LENGTH_SHORT).show();
             return  true;
 
+        } else
 
 
-        }
+
+        if (id == R.id.filter){
+            Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
+            return  true;
+
+        } else {
+
+            Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
 
 //        if id == R.id.
-        return super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     public void mapUserCenterZoon(Location location){

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_filter_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorForBackground"
+    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.FilterSearchActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+         <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+             >
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="20dp"
+                   android:text="距離"
+                   android:textColor="@color/colorSubText"
+                   android:textAlignment="textStart"
+                   android:layout_marginBottom="3dp"
+
+                   />
+               <Spinner
+                   android:id="@+id/spinner1"
+                   android:textColor="@color/colorText"
+                   android:textAlignment="center"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layout_alignParentRight="true"
+                   android:layout_toRightOf="@+id/distanceTextView"
+                   android:background="@color/colorLabel"
+
+
+                   />
+
+         </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="並び順"
+                android:textColor="@color/colorSubText"
+                android:textAlignment="textStart"
+                android:layout_marginBottom="3dp"
+
+                />
+            <Spinner
+                android:id="@+id/spinner1"
+                android:textColor="@color/colorText"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/distanceTextView"
+                android:background="@color/colorLabel"
+
+
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="分類"
+                android:textColor="@color/colorSubText"
+                android:textAlignment="textStart"
+                android:layout_marginBottom="3dp"
+
+                />
+            <Spinner
+                android:id="@+id/spinner1"
+                android:textColor="@color/colorText"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/distanceTextView"
+                android:background="@color/colorLabel"
+
+
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="評価"
+                android:textColor="@color/colorSubText"
+                android:textAlignment="textStart"
+                android:layout_marginBottom="3dp"
+
+                />
+            <Spinner
+                android:id="@+id/spinner1"
+                android:textColor="@color/colorText"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/distanceTextView"
+                android:background="@color/colorLabel"
+
+
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="900dp"
+            android:layout_margin="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="設備"
+                android:textColor="@color/colorSubText"
+                android:textAlignment="textStart"
+                android:layout_marginBottom="3dp"
+
+                />
+
+
+            <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="和式トイレ"
+                    android:textSize="24dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorSubText"
+                    android:background="@color/colorLabel"
+                    android:layout_toRightOf="@+id/japaneseToiletLabel"
+                    android:layout_marginBottom="2dp"
+                    />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="洋式トイレ"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="女性専用トイレ"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="男女兼用トイレ"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="ウォシュレット"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="暖房便座"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="おむつ交換台"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="授乳スペース"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="メイクルーム"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="荷物置き"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="車イス対応"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="オストメイト対応"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="利用可能"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+        　
+        　
+
+
+　　　　　　
+
+    </LinearLayout>
+
+</ScrollView>

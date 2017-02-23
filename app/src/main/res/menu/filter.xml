@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
+
       xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -14,13 +15,23 @@
 
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
-        android:id="@+id/filter"
+        android:id="@+id/account"
         android:icon="@drawable/earth"
-        android:title="Filter"
+        android:title="Account"
         app:showAsAction="ifRoom"
         android:orderInCategory="100">
 
     </item>
+
+    <item
+        android:id="@+id/filter"
+        android:icon="@drawable/earth"
+        android:title="Filter"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="200">
+    </item>
+
+
 
 
 
