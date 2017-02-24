@@ -143,6 +143,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setNavigationIcon(R.drawable.earth);
 
+        Log.i("JAP98789000",String.valueOf(filter.japaneseFilter));
+
         //amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
 //        amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
 //            @Override
@@ -163,6 +165,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 Intent intent = new Intent(v.getContext(),FilterSearchActivity.class);
                 startActivity(intent);
+                finish();
 
 
 //                v.startActivity(SettingsActivity.class);
@@ -383,7 +386,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         else{
-            Log.i("Build.VERSION.SDK_INT>23 ","Build.VERSION.SDK_INT ");
+//            Log.i("Build.VERSION.SDK_INT>23 ","Build.VERSION.SDK_INT ");
 
             if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
 
@@ -439,7 +442,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         geoFire = new GeoFire(ref);
 
-        Log.i("LastKnownLocation is here", String.valueOf(location));
+//        Log.i("LastKnownLocation is here", String.valueOf(location));
 
 
         final Double centerLatitude = location.getLatitude();

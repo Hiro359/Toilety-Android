@@ -6,30 +6,30 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 public class Filter {
 
-    Boolean distanceSetted = false;
-    Double distanceFilter;
-    Boolean starFilterSetted = false;
-    Double starFilter;
-    Boolean myOrderSetted = false;
-    Boolean orderDistanceFilter = false;
-    Boolean orderStarFilter = false;
-    Boolean orderReviewFilter = false;
-    Boolean typeFilterOn = false;
-    String typeFilter;
+    static Boolean distanceSetted = false;
+    static Double distanceFilter;
+    static Boolean starFilterSetted = false;
+    static Double starFilter;
+    static Boolean myOrderSetted = false;
+    static Boolean orderDistanceFilter = false;
+    static Boolean orderStarFilter = false;
+    static Boolean orderReviewFilter = false;
+    static Boolean typeFilterOn = false;
+    static String typeFilter;
 
-    Boolean washletFilter = false;
-    Boolean wheelchairFilter = false;
-    Boolean onlyFemaleFilter = false;
-    Boolean unisexFilter = false;
-    Boolean makeroomFilter = false;
-    Boolean milkspaceFilter = false;
-    Boolean omutuFilter = false;
-    Boolean ostomateFilter = false;
-    Boolean japaneseFilter = false;
-    Boolean westernFilter = false;
-    Boolean warmSearFilter = false;
-    Boolean baggageSpaceFilter = false;
-    Boolean availableFilter = false;
+    static Boolean washletFilter = false;
+    static Boolean wheelchairFilter = false;
+    static Boolean onlyFemaleFilter = false;
+    static Boolean unisexFilter = false;
+    static Boolean makeroomFilter = false;
+    static Boolean milkspaceFilter = false;
+    static Boolean omutuFilter = false;
+    static Boolean ostomateFilter = false;
+    static Boolean japaneseFilter = false;
+    static Boolean westernFilter = false;
+    static Boolean warmSearFilter = false;
+    static Boolean baggageSpaceFilter = false;
+    static Boolean availableFilter = false;
 
 
 
