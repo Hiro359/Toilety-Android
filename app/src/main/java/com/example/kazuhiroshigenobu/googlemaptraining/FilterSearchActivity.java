@@ -67,6 +67,10 @@ public class FilterSearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Log.i("OKAY???","OKAY???12345");
+
+
+
         //Commented at 9am 24th
 
 
