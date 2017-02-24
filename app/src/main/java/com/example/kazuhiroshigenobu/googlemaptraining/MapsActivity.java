@@ -725,7 +725,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Log.i("toilet777.aveWait",String.valueOf(toilet.averageWait));
 
 
-                            if (filter.starFilterSetted == true && averaegeStarDouble < filter.starFilter) {
+                            if (averaegeStarDouble < filter.starFilter) {
 
                                 //Not sure averaegeStarDouble works......
                                 removedToilet = true;
