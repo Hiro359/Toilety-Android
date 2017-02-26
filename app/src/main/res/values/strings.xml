@@ -16,21 +16,91 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="name_japaneseToilet">和式トイレ</string>
+    <string name="name_westernToilet">洋式トイレ</string>
+    <string name="name_onlyFemale">女性専用トイレ</string>
+    <string name="name_unisex">男女兼用トイレ</string>
+    <string name="name_washlet">ウォシュレット</string>
+    <string name="name_warmSeat">暖房便座</string>
+    <string name="name_autoOpen">自動開閉便座</string>
+    <string name="name_senser">センサー式手洗い</string>
+    <string name="name_otohime">音姫</string>
+    <string name="name_fancy">おしゃれ</string>
+    <string name="name_confortableWide">快適な広さ</string>
+    <string name="name_omutu">おむつ交換台</string>
+    <string name="name_milk">授乳スペース</string>
+    <string name="name_makeroom">マイクルーム</string>
+    <string name="name_baggageSpace">荷物置き</string>
+    <string name="name_clothes">洋服掛け</string>
+    <string name="name_wheelChair">車イス対応</string>
+    <string name="name_ostomate">オストメイト対応</string>
+    <string name="name_available">現在利用可能</string>
+    <string name="name_parking">駐車場</string>
+    <string name="name_englishWritten">英語表記</string>
+    <string name="benkiWestern">洋式便器</string>
+    <string name="benkiJapanese">和式便器</string>
+    <string name="benkiPee">小便器</string>
+    <string name="menToilet">男性トイレ</string>
+    <string name="womenToilet">女性トイレ</string>
+    <string name="setubi">設備</string>
+    <string name="basicInfo">基本情報</string>
+
+
+
+
+
+
+
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
     <string name="title_activity_settings">Settings</string>
 
+
+    <string-array name="benkiCountArray">
+        <item> 個数</item>
+        <item> 0</item>
+        <item> 1</item>
+        <item> 2</item>
+        <item> 3</item>
+        <item> 4</item>
+        <item> 5</item>
+        <item> 6</item>
+        <item> 7</item>
+        <item> 8</item>
+        <item> 9</item>
+        <item> 10</item>
+        <item> 11</item>
+        <item> 12</item>
+        <item> 13</item>
+        <item> 14</item>
+        <item> 15</item>
+        <item> 16</item>
+        <item> 17</item>
+        <item> 18</item>
+        <item> 19</item>
+        <item> 20</item>
+        <item> 21</item>
+        <item> 22</item>
+        <item> 23</item>
+        <item> 24</item>
+        <item> 25</item>
+
+    </string-array>
+
+
+
     <string-array name="distance_names">
-        <item> 0.5km以内</item>
+        <item> 検索範囲を選択してください</item>
         <item> 1km以内</item>
         <item> 3km以内</item>
         <item> 5km以内</item>
         <item> 10km以内</item>
 
-        </string-array>
+    </string-array>
 
     <string-array name="order_names">
+        <item> 並び順を選択してください</item>
         <item> 現在地から近い順</item>
         <item> 評価が高い順</item>
         <item> 感想が多い順</item>
@@ -38,6 +108,7 @@
     </string-array>
 
     <string-array name="places_names">
+        <item> 分類を選択してください</item>
         <item> 全てのトイレ</item>
         <item> 公衆トイレ</item>
         <item> コンビニ</item>
@@ -49,16 +120,13 @@
     </string-array>
 
     <string-array name="star_numbers">
+        <item> 星の数を検索してください</item>
         <item> ★</item>
         <item> ★★</item>
         <item> ★★★</item>
         <item> ★★★★</item>
 
     </string-array>
-
-
-
-
 
 
     <!-- Strings related to Settings -->
@@ -132,4 +200,5 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_add_toilet">Map</string>
 </resources>

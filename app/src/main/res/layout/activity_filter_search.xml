@@ -34,7 +34,6 @@
                    android:layout_height="20dp"
                    android:text="距離"
                    android:textColor="@color/colorSubText"
-                   android:textAlignment="textStart"
                    android:layout_marginBottom="3dp"
 
                    />
@@ -65,7 +64,6 @@
                 android:layout_height="20dp"
                 android:text="並び順"
                 android:textColor="@color/colorSubText"
-                android:textAlignment="textStart"
                 android:layout_marginBottom="3dp"
 
                 />
@@ -94,7 +92,6 @@
                 android:layout_height="20dp"
                 android:text="分類"
                 android:textColor="@color/colorSubText"
-                android:textAlignment="textStart"
                 android:layout_marginBottom="3dp"
 
                 />
@@ -126,7 +123,6 @@
                 android:layout_height="20dp"
                 android:text="評価"
                 android:textColor="@color/colorSubText"
-                android:textAlignment="textStart"
                 android:layout_marginBottom="3dp"
 
                 />
@@ -149,7 +145,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="900dp"
+            android:layout_height="1400dp"
             android:layout_margin="10dp"
             >
 
@@ -158,7 +154,7 @@
                 android:layout_height="20dp"
                 android:text="設備"
                 android:textColor="@color/colorSubText"
-                android:textAlignment="textStart"
+
                 android:layout_marginBottom="3dp"
 
                 />
@@ -169,12 +165,13 @@
                     android:layout_height="60dp"
                     android:text="和式トイレ"
                     android:textSize="24dp"
-                    android:textAlignment="center"
                     android:textColor="@color/colorSubText"
                     android:background="@color/colorLabel"
                     android:layout_toRightOf="@+id/japaneseToiletLabel"
                     android:layout_marginBottom="2dp"
                     android:id="@+id/japaneseSwich"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
                     />
 
             <Switch
@@ -182,10 +179,10 @@
                 android:layout_height="60dp"
                 android:text="洋式トイレ"
                 android:textSize="24dp"
-                android:textAlignment="center"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/westernSwitch"
                 />
@@ -195,7 +192,8 @@
                 android:layout_height="60dp"
                 android:text="女性専用トイレ"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_toRightOf="@+id/japaneseToiletLabel"
@@ -208,7 +206,8 @@
                 android:layout_height="60dp"
                 android:text="男女兼用トイレ"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_toRightOf="@+id/japaneseToiletLabel"
@@ -221,7 +220,8 @@
                 android:layout_height="60dp"
                 android:text="ウォシュレット"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_toRightOf="@+id/japaneseToiletLabel"
@@ -234,12 +234,13 @@
                 android:layout_height="60dp"
                 android:text="暖房便座"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/warmSeatSwitch"
+                android:paddingLeft="20dp"
                 />
 
             <Switch
@@ -247,12 +248,13 @@
                 android:layout_height="60dp"
                 android:text="おむつ交換台"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/omutuSwitch"
+                android:paddingLeft="20dp"
                 />
 
             <Switch
@@ -260,12 +262,13 @@
                 android:layout_height="60dp"
                 android:text="授乳スペース"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/milkSwitch"
+                android:paddingLeft="20dp"
                 />
 
             <Switch
@@ -273,12 +276,13 @@
                 android:layout_height="60dp"
                 android:text="メイクルーム"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/makeroomSwitch"
+                android:paddingLeft="20dp"
                 />
 
             <Switch
@@ -286,12 +290,13 @@
                 android:layout_height="60dp"
                 android:text="荷物置き"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/baggageSwitch"
+                android:paddingLeft="20dp"
                 />
 
             <Switch
@@ -299,12 +304,13 @@
                 android:layout_height="60dp"
                 android:text="車イス対応"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/wheelChairSwitch"
+                android:paddingLeft="20dp"
                 />
 
             <Switch
@@ -312,26 +318,132 @@
                 android:layout_height="60dp"
                 android:text="オストメイト対応"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/ostomateSwitch"
+                android:paddingLeft="20dp"
                 />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="利用可能"
+                android:text="現在利用可能"
                 android:textSize="24dp"
-                android:textAlignment="center"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/availableSwitch"
+                android:paddingLeft="20dp"
                 />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="おしゃれ"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/fancySwitch"
+                android:paddingLeft="20dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="快適な広さ"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/comfontableWideSwitch"
+                android:paddingLeft="20dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="センサー式お手洗い"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/censerHandSwitch"
+                android:paddingLeft="20dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="音姫"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/otohimeSwitch"
+                android:paddingLeft="20dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="自動開閉便座"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/autoOpenSwitch"
+                android:paddingLeft="20dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="洋服かけ"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/clothesSwitch"
+                android:paddingLeft="20dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="駐車場"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/parkingSwitch"
+                android:paddingLeft="20dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="英語表記"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/englishWrittenSwitch"
+                android:paddingLeft="20dp"
+                />
+
+
 
 
 
@@ -361,7 +473,6 @@
                 android:layout_height="20dp"
                 android:text="検索"
                 android:textColor="@color/colorSubText"
-                android:textAlignment="textStart"
                 android:layout_marginBottom="3dp"
 
                 />

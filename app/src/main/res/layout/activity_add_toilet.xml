@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".AddToiletActivity" >
+
+
+
+
+                            <fragment
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:map="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/addToiletMap"
+android:name="com.google.android.gms.maps.SupportMapFragment"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+
+/>
+
+    <include
+        android:id="@+id/addToiletBar"
+        layout="@layout/app_bar"
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        />
+
+
+
+
+
+
+                    <Button
+android:id="@+id/buttonLocationSend"
+android:layout_width="match_parent"
+android:layout_height="100dp"
+android:text="この位置でトイレを追加する"
+android:textColor="@color/colorText"
+android:background="@color/colorLabel"
+android:layout_gravity="bottom"
+android:layout_alignParentBottom="true"
+
+
+>                   </Button>
+
+
+
+
+
+            </RelativeLayout>
+

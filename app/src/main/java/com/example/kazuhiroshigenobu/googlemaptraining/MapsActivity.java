@@ -243,6 +243,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (id == R.id.account){
             Toast.makeText(this, "Hey Did you Click Account??", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
+            startActivity(intent);
+            finish();
+            ///////////////////////// 1pm 25th Feb
             return  true;
 
         } else
@@ -251,6 +255,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (id == R.id.filter){
             Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
+            startActivity(intent);
+            finish();
+
+            ///////////////////////// 1pm 25th Feb
             return  true;
 
         } else {

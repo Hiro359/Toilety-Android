@@ -357,11 +357,6 @@ public class FilterSearchActivity extends AppCompatActivity {
         });
 
 
-
-//
-
-
-
     }
 
     private void spinnersReady(){
@@ -385,45 +380,78 @@ public class FilterSearchActivity extends AppCompatActivity {
         spinner3.setAdapter(adapter3);
         spinner4.setAdapter(adapter4);
 
+
+
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+//                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+//                ((TextView) parent.getChildAt(0)).setTextSize(20);
+
+
 
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
 
 
+
+
+//                Toast.makeText(getBaseContext(),String.valueOf(filter.distanceFilter) + "HHH",Toast.LENGTH_SHORT).show();
+
+
+//                ((TextView) parent.getChildAt(0)).setText(filter.distanceFilter + "kmのトを検索" );
+                //Before selected
+                // getChildAt(0)
+
+
                 if (position == 0){
-                    Toast.makeText(getBaseContext(),"0",Toast.LENGTH_SHORT).show();
-                    filter.distanceFilter = 0.5;
+                    Log.i("DIDIDID", "9090");
+//                    if (filter.distanceSetted == true){
+//
+//                    }else{
+//
+//
+//                    }
+
+                    //When the activity was loaded, this code will be called
                 }
 
                 if (position == 1){
                     Toast.makeText(getBaseContext(),"1",Toast.LENGTH_SHORT).show();
+                    filter.distanceSetted = true;
                     filter.distanceFilter = 1.0;
                 }
 
                 if (position == 2){
                     Toast.makeText(getBaseContext(),"2",Toast.LENGTH_SHORT).show();
+                    filter.distanceSetted = true;
                     filter.distanceFilter = 3.0;
                 }
 
                 if (position == 3){
                     Toast.makeText(getBaseContext(),"3",Toast.LENGTH_SHORT).show();
+                    filter.distanceSetted = true;
                     filter.distanceFilter = 5.0;
                 }
 
                 if (position == 4){
                     Toast.makeText(getBaseContext(),"4",Toast.LENGTH_SHORT).show();
+                    filter.distanceSetted = true;
                     filter.distanceFilter = 10.0;
                 }
 
+                Toast.makeText(getBaseContext(),String.valueOf(filter.distanceFilter) + "After",Toast.LENGTH_SHORT).show();
+
                 ((TextView) parent.getChildAt(0)).setText(filter.distanceFilter + "kmのトイレを検索" );
+
+               // ((TextView) parent.getChildAt(0)).setText(filter.distanceFilter + "kmのトイレを検索" );
 
 //                Toast.makeText(getBaseContext(),String.valueOf(position) + "Selected",Toast.LENGTH_SHORT).show();
 //                //This might cause an error 2pm 24th
-
             }
+
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -434,14 +462,15 @@ public class FilterSearchActivity extends AppCompatActivity {
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String filterName;
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
-                ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(position)));
+//                ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(position)));
 
 
                 //I think i need one more filter
 
-                if (position == 0){
+                if (position == 1){
                     Toast.makeText(getBaseContext(),"0",Toast.LENGTH_SHORT).show();
                     filter.orderDistanceFilter = true;
                     filter.orderStarFilter = false;
@@ -449,20 +478,30 @@ public class FilterSearchActivity extends AppCompatActivity {
 
                 }
 
-                if (position == 1){
+                if (position == 2){
                     Toast.makeText(getBaseContext(),"1",Toast.LENGTH_SHORT).show();
                     filter.orderStarFilter = true;
                     filter.orderDistanceFilter = false;
                     filter.orderReviewFilter = false;
                 }
 
-                if (position == 2){
+                if (position == 3){
                     Toast.makeText(getBaseContext(),"2",Toast.LENGTH_SHORT).show();
                     filter.orderReviewFilter = true;
                     filter.orderDistanceFilter = false;
                     filter.orderStarFilter = false;
                 }
 
+                if (filter.orderDistanceFilter == true){
+                    ((TextView) parent.getChildAt(0)).setText("現在地から近い順");
+                } else if (filter.orderStarFilter == true){
+                    ((TextView) parent.getChildAt(0)).setText("評価が高い順");
+                } else if (filter.orderReviewFilter == true){
+                    ((TextView) parent.getChildAt(0)).setText("感想が多い順");
+                } else {
+
+                    ((TextView) parent.getChildAt(0)).setText("現在地から近い順");
+                }
 
                 //Commented 8pm 23th
 
@@ -481,11 +520,14 @@ public class FilterSearchActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
-                ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(position)));
+//                ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(position)));
 
                 if (position == 0) {
+                    ((TextView) parent.getChildAt(0)).setText(filter.typeFilter);
+                }else if (position == 1) {
                     //全てのトイレ
                     filter.typeFilterOn = false;
+                    filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
                 } else {
                     filter.typeFilterOn = true;
                     filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
@@ -493,6 +535,14 @@ public class FilterSearchActivity extends AppCompatActivity {
                     Toast.makeText(FilterSearchActivity.this, filter.typeFilter, Toast.LENGTH_SHORT).show();
 
                 }
+
+//                if (filter.typeFilterOn == false) {
+//
+//                    ((TextView) parent.getChildAt(0)).setText("全てのトイレ");
+//                }else{
+//                    ((TextView) parent.getChildAt(0)).setText(filter.typeFilter);
+//                }
+
             }
 
             @Override
@@ -506,28 +556,36 @@ public class FilterSearchActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
-                ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(position) + "以上を検索");
+                //((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(position) + "以上を検索");
+
 
                 if (position == 0){
+//                    filter.starFilter = 1.0;
+                 }
+
+
+
+                if (position == 1){
                     filter.starFilter = 1.0;
                 }
 
-                if (position == 1){
+                if (position == 2){
                     filter.starFilter = 2.0;
                 }
 
-                if (position == 2){
+                if (position == 3){
                     filter.starFilter = 3.0;
                 }
-                if (position == 3){
+                if (position == 4){
                     filter.starFilter = 4.0;
                 }
 
 
 
+                ((TextView) parent.getChildAt(0)).setText(filter.starFilter + "以上を検索");
 
 
-                Toast.makeText(getBaseContext(),String.valueOf(filter.starFilter),Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getBaseContext(),String.valueOf(filter.starFilter),Toast.LENGTH_SHORT).show();
 
             }
 

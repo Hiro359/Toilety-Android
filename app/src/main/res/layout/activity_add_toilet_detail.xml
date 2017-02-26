@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_toilet_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:orientation="vertical"
+    android:background="@color/colorForBackground"
+    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.AddToiletDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/basicInfo"
+            android:textColor="@color/colorSubText"
+            android:layout_marginBottom="3dp"
+
+
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="5dp"
+
+
+            >
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/typeSpinner"
+            android:textColor="@color/colorText"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="5dp"
+
+            />
+
+        <Spinner
+            android:id="@+id/availableTimeSpinner"
+            android:textColor="@color/colorText"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="5dp"
+
+            />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="1350dp"
+        android:layout_margin="10dp"
+
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/setubi"
+            android:textColor="@color/colorSubText"
+            android:layout_marginBottom="3dp"
+
+            />
+
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_japaneseToilet"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addJapaneseSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_westernToilet"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addWesteenSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_onlyFemale"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addOnlyFemaleSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_unisex"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addUnisexSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_washlet"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addWashletSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_warmSeat"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addWarmSeatSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_autoOpen"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addAutoOpenSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_senser"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addSenserWashSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_otohime"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addOtohimeSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_fancy"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addFancySwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_confortableWide"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addComfortableSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_omutu"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addOmutuSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_milk"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addMilkSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_makeroom"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addMakeSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_baggageSpace"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addBaggageSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_clothes"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addClothesSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_wheelChair"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addWheelchairSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_ostomate"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addOstomateSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_available"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addAvailableSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_parking"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addParkingSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_englishWritten"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addWrittenEnglishSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+    </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+
+            >
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/menToilet"
+                android:textColor="@color/colorSubText"
+                android:layout_marginBottom="3dp"
+
+                />
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/colorLabel">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/westernCountLabel"
+                    >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/benkiWestern"
+                        android:textColor="@color/colorText"
+                        android:layout_gravity="center"
+                        />
+
+                    <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:id="@+id/westernCountSpinner"
+                    >
+                    </Spinner>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/japaneseCountLabel"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/benkiJapanese"
+                        android:textColor="@color/colorText"
+                        android:layout_gravity="center"/>
+
+
+                    <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/japaneseCountSpinner"
+                    android:layout_gravity="center"
+
+
+                    >
+                    </Spinner>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/peeCountLabel"
+                    android:layout_toEndOf="@id/japaneseCountLabel"
+                    android:layout_toRightOf="@id/japaneseCountLabel"
+                    >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/benkiPee"
+                        android:textColor="@color/colorText"
+                        android:layout_gravity="center"/>
+
+
+                    <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/peeCountSpinner"
+
+
+                    >
+                    </Spinner>
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="@string/womenToilet"
+                    android:textColor="@color/colorSubText"
+                    android:layout_marginBottom="3dp"
+
+                    />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/colorLabel">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/womenWesternCountLabel"
+                       >
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/benkiWestern"
+                            android:textColor="@color/colorText"
+                            android:layout_gravity="center"
+                            />
+
+                        <Spinner
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:id="@+id/womenWesternCountSpinner"
+                            >
+                        </Spinner>
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/wamenJapaneseCountLabel"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        >
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/benkiJapanese"
+                            android:textColor="@color/colorText"
+                            android:layout_gravity="center"
+                            />
+
+
+                        <Spinner
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/womenJapaneseCountSpinner"
+                            >
+                        </Spinner>
+                    </LinearLayout>
+
+
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</ScrollView>
+
+

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_account"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/colorForBackground"
+    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.AccountActivity">
+
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+
+        >
+
+
+                <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:gravity="center">
+
+
+                 <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@color/cast_intro_overlay_button_background_color"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:id="@+id/imageAccount"
+            />
+                    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="userName"
+            android:textSize="25dp"
+            android:textColor="@color/colorText"
+            android:id="@+id/userAccountName"
+            android:layout_marginTop="30dp"
+            />
+            </LinearLayout>
+
+
+
+            <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/likeLayout"
+                    android:layout_toLeftOf="@+id/favoriteLayout"
+                    android:paddingRight="60dp"
+
+
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/likeCount"
+                        android:text="1"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"
+
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/likeImage"
+                        android:layout_gravity="center"
+                        android:src="@drawable/thumb"
+
+
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/likeLabel"
+                        android:text="もらった"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/likeLabel2"
+                        android:text="いいね"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/favoriteLayout">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/favoriteCount"
+                        android:text="2"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/heartImage"
+                        android:layout_gravity="center"
+                        android:src="@drawable/like"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/favoriteLabel"
+                        android:text="もらった"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/favoriteLabel2"
+                        android:text="お気に入り"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/helpLayout"
+                    android:layout_toRightOf="@+id/favoriteLayout"
+                    android:paddingLeft="60dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/helepedCount"
+                        android:text="3"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/helpedImage"
+                        android:layout_gravity="center"
+                        android:src="@drawable/standing"
+                       />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/helpedLabel"
+                        android:text="助けた"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/helpedLabel2"
+                        android:text="人数"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+
+
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="トイレを投稿する"
+                    android:id="@+id/buttonAddToilet"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="お気に入りリスト"
+                    android:id="@+id/buttonFavoriteList"
+                    />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="以前利用したトイレ"
+                    android:id="@+id/buttonToiletYouWent"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="以前投稿したトイレ"
+                    android:id="@+id/buttonYouAdded"/>
+            </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</ScrollView>
+
