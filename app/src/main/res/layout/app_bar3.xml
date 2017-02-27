@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:minHeight="?attr/actionBarSize"
-    android:background="#5c5859"
+    android:background="@color/colorForBackground"
     android:id="@+id/app_bar3"
 
     >

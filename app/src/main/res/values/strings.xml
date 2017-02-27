@@ -29,7 +29,7 @@
     <string name="name_confortableWide">快適な広さ</string>
     <string name="name_omutu">おむつ交換台</string>
     <string name="name_milk">授乳スペース</string>
-    <string name="name_makeroom">マイクルーム</string>
+    <string name="name_makeroom">メイクルーム</string>
     <string name="name_baggageSpace">荷物置き</string>
     <string name="name_clothes">洋服掛け</string>
     <string name="name_wheelChair">車イス対応</string>
@@ -44,6 +44,19 @@
     <string name="womenToilet">女性トイレ</string>
     <string name="setubi">設備</string>
     <string name="basicInfo">基本情報</string>
+    <string name="howToAccess">アクセス方法</string>
+    <string name="writeFloor">トイレの階</string>
+    <string name="evaluation">評価</string>
+    <string name="kansou">感想</string>
+    <string name="changePin">ピンの位置を変更する</string>
+    <string name="layoutMap">マップ</string>
+    <string name="picture">写真</string>
+    <string name="addPicture">写真を追加する</string>
+    <string name="feedback">投稿</string>
+    <string name="sendFeedback">投稿する</string>
+
+
+
 
 
 
