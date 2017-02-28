@@ -38,9 +38,18 @@
             android:layout_height="60dp"
             android:background="@drawable/border"
             android:layout_marginBottom="5dp"
+            android:id="@+id/inputName">
 
 
-            >
+            <EditText
+                android:id="@+id/writeToiletName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="@string/writeToiletName"
+                android:textColorHint="@color/colorSubText"
+                android:textColor="@color/colorText"
+                android:inputType="text"
+                />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -55,18 +64,77 @@
 
             />
 
-        <Spinner
-            android:id="@+id/availableTimeSpinner"
-            android:textColor="@color/colorText"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/border"
-            android:layout_marginBottom="5dp"
 
-            />
+
 
     </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/pick_time"
+                android:textColor="@color/colorSubText"
+                android:layout_marginBottom="3dp"
+
+
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/avaiableLayout">
+
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:text="@string/pick_time"
+                    android:textColor="@color/colorText"
+                    android:onClick="showTimePickerDialog"
+                    android:background="@drawable/border"
+                    android:layout_toLeftOf="@+id/andAvailable"
+                    android:layout_toStartOf="@+id/andAvailable"/>
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/andAvailable"
+
+                    android:gravity="center"
+                    android:text="@string/between"
+                    android:textColor="@color/colorText"
+                    android:layout_centerHorizontal="true"/>
+
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:text="@string/pick_time"
+                    android:textColor="@color/colorText"
+                    android:onClick="showTimePickerDialog"
+                    android:background="@drawable/border"
+
+                    android:layout_toRightOf="@+id/andAvailable"
+                    android:layout_toEndOf="@+id/andAvailable"/>
+
+            </RelativeLayout>
+
+
+
+
+
+
+        </LinearLayout>
 
 
 
@@ -112,7 +180,7 @@
             android:textColor="@color/colorSubText"
             android:background="@drawable/border"
             android:layout_marginBottom="2dp"
-            android:id="@+id/addWesteenSwitch"
+            android:id="@+id/addWesternSwitch"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingEnd="10dp"
@@ -516,6 +584,7 @@
                     android:background="@drawable/border"
 
 
+
                     >
                     </Spinner>
 
@@ -655,9 +724,9 @@
 
 
                     <Spinner
-                    android:layout_width="80dp"
+                    android:layout_width="180dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/locationLabelSpinner"
+                    android:id="@+id/locationFloorSpinner"
                     android:background="@drawable/border"
                     android:padding="10dp"
 
@@ -670,6 +739,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@drawable/border"
+                    android:id="@+id/inputHowToAccess"
 
                     >
 
@@ -707,6 +777,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:id="@+id/addRating"
 
                         />
 
@@ -753,6 +824,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="140sp"
                     android:background="@drawable/border"
+                    android:id="@+id/addFeedback"
                     >
 
                 </android.support.design.widget.TextInputLayout>
@@ -780,7 +852,8 @@
                 <com.google.android.gms.maps.MapView
                     android:layout_width="match_parent"
                     android:layout_height="140sp"
-                    android:background="@drawable/border">
+                    android:background="@drawable/border"
+                    android:id="@+id/addCheckMap">
 
 
                 </com.google.android.gms.maps.MapView>
@@ -809,7 +882,8 @@
                    android:layout_height="60sp"
                    android:text="@string/addPicture"
                    android:textColor="@color/colorText"
-                   android:background="@drawable/border"/>
+                   android:background="@drawable/border"
+                   android:id="@+id/buttonAddPicture"/>
            </LinearLayout>
 
 
@@ -866,7 +940,8 @@
                    android:layout_width="match_parent"
                    android:layout_height="100sp"
                    android:text="@string/sendFeedback"
-                   android:background="@drawable/border"/>
+                   android:background="@drawable/border"
+                   android:id="@+id/buttonAddFeedback"/>
            </LinearLayout>
 
     </LinearLayout>

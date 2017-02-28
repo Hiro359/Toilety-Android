@@ -54,6 +54,11 @@
     <string name="addPicture">写真を追加する</string>
     <string name="feedback">投稿</string>
     <string name="sendFeedback">投稿する</string>
+    <string name="writeToiletName">トイレの名前</string>
+    <string name="pick_time">利用可能時間</string>
+    <string name="between"></string>
+
+
 
 
 
@@ -100,6 +105,85 @@
         <item> 25</item>
 
     </string-array>
+
+
+    <string-array name="waitingTimeArray">
+        <item> 待ち時間</item>
+        <item> 0</item>
+        <item> 1</item>
+        <item> 2</item>
+        <item> 3</item>
+        <item> 4</item>
+        <item> 5</item>
+        <item> 6</item>
+        <item> 7</item>
+        <item> 8</item>
+        <item> 9</item>
+        <item> 10</item>
+        <item> 11</item>
+        <item> 12</item>
+        <item> 13</item>
+        <item> 14</item>
+        <item> 15</item>
+        <item> 16</item>
+        <item> 17</item>
+        <item> 18</item>
+        <item> 19</item>
+        <item> 20</item>
+        <item> 21</item>
+        <item> 22</item>
+        <item> 23</item>
+        <item> 24</item>
+        <item> 25</item>
+        <item> 26</item>
+        <item> 27</item>
+        <item> 28</item>
+        <item> 29</item>
+        <item> 30</item>
+
+    </string-array>
+
+
+
+    <string-array name="floorCount">
+    <item> 地下7階</item>
+    <item> 地下6階</item>
+    <item> 地下5階</item>
+    <item> 地下4階</item>
+    <item> 地下3階</item>
+    <item> 地下2階</item>
+    <item> 地下1階</item>
+        <item> 階なし</item>
+        <item> 1階</item>
+    <item> 2階</item>
+    <item> 3階</item>
+    <item> 4階</item>
+    <item> 5階</item>
+    <item> 6階</item>
+    <item> 7階</item>
+    <item> 8階</item>
+    <item> 9階</item>
+    <item> 10階</item>
+    <item> 11階</item>
+    <item> 12階</item>
+    <item> 13階</item>
+    <item> 14階</item>
+    <item> 15階</item>
+    <item> 16階</item>
+    <item> 17階</item>
+    <item> 18階</item>
+    <item> 19階</item>
+    <item> 20階</item>
+
+    </string-array>
+
+
+
+
+
+
+
+
 
 
 

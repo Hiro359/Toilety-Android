@@ -1,14 +1,23 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
+import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class AddToiletDetailActivity extends AppCompatActivity {
@@ -21,17 +30,46 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     Spinner womenWesternCountSpinner;
 
 
+    Spinner typeSpinner;
+    Spinner waitingTimeSpinner;
+    Spinner floorSpinner;
+
+
+    EditText textToiletName;
+
+
+
     ArrayAdapter<CharSequence> adapterJapaneseCount;
     ArrayAdapter<CharSequence> adapterWesternCount;
     ArrayAdapter<CharSequence> adapterPppCount;
     ArrayAdapter<CharSequence> adapterWomenJapaneseCount;
     ArrayAdapter<CharSequence> adapterWomenWesternCount;
 
+    ArrayAdapter<CharSequence> adapterType;
+    ArrayAdapter<CharSequence> adapterWaitingtime;
+    ArrayAdapter<CharSequence> adapterFloor;
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_toilet_detail);
+
+        textToiletName = (EditText) findViewById(R.id.writeToiletName);
+//        textToiletName.setInputType(0);
+        textToiletName.setTextColor(Color.BLACK);
+
+
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
         sppinnerReady();
 
     }
@@ -45,12 +83,23 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         womenJapaneseCountSpinner = (Spinner) findViewById(R.id.womenJapaneseCountSpinner);
         womenWesternCountSpinner = (Spinner) findViewById(R.id.womenWesternCountSpinner);
 
+        typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
+        waitingTimeSpinner = (Spinner) findViewById(R.id.spinnerWaitingTime);
+        floorSpinner = (Spinner) findViewById(R.id.locationFloorSpinner);
+
+
         adapterJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
         adapterJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
         adapterWesternCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
         adapterPppCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
         adapterWomenJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
         adapterWomenWesternCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
+
+        adapterType = ArrayAdapter.createFromResource(this,R.array.places_names,android.R.layout.simple_spinner_item);
+        adapterWaitingtime = ArrayAdapter.createFromResource(this,R.array.waitingTimeArray,android.R.layout.simple_spinner_item);
+        adapterFloor = ArrayAdapter.createFromResource(this,R.array.floorCount,android.R.layout.simple_spinner_item);
+
+
 
 
 
@@ -59,6 +108,12 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         adapterPppCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterWomenJapaneseCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterWomenWesternCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterWaitingtime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterFloor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+
 
 
 
@@ -69,6 +124,11 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         pppCountSpinner.setAdapter(adapterPppCount);
         womenJapaneseCountSpinner.setAdapter(adapterWomenJapaneseCount);
         womenWesternCountSpinner.setAdapter(adapterWomenWesternCount);
+        typeSpinner.setAdapter(adapterType);
+        waitingTimeSpinner.setAdapter(adapterWaitingtime);
+        floorSpinner.setAdapter(adapterFloor);
+
+        //...
 
 
 
@@ -145,8 +205,56 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
         );
 
+        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                                                      @Override
+                                                      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                          ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                                                          ((TextView) parent.getChildAt(0)).setTextSize(16);
+                                                      }
+                                                      @Override
+                                                      public void onNothingSelected(AdapterView<?> parent) {
+                                                      }
+                                                  }
+
+        );
+
+        waitingTimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                                                      @Override
+                                                      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                          ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                                                          ((TextView) parent.getChildAt(0)).setTextSize(16);
+                                                      }
+                                                      @Override
+                                                      public void onNothingSelected(AdapterView<?> parent) {
+                                                      }
+                                                  }
+
+        );
+
+        floorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                                                         @Override
+                                                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                             ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                                                             ((TextView) parent.getChildAt(0)).setTextSize(16);
+                                                         }
+                                                         @Override
+                                                         public void onNothingSelected(AdapterView<?> parent) {
+                                                         }
+                                                     }
+
+        );
 
     }
 
+
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "timePicker");
+
+    }
 }
 
