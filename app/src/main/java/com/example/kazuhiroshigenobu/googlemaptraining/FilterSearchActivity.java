@@ -65,7 +65,9 @@ public class FilterSearchActivity extends AppCompatActivity {
         // I can set an image like X for the left side
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         Log.i("OKAY???","OKAY???5555");
 
@@ -93,19 +95,32 @@ public class FilterSearchActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                filter.japaneseFilter = false;
-                filter.westernFilter = false;
-                filter.onlyFemaleFilter = false;
-                filter.unisexFilter = false;
-                filter.washletFilter = false;
-                filter.warmSearFilter = false;
-                filter.omutuFilter = false;
-                filter.milkspaceFilter = false;
-                filter.makeroomFilter = false;
-                filter.baggageSpaceFilter = false;
-                filter.wheelchairFilter = false;
-                filter.ostomateFilter = false;
-                filter.availableFilter = false;
+                Filter.japaneseFilter = false;
+                Filter.westernFilter = false;
+                Filter.onlyFemaleFilter = false;
+                Filter.washletFilter = false;
+                Filter.warmSearFilter = false;
+                Filter.omutuFilter = false;
+                Filter.milkspaceFilter = false;
+                Filter.makeroomFilter = false;
+                Filter.baggageSpaceFilter = false;
+                Filter.wheelchairFilter = false;
+                Filter.ostomateFilter = false;
+                Filter.availableFilter = false;
+
+//                filter.japaneseFilter = false;
+//                filter.westernFilter = false;
+//                filter.onlyFemaleFilter = false;
+//                filter.unisexFilter = false;
+//                filter.washletFilter = false;
+//                filter.warmSearFilter = false;
+//                filter.omutuFilter = false;
+//                filter.milkspaceFilter = false;
+//                filter.makeroomFilter = false;
+//                filter.baggageSpaceFilter = false;
+//                filter.wheelchairFilter = false;
+//                filter.ostomateFilter = false;
+//                filter.availableFilter = false;
 
                 Intent intent = new Intent(v.getContext(),MapsActivity.class);
                 startActivity(intent);
@@ -116,12 +131,12 @@ public class FilterSearchActivity extends AppCompatActivity {
 
         spinnersReady();
         switchReady();
-        Log.i("JAP98789",String.valueOf(filter.japaneseFilter));
+        Log.i("JAP98789",String.valueOf(Filter.japaneseFilter));
 
-        Log.i("filter.distanceFil123",String.valueOf(filter.distanceFilter));
-        Log.i("filter.typeFilter123",String.valueOf(filter.typeFilter));
-        Log.i("filter.starFilter123",String.valueOf(filter.starFilter));
-        Log.i("filter.starFited123",String.valueOf(filter.starFilterSetted));
+        Log.i("filter.distanceFil123",String.valueOf(Filter.distanceFilter));
+        Log.i("filter.typeFilter123",String.valueOf(Filter.typeFilter));
+        Log.i("filter.starFilter123",String.valueOf(Filter.starFilter));
+        Log.i("filter.starFited123",String.valueOf(Filter.starFilterSetted));
 
 
     }
@@ -186,29 +201,30 @@ public class FilterSearchActivity extends AppCompatActivity {
 //        filter.japaneseFilter = false;
         //THis caused an error
 
-        japaneseSwitch.setChecked(filter.japaneseFilter);
-        westernSwitch.setChecked(filter.westernFilter);
-        onlyFemaleSwitch.setChecked(filter.onlyFemaleFilter);
-        unisexSwitch.setChecked(filter.unisexFilter);
-        washletSwitch.setChecked(filter.washletFilter);
-        warmSeatSwitch.setChecked(filter.warmSearFilter);
-        omutuSwitch.setChecked(filter.omutuFilter);
-        milkSwitch.setChecked(filter.milkspaceFilter);
-        makeroomSwitch.setChecked(filter.makeroomFilter);
-        baggageSpaceSwitch.setChecked(filter.baggageSpaceFilter);
-        wheelChairSwitch.setChecked(filter.wheelchairFilter);
-        ostomateSwitch.setChecked(filter.ostomateFilter);
-        availableSwitch.setChecked(filter.availableFilter);
+        japaneseSwitch.setChecked(Filter.japaneseFilter);
+        westernSwitch.setChecked(Filter.westernFilter);
+        onlyFemaleSwitch.setChecked(Filter.onlyFemaleFilter);
+        unisexSwitch.setChecked(Filter.unisexFilter);
+        washletSwitch.setChecked(Filter.washletFilter);
+        warmSeatSwitch.setChecked(Filter.warmSearFilter);
+        omutuSwitch.setChecked(Filter.omutuFilter);
+        milkSwitch.setChecked(Filter.milkspaceFilter);
+        makeroomSwitch.setChecked(Filter.makeroomFilter);
+        baggageSpaceSwitch.setChecked(Filter.baggageSpaceFilter);
+        wheelChairSwitch.setChecked(Filter.wheelchairFilter);
+        ostomateSwitch.setChecked(Filter.ostomateFilter);
+        availableSwitch.setChecked(Filter.availableFilter);
 
 
         japaneseSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (isChecked == true){
-                    filter.japaneseFilter = true;
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.japaneseFilter = true;
                 } else{
-                    filter.japaneseFilter = false;
+                    Filter.japaneseFilter = false;
                 }
             }
         });
@@ -217,10 +233,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "western", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.westernFilter = true;
+                if (isChecked){
+                    Filter.westernFilter = true;
                 } else{
-                    filter.westernFilter = false;
+                    Filter.westernFilter = false;
                 }
             }
         });
@@ -229,10 +245,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "onlyFemaleSwitch", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.onlyFemaleFilter = true;
+                if (isChecked){
+                    Filter.onlyFemaleFilter = true;
                 } else{
-                    filter.onlyFemaleFilter = false;
+                    Filter.onlyFemaleFilter = false;
                 }
             }
         });
@@ -241,10 +257,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "unisexSwitch", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.unisexFilter = true;
+                if (isChecked){
+                    Filter.unisexFilter = true;
                 } else{
-                    filter.unisexFilter  = false;
+                    Filter.unisexFilter  = false;
                 }
             }
         });
@@ -253,10 +269,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, " washletSwitch", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.washletFilter = true;
+                if (isChecked){
+                    Filter.washletFilter = true;
                 } else{
-                    filter.washletFilter = false;
+                    Filter.washletFilter = false;
                 }
             }
         });
@@ -265,10 +281,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "warmSeatSwitch", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.warmSearFilter = true;
+                if (isChecked){
+                    Filter.warmSearFilter = true;
                 } else{
-                    filter.warmSearFilter = false;
+                    Filter.warmSearFilter = false;
                 }
             }
         });
@@ -277,10 +293,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "omutuSwitch", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.omutuFilter = true;
+                if (isChecked){
+                    Filter.omutuFilter = true;
                 } else{
-                    filter.omutuFilter = false;
+                    Filter.omutuFilter = false;
                 }
             }
         });
@@ -289,10 +305,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.milkspaceFilter = true;
+                if (isChecked){
+                    Filter.milkspaceFilter = true;
                 } else{
-                    filter.milkspaceFilter = false;
+                    Filter.milkspaceFilter = false;
                 }
             }
         });
@@ -300,10 +316,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.makeroomFilter = true;
+                if (isChecked){
+                    Filter.makeroomFilter = true;
                 } else{
-                    filter.makeroomFilter = false;
+                    Filter.makeroomFilter = false;
                 }
             }
         });
@@ -312,10 +328,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.baggageSpaceFilter = true;
+                if (isChecked){
+                    Filter.baggageSpaceFilter = true;
                 } else{
-                    filter.baggageSpaceFilter = false;
+                    Filter.baggageSpaceFilter = false;
                 }
             }
         });
@@ -324,10 +340,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.wheelchairFilter = true;
+                if (isChecked){
+                    Filter.wheelchairFilter = true;
                 } else{
-                    filter.wheelchairFilter = false;
+                    Filter.wheelchairFilter = false;
                 }
             }
         });
@@ -336,10 +352,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.ostomateFilter = true;
+                if (isChecked){
+                    Filter.ostomateFilter = true;
                 } else{
-                    filter.ostomateFilter = false;
+                    Filter.ostomateFilter = false;
                 }
             }
         });
@@ -348,10 +364,10 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
-                if (isChecked == true){
-                    filter.availableFilter = true;
+                if (isChecked){
+                    Filter.availableFilter = true;
                 } else{
-                    filter.availableFilter = false;
+                    Filter.availableFilter = false;
                 }
             }
         });
@@ -386,64 +402,42 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-//                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
-//                ((TextView) parent.getChildAt(0)).setTextSize(20);
-
-
-
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
 
 
-
-
-//                Toast.makeText(getBaseContext(),String.valueOf(filter.distanceFilter) + "HHH",Toast.LENGTH_SHORT).show();
-
-
-//                ((TextView) parent.getChildAt(0)).setText(filter.distanceFilter + "kmのトを検索" );
-                //Before selected
-                // getChildAt(0)
-
-
                 if (position == 0){
                     Log.i("DIDIDID", "9090");
-//                    if (filter.distanceSetted == true){
-//
-//                    }else{
-//
-//
-//                    }
 
-                    //When the activity was loaded, this code will be called
                 }
 
                 if (position == 1){
                     Toast.makeText(getBaseContext(),"1",Toast.LENGTH_SHORT).show();
-                    filter.distanceSetted = true;
-                    filter.distanceFilter = 1.0;
+                    Filter.distanceSetted = true;
+                    Filter.distanceFilter = 1.0;
                 }
 
                 if (position == 2){
                     Toast.makeText(getBaseContext(),"2",Toast.LENGTH_SHORT).show();
-                    filter.distanceSetted = true;
-                    filter.distanceFilter = 3.0;
+                    Filter.distanceSetted = true;
+                    Filter.distanceFilter = 3.0;
                 }
 
                 if (position == 3){
                     Toast.makeText(getBaseContext(),"3",Toast.LENGTH_SHORT).show();
-                    filter.distanceSetted = true;
-                    filter.distanceFilter = 5.0;
+                    Filter.distanceSetted = true;
+                    Filter.distanceFilter = 5.0;
                 }
 
                 if (position == 4){
                     Toast.makeText(getBaseContext(),"4",Toast.LENGTH_SHORT).show();
-                    filter.distanceSetted = true;
-                    filter.distanceFilter = 10.0;
+                    Filter.distanceSetted = true;
+                    Filter.distanceFilter = 10.0;
                 }
 
-                Toast.makeText(getBaseContext(),String.valueOf(filter.distanceFilter) + "After",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(),String.valueOf(Filter.distanceFilter) + "After",Toast.LENGTH_SHORT).show();
 
-                ((TextView) parent.getChildAt(0)).setText(filter.distanceFilter + "kmのトイレを検索" );
+                ((TextView) parent.getChildAt(0)).setText(Filter.distanceFilter + "kmのトイレを検索" );
 
                // ((TextView) parent.getChildAt(0)).setText(filter.distanceFilter + "kmのトイレを検索" );
 
@@ -472,31 +466,31 @@ public class FilterSearchActivity extends AppCompatActivity {
 
                 if (position == 1){
                     Toast.makeText(getBaseContext(),"0",Toast.LENGTH_SHORT).show();
-                    filter.orderDistanceFilter = true;
-                    filter.orderStarFilter = false;
-                    filter.orderReviewFilter = false;
+                    Filter.orderDistanceFilter = true;
+                    Filter.orderStarFilter = false;
+                    Filter.orderReviewFilter = false;
 
                 }
 
                 if (position == 2){
                     Toast.makeText(getBaseContext(),"1",Toast.LENGTH_SHORT).show();
-                    filter.orderStarFilter = true;
-                    filter.orderDistanceFilter = false;
-                    filter.orderReviewFilter = false;
+                    Filter.orderStarFilter = true;
+                    Filter.orderDistanceFilter = false;
+                    Filter.orderReviewFilter = false;
                 }
 
                 if (position == 3){
                     Toast.makeText(getBaseContext(),"2",Toast.LENGTH_SHORT).show();
-                    filter.orderReviewFilter = true;
-                    filter.orderDistanceFilter = false;
-                    filter.orderStarFilter = false;
+                    Filter.orderReviewFilter = true;
+                    Filter.orderDistanceFilter = false;
+                    Filter.orderStarFilter = false;
                 }
 
-                if (filter.orderDistanceFilter == true){
+                if (Filter.orderDistanceFilter == true){
                     ((TextView) parent.getChildAt(0)).setText("現在地から近い順");
-                } else if (filter.orderStarFilter == true){
+                } else if (Filter.orderStarFilter == true){
                     ((TextView) parent.getChildAt(0)).setText("評価が高い順");
-                } else if (filter.orderReviewFilter == true){
+                } else if (Filter.orderReviewFilter == true){
                     ((TextView) parent.getChildAt(0)).setText("感想が多い順");
                 } else {
 
@@ -523,16 +517,16 @@ public class FilterSearchActivity extends AppCompatActivity {
 //                ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(position)));
 
                 if (position == 0) {
-                    ((TextView) parent.getChildAt(0)).setText(filter.typeFilter);
+                    ((TextView) parent.getChildAt(0)).setText(Filter.typeFilter);
                 }else if (position == 1) {
                     //全てのトイレ
-                    filter.typeFilterOn = false;
-                    filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
+                    Filter.typeFilterOn = false;
+                    Filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
                 } else {
-                    filter.typeFilterOn = true;
-                    filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
+                    Filter.typeFilterOn = true;
+                    Filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
 
-                    Toast.makeText(FilterSearchActivity.this, filter.typeFilter, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FilterSearchActivity.this, Filter.typeFilter, Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -563,26 +557,24 @@ public class FilterSearchActivity extends AppCompatActivity {
 //                    filter.starFilter = 1.0;
                  }
 
-
-
                 if (position == 1){
-                    filter.starFilter = 1.0;
+                    Filter.starFilter = 1.0;
                 }
 
                 if (position == 2){
-                    filter.starFilter = 2.0;
+                    Filter.starFilter = 2.0;
                 }
 
                 if (position == 3){
-                    filter.starFilter = 3.0;
+                    Filter.starFilter = 3.0;
                 }
                 if (position == 4){
-                    filter.starFilter = 4.0;
+                    Filter.starFilter = 4.0;
                 }
 
 
 
-                ((TextView) parent.getChildAt(0)).setText(filter.starFilter + "以上を検索");
+                ((TextView) parent.getChildAt(0)).setText(Filter.starFilter + "以上を検索");
 
 
                // Toast.makeText(getBaseContext(),String.valueOf(filter.starFilter),Toast.LENGTH_SHORT).show();

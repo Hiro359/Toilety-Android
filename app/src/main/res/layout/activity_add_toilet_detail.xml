@@ -46,9 +46,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:hint="@string/writeToiletName"
+                android:textAlignment="center"
                 android:textColorHint="@color/colorSubText"
                 android:textColor="@color/colorText"
                 android:inputType="text"
+                android:imeOptions="actionDone"
+
                 />
 
         </android.support.design.widget.TextInputLayout>
@@ -424,20 +427,7 @@
             android:paddingRight="10dp"
             />
 
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/name_available"
-            android:textSize="24sp"
-            android:textColor="@color/colorSubText"
-            android:background="@drawable/border"
-            android:layout_marginBottom="2dp"
-            android:id="@+id/addAvailableSwitch"
-            android:paddingStart="20dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
-            />
+
         <Switch
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -462,6 +452,21 @@
             android:background="@drawable/border"
             android:layout_marginBottom="2dp"
             android:id="@+id/addWrittenEnglishSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="点字案内"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addBraille"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingEnd="10dp"
@@ -534,7 +539,7 @@
                     android:orientation="vertical"
                     android:id="@+id/japaneseCountLabel"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginLeft="30dp"
                     >
 
@@ -574,7 +579,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/benkiPee"
                         android:textColor="@color/colorText"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        />
 
 
                     <Spinner
@@ -582,6 +588,8 @@
                     android:layout_height="50dp"
                     android:id="@+id/peeCountSpinner"
                     android:background="@drawable/border"
+                    android:layout_marginRight="3dp"
+                    android:layout_gravity="left"
 
 
 
@@ -707,7 +715,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorLabel"
                     >
 
                     <TextView
@@ -718,7 +727,6 @@
                         android:textColor="@color/colorText"
                         android:layout_marginRight="20dp"
                         android:layout_marginEnd="20dp"
-                        android:background="@color/colorLabel"
                         android:padding="10dp"/>
 
 
@@ -739,9 +747,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@drawable/border"
-                    android:id="@+id/inputHowToAccess"
 
                     >
+
+                    <EditText
+                        android:id="@+id/inputHowToAccess"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:hint="@string/accessGo"
+                        android:textColorHint="@color/colorSubText"
+                        android:textColor="@color/colorText"
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
+
+                        />
 
 
                 </android.support.design.widget.TextInputLayout>
@@ -779,6 +798,7 @@
                         android:layout_centerInParent="true"
                         android:id="@+id/addRating"
 
+
                         />
 
 
@@ -787,9 +807,9 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="@string/name_otohime"
                     android:textSize="24sp"
                     android:textColor="@color/colorSubText"
+                    android:textAlignment="center"
                     android:background="@drawable/border"
                     android:layout_marginBottom="2dp"
                     android:id="@+id/spinnerWaitingTime"
@@ -797,6 +817,7 @@
                     android:paddingLeft="20dp"
                     android:paddingEnd="10dp"
                     android:paddingRight="10dp">
+
 
 
                 </Spinner>
@@ -824,8 +845,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="140sp"
                     android:background="@drawable/border"
-                    android:id="@+id/addFeedback"
-                    >
+                    android:id="@+id/addFeedback">
+
+
+
+                <EditText
+                    android:id="@+id/kansou"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:textColorHint="@color/colorSubText"
+                    android:textColor="@color/colorText"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
+                    />
+
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -887,7 +920,7 @@
            </LinearLayout>
 
 
-           <LinearLayout
+           <RelativeLayout
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:orientation="horizontal"
@@ -898,25 +931,33 @@
                    android:layout_height="100sp"
                    android:id="@+id/picture1"
                    android:background="@drawable/border"
-                   android:contentDescription="@string/common_google_play_services_enable_button"/>
+                   android:contentDescription="@string/common_google_play_services_enable_button"
+                   android:layout_gravity="left"
+                   android:layout_toLeftOf="@+id/picture2"
+                   android:layout_toStartOf="@+id/picture2"/>
 
                <ImageView
                    android:layout_width="100sp"
                    android:layout_height="100sp"
                    android:id="@+id/picture2"
-                   android:layout_gravity="center_horizontal"
                    android:background="@drawable/border"
-                   android:contentDescription="@string/common_google_play_services_enable_button"/>
+                   android:contentDescription="@string/common_google_play_services_enable_button"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginRight="20dp"
+                   android:layout_marginLeft="20dp"/>
 
                <ImageView
                    android:layout_width="100sp"
                    android:layout_height="100sp"
                    android:id="@+id/picture3"
                    android:background="@drawable/border"
-                   android:contentDescription="@string/common_google_play_services_enable_button"/>
+                   android:contentDescription="@string/common_google_play_services_enable_button"
+                   android:layout_toRightOf="@+id/picture2"
+                   android:layout_toEndOf="@+id/picture2"
+                   />
 
 
-           </LinearLayout>
+           </RelativeLayout>
 
 
 
@@ -933,14 +974,16 @@
                    android:text="@string/feedback"
                    android:textColor="@color/colorSubText"
                    android:layout_marginBottom="3dp"
+                   android:background="@color/colorForBackground"
                    />
 
 
                <Button
                    android:layout_width="match_parent"
-                   android:layout_height="100sp"
+                   android:layout_height="60sp"
                    android:text="@string/sendFeedback"
-                   android:background="@drawable/border"
+                   android:textColor="@color/colorText"
+                   android:background="@drawable/buttonborder"
                    android:id="@+id/buttonAddFeedback"/>
            </LinearLayout>
 

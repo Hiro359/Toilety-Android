@@ -56,7 +56,9 @@
     <string name="sendFeedback">投稿する</string>
     <string name="writeToiletName">トイレの名前</string>
     <string name="pick_time">利用可能時間</string>
-    <string name="between"></string>
+    <string name="access">アクセス方法</string>
+    <string name="accessGo">具体的なアクセス方法</string>
+    <string name="between">〜</string>
 
 
 
@@ -108,7 +110,6 @@
 
 
     <string-array name="waitingTimeArray">
-        <item> 待ち時間</item>
         <item> 0</item>
         <item> 1</item>
         <item> 2</item>
@@ -146,10 +147,6 @@
 
 
     <string-array name="floorCount">
-    <item> 地下7階</item>
-    <item> 地下6階</item>
-    <item> 地下5階</item>
-    <item> 地下4階</item>
     <item> 地下3階</item>
     <item> 地下2階</item>
     <item> 地下1階</item>
@@ -174,6 +171,16 @@
     <item> 18階</item>
     <item> 19階</item>
     <item> 20階</item>
+        <item> 21階</item>
+        <item> 22階</item>
+        <item> 23階</item>
+        <item> 24階</item>
+        <item> 25階</item>
+        <item> 26階</item>
+        <item> 27階</item>
+        <item> 28階</item>
+        <item> 29階</item>
+        <item> 30階</item>
 
     </string-array>
 

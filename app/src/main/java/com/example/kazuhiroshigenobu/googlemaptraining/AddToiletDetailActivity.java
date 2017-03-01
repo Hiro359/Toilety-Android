@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,6 +39,10 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
     EditText textToiletName;
+    EditText textHowToAccess;
+    EditText textFeedback;
+
+    Boolean spinnerLoaded = false;
 
 
 
@@ -59,18 +66,17 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_toilet_detail);
 
-        textToiletName = (EditText) findViewById(R.id.writeToiletName);
-//        textToiletName.setInputType(0);
-        textToiletName.setTextColor(Color.BLACK);
 
 
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+//        View view = this.getCurrentFocus();
+//        if (view != null) {
+//            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//        }
+
 
         sppinnerReady();
+        textReady();
 
     }
 
@@ -225,6 +231,12 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                                                       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                                           ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                                                           ((TextView) parent.getChildAt(0)).setTextSize(16);
+
+
+                                                          ((TextView) parent.getChildAt(0)).setText("待ち時間  " + parent.getItemAtPosition(position) + "分");
+
+
+
                                                       }
                                                       @Override
                                                       public void onNothingSelected(AdapterView<?> parent) {
@@ -237,8 +249,22 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
                                                          @Override
                                                          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
                                                              ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                                                              ((TextView) parent.getChildAt(0)).setTextSize(16);
+//                                                             ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(position) + "以上を検索");
+
+                                                             if (!spinnerLoaded){
+
+                                                                // ((TextView) parent.getChildAt(0)).setText(parent.getSelectedItem()));
+                                                                 ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(3) + "");
+                                                                 spinnerLoaded = true;
+
+                                                             }
+
+
+
                                                          }
                                                          @Override
                                                          public void onNothingSelected(AdapterView<?> parent) {
@@ -250,11 +276,31 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     }
 
 
+    private void textReady(){
+        textToiletName = (EditText) findViewById(R.id.writeToiletName);
+        textHowToAccess = (EditText) findViewById(R.id.inputHowToAccess);
+        textFeedback = (EditText) findViewById(R.id.kansou);
+//        textToiletName.setInputType(0);
+        textToiletName.setTextColor(Color.BLACK);
+        textHowToAccess.setTextColor(Color.BLACK);
+        textFeedback.setTextColor(Color.BLACK);
+
+        textHowToAccess.setHorizontallyScrolling(false);
+        textFeedback.setHorizontallyScrolling(false);
+
+        textHowToAccess.setMaxLines(Integer.MAX_VALUE);
+        textFeedback.setMaxLines(Integer.MAX_VALUE);
+
+
+
+    }
 
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getFragmentManager(), "timePicker");
 
     }
+
+
 }
 
