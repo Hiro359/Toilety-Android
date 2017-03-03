@@ -9,6 +9,7 @@ import java.util.Calendar;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.widget.TimePicker;
 
 /**
@@ -44,6 +45,16 @@ public class TimePickerFragment extends DialogFragment
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
+        Integer editedMinute;
+        if (minute < 10){
+
+
+
+        } else {
+            editedMinute = minute;
+
+        }
+        Log.i("Time12321", hourOfDay +":" + minute);
 
     }
 }

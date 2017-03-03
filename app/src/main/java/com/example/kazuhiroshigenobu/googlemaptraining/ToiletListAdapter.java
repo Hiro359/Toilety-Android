@@ -2,6 +2,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -19,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -89,7 +91,7 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
             Log.i("current.holder", String.valueOf(holder));
 
 
-            Toilet current = toiletData.get(position);
+            final Toilet current = toiletData.get(position);
 
             Log.i("current.key", String.valueOf(position));
 
@@ -97,7 +99,7 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
             Uri uri = Uri.parse(current.urlOne);
 
 
-            Context context = holder.image.getContext();
+            final Context context = holder.image.getContext();
 
             float starFloatValue = Float.parseFloat(current.averageStar);
 
@@ -109,6 +111,30 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
             holder.distance.setText(current.distance);
 
             Picasso.with(context).load(uri).into(holder.image);
+
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(context, String.valueOf(current.key), Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("EXTRA_SESSION_ID", String.valueOf(current));
+//                    intent.putExtra("EXTRA_SESSION_ID", current.key);
+                    context.startActivity(intent);
+                }
+            });
+
+//            final String element = toiletData[position];
+
+//            holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    onClickSubject.onNext(element);
+//                }
+//            });
 
 
 

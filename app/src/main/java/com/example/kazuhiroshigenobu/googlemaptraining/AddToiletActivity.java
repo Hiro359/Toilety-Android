@@ -149,7 +149,15 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Bring It On!!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(v.getContext(),AddToiletDetailActivity.class);
+
+
+                Intent intent = new Intent(v.getContext(),LoginActivity.class);
+
+
+               // Intent intent = new Intent(v.getContext(),AddToiletDetailActivity.class);
+
+                /////////
+
                 startActivity(intent);
                 finish();
             }

@@ -247,7 +247,8 @@ public class LoginActivity extends AppCompatActivity
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), AddToiletDetailActivity.class);
+//                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                         Toast.makeText(LoginActivity.this, "ログイン中", Toast.LENGTH_SHORT).show();
 
 
@@ -322,7 +323,8 @@ public class LoginActivity extends AppCompatActivity
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 //User is successfully registered and logged in
-                                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), AddToiletDetailActivity.class);
+                                //Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
                                 finish();
                                 startActivity(intent);

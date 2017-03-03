@@ -98,15 +98,43 @@
                 android:id="@+id/avaiableLayout">
 
 
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="60dp"
-                    android:text="@string/pick_time"
+                <Spinner
+                    android:id="@+id/startHoursSpinner"
                     android:textColor="@color/colorText"
-                    android:onClick="showTimePickerDialog"
+                    android:textAlignment="center"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/border"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toLeftOf="@+id/startTimeDot"
+                    android:layout_toStartOf="@+id/startTimeDot"
+
+                    />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/startTimeDot"
+                    android:gravity="center"
+                    android:text="@string/timeDot"
+                    android:textColor="@color/colorText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toLeftOf="@+id/startMinutesSpinner"
+                    android:layout_toStartOf="@+id/startMinutesSpinner"/>
+
+                <Spinner
+                    android:id="@+id/startMinutesSpinner"
+                    android:textColor="@color/colorText"
+                    android:textAlignment="center"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="5dp"
                     android:layout_toLeftOf="@+id/andAvailable"
-                    android:layout_toStartOf="@+id/andAvailable"/>
+                    android:layout_toStartOf="@+id/andAvailable"
+
+                    />
+
 
                 <TextView
                     android:layout_width="30dp"
@@ -119,16 +147,45 @@
                     android:layout_centerHorizontal="true"/>
 
 
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="60dp"
-                    android:text="@string/pick_time"
+                <Spinner
+                    android:id="@+id/endHoursSpinner"
                     android:textColor="@color/colorText"
-                    android:onClick="showTimePickerDialog"
+                    android:textAlignment="center"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/border"
-
+                    android:layout_marginBottom="5dp"
                     android:layout_toRightOf="@+id/andAvailable"
-                    android:layout_toEndOf="@+id/andAvailable"/>
+                    android:layout_toEndOf="@+id/andAvailable"
+
+                    />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/endTimeDot"
+                    android:gravity="center"
+                    android:text="@string/timeDot"
+                    android:textColor="@color/colorText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toRightOf="@+id/endHoursSpinner"
+                    android:layout_toEndOf="@+id/endHoursSpinner"/>
+
+                <Spinner
+                    android:id="@+id/endMinutesSpinner"
+                    android:textColor="@color/colorText"
+                    android:textAlignment="center"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/endTimeDot"
+                    android:layout_toEndOf="@+id/endTimeDot"
+
+                    />
+
+
+
 
             </RelativeLayout>
 
@@ -144,7 +201,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="1350dp"
+        android:layout_height="1400dp"
         android:layout_marginTop="10dp"
 
 
@@ -318,7 +375,22 @@
             android:textColor="@color/colorSubText"
             android:background="@drawable/border"
             android:layout_marginBottom="2dp"
-            android:id="@+id/addComfortableSwitch"
+            android:id="@+id/addConforableSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/smell"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addSmellSwitch"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingEnd="10dp"
@@ -882,14 +954,20 @@
                     android:padding="10dp"
                     />
 
-                <com.google.android.gms.maps.MapView
+
+                <fragment
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:map="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/addCheckMap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="140sp"
+                    android:layout_height="180sp"
                     android:background="@drawable/border"
-                    android:id="@+id/addCheckMap">
+                    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.AddToiletDetailActivity"
+                    />
 
 
-                </com.google.android.gms.maps.MapView>
 
             </LinearLayout>
 
@@ -916,7 +994,8 @@
                    android:text="@string/addPicture"
                    android:textColor="@color/colorText"
                    android:background="@drawable/border"
-                   android:id="@+id/buttonAddPicture"/>
+                   android:id="@+id/buttonAddPicture"
+                   android:layout_marginBottom="5dp"/>
            </LinearLayout>
 
 
@@ -934,7 +1013,9 @@
                    android:contentDescription="@string/common_google_play_services_enable_button"
                    android:layout_gravity="left"
                    android:layout_toLeftOf="@+id/picture2"
-                   android:layout_toStartOf="@+id/picture2"/>
+                   android:layout_toStartOf="@+id/picture2"
+                   android:scaleType="centerCrop"
+                   android:adjustViewBounds="true"/>
 
                <ImageView
                    android:layout_width="100sp"
@@ -944,7 +1025,9 @@
                    android:contentDescription="@string/common_google_play_services_enable_button"
                    android:layout_centerHorizontal="true"
                    android:layout_marginRight="20dp"
-                   android:layout_marginLeft="20dp"/>
+                   android:layout_marginLeft="20dp"
+                   android:scaleType="centerCrop"
+                   android:adjustViewBounds="true"/>
 
                <ImageView
                    android:layout_width="100sp"
@@ -954,6 +1037,8 @@
                    android:contentDescription="@string/common_google_play_services_enable_button"
                    android:layout_toRightOf="@+id/picture2"
                    android:layout_toEndOf="@+id/picture2"
+                   android:scaleType="centerCrop"
+                   android:adjustViewBounds="true"
                    />
 
 
@@ -984,7 +1069,7 @@
                    android:text="@string/sendFeedback"
                    android:textColor="@color/colorText"
                    android:background="@drawable/buttonborder"
-                   android:id="@+id/buttonAddFeedback"/>
+                   android:id="@+id/buttonAddInfo"/>
            </LinearLayout>
 
     </LinearLayout>

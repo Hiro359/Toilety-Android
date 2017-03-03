@@ -71,35 +71,33 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     android.location.LocationListener locationListener;
 
-    private DatabaseReference databaseReference;
+//    private DatabaseReference databaseReference;
     private DatabaseReference toiletRef;
     private GeoFire geoFire;
-   // private Toilet toilet = new Toilet();
-    //Maybe delete this and use toiletList.....
     private Filter filter = new Filter();
-    private List toilets = new ArrayList();
-    private ListView lvtoilet;
+//    private List toilets = new ArrayList();
+//    private ListView lvtoilet;
     private ToiletListAdapter adapter;
-    private List<Toilet> toiletList;
+//    private List<Toilet> toiletList;
     //<Toilet> to <String>
 
-    private List<Toilet> toiletData;
-    //<Toilet> to <String>
+//    private List<Toilet> toiletData;
+//    //<Toilet> to <String>
     private RecyclerView recyclertView;
     private RecyclerView.LayoutManager layoutManager;
-    private LayoutInflater inflater;
-    private ViewGroup container;
-    private LinearLayoutManager mLinearLayoutManager;
+//    private LayoutInflater inflater;
+//    private ViewGroup container;
+//    private LinearLayoutManager mLinearLayoutManager;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Toolbar toolbar;
-    private ActionMenuView amvMenu;
+//    private ActionMenuView amvMenu;
 
 
 
-
-    DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference();
+//
+//    DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference();
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -143,7 +141,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setNavigationIcon(R.drawable.earth);
 
-        Log.i("JAP98789000",String.valueOf(filter.japaneseFilter));
+        Log.i("JAP98789000",String.valueOf(Filter.japaneseFilter));
 
         //amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
 //        amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
@@ -284,6 +282,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         recyclertView.setHasFixedSize(true);
         recyclertView.setAdapter(adapter);
         Log.i("createReclerView()Ended","");
+
 
 
     }
@@ -550,17 +549,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             //Not sure about how to call key....
 
                             Log.i("toilet777888.key",toilet.key);
-                            String urlOne = (String) dataSnapshot.child("urlOne").getValue();
-                            toilet.urlOne = urlOne;
+//                            String urlOne = (String) dataSnapshot.child("urlOne").getValue();
+//                            toilet.urlOne = urlOne;
+                            toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
 
-                            String urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
-                            toilet.urlTwo = urlTwo;
+                            //String urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
+                            toilet.urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
 
-                            String urlThree= (String) dataSnapshot.child("urlThree").getValue();
-                            toilet.urlThree = urlThree;
+                            //String urlThree= (String) dataSnapshot.child("urlThree").getValue();
+                            toilet.urlThree = (String) dataSnapshot.child("urlThree").getValue();;
 
-                            String type = (String) dataSnapshot.child("type").getValue();
-                            toilet.type = type;
+                           // String type = (String) dataSnapshot.child("type").getValue();
+                            toilet.type = (String) dataSnapshot.child("type").getValue();;
 
                             Log.i("toilet777.type",toilet.type);
 //                            Double star  = (Double) dataSnapshot.child("star").getValue();
@@ -570,64 +570,64 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Log.i("toilet777.star",toilet.type);
 
 
-                            Boolean washlet= (Boolean) dataSnapshot.child("washlet").getValue();
-                            toilet.washlet = washlet;
+                           // Boolean washlet= (Boolean) dataSnapshot.child("washlet").getValue();
+                            toilet.washlet = (Boolean) dataSnapshot.child("washlet").getValue();;
 
 
-                            Boolean wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
-                            toilet.wheelchair = wheelchair;
+                            //Boolean wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
+                            toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
 
 
-                            Boolean onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
-                            toilet.onlyFemale = onlyFemale;
+                            //Boolean onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
+                            toilet.onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
 
 
-                            Boolean unisex = (Boolean) dataSnapshot.child("unisex").getValue();
-                            toilet.unisex = unisex;
+                            //Boolean unisex = (Boolean) dataSnapshot.child("unisex").getValue();
+                            toilet.unisex = (Boolean) dataSnapshot.child("unisex").getValue();
                             Log.i("toilet777.unisex",String.valueOf(toilet.unisex));
 
 
-                            Boolean makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
-                            toilet.makeuproom = makeuproom;
+                            //Boolean makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
+                            toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
 
 
-                            Boolean milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
-                            toilet.milkspace = milkspace;
+                           // Boolean milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
+                            toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
 
 
-                            Boolean omutu = (Boolean) dataSnapshot.child("omutu").getValue();
-                            toilet.omutu = omutu;
+                           // Boolean omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+                            toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
 
 
-                            Boolean ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
-                            toilet.ostomate = ostomate;
+                            //Boolean ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
+                            toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
 
 
                             Log.i("OnDataChangeCalled","777888999");
-                            Boolean japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
-                            toilet.japanesetoilet = japanesetoilet;
+                            //Boolean japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
+                            toilet.japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
 
-                            Boolean westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
-                            toilet.westerntoilet = westerntoilet;
+                           // Boolean westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
+                            toilet.westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
 
 
-                            Boolean warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
-                            toilet.warmSeat = warmSeat;
+                          //  Boolean warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
+                            toilet.warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
                             Log.i("toilet777.warmSeat",String.valueOf(toilet.warmSeat));
 
 
 
-                            Boolean baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
-                            toilet.baggageSpace = baggageSpace;
+                            //Boolean baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+                            toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
 
 
-                            Boolean available = (Boolean) dataSnapshot.child("available").getValue();
-                            toilet.available = available;
+                           // Boolean available = (Boolean) dataSnapshot.child("available").getValue();
+                            toilet.available = (Boolean) dataSnapshot.child("available").getValue();
                             Log.i("toilet777.ave",String.valueOf(toilet.available));
 
 
-                            String howtoaceess = (String) dataSnapshot.child("howtoaccess").getValue();
-                            toilet.howtoaccess = howtoaceess;
+                           // String howtoaceess = (String) dataSnapshot.child("howtoaccess").getValue();
+                            toilet.howtoaccess = (String) dataSnapshot.child("howtoaccess").getValue();
                             Log.i("toilet777.waitingtime",toilet.howtoaccess);
 
 
@@ -637,23 +637,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                            //I dont think this will be needed anymore......
 
                             Log.i("toilet777.heyheyyyy",toilet.howtoaccess);
-                            String openinghours = (String) dataSnapshot.child("openinghours").getValue();
-                            toilet.openinghours = openinghours;
+                            //String openinghours = (String) dataSnapshot.child("openinghours").getValue();
+                            toilet.openinghours = (String) dataSnapshot.child("openinghours").getValue();
                             Log.i("toilet777.openingHours",toilet.openinghours);
 
 
-                            String addedBy  = (String) dataSnapshot.child("addedBy").getValue();
-                            toilet.addedBy = addedBy;
+                           // String addedBy  = (String) dataSnapshot.child("addedBy").getValue();
+                            toilet.addedBy = (String) dataSnapshot.child("addedBy").getValue();
 
-                            String editedBy = (String) dataSnapshot.child("editedBy").getValue();
-                            toilet.editedBy = editedBy;
+                            //String editedBy = (String) dataSnapshot.child("editedBy").getValue();
+                            toilet.editedBy = (String) dataSnapshot.child("editedBy").getValue();
                             Log.i("toilet777.editBt",String.valueOf(toilet.editedBy));
 
 
 
 
-                            String averageStar = (String) dataSnapshot.child("averageStar").getValue();
-                            toilet.averageStar = averageStar;
+                           // String averageStar = (String) dataSnapshot.child("averageStar").getValue();
+                            toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();;
 
                             Log.i("toilet777.aveStar",String.valueOf(toilet.averageStar));
 
@@ -730,69 +730,75 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
                             toilet.averageWait = averageWait.intValue();
 
+                            ////Added feature elements March 3
+
+
+
+
+
 
                             Log.i("toilet777.aveWait",String.valueOf(toilet.averageWait));
 
 
-                            if (averaegeStarDouble < filter.starFilter) {
+                            if (averaegeStarDouble < Filter.starFilter) {
 
                                 //Not sure averaegeStarDouble works......
                                 removedToilet = true;
                             }
 
-                            if (filter.washletFilter == true && toilet.washlet == false) {
+                            if (Filter.washletFilter && !toilet.washlet) {
                                 removedToilet = true;
                             }
 
-                            if (filter.wheelchairFilter == true && toilet.wheelchair == false) {
+                            if (Filter.wheelchairFilter  && !toilet.wheelchair) {
                                 removedToilet = true;
                             }
 
-                            if (filter.onlyFemaleFilter == true && toilet.onlyFemale == false) {
+                            if (Filter.onlyFemaleFilter && !toilet.onlyFemale) {
                                 removedToilet = true;
                             }
 
-                            if (filter.unisexFilter == true && toilet.unisex == false) {
+                            if (Filter.unisexFilter  && !toilet.unisex) {
                                 removedToilet = true;
                             }
 
-                            if (filter.makeroomFilter == true && toilet.makeuproom == false) {
+                            if (Filter.makeroomFilter  && !toilet.makeuproom ) {
                                 removedToilet = true;
                             }
 
-                            if (filter.milkspaceFilter == true && toilet.milkspace == false) {
+                            if (Filter.milkspaceFilter  && !toilet.milkspace) {
                                 removedToilet = true;
                             }
 
-                            if (filter.omutuFilter == true && toilet.omutu == false) {
+                            if (Filter.omutuFilter  && !toilet.omutu) {
                                 removedToilet = true;
                             }
 
-                            if (filter.ostomateFilter == true && toilet.ostomate == false) {
+                            if (Filter.ostomateFilter  && !toilet.ostomate) {
                                 removedToilet = true;
                             }
 
-                            if (filter.japaneseFilter == true && toilet.japanesetoilet == false) {
+                            if (Filter.japaneseFilter  && !toilet.japanesetoilet) {
                                 removedToilet = true;
                             }
 
-                            if (filter.westernFilter == true && toilet.westerntoilet == false) {
+                            if (Filter.westernFilter && !toilet.westerntoilet ) {
                                 removedToilet = true;
                             }
 
-                            if (filter.warmSearFilter == true && toilet.warmSeat == false) {
+                            if (Filter.warmSearFilter && !toilet.warmSeat) {
                                 removedToilet = true;
                             }
 
-                            if (filter.baggageSpaceFilter == true && toilet.baggageSpace == false) {
+                            if (Filter.baggageSpaceFilter  && !toilet.baggageSpace) {
                                 removedToilet = true;
                             }
 
-                            if (filter.availableFilter == true && toilet.available == false) {
+                            if (Filter.availableFilter  && !toilet.available) {
                                 removedToilet = true;
                             }
 
-                            if (filter.typeFilterOn == true && toilet.type != filter.typeFilter) {
+                            if (Filter.typeFilterOn  && toilet.type != Filter.typeFilter) {
                                 removedToilet = true;
                             }
 

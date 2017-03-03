@@ -3,6 +3,7 @@
           package="com.example.kazuhiroshigenobu.googlemaptraining">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
@@ -35,7 +36,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait">
 
             <!--
   ATTENTION: This intent was auto-generated. Follow instructions at
@@ -70,7 +72,8 @@
 
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -91,7 +94,14 @@
             android:name=".AddToiletActivity"
             android:label="@string/title_activity_add_toilet">
         </activity>
-        <activity android:name=".AddToiletDetailActivity">
+        <activity
+            android:name=".AddToiletDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:theme="@style/AppTheme">
         </activity>
     </application>
 
