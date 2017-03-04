@@ -2,6 +2,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -82,7 +84,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import android.os.StrictMode;
+//import android.os.StrictMode;
 
 
 //Trying to remove strict network but other pople say its not the right way to do that 4th March
@@ -158,10 +160,10 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         final Context context;
         setContentView(R.layout.activity_add_toilet);
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+//        if (android.os.Build.VERSION.SDK_INT > 9) {
+//            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//            StrictMode.setThreadPolicy(policy);
+//        }
 
         //Should be changed to the exact file name
 
@@ -435,22 +437,25 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 
                     AddLocations.longitude = l2;
                     Log.i("AddLocations.longitude",String.valueOf(l2));
+
+                new JSONParse().execute();
+
                 ////////
 
 
-                JSONObject ret = getLocationInfo(l1, l2);
-                JSONObject location;
-                String location_string;
-                try {
-                    //Get JSON Array called "results" and then get the 0th complete object as JSON
-                    location = ret.getJSONArray("results").getJSONObject(0);
-                    // Get the value of the attribute whose name is "formatted_string"
-                    location_string = location.getString("formatted_address");
-                    Log.d("test", "formattted address:" + location_string);
-                } catch (JSONException e1) {
-                    e1.printStackTrace();
-
-                }
+               // JSONObject ret = getLocationInfo(l1, l2);
+//                JSONObject location;
+//                String location_string;
+//                try {
+//                    //Get JSON Array called "results" and then get the 0th complete object as JSON
+//                    location = ret.getJSONArray("results").getJSONObject(0);
+//                    // Get the value of the attribute whose name is "formatted_string"
+//                    location_string = location.getString("formatted_address");
+//                    Log.d("test", "formattted address:" + location_string);
+//                } catch (JSONException e1) {
+//                    e1.printStackTrace();
+//
+//                }
 
 
                 //Commented for finding an error
@@ -534,58 +539,49 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
     /////Copied from the internet for reverse geocoding
 
 
-    ///AsycTask
 
 
 
-    /////////AsycTask
-
-
-
-
-
-    public JSONObject getLocationInfo( double lat, double lng) {
-
-
-        Log.i("12345","getLocationInfo Called");
-
-        HttpGet httpGet = new HttpGet("http://maps.google.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=false");
-        Log.i("12345 htttp",String.valueOf(httpGet));
-        HttpClient client = new DefaultHttpClient();
-        Log.i("12345 client",String.valueOf(client));
-        HttpResponse response;
-
-
-
-
-        Log.i("12345 response", "CHeck");
-        StringBuilder stringBuilder = new StringBuilder();
-        Log.i("12345 stringBuilder",String.valueOf(stringBuilder));
-
-
-
-        try {
-            response = client.execute(httpGet);
-            Log.i("12345 response",String.valueOf(response));
-            HttpEntity entity = response.getEntity();
-            Log.i("12345 entity",String.valueOf(entity));
-            InputStream stream = entity.getContent();
-            int b;
-            while ((b = stream.read()) != -1) {
-                stringBuilder.append((char) b);
-            }
-        } catch (ClientProtocolException e) {
-        } catch (IOException e) {
-        }
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject = new JSONObject(stringBuilder.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject;
-    }
+//    public JSONObject getLocationInfo( double lat, double lng) {
+//
+//
+//        Log.i("12345","getLocationInfo Called");
+//
+//        HttpGet httpGet = new HttpGet("http://maps.google.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=false");
+//        HttpClient client = new DefaultHttpClient();
+//        HttpResponse response;
+//
+//
+//
+//
+//        Log.i("12345 response", "CHeck");
+//        StringBuilder stringBuilder = new StringBuilder();
+//        Log.i("12345 stringBuilder",String.valueOf(stringBuilder));
+//
+//
+//
+//        try {
+//            response = client.execute(httpGet);
+//            Log.i("12345 response",String.valueOf(response));
+//            HttpEntity entity = response.getEntity();
+//            Log.i("12345 entity",String.valueOf(entity));
+//            InputStream stream = entity.getContent();
+//            int b;
+//            while ((b = stream.read()) != -1) {
+//                stringBuilder.append((char) b);
+//            }
+//        } catch (ClientProtocolException e) {
+//        } catch (IOException e) {
+//        }
+//
+//        JSONObject jsonObject = new JSONObject();
+//        try {
+//            jsonObject = new JSONObject(stringBuilder.toString());
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return jsonObject;
+//    }
 
 
 
@@ -633,7 +629,72 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 
 
 
+    ///AsycTask
+
+    private class JSONParse extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+//            uid = (TextView)findViewById(R.id.uid);
+//            name1 = (TextView)findViewById(R.id.name);
+//            email1 = (TextView)findViewById(R.id.email);
+            pDialog = new ProgressDialog(AddToiletActivity.this);
+            pDialog.setMessage("Getting Data ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+//            HttpGet httpGet = new HttpGet("http://maps.google.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=false");
+//            HttpClient client = new DefaultHttpClient();
+//            HttpResponse response;
 
 
-    
+            JSONParser jParser = new JSONParser();
+
+            JSONObject json = jParser.getLocationInfo(AddLocations.latitude,AddLocations.longitude);
+            return  json;
+//
+////            // Getting JSON from URL
+//
+//            HttpGet httpGet = new HttpGet("http://maps.google.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=false");
+//            HttpClient client = new DefaultHttpClient();
+//            HttpResponse response;
+//
+////            JSONObject json = jParser.getJSONFromUrl(url);
+//            return json;
+        }
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+            try {
+
+                JSONObject location;
+                String location_string;
+
+                location = json.getJSONArray("results").getJSONObject(0);
+                // Get the value of the attribute whose name is "formatted_string"
+                location_string = location.getString("formatted_address");
+                Log.d("test", "formattted address:" + location_string);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
+
+
+
+
+    /////////AsycTask
+
+
+
 }
