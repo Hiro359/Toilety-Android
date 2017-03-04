@@ -38,14 +38,14 @@
             android:layout_height="60dp"
             android:background="@drawable/border"
             android:layout_marginBottom="5dp"
-            android:id="@+id/inputName">
+            android:id="@+id/inputName"
+            android:hint="@string/writeToiletName">
 
 
             <EditText
                 android:id="@+id/writeToiletName"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="@string/writeToiletName"
                 android:textAlignment="center"
                 android:textColorHint="@color/colorSubText"
                 android:textColor="@color/colorText"
@@ -917,7 +917,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="140sp"
                     android:background="@drawable/border"
-                    android:id="@+id/addFeedback">
+                    android:id="@+id/addFeedback"
+                    android:hint="感想を記入してください">
 
 
 

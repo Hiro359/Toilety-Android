@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -34,6 +35,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
@@ -58,6 +64,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -67,6 +82,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import android.os.StrictMode;
+
+
+//Trying to remove strict network but other pople say its not the right way to do that 4th March
 
 public class AddToiletActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -77,10 +96,11 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
     private GoogleMap mMap;
     LocationManager locationManager;
 
-    android.location.LocationListener locationListener;
+    LocationListener locationListener;
 
 
     private Filter filter = new Filter();
+    private AddLocations addLocations = new AddLocations();
 
     private ToiletListAdapter adapter;
 
@@ -98,6 +118,10 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 
     private Button buttonLocationSend;
     private LayoutInflater layoutInflater;
+
+    private RequestQueue requestQueue;
+
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -133,6 +157,12 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         final Context context;
         setContentView(R.layout.activity_add_toilet);
+
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         //Should be changed to the exact file name
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -141,6 +171,8 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         mapFragment.getMapAsync(this);
 
         Toast.makeText(this, "is this working", Toast.LENGTH_SHORT).show();
+
+        requestQueue = Volley.newRequestQueue(this);
 
 
 
@@ -174,7 +206,7 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 //        toolbar = (Toolbar) findViewById(R.id.app_bar);
 //        toolbar.setNavigationIcon(R.drawable.earth);
 
-        Log.i("JAP98789000",String.valueOf(filter.japaneseFilter));
+        Log.i("JAP98789000",String.valueOf(Filter.japaneseFilter));
 
 
 
@@ -355,15 +387,30 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+//
+//
+////                JsonObjectRequest request = new JsonObjectRequest("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + newToilet + "&key=AIzaSyCntF-t69vrrNHHD_AMsZszhCPbWOlKSRE",
+////                        new Response.Listener<JSONObject>() {
+////                            @Override
+////                            public void onResponse(JSONObject response) {
+////
+////
+////                            }
+////                        }, new Response.ErrorListener() {
+////                    @Override
+////                    public void onErrorResponse(VolleyError error) {
+////
+////                    }
+////
+////                });
+////                requestQueue.add(request);
+
+
+            ///////////////////////copied from maps activity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-
-
-
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -378,64 +425,77 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
                 l1 = Double.parseDouble(coordl1);
                 l2 = Double.parseDouble(coordl2);
 
-
-
                 LatLng newToilet = new LatLng(l1,l2);
-                //
                 mMap.addMarker(new MarkerOptions().position(newToilet)
                         .title("追加するトイレ"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(newToilet));
 
+                    AddLocations.latitude = l1;
+                    Log.i("AddLocations.latitude",String.valueOf(l1));
+
+                    AddLocations.longitude = l2;
+                    Log.i("AddLocations.longitude",String.valueOf(l2));
+                ////////
+
+
+                JSONObject ret = getLocationInfo(l1, l2);
+                JSONObject location;
+                String location_string;
+                try {
+                    //Get JSON Array called "results" and then get the 0th complete object as JSON
+                    location = ret.getJSONArray("results").getJSONObject(0);
+                    // Get the value of the attribute whose name is "formatted_string"
+                    location_string = location.getString("formatted_address");
+                    Log.d("test", "formattted address:" + location_string);
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+
+                }
+
+
+                //Commented for finding an error
+
+
+
+
+                //////
             }
-
-
-                //Do what you want on obtained latLng
-
         });
 
         locationListener = new android.location.LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
-
-                Log.i("onLocationChanged","Called");
+                Log.i("onLocationChanged", "Called");
             }
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-
             }
         };
 
 
         if (Build.VERSION.SDK_INT < 23) {
 
-            Log.i("Build.VERSION.SDK_INT ","Build.VERSION.SDK_INT ");
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+            Log.i("Build.VERSION.SDK_INT ", "Build.VERSION.SDK_INT ");
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+        } else {
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
 
-        }
-        else{
-//            Log.i("Build.VERSION.SDK_INT>23 ","Build.VERSION.SDK_INT ");
-
-            if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
-
-
-
-            }else {
+            } else {
                 //When the permission is granted....
                 Log.i("HeyHey333", "locationManager.requestLocationUpdates");
 
@@ -445,13 +505,9 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
                 Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
                 mMap.setMyLocationEnabled(true);
                 Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
-                buttonInflation();
-                //Show button
 
 
-
-
-                if (lastKnownLocation != null){
+                if (lastKnownLocation != null) {
                     Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
 
 
@@ -464,9 +520,7 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
-
-
-
+//                                                       toiletSearch(lastKnownLocation);
 
 
                 } else {
@@ -477,6 +531,69 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         }
     }
 
+    /////Copied from the internet for reverse geocoding
+
+
+    ///AsycTask
+
+
+
+    /////////AsycTask
+
+
+
+
+
+    public JSONObject getLocationInfo( double lat, double lng) {
+
+
+        Log.i("12345","getLocationInfo Called");
+
+        HttpGet httpGet = new HttpGet("http://maps.google.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=false");
+        Log.i("12345 htttp",String.valueOf(httpGet));
+        HttpClient client = new DefaultHttpClient();
+        Log.i("12345 client",String.valueOf(client));
+        HttpResponse response;
+
+
+
+
+        Log.i("12345 response", "CHeck");
+        StringBuilder stringBuilder = new StringBuilder();
+        Log.i("12345 stringBuilder",String.valueOf(stringBuilder));
+
+
+
+        try {
+            response = client.execute(httpGet);
+            Log.i("12345 response",String.valueOf(response));
+            HttpEntity entity = response.getEntity();
+            Log.i("12345 entity",String.valueOf(entity));
+            InputStream stream = entity.getContent();
+            int b;
+            while ((b = stream.read()) != -1) {
+                stringBuilder.append((char) b);
+            }
+        } catch (ClientProtocolException e) {
+        } catch (IOException e) {
+        }
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = new JSONObject(stringBuilder.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -484,7 +601,7 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
      */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("Maps Page") // TODO: Define a title for the content shown.
+                .setName("AddToilet Page") // TODO: Define a title for the content shown.
                 // TODO: Make sure this auto-generated URL is correct.
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();
@@ -502,7 +619,6 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         AppIndex.AppIndexApi.start(client, getIndexApiAction());
-        mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
@@ -513,8 +629,11 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
     }
+
+
+
+
+
+    
 }

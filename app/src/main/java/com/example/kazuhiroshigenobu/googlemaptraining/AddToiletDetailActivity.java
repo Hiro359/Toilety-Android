@@ -113,6 +113,9 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     EditText textHowToAccess;
     EditText textFeedback;
 
+    // EditText added is not a TextInputEditText. Please switch to using that class instead.
+
+//
     RatingBar ratingBar;
 
     LocationManager locationManager;
@@ -162,6 +165,23 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 //    private DatabaseReference toiletRef;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference().child("images");
+
+//    AddLocations addLocations;
+
+//    String tName = textToiletName.getText().toString();
+    //the above causes an null warining ....
+    //March 4th 9am
+
+
+
+//    Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
+//    Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
+//    Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
+//    Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
+//    Integer openTime = stHour * 100 + stMinu;
+//    Integer endTime = enHour * 100 + enMinu;
+
+
 
 
 //    StorageReference storageRef = FirebaseStorage.getReference();
@@ -513,6 +533,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
      private void othersReady(){
 
          ratingBar = (RatingBar) findViewById(R.id.addRating);
+         ratingBar.setRating(3);
          addPhoto = (Button) findViewById(R.id.buttonAddPicture);
          buttonAddInfo = (Button) findViewById(R.id.buttonAddInfo);
 
@@ -657,37 +678,68 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     }
 
     private void valueCheck(){
-//        if (textToiletName.getText().toString() == null){
+
+//        String tName = textToiletName.getText().toString();
+//        Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
+//        Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
+//        Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
+//        Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
 //
-//            Log.i("name","null");
-//
-//        }
+        String tName = textToiletName.getText().toString();
 
-
-//        if(textToiletName != null && !textToiletName.isEmpty(textToiletName.getText())){
-//            strValue = simpleEditText.getText().toString();
-//        }
-
-        String checkText = textToiletName.getText().toString();
-
-        if(TextUtils.isEmpty(checkText)) {
+        if(TextUtils.isEmpty(tName)) {
 
             textToiletName.setError("Your message");
             Log.i("HEy", "00");
-//
-            return;
+        }
+        else {
+            //there is a valid name
+            firebaseUpdate();
+
         }
 
+
+        // the above code might cause an error
+
 //        firebaseUpdate();
+
+
+
+
 
     }
 
    private void firebaseUpdate(){
-        //Call different functions to make sure the value is right one
 
+       Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
+       Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
+       Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
+       Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
+       Integer openTime = stHour * 100 + stMinu;
+       Integer endTime = enHour * 100 + enMinu;
 
-//        //Before doing this, I need to check whether it is valid or not...
-        String tName = textToiletName.getText().toString();
+       Integer openData = 5000;
+       Integer endData = 5000;
+       String tName = textToiletName.getText().toString();
+
+       if (openTime < endTime){
+           openData = openTime;
+           endData = endTime;
+           Log.i(String.valueOf(openData),String.valueOf(endData));
+
+       }else if (openTime == endTime){
+           openData = 5000;
+           endData = 5000;
+           Log.i(String.valueOf(openData),String.valueOf(endData));
+       } else if (openTime > endTime){
+            openData = openTime;
+            endData = endTime + 2400;
+           Log.i(String.valueOf(openData),String.valueOf(endData));
+
+       }
+
+//       Log.i(String.valueOf(openData),String.valueOf(endData));
+
 
         double ratingValue = ratingBar.getRating();
         //float to double
@@ -704,15 +756,15 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 //        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
 
-        DatabaseReference toiletsRef = ref.child("Toilets");
+        DatabaseReference toiletsRef = ref.child("Toilets").push();
 
 
 
 
-        toiletsRef.child(tName).setValue(new Post(
+        toiletsRef.setValue(new Post(
                 tName,
-                120,//open
-                230,//close
+                openData,//open
+                endData,//close
                 typeSpinner.getSelectedItem().toString(),
                 ratingValue,
                 Integer.parseInt(String.valueOf(waitingTimeSpinner.getSelectedItem())),//It paeess float //I need to check this is double??,
@@ -762,8 +814,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 0,
                 0,
                 waitingValue,
-                1.2,//Lat
-                1.2,//Lon
+                AddLocations.latitude,//Lat
+                AddLocations.longitude,//Lon
                 "", //Address
                 3,//manwestern
                 3,//manJap
