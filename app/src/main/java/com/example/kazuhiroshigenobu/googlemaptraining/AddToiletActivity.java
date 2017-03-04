@@ -4,6 +4,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -123,6 +125,8 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 
     private RequestQueue requestQueue;
 
+    private Boolean markerSetted = false;
+
 
 
     /**
@@ -182,18 +186,26 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         buttonLocationSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Bring It On!!", Toast.LENGTH_SHORT).show();
+                if (markerSetted == false){
+                    //Location is null
+                    alertCall();
 
 
-                Intent intent = new Intent(v.getContext(),LoginActivity.class);
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Bring It On!!", Toast.LENGTH_SHORT).show();
 
 
-               // Intent intent = new Intent(v.getContext(),AddToiletDetailActivity.class);
+                    Intent intent = new Intent(v.getContext(), LoginActivity.class);
 
-                /////////
 
-                startActivity(intent);
-                finish();
+                    // Intent intent = new Intent(v.getContext(),AddToiletDetailActivity.class);
+
+                    /////////
+
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -270,6 +282,32 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         };
     }
 
+    private void alertCall(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("画面上をタップして、トイレの位置情報を加えてください");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "了解",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+//        builder1.setNegativeButton(
+//                "No",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.cancel();
+//                    }
+//                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+
+    }
 
     private void buttonInflation(){
 
@@ -440,6 +478,8 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 
                 new JSONParse().execute();
 
+                markerSetted = true;
+
                 ////////
 
 
@@ -521,7 +561,7 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
                     LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
 
 
-                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
+                    //mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
@@ -680,6 +720,7 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
                 location = json.getJSONArray("results").getJSONObject(0);
                 // Get the value of the attribute whose name is "formatted_string"
                 location_string = location.getString("formatted_address");
+                AddLocations.address = location_string;
                 Log.d("test", "formattted address:" + location_string);
 
             } catch (JSONException e) {

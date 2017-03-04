@@ -7,6 +7,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 public class AddLocations {
     static Double latitude;
     static Double longitude;
+    static String address;
 
 
 }

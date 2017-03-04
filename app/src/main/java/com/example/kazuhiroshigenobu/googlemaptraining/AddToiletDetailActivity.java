@@ -816,7 +816,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 waitingValue,
                 AddLocations.latitude,//Lat
                 AddLocations.longitude,//Lon
-                "", //Address
+                AddLocations.address, //Address
                 3,//manwestern
                 3,//manJap
                 3,//anSmall
