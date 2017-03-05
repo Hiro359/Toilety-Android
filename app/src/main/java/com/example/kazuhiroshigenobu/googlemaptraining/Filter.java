@@ -30,6 +30,17 @@ public class Filter {
     static Boolean warmSearFilter = false;
     static Boolean baggageSpaceFilter = false;
     static Boolean availableFilter = false;
+    static Boolean autoOpen = false;
+    static Boolean sensor = false;
+    static Boolean otohime = false;
+    static Boolean fancy = false;
+    static Boolean confortableWise = false;
+    static Boolean smell = false;
+    static Boolean clothes = false;
+    static Boolean parking = false;
+    static Boolean writtenEnglish = false;
+    static Boolean braille = false;
+
 
 
 

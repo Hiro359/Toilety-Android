@@ -71,17 +71,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     android.location.LocationListener locationListener;
 
-//    private DatabaseReference databaseReference;
+    //    private DatabaseReference databaseReference;
     private DatabaseReference toiletRef;
     private GeoFire geoFire;
     private Filter filter = new Filter();
-//    private List toilets = new ArrayList();
+    //    private List toilets = new ArrayList();
 //    private ListView lvtoilet;
     private ToiletListAdapter adapter;
 //    private List<Toilet> toiletList;
     //<Toilet> to <String>
 
-//    private List<Toilet> toiletData;
+    //    private List<Toilet> toiletData;
 //    //<Toilet> to <String>
     private RecyclerView recyclertView;
     private RecyclerView.LayoutManager layoutManager;
@@ -93,7 +93,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Toolbar toolbar;
 //    private ActionMenuView amvMenu;
-
 
 
 //
@@ -109,17 +108,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Log.i("Permission","Permission111");
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.i("Permission", "Permission111");
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    Log.i("Permission","Permission222");
+                    Log.i("Permission", "Permission222");
                     mMap.setMyLocationEnabled(true);
+
 
                     //mapUserCenterZoon();
 
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                    Log.i("Permission","Permission333");
+                    Log.i("Permission", "Permission333");
                 }
 
             }
@@ -141,7 +141,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setNavigationIcon(R.drawable.earth);
 
-        Log.i("JAP98789000",String.valueOf(Filter.japaneseFilter));
+        Log.i("JAP98789000", String.valueOf(Filter.japaneseFilter));
 
         //amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
 //        amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
@@ -156,23 +156,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Log.i("YouareThebest", "11");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                                                 @Override
+                                                 public void onClick(View v) {
+                                                     Log.i("YouareThebest", "11");
 
-                Intent intent = new Intent(v.getContext(),FilterSearchActivity.class);
-                startActivity(intent);
-                finish();
+                                                     Intent intent = new Intent(v.getContext(), FilterSearchActivity.class);
+                                                     startActivity(intent);
+                                                     finish();
 
 
 //                v.startActivity(SettingsActivity.class);
 
 //                Intent intent = new Intent(SettingsActivity.class);
-              //  startActivity(intent);
+                                                     //  startActivity(intent);
 
-            }
-        }
+                                                 }
+                                             }
         );
 
 
@@ -189,11 +189,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.i("FireAuth","onAuthStateChanged:signed_in:" + user.getUid());
+                    Log.i("FireAuth", "onAuthStateChanged:signed_in:" + user.getUid());
                     //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
-                    Log.i("FireAuth","onAuthStateChanged:signed_out");
+                    Log.i("FireAuth", "onAuthStateChanged:signed_out");
                     //Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
                 // ...
@@ -205,7 +205,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onCreateOptionsMenu(Menu menu) {
 
 
-       getMenuInflater().inflate(R.menu.filter, menu);
+        getMenuInflater().inflate(R.menu.filter, menu);
         //Commented for adding below code at 5pm
         //getMenuInflater().inflate(R.menu.filter,amvMenu.getMenu());
 
@@ -216,22 +216,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
 
-        Log.i("R.menu.account",String.valueOf(R.id.account));
-        Log.i("R.menu.filter",String.valueOf(R.id.filter));
-        Log.i("R.menu.toolbar",String.valueOf(R.id.toolbar));
-        Log.i("R.id.app_bar",String.valueOf(R.id.app_bar));
+        Log.i("R.menu.account", String.valueOf(R.id.account));
+        Log.i("R.menu.filter", String.valueOf(R.id.filter));
+        Log.i("R.menu.toolbar", String.valueOf(R.id.toolbar));
+        Log.i("R.id.app_bar", String.valueOf(R.id.app_bar));
 
         Log.i("YouSelect", String.valueOf(item));
-        Log.i("GetSupportActionBar",String.valueOf(getSupportActionBar()));
+        Log.i("GetSupportActionBar", String.valueOf(getSupportActionBar()));
         Log.i("Earth", String.valueOf(R.drawable.earth));
-
-
 
 
 //        Log.i("R.menu.filter",String.valueOf(R.menu.filter));
@@ -239,26 +236,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        Log.i("Home", String.valueOf(R.id.home));
 
 
-        if (id == R.id.account){
+        if (id == R.id.account) {
             Toast.makeText(this, "Hey Did you Click Account??", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
             startActivity(intent);
             finish();
             ///////////////////////// 1pm 25th Feb
-            return  true;
+            return true;
 
-        } else
-
-
-
-        if (id == R.id.filter){
+        } else if (id == R.id.filter) {
             Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
             startActivity(intent);
             finish();
 
             ///////////////////////// 1pm 25th Feb
-            return  true;
+            return true;
 
         } else {
 
@@ -269,20 +262,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    public void mapUserCenterZoon(Location location){
+    public void mapUserCenterZoon(Location location) {
 
     }
 
-    public void createRecyclerView(List toiletData){
-        Log.i("createReclerView()Caled","");
+    public void createRecyclerView(List toiletData) {
+        Log.i("createReclerView()Caled", "");
         recyclertView = (RecyclerView) findViewById(R.id.toiletRecycleList);
         adapter = new ToiletListAdapter(toiletData);
         layoutManager = new LinearLayoutManager(this);
         recyclertView.setLayoutManager(layoutManager);
         recyclertView.setHasFixedSize(true);
         recyclertView.setAdapter(adapter);
-        Log.i("createReclerView()Ended","");
-
+        Log.i("createReclerView()Ended", "");
 
 
     }
@@ -306,66 +298,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onLocationChanged(Location location) {
 
-                Log.i("onLocationChanged","Called");
-
-
-                // Add a marker in Sydney and move the camera
-//                mMap.clear();
-//                LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-//                mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location111"));
-//                mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-//                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14.0f));
-//
-//
-//
-//                //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 12.0f));
-//                Log.i("toiletSearch","willBeCalled");
-//                toiletSearch(location);
-//                Log.i("toiletSearch","AlreadyCalled");
-//
-//                //Toast.makeText(MapsActivity.this, location.toString(), Toast.LENGTH_SHORT).show();
-//                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-//                try {
-//                    List<Address> listAddresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-//                    if (listAddresses != null && listAddresses.size() > 0){
-//
-//                        Log.i("Address", listAddresses.get(0).toString());
-//
-//                        String address = "";
-//
-//                        if (listAddresses.get(0).getSubThoroughfare() != null){
-//
-//                            address += listAddresses.get(0).getSubThoroughfare() + ",";
-//                            Log.i("AddressAdress", address);
-//
-//
-//                        }
-//                        if (listAddresses.get(0).getLocality() != null){
-//
-//                            address += listAddresses.get(0).getLocality() + ",";
-//                            Log.i("AddressAdress", address);
-//
-//                        }
-//                        if (listAddresses.get(0).getPostalCode() != null){
-//
-//                            address += listAddresses.get(0).getPostalCode() + ",";
-//                            Log.i("AddressAdress", address);
-//
-//                        }
-//                        if (listAddresses.get(0).getCountryName() != null){
-//
-//                            address += listAddresses.get(0).getCountryName() + "";
-//                            Log.i("AddressAdress", address);
-//
-//                        }
-//                        Log.i("AddressAdress", address);
-//                        Toast.makeText(MapsActivity.this, address, Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
+                Log.i("onLocationChanged", "Called");
 
             }
 
@@ -388,59 +321,96 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (Build.VERSION.SDK_INT < 23) {
 
-            Log.i("Build.VERSION.SDK_INT ","Build.VERSION.SDK_INT ");
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+            Log.i("Build.VERSION.SDK_INT ", "Build.VERSION.SDK_INT ");
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
 
-            }
-        else{
+        } else {
 //            Log.i("Build.VERSION.SDK_INT>23 ","Build.VERSION.SDK_INT ");
 
-            if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
 
-
-            }else {
+            } else {
                 //When the permission is granted....
                 Log.i("HeyHey333", "locationManager.requestLocationUpdates");
 
 
 //
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+                //Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+                Location lastKnownLocation = getLastKnownLocation();
                 mMap.setMyLocationEnabled(true);
+
+
                 Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
 
 
+                if (lastKnownLocation != null) {
+                    Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
 
 
-              if (lastKnownLocation != null){
-                  Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
+                    mMap.clear();
+                    LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
+                    toiletSearch(lastKnownLocation);
 
+                } else {
 
-                mMap.clear();
+                    //When you could not get the last known location...
 
-                LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-
-
-                mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
-
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
-                  mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
-                  toiletSearch(lastKnownLocation);
-
-
-
-              } else {
-                  //When you could not get the last known location...
-
-              }
+                }
             }
         }
     }
+
+    //get last location funtions
+    private Location getLastKnownLocation() {
+
+
+        List<String> providers = locationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+            } else {
+
+                //permission granted .....
+
+                Location l = locationManager.getLastKnownLocation(provider);
+                //Location l = locationListener.getLastKnownLocation(provider);
+//            Log.d("last known location, provider: %s, location: %s", provider,
+//                    l);
+
+
+                if (l == null) {
+                    continue;
+                }
+                if (bestLocation == null
+                        || l.getAccuracy() < bestLocation.getAccuracy()) {
+//                ALog.d("found best last known location: %s", l);
+                    bestLocation = l;
+                }
+                //////
+            }
+            }
+            if (bestLocation == null) {
+                return null;
+            }
+            return bestLocation;
+
+    }
+
+
+    //get last location funtions
 
     public void toiletSearch(Location location){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
@@ -625,6 +595,40 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.available = (Boolean) dataSnapshot.child("available").getValue();
                             Log.i("toilet777.ave",String.valueOf(toilet.available));
 
+                            //add boolean
+                            toilet.autoOpen = (Boolean) dataSnapshot.child("autoOpen").getValue();
+                            Log.i("toilet777.ave",String.valueOf(toilet.autoOpen));
+
+                            toilet.sensor = (Boolean) dataSnapshot.child("sensor").getValue();
+                            Log.i("toilet777.sensor",String.valueOf(toilet.sensor));
+
+                            toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
+                            Log.i("toilet777.ave",String.valueOf(toilet.otohime));
+
+                            toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
+                            Log.i("toilet777.ave",String.valueOf(toilet.fancy));
+
+                            toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
+                           // Log.i("toilet777.ave",String.valueOf(toilet.available));
+
+                            toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
+                           // Log.i("toilet777.ave",String.valueOf(toilet.available));
+
+                            toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
+                            //Log.i("toilet777.ave",String.valueOf(toilet.available));
+
+                            toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
+                            Log.i("toilet777.parking",String.valueOf(toilet.parking));
+
+                            toilet.english = (Boolean) dataSnapshot.child("english").getValue();
+                            //Log.i("toilet777.ave",String.valueOf(toilet.available));
+
+                            toilet.braille = (Boolean) dataSnapshot.child("braille").getValue();
+                            Log.i("toilet777.ave",String.valueOf(toilet.available));
+
+
+
+
 
                            // String howtoaceess = (String) dataSnapshot.child("howtoaccess").getValue();
                             toilet.howtoaccess = (String) dataSnapshot.child("howtoaccess").getValue();
@@ -638,8 +642,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             Log.i("toilet777.heyheyyyy",toilet.howtoaccess);
                             //String openinghours = (String) dataSnapshot.child("openinghours").getValue();
-                            toilet.openinghours = (String) dataSnapshot.child("openinghours").getValue();
-                            Log.i("toilet777.openingHours",toilet.openinghours);
+                           // Long toilet.openHours= (Long) dataSnapshot.child("star1").getValue();
+                            //toilet.openHours = (Integer) dataSnapshot.child("openHours").getValue();
+
+                            Long openh = (Long) dataSnapshot.child("openHours").getValue();
+                            toilet.openHours = openh.intValue();
+
+                            Long closeh = (Long) dataSnapshot.child("closeHours").getValue();
+                            toilet.openHours = closeh.intValue();
+
+                            Log.i("toilet777.openingHours",String.valueOf(toilet.openHours));
+
+//                            toilet.closeHours = (Integer) dataSnapshot.child("closeHours").getValue();
+                            Log.i("toilet777.closeHours",String.valueOf(toilet.closeHours));
+
 
 
                            // String addedBy  = (String) dataSnapshot.child("addedBy").getValue();
@@ -743,7 +759,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (averaegeStarDouble < Filter.starFilter) {
 
                                 //Not sure averaegeStarDouble works......
+
                                 removedToilet = true;
+                               // continue;
                             }
 
                             if (Filter.washletFilter && !toilet.washlet) {
@@ -796,7 +814,58 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             if (Filter.availableFilter  && !toilet.available) {
                                 removedToilet = true;
+                            } 
+                            
+                            
+                            
+                            
+                            //Special one
+                            
+                            //need more
+
+                            
+                            
+                            
+                            if (Filter.autoOpen  && !toilet.autoOpen) {
+                                removedToilet = true;
                             }
+
+                            if (Filter.sensor  && !toilet.sensor) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.otohime  && !toilet.otohime) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.fancy  && !toilet.fancy) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.confortableWise  && !toilet.conforatableWide) {
+                                removedToilet = true;
+                            }
+                            if (Filter.smell  && !toilet.smell) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.clothes  && !toilet.clothes) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.parking  && !toilet.parking) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.writtenEnglish  && !toilet.english) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.braille  && !toilet.braille) {
+                                removedToilet = true;
+                            }
+
+                            
 
                             if (Filter.typeFilterOn  && toilet.type != Filter.typeFilter) {
                                 removedToilet = true;

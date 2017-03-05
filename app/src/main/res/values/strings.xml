@@ -59,12 +59,11 @@
     <string name="default_time">0 : 00</string>
     <string name="timeDot"> : </string>
 
+    <string name="braille">点字案内</string>
     <string name="access">アクセス方法</string>
     <string name="accessGo">具体的なアクセス方法</string>
-    <string name="smell">香りが良い</string>
+    <string name="smell">良い香り</string>
     <string name="wrtieKansou">感想を記入してください</string>
-
-
 
 
     <string name="between">〜</string>

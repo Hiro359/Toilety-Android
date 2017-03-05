@@ -44,6 +44,20 @@ public class FilterSearchActivity extends AppCompatActivity {
     Switch wheelChairSwitch;
     Switch ostomateSwitch;
     Switch availableSwitch;
+    Switch autoOpenSwitch;
+    Switch sensorSwitch;
+    Switch othimeSwitch;
+    Switch fancySwitch;
+    Switch confortableSwitch;
+    Switch smellSwitch;
+    Switch clothesSwitch;
+    Switch parkingSwitch;
+    Switch englishSwitch;
+    Switch brailleSwitch;
+
+
+
+
 
     Filter filter;
 
@@ -196,6 +210,22 @@ public class FilterSearchActivity extends AppCompatActivity {
         wheelChairSwitch = (Switch) findViewById(R.id.wheelChairSwitch);
         ostomateSwitch = (Switch) findViewById(R.id.ostomateSwitch);
         availableSwitch = (Switch) findViewById(R.id.availableSwitch);
+        autoOpenSwitch = (Switch) findViewById(R.id.autoOpenSwitch);
+        sensorSwitch = (Switch) findViewById(R.id.senserHandSwitch);
+        othimeSwitch = (Switch) findViewById(R.id.otohimeSwitch);
+        fancySwitch = (Switch) findViewById(R.id.fancySwitch);
+
+        confortableSwitch = (Switch) findViewById(R.id.comfontableWideSwitch);
+        smellSwitch = (Switch) findViewById(R.id.smellSwitch);
+
+
+
+        clothesSwitch = (Switch) findViewById(R.id.clothesSwitch);
+        parkingSwitch = (Switch) findViewById(R.id.parkingSwitch);
+        englishSwitch = (Switch) findViewById(R.id.englishWrittenSwitch);
+        brailleSwitch = (Switch) findViewById(R.id.brailleSwitch);
+
+
 
 
 //        filter.japaneseFilter = false;
@@ -207,13 +237,43 @@ public class FilterSearchActivity extends AppCompatActivity {
         unisexSwitch.setChecked(Filter.unisexFilter);
         washletSwitch.setChecked(Filter.washletFilter);
         warmSeatSwitch.setChecked(Filter.warmSearFilter);
+        Log.i("GetBoolean1232", "123");
         omutuSwitch.setChecked(Filter.omutuFilter);
+        Log.i("GetBoolean1232", "1234");
         milkSwitch.setChecked(Filter.milkspaceFilter);
+        Log.i("GetBoolean1232", "1235");
         makeroomSwitch.setChecked(Filter.makeroomFilter);
+        Log.i("GetBoolean1232", "1236");
         baggageSpaceSwitch.setChecked(Filter.baggageSpaceFilter);
+        Log.i("GetBoolean1232", "1237");
         wheelChairSwitch.setChecked(Filter.wheelchairFilter);
+        Log.i("GetBoolean1232", "1238");
         ostomateSwitch.setChecked(Filter.ostomateFilter);
+        Log.i("GetBoolean1232", "123");
         availableSwitch.setChecked(Filter.availableFilter);
+        Log.i("GetBoolean123", "123");
+        autoOpenSwitch.setChecked(Filter.autoOpen);
+        //Cause an error
+        sensorSwitch.setChecked(Filter.sensor);
+        Log.i("GetBoolean1234", "123");
+        othimeSwitch.setChecked(Filter.otohime);
+        fancySwitch.setChecked(Filter.fancy);
+        Log.i("GetBoolean1235", "123");
+        confortableSwitch.setChecked(Filter.confortableWise);
+        smellSwitch.setChecked(Filter.smell);
+        Log.i("GetBoolean1236", "123");
+        clothesSwitch.setChecked(Filter.clothes);
+        parkingSwitch.setChecked(Filter.parking);
+        Log.i("GetBoolean1237", "123");
+        englishSwitch.setChecked(Filter.writtenEnglish);
+
+        brailleSwitch.setChecked(Filter.braille);
+        Log.i("GetBoolean1238", "123");
+
+
+
+
+
 
 
         japaneseSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -371,6 +431,136 @@ public class FilterSearchActivity extends AppCompatActivity {
                 }
             }
         });
+
+        autoOpenSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.autoOpen = true;
+                } else{
+                    Filter.autoOpen = false;
+                }
+            }
+        });
+
+        sensorSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.sensor= true;
+                } else{
+                    Filter.sensor= false;
+                }
+            }
+        });
+
+        othimeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.otohime= true;
+                } else{
+                    Filter.otohime = false;
+                }
+            }
+        });
+
+        fancySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.fancy = true;
+                } else{
+                    Filter.fancy = false;
+                }
+            }
+        });
+
+        confortableSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.confortableWise = true;
+                } else{
+                    Filter.confortableWise = false;
+                }
+            }
+        });
+        smellSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.smell = true;
+                } else{
+                    Filter.smell = false;
+                }
+            }
+        });
+
+        clothesSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.clothes = true;
+                } else{
+                    Filter.clothes = false;
+                }
+            }
+        });
+
+        parkingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.parking= true;
+                } else{
+                    Filter.parking = false;
+                }
+            }
+        });
+
+        englishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.writtenEnglish = true;
+                } else{
+                    Filter.writtenEnglish= false;
+                }
+            }
+        });
+
+        brailleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.braille = true;
+                } else{
+                    Filter.braille = false;
+                }
+            }
+        });
+
 
 
     }

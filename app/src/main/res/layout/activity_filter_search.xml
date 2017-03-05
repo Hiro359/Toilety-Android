@@ -145,7 +145,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="1400dp"
+            android:layout_height="1450dp"
             android:layout_margin="10dp"
             >
 
@@ -159,6 +159,18 @@
 
                 />
 
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="現在利用可能"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/availableSwitch"
+                android:paddingLeft="20dp"
+                />
 
             <Switch
                     android:layout_width="match_parent"
@@ -326,18 +338,6 @@
                 android:paddingLeft="20dp"
                 />
 
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="現在利用可能"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/colorSubText"
-                android:background="@color/colorLabel"
-                android:layout_marginBottom="2dp"
-                android:id="@+id/availableSwitch"
-                android:paddingLeft="20dp"
-                />
 
             <Switch
                 android:layout_width="match_parent"
@@ -349,6 +349,19 @@
                 android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/fancySwitch"
+                android:paddingLeft="20dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/smell"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/smellSwitch"
                 android:paddingLeft="20dp"
                 />
 
@@ -374,7 +387,7 @@
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
-                android:id="@+id/censerHandSwitch"
+                android:id="@+id/senserHandSwitch"
                 android:paddingLeft="20dp"
                 />
 
@@ -442,6 +455,21 @@
                 android:id="@+id/englishWrittenSwitch"
                 android:paddingLeft="20dp"
                 />
+
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/braille"
+                android:textSize="24dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/brailleSwitch"
+                android:paddingLeft="20dp"
+                />
+
 
 
 

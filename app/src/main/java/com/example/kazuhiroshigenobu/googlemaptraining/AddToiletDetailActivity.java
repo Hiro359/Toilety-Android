@@ -44,6 +44,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Metadata;
@@ -55,6 +57,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -135,6 +139,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     private Uri subOnefilePath;
     private Uri subTwofilePath;
 
+    //private GeoFire geoFire;
+
     File file;
     Metadata metadata;
 
@@ -160,11 +166,16 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference ref = database.getReference();
+    //DatabaseReference ref = database.getReference();
 
 //    private DatabaseReference toiletRef;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference().child("images");
+
+    DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("ToiletLocations");
+    GeoFire geoFire = new GeoFire(locationRef);
+
+    DatabaseReference toiletRef = FirebaseDatabase.getInstance().getReference("Toilets");
 
 //    AddLocations addLocations;
 
@@ -678,13 +689,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     }
 
     private void valueCheck(){
-
-//        String tName = textToiletName.getText().toString();
-//        Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
-//        Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
-//        Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
-//        Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
-//
         String tName = textToiletName.getText().toString();
 
         if(TextUtils.isEmpty(tName)) {
@@ -695,22 +699,15 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         else {
             //there is a valid name
             firebaseUpdate();
-
         }
-
-
-        // the above code might cause an error
-
-//        firebaseUpdate();
-
-
-
-
-
     }
+
+
 
    private void firebaseUpdate(){
 
+
+       String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
        Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
        Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
        Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
@@ -751,17 +748,20 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
         String openingString = startHoursSpinner.getSelectedItem().toString() + ":" + startMinutesSpinner.getSelectedItem().toString() + "〜" + endHoursSpinner.getSelectedItem().toString() + ":" + endMinutesSpinner.getSelectedItem().toString();
 
+       String avStar = String.valueOf(ratingValue);
         Log.i("datbase", "called121");
 
 
 //        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
 
-        DatabaseReference toiletsRef = ref.child("Toilets").push();
+        DatabaseReference newRef = toiletRef.push();
+
+        String firekey = newRef.getKey();
 
 
 
 
-        toiletsRef.setValue(new Post(
+        newRef.setValue(new Post(
                 tName,
                 openData,//open
                 endData,//close
@@ -795,9 +795,9 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 toiletBraille.isChecked(),
                 true,//avaiable..
                 1 , //reviewCount
-                "", //addedBy
-                "", //edittedBY
-                ratingValue,
+                uid, //addedBy
+                "edit", //edittedBY
+                avStar,//av star should be string
                 star1Value,
                 0,
                 0,
@@ -823,9 +823,10 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 3,//woWe
                 3,//woJp
                 3,//floor
-                ""));//how ti access
+                "THIS IS THE WAY OF ACCESS"));//how ti access
 
     Log.i("please", "...");
+       geolocationUpdate(firekey);
 
     }
 
@@ -855,6 +856,27 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 Toast.makeText(AddToiletDetailActivity.this, String.valueOf(downloadUrl), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void geolocationUpdate(String firekey){
+
+//        String newRef = ref.child("Toilets");
+//
+//        String newID = newRef
+
+        geoFire.setLocation(firekey, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
+            @Override
+            public void onComplete(String key, DatabaseError error) {
+                if (error != null) {
+                    System.err.println("There was an error saving the location to GeoFire: " + error);
+
+                } else {
+                    System.out.println("Location saved on server successfully!");
+//                    firebaseUpdate();
+                }
+
             }
         });
     }

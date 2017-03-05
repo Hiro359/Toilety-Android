@@ -40,7 +40,7 @@ public class Post {
     public Integer reviewCount;
     public String addedBy;
     public String editedBy;
-    public Double averageStar;
+    public String averageStar;
     public Integer star1;
     public Integer star2;
     public Integer star3;
@@ -68,7 +68,7 @@ public class Post {
     public Integer toiletFloor;
     public String howtoaccess;
 
-    public Post(String name, Integer openHours, Integer closeHours, String type, Double star, Integer waitingtime, String urlOne, String urlTwo, String urlThree, Boolean washlet, Boolean wheelchair, Boolean onlyFemale, Boolean unisex, Boolean makeuproom, Boolean milkspace, Boolean omutu, Boolean ostomate, Boolean japanesetoilet, Boolean westerntoilet, Boolean warmSeat, Boolean baggageSpace, Boolean autoOpen, Boolean sensor, Boolean otohime, Boolean fancy, Boolean confortable, Boolean smell, Boolean clothes, Boolean parking, Boolean english, Boolean braille, Boolean available, Integer reviewCount, String addedBy, String editedBy, Double averageStar, Integer star1, Integer star2, Integer star3, Integer star4, Integer star5, Integer star6, Integer star7, Integer star8, Integer star9, Integer star10, Integer wait1, Integer wait2, Integer wait3, Integer wait4, Integer wait5, Integer averageWait, Double latitude, Double longitude, String address, Integer manWestern, Integer manJapanese, Integer manSmall, Integer womanWestern, Integer womanJapanese, Integer toiletFloor, String howtoaccess) {
+    public Post(String name, Integer openHours, Integer closeHours, String type, Double star, Integer waitingtime, String urlOne, String urlTwo, String urlThree, Boolean washlet, Boolean wheelchair, Boolean onlyFemale, Boolean unisex, Boolean makeuproom, Boolean milkspace, Boolean omutu, Boolean ostomate, Boolean japanesetoilet, Boolean westerntoilet, Boolean warmSeat, Boolean baggageSpace, Boolean autoOpen, Boolean sensor, Boolean otohime, Boolean fancy, Boolean confortable, Boolean smell, Boolean clothes, Boolean parking, Boolean english, Boolean braille, Boolean available, Integer reviewCount, String addedBy, String editedBy, String averageStar, Integer star1, Integer star2, Integer star3, Integer star4, Integer star5, Integer star6, Integer star7, Integer star8, Integer star9, Integer star10, Integer wait1, Integer wait2, Integer wait3, Integer wait4, Integer wait5, Integer averageWait, Double latitude, Double longitude, String address, Integer manWestern, Integer manJapanese, Integer manSmall, Integer womanWestern, Integer womanJapanese, Integer toiletFloor, String howtoaccess) {
         this.name = name;
         this.openHours = openHours;//
         this.closeHours = closeHours;//

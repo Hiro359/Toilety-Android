@@ -103,6 +103,8 @@
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme">
         </activity>
+        <activity android:name=".DetailViewActivity">
+        </activity>
     </application>
 
 </manifest>
