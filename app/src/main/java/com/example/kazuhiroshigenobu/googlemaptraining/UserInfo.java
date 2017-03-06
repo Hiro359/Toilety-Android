@@ -1,12 +1,10 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 /**
- * Created by KazuhiroShigenobu on 4/3/17.
+ * Created by KazuhiroShigenobu on 7/3/17.
  */
 
-public class AddLocations {
+public class UserInfo {
     static Double latitude;
     static Double longitude;
-    static String address;
-
 }

@@ -453,6 +453,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.i("toiletSearch","BeforeDeoQueryCalled");
         GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(centerLatitude,centerLongitude), centerRadius);
         final LatLng centerLocation = new LatLng(centerLatitude,centerLongitude);
+        UserInfo.latitude = centerLatitude;
+        UserInfo.longitude = centerLongitude;
 
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
 
@@ -965,7 +967,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return bd.doubleValue();
     }
 
-    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
+    public static double CalculationByDistance(LatLng StartP, LatLng EndP) {
         int Radius = 6371;// radius of earth in Km
         double lat1 = StartP.latitude;
         double lat2 = EndP.latitude;

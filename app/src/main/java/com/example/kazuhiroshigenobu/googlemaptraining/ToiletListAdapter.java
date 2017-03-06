@@ -119,8 +119,9 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
 
                     Toast.makeText(context, String.valueOf(current.key), Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra("EXTRA_SESSION_ID", String.valueOf(current));
+                    Intent intent = new Intent(context, DetailViewActivity.class);
+                    intent.putExtra("EXTRA_SESSION_ID", current.key);
+                    Log.i("Current.key",current.key );
 //                    intent.putExtra("EXTRA_SESSION_ID", current.key);
                     context.startActivity(intent);
                 }

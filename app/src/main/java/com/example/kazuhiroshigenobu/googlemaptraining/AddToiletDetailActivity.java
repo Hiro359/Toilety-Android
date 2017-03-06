@@ -765,6 +765,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 tName,
                 openData,//open
                 endData,//close
+                openingString,
                 typeSpinner.getSelectedItem().toString(),
                 ratingValue,
                 Integer.parseInt(String.valueOf(waitingTimeSpinner.getSelectedItem())),//It paeess float //I need to check this is double??,
@@ -799,20 +800,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 "edit", //edittedBY
                 avStar,//av star should be string
                 star1Value,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
                 waitingValue,
-                0,
-                0,
-                0,
-                0,
                 waitingValue,
                 AddLocations.latitude,//Lat
                 AddLocations.longitude,//Lon

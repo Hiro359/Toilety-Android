@@ -14,6 +14,9 @@ public class Toilet {
     String type;
     Double star;
     //var image = UIImage() .........
+    String name;
+    Double latitude;
+    Double longitude;
     String urlOne;
     String urlTwo;
     String urlThree;

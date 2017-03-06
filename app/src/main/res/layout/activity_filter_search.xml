@@ -355,7 +355,7 @@
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="@string/smell"
+                android:text="@string/name_smell"
                 android:textSize="24dp"
                 android:paddingRight="10dp"
                 android:textColor="@color/colorSubText"

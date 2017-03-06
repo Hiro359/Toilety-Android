@@ -8,6 +8,7 @@ public class Post {
     public String name;
     public Integer openHours;
     public Integer closeHours;
+    public String openAndCloseHours;
     public String type;
     public Double star;
     public Integer waitingtime;
@@ -41,21 +42,8 @@ public class Post {
     public String addedBy;
     public String editedBy;
     public String averageStar;
-    public Integer star1;
-    public Integer star2;
-    public Integer star3;
-    public Integer star4;
-    public Integer star5;
-    public Integer star6;
-    public Integer star7;
-    public Integer star8;
-    public Integer star9;
-    public Integer star10;
-    public Integer wait1;
-    public Integer wait2;
-    public Integer wait3;
-    public Integer wait4;
-    public Integer wait5;
+    public Integer starValue;
+    public Integer waitTime;
     public Integer averageWait;
     public Double latitude;
     public Double longitude;
@@ -68,10 +56,12 @@ public class Post {
     public Integer toiletFloor;
     public String howtoaccess;
 
-    public Post(String name, Integer openHours, Integer closeHours, String type, Double star, Integer waitingtime, String urlOne, String urlTwo, String urlThree, Boolean washlet, Boolean wheelchair, Boolean onlyFemale, Boolean unisex, Boolean makeuproom, Boolean milkspace, Boolean omutu, Boolean ostomate, Boolean japanesetoilet, Boolean westerntoilet, Boolean warmSeat, Boolean baggageSpace, Boolean autoOpen, Boolean sensor, Boolean otohime, Boolean fancy, Boolean confortable, Boolean smell, Boolean clothes, Boolean parking, Boolean english, Boolean braille, Boolean available, Integer reviewCount, String addedBy, String editedBy, String averageStar, Integer star1, Integer star2, Integer star3, Integer star4, Integer star5, Integer star6, Integer star7, Integer star8, Integer star9, Integer star10, Integer wait1, Integer wait2, Integer wait3, Integer wait4, Integer wait5, Integer averageWait, Double latitude, Double longitude, String address, Integer manWestern, Integer manJapanese, Integer manSmall, Integer womanWestern, Integer womanJapanese, Integer toiletFloor, String howtoaccess) {
+
+    public Post(String name, Integer openHours, Integer closeHours, String openAndCloseHours, String type, Double star, Integer waitingtime, String urlOne, String urlTwo, String urlThree, Boolean washlet, Boolean wheelchair, Boolean onlyFemale, Boolean unisex, Boolean makeuproom, Boolean milkspace, Boolean omutu, Boolean ostomate, Boolean japanesetoilet, Boolean westerntoilet, Boolean warmSeat, Boolean baggageSpace, Boolean autoOpen, Boolean sensor, Boolean otohime, Boolean fancy, Boolean confortable, Boolean smell, Boolean clothes, Boolean parking, Boolean english, Boolean braille, Boolean available, Integer reviewCount, String addedBy, String editedBy, String averageStar, Integer starValue, Integer waitTime, Integer averageWait, Double latitude, Double longitude, String address, Integer manWestern, Integer manJapanese, Integer manSmall, Integer womanWestern, Integer womanJapanese, Integer toiletFloor, String howtoaccess) {
         this.name = name;
-        this.openHours = openHours;//
-        this.closeHours = closeHours;//
+        this.openHours = openHours;
+        this.closeHours = closeHours;
+        this.openAndCloseHours = openAndCloseHours;
         this.type = type;
         this.star = star;
         this.waitingtime = waitingtime;
@@ -105,23 +95,10 @@ public class Post {
         this.addedBy = addedBy;
         this.editedBy = editedBy;
         this.averageStar = averageStar;
-        this.star1 = star1;
-        this.star2 = star2;
-        this.star3 = star3;
-        this.star4 = star4;
-        this.star5 = star5;
-        this.star6 = star6;
-        this.star7 = star7;
-        this.star8 = star8;
-        this.star9 = star9;
-        this.star10 = star10;
-        this.wait1 = wait1;
-        this.wait2 = wait2;
-        this.wait3 = wait3;
-        this.wait4 = wait4;
-        this.wait5 = wait5;
+        this.starValue = starValue;
+        this.waitTime = waitTime;
         this.averageWait = averageWait;
-        this.latitude = latitude;////
+        this.latitude = latitude;
         this.longitude = longitude;
         this.address = address;
         this.manWestern = manWestern;
@@ -132,7 +109,4 @@ public class Post {
         this.toiletFloor = toiletFloor;
         this.howtoaccess = howtoaccess;
     }
-
-
-
 }
