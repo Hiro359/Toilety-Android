@@ -11,11 +11,15 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -62,10 +66,38 @@ public class DetailViewActivity extends AppCompatActivity {
     Button buttonEdit;
     DrawerLayout drawer;
 
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
+
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private String mActivityTitle;
+
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_view);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mActivityTitle = getTitle().toString();
+        mDrawerList = (ListView)findViewById(R.id.navList);
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        //Add in xml
+
+
+
+        addDrawerItems();
+        setupDrawer();
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //It may cause a crash....
+
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+
 
 
 
@@ -91,6 +123,36 @@ public class DetailViewActivity extends AppCompatActivity {
         );
     }
 
+    private void addDrawerItems() {
+        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux" };
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdapter);
+
+    }
+
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Navigation!");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mActivityTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+    }
+
 
     private void settingReady(){
         toiletNameLabel = (TextView) findViewById(R.id.toiletName);
@@ -107,29 +169,54 @@ public class DetailViewActivity extends AppCompatActivity {
 
         //mDrawerLayout = (DrawerLayout) getView().findViewById(R.id.drawer_layout);
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        buttonMoreDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer();
-               // ((DetailViewActivity)getActivity()).openDrawer();
-               // NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//                Intent intent = new Intent(getApplicationContext(), DetailDrawerActivity.class);
-//                startActivity(intent);
-//                finish();
 
-            }
-        });
+        // Set the adapter for the list view
+
+
+
+
+//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.isVerticalScrollBarEnabled();
+
+//        buttonMoreDetail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openDrawer();
+//               // ((DetailViewActivity)getActivity()).openDrawer();
+//               // NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+////                Intent intent = new Intent(getApplicationContext(), DetailDrawerActivity.class);
+////                startActivity(intent);
+////                finish();
+//
+//            }
+//        });
 
 
 
 
     }
 
-    public void openDrawer(){
-       drawer.openDrawer(drawer);
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
     }
+
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        mDrawerToggle.onConfigurationChanged(newConfig);
+//    }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+
 
 
     private void toileGetInfo(final String queryKey){
