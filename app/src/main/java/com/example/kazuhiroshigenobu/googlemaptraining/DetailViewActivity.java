@@ -2,15 +2,21 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.*;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.AppIndex;
@@ -46,7 +52,15 @@ public class DetailViewActivity extends AppCompatActivity {
     TextView toiletNameLabel;
     TextView typeAndDistance;
     TextView availableAndWaiting;
-
+    RatingBar ratingDisplay;
+    TextView ratingNumber;
+    TextView ratingCount;
+    TextView mapAddress;
+    TextView mapHowToAccess;
+    Button buttonMoreDetail;
+    Button buttonKansou;
+    Button buttonEdit;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +95,40 @@ public class DetailViewActivity extends AppCompatActivity {
     private void settingReady(){
         toiletNameLabel = (TextView) findViewById(R.id.toiletName);
         typeAndDistance = (TextView) findViewById(R.id.typeAndDistance);
-        availableAndWaiting = (TextView) findViewById(R.id.toiletName);
+        availableAndWaiting = (TextView) findViewById(R.id.avaulableAndWaiting);
+        ratingDisplay = (RatingBar) findViewById(R.id.ratingDisplay);
+        ratingNumber = (TextView) findViewById(R.id.ratingNumber);
+        ratingCount = (TextView) findViewById(R.id.ratingCount);
+        mapAddress = (TextView) findViewById(R.id.mapAddress);
+        mapHowToAccess = (TextView) findViewById(R.id.mapHowtoaccess);
+        buttonMoreDetail = (Button) findViewById(R.id.buttonMoreDetail);
+        buttonKansou = (Button) findViewById(R.id.buttonKansou);
+        buttonEdit = (Button) findViewById(R.id.buttonEdit);
+
+        //mDrawerLayout = (DrawerLayout) getView().findViewById(R.id.drawer_layout);
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        buttonMoreDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDrawer();
+               // ((DetailViewActivity)getActivity()).openDrawer();
+               // NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//                Intent intent = new Intent(getApplicationContext(), DetailDrawerActivity.class);
+//                startActivity(intent);
+//                finish();
+
+            }
+        });
 
 
+
+
+    }
+
+    public void openDrawer(){
+       drawer.openDrawer(drawer);
     }
 
 
@@ -281,7 +326,7 @@ public class DetailViewActivity extends AppCompatActivity {
                     toilet.openHours = openh.intValue();
 
                     Long closeh = (Long) dataSnapshot.child("closeHours").getValue();
-                    toilet.openHours = closeh.intValue();
+                    toilet.closeHours = closeh.intValue();
 
                     Log.i("toilet777.openingHours",String.valueOf(toilet.openHours));
 
@@ -296,6 +341,8 @@ public class DetailViewActivity extends AppCompatActivity {
                     //String editedBy = (String) dataSnapshot.child("editedBy").getValue();
                     toilet.editedBy = (String) dataSnapshot.child("editedBy").getValue();
                     Log.i("toilet777.editBt",String.valueOf(toilet.editedBy));
+
+                    toilet.address = (String) dataSnapshot.child("address").getValue();
 
 
 
@@ -323,36 +370,8 @@ public class DetailViewActivity extends AppCompatActivity {
                     // toilet.star1 = star1;
                     //Log.i("toilet777.star1",String.valueOf(toilet.star1));
                     Log.i("What;'s wrog this","22");
-                    Double averaegeStarDouble = Double.parseDouble(toilet.averageStar);
+                    Float averaegeStarFloat = Float.parseFloat(toilet.averageStar);
 
-
-                    Long star1 = (Long) dataSnapshot.child("star1").getValue();
-                    toilet.star1 = star1.intValue();
-
-                    Long star2 = (Long) dataSnapshot.child("star2").getValue();
-                    toilet.star2 = star2.intValue();
-                    Log.i("toilet.star2",String.valueOf(toilet.star2));
-
-                    Long star3 = (Long) dataSnapshot.child("star3").getValue();
-                    toilet.star3 = star3.intValue();
-
-                    Long star4 = (Long) dataSnapshot.child("star4").getValue();
-                    toilet.star4 = star4.intValue();
-
-                    Long star5 = (Long) dataSnapshot.child("star5").getValue();
-                    toilet.star5 = star5.intValue();
-
-                    Long star6 = (Long) dataSnapshot.child("star6").getValue();
-                    toilet.star6 = star6.intValue();
-
-                    Long star7 = (Long) dataSnapshot.child("star7").getValue();
-                    toilet.star7 = star7.intValue();
-
-                    Long star8 = (Long) dataSnapshot.child("star8").getValue();
-                    toilet.star8 = star8.intValue();
-
-                    Long star9 = (Long) dataSnapshot.child("star9").getValue();
-                    toilet.star9 = star9.intValue();
 
 
                     Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
@@ -360,23 +379,12 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     Log.i("toilet777.reviewCount",String.valueOf(toilet.reviewCount));
 
-                    Long wait1 = (Long) dataSnapshot.child("wait1").getValue();
-                    toilet.wait1 = wait1.intValue();
-
-                    Long wait2 = (Long) dataSnapshot.child("wait2").getValue();
-                    toilet.wait2 = wait2.intValue();
-
-                    Long wait3 = (Long) dataSnapshot.child("wait3").getValue();
-                    toilet.wait3 = wait3.intValue();
-
-                    Long wait4 = (Long) dataSnapshot.child("wait4").getValue();
-                    toilet.wait4 = wait4.intValue();
-
-                    Long wait5 = (Long) dataSnapshot.child("wait5").getValue();
-                    toilet.wait5 = wait5.intValue();
-
                     Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
                     toilet.averageWait = averageWait.intValue();
+
+                    toilet.openAndCloseHours = (String) dataSnapshot.child("openAndCloseHours").getValue();
+
+
 
                     ////Added feature elements March 3
 
@@ -390,6 +398,15 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     toiletNameLabel.setText(toilet.name);
                     typeAndDistance.setText(toilet.type + "/" + toilet.distance);
+                    availableAndWaiting.setText("ご利用時間" + toilet.openAndCloseHours+ "/平均待ち" + String.valueOf(toilet.averageWait) + "分");
+                    ratingDisplay.setRating(averaegeStarFloat);
+                    ratingNumber.setText(toilet.averageStar);
+                    ratingCount.setText("(" + toilet.reviewCount + ")");
+                    mapAddress.setText(toilet.address);
+                    mapHowToAccess.setText(toilet.howtoaccess);
+
+
+
 
 
 

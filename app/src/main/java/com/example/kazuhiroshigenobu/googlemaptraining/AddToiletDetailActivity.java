@@ -767,8 +767,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 endData,//close
                 openingString,
                 typeSpinner.getSelectedItem().toString(),
-                ratingValue,
-                Integer.parseInt(String.valueOf(waitingTimeSpinner.getSelectedItem())),//It paeess float //I need to check this is double??,
                 "", //urlOne //image to URL default ""
                 "", // urlTwo
                 "", //urlThree
@@ -799,8 +797,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 uid, //addedBy
                 "edit", //edittedBY
                 avStar,//av star should be string
-                star1Value,
-                waitingValue,
                 waitingValue,
                 AddLocations.latitude,//Lat
                 AddLocations.longitude,//Lon

@@ -68,8 +68,6 @@
     <string name="edit_detail">編集</string>
 
 
-
-
     <string name="between">〜</string>
 
 
@@ -429,4 +427,8 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_detail_drawer">DetailDrawerActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

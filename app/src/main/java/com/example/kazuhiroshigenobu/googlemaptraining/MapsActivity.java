@@ -673,18 +673,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                            // String averageStar = (String) dataSnapshot.child("averageStar").getValue();
                             toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();;
 
-                            Log.i("toilet777.aveStar",String.valueOf(toilet.averageStar));
-
-                            //Its asking for Double, but somtimes it got Integer, which makes an error....
-
-
-
-                            Log.i("toilet777.averageStar",String.valueOf(toilet.averageStar));
-
-
-                            Log.i("I dont getiiiit",String.valueOf(toilet.averageStar));
-
-
 
 
                             //Integer star1 = (Integer) dataSnapshot.child("star1").getValue();
@@ -696,54 +684,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Double averaegeStarDouble = Double.parseDouble(toilet.averageStar);
 
 
-                            Long star1 = (Long) dataSnapshot.child("star1").getValue();
-                            toilet.star1 = star1.intValue();
-
-                            Long star2 = (Long) dataSnapshot.child("star2").getValue();
-                            toilet.star2 = star2.intValue();
-                            Log.i("toilet.star2",String.valueOf(toilet.star2));
-
-                            Long star3 = (Long) dataSnapshot.child("star3").getValue();
-                            toilet.star3 = star3.intValue();
-
-                            Long star4 = (Long) dataSnapshot.child("star4").getValue();
-                            toilet.star4 = star4.intValue();
-
-                            Long star5 = (Long) dataSnapshot.child("star5").getValue();
-                            toilet.star5 = star5.intValue();
-
-                            Long star6 = (Long) dataSnapshot.child("star6").getValue();
-                            toilet.star6 = star6.intValue();
-
-                            Long star7 = (Long) dataSnapshot.child("star7").getValue();
-                            toilet.star7 = star7.intValue();
-
-                            Long star8 = (Long) dataSnapshot.child("star8").getValue();
-                            toilet.star8 = star8.intValue();
-
-                            Long star9 = (Long) dataSnapshot.child("star9").getValue();
-                            toilet.star9 = star9.intValue();
-
 
                             Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
                             toilet.reviewCount = reviewCount.intValue();
 
                             Log.i("toilet777.reviewCount",String.valueOf(toilet.reviewCount));
 
-                            Long wait1 = (Long) dataSnapshot.child("wait1").getValue();
-                            toilet.wait1 = wait1.intValue();
-
-                            Long wait2 = (Long) dataSnapshot.child("wait2").getValue();
-                            toilet.wait2 = wait2.intValue();
-
-                            Long wait3 = (Long) dataSnapshot.child("wait3").getValue();
-                            toilet.wait3 = wait3.intValue();
-
-                            Long wait4 = (Long) dataSnapshot.child("wait4").getValue();
-                            toilet.wait4 = wait4.intValue();
-
-                            Long wait5 = (Long) dataSnapshot.child("wait5").getValue();
-                            toilet.wait5 = wait5.intValue();
 
                             Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
                             toilet.averageWait = averageWait.intValue();

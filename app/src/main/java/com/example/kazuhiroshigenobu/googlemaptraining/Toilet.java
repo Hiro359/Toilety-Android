@@ -12,8 +12,6 @@ public class Toilet {
 
     String key;
     String type;
-    Double star;
-    //var image = UIImage() .........
     String name;
     Double latitude;
     Double longitude;
@@ -45,6 +43,7 @@ public class Toilet {
     Boolean braille = false;
     Integer openHours;
     Integer closeHours;
+    String openAndCloseHours;
     String howtoaccess;
     Boolean available = true;
     String tid;
@@ -52,24 +51,10 @@ public class Toilet {
     String editedBy;
     Integer reviewCount;
     Location loc;
-    Integer star1;
-    Integer star2;
-    Integer star3;
-    Integer star4;
-    Integer star5;
-    Integer star6;
-    Integer star7;
-    Integer star8;
-    Integer star9;
-    Integer star10;
     String averageStar;
-    Integer waitingtime;
-    Integer wait1;
-    Integer wait2;
-    Integer wait3;
-    Integer wait4;
-    Integer wait5;
     Integer averageWait;
+    String address;
+
 
     //Constructor
 
