@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -64,7 +65,7 @@ public class DetailViewActivity extends AppCompatActivity {
     Button buttonMoreDetail;
     Button buttonKansou;
     Button buttonEdit;
-    DrawerLayout drawer;
+    //DrawerLayout drawer;
 
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
@@ -124,7 +125,7 @@ public class DetailViewActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux" };
+        String[] osArray = {"和式トイレ", "洋式トイレ", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -179,18 +180,15 @@ public class DetailViewActivity extends AppCompatActivity {
 //        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 //        drawer.isVerticalScrollBarEnabled();
 
-//        buttonMoreDetail.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                openDrawer();
-//               // ((DetailViewActivity)getActivity()).openDrawer();
-//               // NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-////                Intent intent = new Intent(getApplicationContext(), DetailDrawerActivity.class);
-////                startActivity(intent);
-////                finish();
-//
-//            }
-//        });
+        buttonMoreDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(GravityCompat.END);
+              
+
+
+            }
+        });
 
 
 
