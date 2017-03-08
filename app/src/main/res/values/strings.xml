@@ -66,12 +66,15 @@
     <string name="wrtieKansou">感想を記入してください</string>
     <string name="look_detail">詳細の情報</string>
     <string name="edit_detail">編集</string>
+    <string name="availableSwitch">利用可能</string>
 
 
     <string name="between">〜</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="post_kansou">感想を投稿する</string>
+
 
 
 

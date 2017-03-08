@@ -428,8 +428,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //LatLng centerLocation = new LatLng(centerLatitude,centerLongitude);
 
-        Log.i("centerLatitude", String.valueOf(centerLatitude));
-        Log.i("centerLongitude", String.valueOf(centerLongitude));
+//        Log.i("centerLatitude", String.valueOf(centerLatitude));
+//        Log.i("centerLongitude", String.valueOf(centerLongitude));
 
 //        Double centerLatitude =
 //        Double centerLongitude = location.getLongitude();
@@ -465,28 +465,29 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-                Log.i("Geokey",key);
-                Log.i("Geolocation",String.valueOf(location));
+
+
+//                Log.i("Geokey",key);
+//                Log.i("Geolocation",String.valueOf(location));
                 toiletRef.child(key).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.i("OnDataChangeCalled","777");
+//                        Log.i("OnDataChangeCalled","777");
                        // for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
                         {
 
-                            Log.i("OnDataChangeCalled","777888");
+                            Log.i("toiletSearch1212","Called");
+
+//
                             Boolean removedToilet = false;
 
-                            Log.i("OnDataChangeCalled","777888999");
                             Toilet toilet =  new Toilet();
                            // List<String> toiletData = new ArrayList<>();
 
 
-                            Log.i("OnDataChangeCalled","777888999000");
-                            Filter filter =  new Filter();
-                            Log.i("OnDataChangeCalled","777888999000111");
 
-                            Log.i("toilet777.key","777888999000111");
+                            Filter filter =  new Filter();
+
 
                             LatLng centerLocation = new LatLng(centerLatitude, centerLongitude);
                             LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
@@ -510,19 +511,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             }
 
-
-                            //Log.i("toilet.distance", String.valueOf(toilet.distance));
-
-
-
-
-
                             toilet.key = key;
                             //Not sure about how to call key....
 
-                            Log.i("toilet777888.key",toilet.key);
 //                            String urlOne = (String) dataSnapshot.child("urlOne").getValue();
 //                            toilet.urlOne = urlOne;
+                            toilet.name = (String) dataSnapshot.child("name").getValue();
                             toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
 
                             //String urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
@@ -534,12 +528,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                            // String type = (String) dataSnapshot.child("type").getValue();
                             toilet.type = (String) dataSnapshot.child("type").getValue();;
 
-                            Log.i("toilet777.type",toilet.type);
-//                            Double star  = (Double) dataSnapshot.child("star").getValue();
-//                            toilet.star = star;
-                            //commented
-
-                            Log.i("toilet777.star",toilet.type);
 
 
                            // Boolean washlet= (Boolean) dataSnapshot.child("washlet").getValue();
@@ -556,7 +544,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             //Boolean unisex = (Boolean) dataSnapshot.child("unisex").getValue();
                             toilet.unisex = (Boolean) dataSnapshot.child("unisex").getValue();
-                            Log.i("toilet777.unisex",String.valueOf(toilet.unisex));
 
 
                             //Boolean makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
@@ -575,7 +562,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
 
 
-                            Log.i("OnDataChangeCalled","777888999");
                             //Boolean japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
                             toilet.japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
 
@@ -585,7 +571,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                           //  Boolean warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
                             toilet.warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
-                            Log.i("toilet777.warmSeat",String.valueOf(toilet.warmSeat));
+
 
 
 
@@ -595,20 +581,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                            // Boolean available = (Boolean) dataSnapshot.child("available").getValue();
                             toilet.available = (Boolean) dataSnapshot.child("available").getValue();
-                            Log.i("toilet777.ave",String.valueOf(toilet.available));
 
                             //add boolean
                             toilet.autoOpen = (Boolean) dataSnapshot.child("autoOpen").getValue();
-                            Log.i("toilet777.ave",String.valueOf(toilet.autoOpen));
+
 
                             toilet.sensor = (Boolean) dataSnapshot.child("sensor").getValue();
-                            Log.i("toilet777.sensor",String.valueOf(toilet.sensor));
+
 
                             toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
-                            Log.i("toilet777.ave",String.valueOf(toilet.otohime));
+
 
                             toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
-                            Log.i("toilet777.ave",String.valueOf(toilet.fancy));
 
                             toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
                            // Log.i("toilet777.ave",String.valueOf(toilet.available));
@@ -634,29 +618,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                            // String howtoaceess = (String) dataSnapshot.child("howtoaccess").getValue();
                             toilet.howtoaccess = (String) dataSnapshot.child("howtoaccess").getValue();
-                            Log.i("toilet777.waitingtime",toilet.howtoaccess);
-
-
-//                            Integer waitingtime = (Integer) dataSnapshot.child("waitingtime").getValue();
-//                            toilet.waitingtime = waitingtime;
-//                            Log.i("toilet777.waitingtime",String.valueOf(toilet.waitingtime));
-//                            //I dont think this will be needed anymore......
-
-                            Log.i("toilet777.heyheyyyy",toilet.howtoaccess);
-                            //String openinghours = (String) dataSnapshot.child("openinghours").getValue();
-                           // Long toilet.openHours= (Long) dataSnapshot.child("star1").getValue();
-                            //toilet.openHours = (Integer) dataSnapshot.child("openHours").getValue();
 
                             Long openh = (Long) dataSnapshot.child("openHours").getValue();
                             toilet.openHours = openh.intValue();
 
                             Long closeh = (Long) dataSnapshot.child("closeHours").getValue();
                             toilet.openHours = closeh.intValue();
-
-                            Log.i("toilet777.openingHours",String.valueOf(toilet.openHours));
-
-//                            toilet.closeHours = (Integer) dataSnapshot.child("closeHours").getValue();
-                            Log.i("toilet777.closeHours",String.valueOf(toilet.closeHours));
 
 
 
@@ -665,7 +632,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             //String editedBy = (String) dataSnapshot.child("editedBy").getValue();
                             toilet.editedBy = (String) dataSnapshot.child("editedBy").getValue();
-                            Log.i("toilet777.editBt",String.valueOf(toilet.editedBy));
 
 
 
@@ -674,13 +640,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();;
 
 
-
-                            //Integer star1 = (Integer) dataSnapshot.child("star1").getValue();
-                            Log.i("What;'s wrog this","");
-
-                           // toilet.star1 = star1;
-                            //Log.i("toilet777.star1",String.valueOf(toilet.star1));
-                            Log.i("What;'s wrog this","22");
                             Double averaegeStarDouble = Double.parseDouble(toilet.averageStar);
 
 
@@ -688,21 +647,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
                             toilet.reviewCount = reviewCount.intValue();
 
-                            Log.i("toilet777.reviewCount",String.valueOf(toilet.reviewCount));
-
-
                             Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
                             toilet.averageWait = averageWait.intValue();
 
                             ////Added feature elements March 3
-
-
-
-
-
-
-                            Log.i("toilet777.aveWait",String.valueOf(toilet.averageWait));
-
 
                             if (averaegeStarDouble < Filter.starFilter) {
 
@@ -822,33 +770,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (removedToilet == false){
 
 
-                              // toiletData.add(new Toilet(key));
-                                Log.i("toiletData0",String.valueOf(toiletData));
-                                //Toilet obj = new Toilet(toilet.key);
-                               // Toilet objt = new Toilet(key);
-
-
 
                                // toiletData.add(String.valueOf(toilet.key));
                                 toiletData.add(toilet);
 
 
-                                //Data objt = new Data(name, address, contact);
-                                Log.i("toiletData1",String.valueOf(toiletData));
-//
-                                Log.i("Trying to set a pin!!!", "");
-
-//                                LatLng centerLocation = new LatLng(centerLatitude,centerLongitude);
-//                                LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
 
                                 //LatLng sydney = new LatLng(-33.852, 151.211);
                                 mMap.addMarker(new MarkerOptions().position(toiletLocation)
                                         .title(key));
-                                Log.i("set set set a pin!!!", "");
-
                                 //System.out.println(toilets);
 
                                 createRecyclerView(toiletData);
+                                Log.i("ToiletSearch1212", "Ended");
                         }
 
                         }

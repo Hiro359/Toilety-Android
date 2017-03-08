@@ -104,7 +104,7 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
             float starFloatValue = Float.parseFloat(current.averageStar);
 
 
-            holder.name.setText(current.key);
+            holder.name.setText(current.name);
             holder.starRate.setText(current.averageStar);
             holder.waitingTime.setText("待ち時間"+ String.valueOf(current.averageWait) +"分");
             holder.ratingBar.setRating(starFloatValue);

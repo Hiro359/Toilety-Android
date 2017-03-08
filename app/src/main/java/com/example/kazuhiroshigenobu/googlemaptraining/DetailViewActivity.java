@@ -33,11 +33,14 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.*;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.CalculationByDistance;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.round;
@@ -52,6 +55,7 @@ public class DetailViewActivity extends AppCompatActivity {
     android.location.LocationListener locationListener;
 
     private DatabaseReference toiletRef;
+    private DatabaseReference reviewsRef;
     private GoogleApiClient client;
 
     TextView toiletNameLabel;
@@ -76,6 +80,9 @@ public class DetailViewActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
+    public ArrayList<String> booleanArray = new ArrayList<String>();
+    //public String[] booleanArray = {"設備"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +95,6 @@ public class DetailViewActivity extends AppCompatActivity {
         //Add in xml
 
 
-
         addDrawerItems();
         setupDrawer();
 
@@ -98,9 +104,6 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
         getSupportActionBar().setHomeButtonEnabled(true);
-
-
-
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.detailViewMap);
@@ -125,8 +128,7 @@ public class DetailViewActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] osArray = {"和式トイレ", "洋式トイレ", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux","Android", "iOS", "Windows", "OS X", "Linux" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, booleanArray);
         mDrawerList.setAdapter(mAdapter);
 
     }
@@ -168,18 +170,6 @@ public class DetailViewActivity extends AppCompatActivity {
         buttonKansou = (Button) findViewById(R.id.buttonKansou);
         buttonEdit = (Button) findViewById(R.id.buttonEdit);
 
-        //mDrawerLayout = (DrawerLayout) getView().findViewById(R.id.drawer_layout);
-
-
-
-        // Set the adapter for the list view
-
-
-
-
-//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.isVerticalScrollBarEnabled();
-
         buttonMoreDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,6 +177,16 @@ public class DetailViewActivity extends AppCompatActivity {
               
 
 
+            }
+        });
+
+        buttonKansou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), KansouActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -469,14 +469,109 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     toilet.openAndCloseHours = (String) dataSnapshot.child("openAndCloseHours").getValue();
 
-
-
                     ////Added feature elements March 3
 
+                    booleanArray.add("設備");
+
+                    Log.i("japaneseValue1919", String.valueOf(toilet.japanesetoilet));
+                    if (toilet.japanesetoilet){
+                        booleanArray.add("和式トイレ");
+                        Log.i("japaneseValue191999", String.valueOf(toilet.japanesetoilet));
 
 
+                    }
+
+                    if (toilet.westerntoilet){
+                        booleanArray.add("洋式トイレ");
+                    }
+
+                    if (toilet.onlyFemale){
+                        booleanArray.add("女性専用トイレ");
+                    }
+
+                    if (toilet.unisex){
+                        booleanArray.add("男女兼用トイレ");
+                    }
+
+                    if (toilet.washlet){
+                        booleanArray.add("ウォシュレット");
+                    }
+
+                    if (toilet.warmSeat){
+                        booleanArray.add("暖房便座");
+                    }
+
+                    if (toilet.omutu){
+                        booleanArray.add("おむつ交換台");
+                    }
+
+                    if (toilet.milkspace){
+                        booleanArray.add("授乳スペース");
+                    }
 
 
+                    if (toilet.makeuproom){
+                        booleanArray.add("メイクルーム");
+                    }
+
+                    if (toilet.baggageSpace){
+                        booleanArray.add("荷物置き");
+                    }
+
+
+                    if (toilet.wheelchair){
+                        booleanArray.add("車イス対応");
+                    }
+
+
+                    if (toilet.ostomate){
+                        booleanArray.add("オストメイト対応");
+                    }
+
+
+                    if (toilet.fancy){
+                        booleanArray.add("おしゃれ");
+                    }
+
+
+                    if (toilet.smell){
+                        booleanArray.add("良い香り");
+                    }
+
+                    if (toilet.conforatableWide){
+                        booleanArray.add("快適な広さ");
+                    }
+
+
+                    if (toilet.sensor){
+                        booleanArray.add("センサー式お手洗い");
+                    }
+
+
+                    if (toilet.otohime){
+                        booleanArray.add("音姫");
+                    }
+
+
+                    if (toilet.autoOpen){
+                        booleanArray.add("自動開閉便座");
+                    }
+
+                    if (toilet.clothes){
+                        booleanArray.add("洋服かけ");
+                    }
+
+                    if (toilet.parking){
+                        booleanArray.add("駐車場");
+                    }
+
+                    if (toilet.english){
+                        booleanArray.add("英語表記");
+                    }
+
+                    if (toilet.braille){
+                        booleanArray.add("点字案内");
+                    }
 
                     Log.i("toilet777.aveWait",String.valueOf(toilet.averageWait));
 
@@ -506,6 +601,13 @@ public class DetailViewActivity extends AppCompatActivity {
                 }
             });
 
+    }
+
+    private void reviewQuery(String queryKey) {
+
+        reviewsRef = FirebaseDatabase.getInstance().getReference().child("reviews");
+
+        //reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener)
     }
 
     public void onMapReadyCalled(GoogleMap googleMap) {
