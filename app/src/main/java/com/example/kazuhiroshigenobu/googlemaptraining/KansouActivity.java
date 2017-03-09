@@ -3,6 +3,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+
 public class KansouActivity extends AppCompatActivity {
 
 
@@ -23,6 +26,14 @@ public class KansouActivity extends AppCompatActivity {
     EditText kansouText;
     Button buttonKansouAdd;
     ArrayAdapter<CharSequence> adapter1;
+
+    private DatabaseReference toiletRef;
+    private DatabaseReference reviewsRef;
+    long originalReviewCount;
+    long originalAverageWait;
+    String originalAverageStar;
+
+    //private Toilet toilet = new Toilet();
 
 
 
@@ -40,7 +51,19 @@ public class KansouActivity extends AppCompatActivity {
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         waitingSpinner.setAdapter(adapter1);
 
+
+
+
         settingReady();
+
+        originalReviewCount = getIntent().getLongExtra("reviewCount",0);
+        originalAverageWait = getIntent().getLongExtra("avereageWait",0);
+        originalAverageStar = getIntent().getStringExtra("averageStar");
+
+        kansouFirebaseUpload();
+
+
+
 
 
 
@@ -91,6 +114,75 @@ public class KansouActivity extends AppCompatActivity {
     }
 
     private void kansouFirebaseUpload(){
+
+
+
+        Log.i("originalAverageStar",originalAverageStar);
+        Log.i("originalAverageWait",String.valueOf(originalAverageWait));
+        Log.i("originalReviewCount",String.valueOf(originalReviewCount));
+
+
+        double originalAvStarDouble = Double.parseDouble(originalAverageStar);
+        double ratingValue = kansouRaitng.getRating();
+        in
+        double newAvStarDouble = 3.0;
+
+        long newReviewCount = originalReviewCount + 1;
+
+        //star
+        if (newReviewCount > 9){
+
+            double x = ratingValue - originalAvStarDouble;
+            double changingValue = x / 10;
+            newAvStarDouble = originalAvStarDouble + changingValue;
+
+        } else{
+            double y = ratingValue - originalAvStarDouble;
+            double changeingValue = y / newReviewCount;
+            newAvStarDouble = originalAvStarDouble + changeingValue;
+
+        }
+
+
+        //wait
+
+        if (newReviewCount > 4){
+
+            int x = ratingValue - originalAvStarDouble;
+            double changingValue = x / 10;
+            newAvStarDouble = originalAvStarDouble + changingValue;
+
+        } else{
+            double y = ratingValue - originalAvStarDouble;
+            double changeingValue = y / newReviewCount;
+            newAvStarDouble = originalAvStarDouble + changeingValue;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        //double newAvStarDouble = ratingValue +
+//        String newAvStar = String.valueOf(ratingValue);
+
+
+
+
+
+
+
+
+
+
+
 
 
 

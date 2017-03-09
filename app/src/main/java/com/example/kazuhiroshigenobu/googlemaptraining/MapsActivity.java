@@ -783,6 +783,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                                 createRecyclerView(toiletData);
                                 Log.i("ToiletSearch1212", "Ended");
+
                         }
 
                         }

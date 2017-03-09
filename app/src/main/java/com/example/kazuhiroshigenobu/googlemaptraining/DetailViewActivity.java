@@ -79,6 +79,7 @@ public class DetailViewActivity extends AppCompatActivity {
     private String mActivityTitle;
 
     private Toolbar toolbar;
+    Toilet toilet =  new Toilet();
 
     public ArrayList<String> booleanArray = new ArrayList<String>();
     //public String[] booleanArray = {"設備"};
@@ -92,6 +93,8 @@ public class DetailViewActivity extends AppCompatActivity {
         mDrawerList = (ListView)findViewById(R.id.navList);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
+
+
         //Add in xml
 
 
@@ -108,18 +111,19 @@ public class DetailViewActivity extends AppCompatActivity {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.detailViewMap);
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        String key = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        Log.i("Current.key",key );
+        //get name info
+        Log.i("THis it it", key);
+        toileGetInfo(key);
+
         settingReady();
         mapFragment.getMapAsync(new OnMapReadyCallback(){
             @Override public void onMapReady(GoogleMap googleMap) {
                 if (googleMap != null) {
                     // your additional codes goes here
                     onMapReadyCalled(googleMap);
-
-                    String key = getIntent().getStringExtra("EXTRA_SESSION_ID");
-                    Log.i("Current.key",key );
-                    //get name info
-                    Log.i("THis it it", key);
-                    toileGetInfo(key);
 
 
                 }
@@ -185,6 +189,9 @@ public class DetailViewActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), KansouActivity.class);
+                intent.putExtra("reviewCount",toilet.reviewCount);
+                intent.putExtra("averageWait", toilet.averageWait);
+                intent.putExtra("averageStar", toilet.averageStar);
                 startActivity(intent);
                 finish();
             }
@@ -200,6 +207,7 @@ public class DetailViewActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
+
     }
 
 //    @Override
@@ -232,7 +240,7 @@ public class DetailViewActivity extends AppCompatActivity {
                     Boolean removedToilet = false;
 
                     Log.i("OnDataChangeCalled","777888999");
-                    Toilet toilet =  new Toilet();
+//                    Toilet toilet =  new Toilet();
                     // List<String> toiletData = new ArrayList<>();
 
 

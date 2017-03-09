@@ -11,6 +11,7 @@ public class Toilet {
 
 
     String key;
+    //Added static March 9
     String type;
     String name;
     Double latitude;
