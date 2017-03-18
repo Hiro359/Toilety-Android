@@ -86,9 +86,11 @@
         </activity>
         <activity android:name=".FilterActivity">
         </activity>
-        <activity android:name=".FilterSearchActivity">
+        <activity android:name=".FilterSearchActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".AccountActivity">
+        <activity android:name=".AccountActivity"
+                  android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AddToiletActivity"
@@ -101,6 +103,7 @@
         <activity
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".DetailViewActivity">
@@ -108,6 +111,7 @@
         <activity
             android:name=".DetailDrawerActivity"
             android:label="@string/title_activity_detail_drawer"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".KansouActivity">

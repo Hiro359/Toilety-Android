@@ -10,12 +10,18 @@
     <string name="action_register">登録</string>
     <string name="text_distance">距離</string>
     <string name="select_distance">距離を選択</string>
+    <string name="orderToilet">並び順</string>
+    <string name="category">分類</string>
+
+
 
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+
+    <!--Strings related to boolean values-->
     <string name="name_japaneseToilet">和式トイレ</string>
     <string name="name_westernToilet">洋式トイレ</string>
     <string name="name_onlyFemale">女性専用トイレ</string>
@@ -37,6 +43,24 @@
     <string name="name_available">現在利用可能</string>
     <string name="name_parking">駐車場</string>
     <string name="name_englishWritten">英語表記</string>
+    <string name="name_noVirusBenki">抗菌便座</string>
+    <string name="name_paperForBenki">便座用シート</string>
+    <string name="name_cleanerForBenki">便座クリーナー</string>
+    <string name="name_nonTouchWash">自動洗浄</string>
+    <string name="name_soap">ハンドソープ</string>
+    <string name="name_nonTouchSoap">自動ハンドソープ</string>
+    <string name="name_paperTowel">ペーパータオル</string>
+    <string name="name_handDrier">ハンドドライヤー</string>
+    <string name="name_handrail">手すり</string>
+    <string name="name_callHelp">呼び出しボタン</string>
+    <string name="name_voiceGuide">音声案内</string>
+    <string name="name_airCondition">冷暖房</string>
+    <string name="name_wifi">Wi-Fi</string>
+    <string name="name_sensorHandWash">センサー式お手洗い</string>
+
+
+
+
     <string name="benkiWestern">洋式便器</string>
     <string name="benkiJapanese">和式便器</string>
     <string name="benkiPee">小便器</string>
@@ -58,15 +82,19 @@
     <string name="pick_time">利用可能時間</string>
     <string name="default_time">0 : 00</string>
     <string name="timeDot"> : </string>
+    <string name="search"> 検索 </string>
+
+
 
     <string name="braille">点字案内</string>
     <string name="access">アクセス方法</string>
     <string name="accessGo">具体的なアクセス方法</string>
     <string name="name_smell">良い香り</string>
-    <string name="wrtieKansou">感想を記入してください</string>
+    <string name="writeKansou">感想を記入してください</string>
     <string name="look_detail">詳細の情報</string>
     <string name="edit_detail">編集</string>
     <string name="availableSwitch">利用可能</string>
+
 
 
     <string name="between">〜</string>
@@ -74,6 +102,14 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="post_kansou">感想を投稿する</string>
+
+    <!--Search category booleans-->
+    <string name="searchBenkiFucation">機能</string>
+    <string name="searchSettings">洗面台設備</string>
+    <string name="searchForLadys">女性に優しい設備</string>
+    <string name="searchBarrierFree">バリアフリー</string>
+    <string name="searchOthers">その他</string>
+
 
 
 

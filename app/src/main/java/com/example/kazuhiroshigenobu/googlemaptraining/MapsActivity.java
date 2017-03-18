@@ -586,7 +586,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.autoOpen = (Boolean) dataSnapshot.child("autoOpen").getValue();
 
 
-                            toilet.sensor = (Boolean) dataSnapshot.child("sensor").getValue();
+                            toilet.sensorHandWash = (Boolean) dataSnapshot.child("sensor").getValue();
 
 
                             toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
@@ -726,7 +726,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 removedToilet = true;
                             }
 
-                            if (Filter.sensor  && !toilet.sensor) {
+                            if (Filter.sensorHandWashFilter  && !toilet.sensorHandWash) {
                                 removedToilet = true;
                             }
 

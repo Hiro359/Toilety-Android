@@ -14,12 +14,13 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
 
         <include
             android:id="@+id/app_bar2"
-            layout="@layout/app_bar2"></include>
+            layout="@layout/app_bar2"/>
+
 
 
          <LinearLayout
@@ -32,7 +33,7 @@
                <TextView
                    android:layout_width="match_parent"
                    android:layout_height="20dp"
-                   android:text="距離"
+                   android:text="@string/text_distance"
                    android:textColor="@color/colorSubText"
                    android:layout_marginBottom="3dp"
 
@@ -43,7 +44,6 @@
                    android:textAlignment="center"
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
-                   android:layout_alignParentRight="true"
                    android:background="@color/colorLabel"
 
 
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="並び順"
+                android:text="@string/orderToilet"
                 android:textColor="@color/colorSubText"
                 android:layout_marginBottom="3dp"
 
@@ -90,7 +90,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="分類"
+                android:text="@string/category"
                 android:textColor="@color/colorSubText"
                 android:layout_marginBottom="3dp"
 
@@ -101,8 +101,6 @@
                 android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_toRightOf="@+id/distanceTextView"
                 android:background="@color/colorLabel"
 
 
@@ -121,7 +119,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="評価"
+                android:text="@string/evaluation"
                 android:textColor="@color/colorSubText"
                 android:layout_marginBottom="3dp"
 
@@ -132,8 +130,6 @@
                 android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_toRightOf="@+id/distanceTextView"
                 android:background="@color/colorLabel"
 
 
@@ -145,14 +141,14 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="1450dp"
+            android:layout_height="2400dp"
             android:layout_margin="10dp"
             >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="設備"
+                android:text="@string/setubi"
                 android:textColor="@color/colorSubText"
 
                 android:layout_marginBottom="3dp"
@@ -162,39 +158,44 @@
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="現在利用可能"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_available"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/availableSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
 
             <Switch
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="和式トイレ"
-                    android:textSize="24dp"
+                    android:text="@string/name_japaneseToilet"
+                    android:textSize="24sp"
                     android:textColor="@color/colorSubText"
                     android:background="@color/colorLabel"
-                    android:layout_toRightOf="@+id/japaneseToiletLabel"
                     android:layout_marginBottom="2dp"
                     android:id="@+id/japaneseSwich"
                     android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
                     />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="洋式トイレ"
-                android:textSize="24dp"
+                android:text="@string/name_westernToilet"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
                 android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/westernSwitch"
                 />
@@ -202,13 +203,14 @@
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="女性専用トイレ"
-                android:textSize="24dp"
+                android:text="@string/name_onlyFemale"
+                android:textSize="24sp"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
                 android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/onlyFemaleSwitch"
                 />
@@ -216,27 +218,37 @@
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="男女兼用トイレ"
-                android:textSize="24dp"
+                android:text="@string/name_unisex"
+                android:textSize="24sp"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
                 android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/unisexSwitch"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/searchBenkiFucation"
+                android:textColor="@color/colorSubText"
+                android:layout_margin="3dp"
+
                 />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="ウォシュレット"
-                android:textSize="24dp"
+                android:text="@string/name_washlet"
+                android:textSize="24sp"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
                 android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/washletSwitch"
                 />
@@ -244,238 +256,502 @@
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="暖房便座"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_warmSeat"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/warmSeatSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="おむつ交換台"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_autoOpen"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/autoOpenSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_noVirusBenki"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/noVirusBenki"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_paperForBenki"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/paperForBenki"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_cleanerForBenki"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/cleanerForBenki"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_nonTouchWash"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/nonTouchWash"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/searchSettings"
+                android:textColor="@color/colorSubText"
+                android:layout_margin="3dp"
+
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_sensorHandWash"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/senserHandSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_soap"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/handSoapSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_nonTouchSoap"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/nonTouchSoapSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_paperTowel"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/paperTowelSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_handDrier"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/handDrierSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/searchForLadys"
+                android:textColor="@color/colorSubText"
+                android:layout_margin="3dp"
+
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_otohime"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/otohimeSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+
+
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_omutu"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/omutuSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
+
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="授乳スペース"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_milk"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/milkSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+
                 />
+
+
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="メイクルーム"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_makeroom"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/makeroomSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="荷物置き"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_clothes"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/clothesSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_baggageSpace"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/baggageSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/searchBarrierFree"
+                android:textColor="@color/colorSubText"
+                android:layout_margin="3dp"
+
                 />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="車イス対応"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_wheelChair"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
-                android:layout_toRightOf="@+id/japaneseToiletLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/wheelChairSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="オストメイト対応"
-                android:textSize="24dp"
+                android:text="@string/name_handrail"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/handrailSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
                 android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_callHelp"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/callHelpSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_ostomate"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/ostomateSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
-
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="おしゃれ"
-                android:textSize="24dp"
+                android:text="@string/name_englishWritten"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/englishWrittenSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
                 android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/braille"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/brailleSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_voiceGuide"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/voiceGuideSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/searchOthers"
+                android:textColor="@color/colorSubText"
+                android:layout_margin="3dp"
+
+                />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_fancy"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/fancySwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="@string/name_smell"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/smellSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="快適な広さ"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_confortableWide"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/comfontableWideSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
+
+
+
+
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="センサー式お手洗い"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/colorSubText"
-                android:background="@color/colorLabel"
-                android:layout_marginBottom="2dp"
-                android:id="@+id/senserHandSwitch"
-                android:paddingLeft="20dp"
-                />
-
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="音姫"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/colorSubText"
-                android:background="@color/colorLabel"
-                android:layout_marginBottom="2dp"
-                android:id="@+id/otohimeSwitch"
-                android:paddingLeft="20dp"
-                />
-
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="自動開閉便座"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/colorSubText"
-                android:background="@color/colorLabel"
-                android:layout_marginBottom="2dp"
-                android:id="@+id/autoOpenSwitch"
-                android:paddingLeft="20dp"
-                />
-
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="洋服かけ"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/colorSubText"
-                android:background="@color/colorLabel"
-                android:layout_marginBottom="2dp"
-                android:id="@+id/clothesSwitch"
-                android:paddingLeft="20dp"
-                />
-
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="駐車場"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_parking"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
                 android:id="@+id/parkingSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="英語表記"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_airCondition"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
-                android:id="@+id/englishWrittenSwitch"
+                android:id="@+id/airConditionSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
+
 
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="@string/braille"
-                android:textSize="24dp"
-                android:paddingRight="10dp"
+                android:text="@string/name_wifi"
+                android:textSize="24sp"
                 android:textColor="@color/colorSubText"
                 android:background="@color/colorLabel"
                 android:layout_marginBottom="2dp"
-                android:id="@+id/brailleSwitch"
+                android:id="@+id/wifiSwitch"
                 android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 />
-
-
-
-
-
-
-
 
 
 
@@ -499,19 +775,19 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="検索"
+                android:text="@string/search"
                 android:textColor="@color/colorSubText"
                 android:layout_marginBottom="3dp"
 
                 />
             <Button
                 android:id="@+id/startSearchButton"
-                android:text="検索"
+                android:text="@string/search"
                 android:textColor="@color/colorText"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
+
                 android:background="@color/colorLabel"
 
 

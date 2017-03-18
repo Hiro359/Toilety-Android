@@ -560,226 +560,7 @@
     </LinearLayout>
 
 
-
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-
-            >
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="@string/menToilet"
-                android:textColor="@color/colorSubText"
-                android:layout_marginBottom="3dp"
-
-                />
-
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/colorLabel">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/westernCountLabel"
-                    >
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/benkiWestern"
-                        android:textColor="@color/colorText"
-                        android:layout_gravity="center"
-                        />
-
-                    <Spinner
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:id="@+id/westernCountSpinner"
-                    android:background="@drawable/border"
-                    >
-                    </Spinner>
-
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/japaneseCountLabel"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="30dp"
-                    >
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/benkiJapanese"
-                        android:textColor="@color/colorText"
-                        android:layout_gravity="center"/>
-
-
-                    <Spinner
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:id="@+id/japaneseCountSpinner"
-                    android:layout_gravity="center"
-                    android:background="@drawable/border"
-
-
-                    >
-                    </Spinner>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/peeCountLabel"
-                    android:layout_toEndOf="@id/japaneseCountLabel"
-                    android:layout_toRightOf="@id/japaneseCountLabel"
-                    >
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/benkiPee"
-                        android:textColor="@color/colorText"
-                        android:layout_gravity="center"
-                        />
-
-
-                    <Spinner
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:id="@+id/peeCountSpinner"
-                    android:background="@drawable/border"
-                    android:layout_marginRight="3dp"
-                    android:layout_gravity="left"
-
-
-
-                    >
-                    </Spinner>
-
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:text="@string/womenToilet"
-                    android:textColor="@color/colorSubText"
-                    android:layout_marginBottom="3dp"
-
-                    />
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@color/colorLabel">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:id="@+id/womenWesternCountLabel"
-                       >
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/benkiWestern"
-                            android:textColor="@color/colorText"
-                            android:layout_gravity="center"
-                            />
-
-                        <Spinner
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
-                            android:id="@+id/womenWesternCountSpinner"
-                            android:background="@drawable/border"
-                            >
-                        </Spinner>
-
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:id="@+id/wamenJapaneseCountLabel"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginLeft="30dp"
-
-                        >
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/benkiJapanese"
-                            android:textColor="@color/colorText"
-                            android:layout_gravity="center"
-                            />
-
-
-                        <Spinner
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:id="@+id/womenJapaneseCountSpinner"
-                            android:background="@drawable/border"
-                            >
-                        </Spinner>
-                    </LinearLayout>
-
-
-
-
-                </RelativeLayout>
-
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -930,7 +711,9 @@
                     android:layout_height="140sp"
                     android:background="@drawable/border"
                     android:id="@+id/addFeedback"
-                    android:hint="感想を記入してください">
+                    >
+
+
 
 
 
@@ -942,6 +725,7 @@
                     android:textColor="@color/colorText"
                     android:inputType="text"
                     android:imeOptions="actionDone"
+                    android:hint="@string/writeKansou"
                     />
 
 

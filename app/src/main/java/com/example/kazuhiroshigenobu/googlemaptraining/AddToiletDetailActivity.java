@@ -98,11 +98,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     Switch toiletBraille;
 
 
-    Spinner japaneseCountSpinner;
-    Spinner westernCountSpinner;
-    Spinner pppCountSpinner;
-    Spinner womenJapaneseCountSpinner;
-    Spinner womenWesternCountSpinner;
+
     Spinner typeSpinner;
     Spinner waitingTimeSpinner;
     Spinner floorSpinner;
@@ -244,11 +240,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     private void sppinnerReady(){
 
-        japaneseCountSpinner = (Spinner) findViewById(R.id.japaneseCountSpinner);
-        westernCountSpinner = (Spinner) findViewById(R.id.westernCountSpinner);
-        pppCountSpinner = (Spinner) findViewById(R.id.peeCountSpinner);
-        womenJapaneseCountSpinner = (Spinner) findViewById(R.id.womenJapaneseCountSpinner);
-        womenWesternCountSpinner = (Spinner) findViewById(R.id.womenWesternCountSpinner);
         typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
         waitingTimeSpinner = (Spinner) findViewById(R.id.spinnerWaitingTime);
         floorSpinner = (Spinner) findViewById(R.id.locationFloorSpinner);
@@ -289,11 +280,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
 
-        japaneseCountSpinner.setAdapter(adapterJapaneseCount);
-        westernCountSpinner.setAdapter(adapterWesternCount);
-        pppCountSpinner.setAdapter(adapterPppCount);
-        womenJapaneseCountSpinner.setAdapter(adapterWomenJapaneseCount);
-        womenWesternCountSpinner.setAdapter(adapterWomenWesternCount);
         typeSpinner.setAdapter(adapterType);
         waitingTimeSpinner.setAdapter(adapterWaitingtime);
         floorSpinner.setAdapter(adapterFloor);
@@ -309,77 +295,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
 
-        japaneseCountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView) parent.getChildAt(0)).setTextSize(16);
-            }
-            @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-            }
-
-        );
-
-        westernCountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-
-            @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView) parent.getChildAt(0)).setTextSize(16);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        }
-
-        );
-
-        pppCountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-             @Override
-             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                 ((TextView) parent.getChildAt(0)).setTextSize(16);
-             }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        }
-
-        );
-
-        womenJapaneseCountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView) parent.getChildAt(0)).setTextSize(16);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        }
-
-        );
-
-        womenWesternCountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView) parent.getChildAt(0)).setTextSize(16);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        }
-
-        );
 
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 

@@ -124,7 +124,6 @@ public class KansouActivity extends AppCompatActivity {
 
         double originalAvStarDouble = Double.parseDouble(originalAverageStar);
         double ratingValue = kansouRaitng.getRating();
-        in
         double newAvStarDouble = 3.0;
 
         long newReviewCount = originalReviewCount + 1;
@@ -148,9 +147,9 @@ public class KansouActivity extends AppCompatActivity {
 
         if (newReviewCount > 4){
 
-            int x = ratingValue - originalAvStarDouble;
-            double changingValue = x / 10;
-            newAvStarDouble = originalAvStarDouble + changingValue;
+            //int x = ratingValue - originalAvStarDouble;
+            //double changingValue = x / 10;
+            //newAvStarDouble = originalAvStarDouble + changingValue;
 
         } else{
             double y = ratingValue - originalAvStarDouble;

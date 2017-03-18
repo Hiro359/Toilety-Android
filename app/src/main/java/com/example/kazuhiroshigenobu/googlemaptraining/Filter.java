@@ -17,29 +17,51 @@ public class Filter {
     static Boolean typeFilterOn = false;
     static String typeFilter = "全てのトイレ";
 
-    static Boolean washletFilter = false;
-    static Boolean wheelchairFilter = false;
-    static Boolean onlyFemaleFilter = false;
-    static Boolean unisexFilter = false;
-    static Boolean makeroomFilter = false;
-    static Boolean milkspaceFilter = false;
-    static Boolean omutuFilter = false;
-    static Boolean ostomateFilter = false;
+    static Boolean availableFilter = false;
     static Boolean japaneseFilter = false;
     static Boolean westernFilter = false;
+    static Boolean onlyFemaleFilter = false;
+    static Boolean unisexFilter = false;
+
+
+    static Boolean washletFilter = false;
     static Boolean warmSearFilter = false;
-    static Boolean baggageSpaceFilter = false;
-    static Boolean availableFilter = false;
     static Boolean autoOpen = false;
-    static Boolean sensor = false;
+    static Boolean noVirusFilter = false;
+    static Boolean paperForBenkiFilter = false;
+    static Boolean cleanerForBenkiFilter = false;
+    static Boolean autoToiletWashFilter = false;
+
+    static Boolean sensorHandWashFilter = false;
+    static Boolean handSoapFilter = false;
+    static Boolean autoHandSoapFilter = false;
+    static Boolean paperTowelFilter = false;
+    static Boolean handDrierFilter = false;
+
     static Boolean otohime = false;
-    static Boolean fancy = false;
-    static Boolean confortableWise = false;
-    static Boolean smell = false;
+    static Boolean omutuFilter = false;
+    static Boolean milkspaceFilter = false;
+    static Boolean makeroomFilter = false;
     static Boolean clothes = false;
-    static Boolean parking = false;
+    static Boolean baggageSpaceFilter = false;
+
+    static Boolean wheelchairFilter = false;
+    static Boolean handrailFilter = false;
+    static Boolean callHelpFilter = false;
+    static Boolean ostomateFilter = false;
     static Boolean writtenEnglish = false;
     static Boolean braille = false;
+    static Boolean voiceGuideFilter = false;
+
+
+    static Boolean fancy = false;
+    static Boolean smell = false;
+    static Boolean confortableWise = false;
+    static Boolean parking = false;
+    static Boolean airConditionFilter = false;
+    static Boolean wifiFilter = false;
+
+
 
 
 

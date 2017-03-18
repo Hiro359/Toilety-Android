@@ -11,7 +11,6 @@ public class Toilet {
 
 
     String key;
-    //Added static March 9
     String type;
     String name;
     Double latitude;
@@ -20,33 +19,57 @@ public class Toilet {
     String urlTwo;
     String urlThree;
     String distance;
-    Boolean washlet = false;
-    Boolean wheelchair = false;
-    Boolean onlyFemale = false;
-    Boolean unisex = false;
-    Boolean makeuproom = false;
-    Boolean milkspace = false;
-    Boolean omutu = false;
-    Boolean ostomate = false;
+
+    Boolean available = true;
     Boolean japanesetoilet = false;
     Boolean westerntoilet = false;
+    Boolean onlyFemale = false;
+    Boolean unisex = false;
+
+    Boolean washlet = false;
     Boolean warmSeat = false;
-    Boolean baggageSpace = false;
     Boolean autoOpen = false;
-    Boolean sensor = false;
+    Boolean noVirus = false;
+    Boolean paperForBenki = false;
+    Boolean cleanerForBenki = false;
+    Boolean autoToiletWash = false;
+
+    Boolean sensorHandWash = false;
+    Boolean handSoap = false;
+    Boolean autoHandSoap = false;
+    Boolean paperTowel = false;
+    Boolean handDrier = false;
+
     Boolean otohime = false;
-    Boolean fancy = false;
-    Boolean conforatableWide= false;
-    Boolean smell = false;
+    Boolean omutu = false;
+    Boolean milkspace = false;
+    Boolean makeuproom = false;
     Boolean clothes = false;
-    Boolean parking = false;
+    Boolean baggageSpace = false;
+
+
+    Boolean wheelchair = false;
+    Boolean handrail = false;
+    Boolean callHelp = false;
+    Boolean ostomate = false;
     Boolean english = false;
     Boolean braille = false;
+    Boolean voiceGuide = false;
+
+
+    Boolean fancy = false;
+    Boolean smell = false;
+    Boolean conforatableWide= false;
+    Boolean parking = false;
+    Boolean airCondition = false;
+    Boolean wifi = false;
+
+
     Integer openHours;
     Integer closeHours;
     String openAndCloseHours;
     String howtoaccess;
-    Boolean available = true;
+
     String tid;
     String addedBy;
     String editedBy;
