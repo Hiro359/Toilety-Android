@@ -369,8 +369,8 @@ public class DetailViewActivity extends AppCompatActivity {
                     toilet.autoOpen = (Boolean) dataSnapshot.child("autoOpen").getValue();
                     Log.i("toilet777.ave",String.valueOf(toilet.autoOpen));
 
-                    toilet.sensor = (Boolean) dataSnapshot.child("sensor").getValue();
-                    Log.i("toilet777.sensor",String.valueOf(toilet.sensor));
+                    toilet.sensorHandWash = (Boolean) dataSnapshot.child("sensor").getValue();
+                    Log.i("toilet777.sensor",String.valueOf(toilet.sensorHandWash));
 
                     toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
                     Log.i("toilet777.ave",String.valueOf(toilet.otohime));
@@ -551,7 +551,7 @@ public class DetailViewActivity extends AppCompatActivity {
                     }
 
 
-                    if (toilet.sensor){
+                    if (toilet.sensorHandWash){
                         booleanArray.add("センサー式お手洗い");
                     }
 

@@ -213,7 +213,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="1400dp"
+        android:layout_height="2350dp"
         android:layout_marginTop="10dp"
 
 
@@ -222,10 +222,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:text="@string/setubi"
+            android:text="@string/basicFucation"
             android:textColor="@color/colorSubText"
-            android:layout_marginBottom="3dp"
-
+            android:layout_margin="3dp"
             />
 
 
@@ -289,6 +288,15 @@
             android:paddingRight="10dp"
             />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/searchBenkiFucation"
+            android:textColor="@color/colorSubText"
+            android:layout_margin="3dp"
+
+            />
+
         <Switch
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -337,6 +345,76 @@
         <Switch
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:text="@string/name_noVirusBenki"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addnoVirusBenkiSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_paperForBenki"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addPaperForBenkiSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_cleanerForBenki"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addCleanerForBenkiSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_nonTouchWash"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addNonTouchWashSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/searchSettings"
+            android:textColor="@color/colorSubText"
+            android:layout_margin="3dp"
+
+            />
+
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:text="@string/name_senser"
             android:textSize="24sp"
             android:textColor="@color/colorSubText"
@@ -348,6 +426,77 @@
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
             />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_soap"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addSoapSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_nonTouchSoap"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addNonTouchSoapSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_paperTowel"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addPaperTowelSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_handDrier"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addHandDrierSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/searchForLadys"
+            android:textColor="@color/colorSubText"
+            android:layout_margin="3dp"
+
+            />
+
+
 
         <Switch
             android:layout_width="match_parent"
@@ -364,50 +513,6 @@
             android:paddingRight="10dp"
             />
 
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/name_fancy"
-            android:textSize="24sp"
-            android:textColor="@color/colorSubText"
-            android:background="@drawable/border"
-            android:layout_marginBottom="2dp"
-            android:id="@+id/addFancySwitch"
-            android:paddingStart="20dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
-            />
-
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/name_confortableWide"
-            android:textSize="24sp"
-            android:textColor="@color/colorSubText"
-            android:background="@drawable/border"
-            android:layout_marginBottom="2dp"
-            android:id="@+id/addConforableSwitch"
-            android:paddingStart="20dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
-            />
-
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/name_smell"
-            android:textSize="24sp"
-            android:textColor="@color/colorSubText"
-            android:background="@drawable/border"
-            android:layout_marginBottom="2dp"
-            android:id="@+id/addSmellSwitch"
-            android:paddingStart="20dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
-            />
         <Switch
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -455,6 +560,23 @@
         <Switch
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:text="@string/name_clothes"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addClothesSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:text="@string/name_baggageSpace"
             android:textSize="24sp"
             android:textColor="@color/colorSubText"
@@ -467,20 +589,14 @@
             android:paddingRight="10dp"
             />
 
-        <Switch
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/name_clothes"
-            android:textSize="24sp"
+            android:layout_height="20dp"
+            android:text="@string/searchBarrierFree"
             android:textColor="@color/colorSubText"
-            android:background="@drawable/border"
-            android:layout_marginBottom="2dp"
-            android:id="@+id/addClothesSwitch"
-            android:paddingStart="20dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
+            android:layout_margin="3dp"
             />
+
         <Switch
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -499,12 +615,12 @@
         <Switch
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/name_ostomate"
+            android:text="@string/name_handrail"
             android:textSize="24sp"
             android:textColor="@color/colorSubText"
             android:background="@drawable/border"
             android:layout_marginBottom="2dp"
-            android:id="@+id/addOstomateSwitch"
+            android:id="@+id/addHandrailSwitch"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingEnd="10dp"
@@ -515,12 +631,28 @@
         <Switch
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/name_parking"
+            android:text="@string/name_callHelp"
             android:textSize="24sp"
             android:textColor="@color/colorSubText"
             android:background="@drawable/border"
             android:layout_marginBottom="2dp"
-            android:id="@+id/addParkingSwitch"
+            android:id="@+id/addCallHelpSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_ostomate"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addOstomateSwitch"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingEnd="10dp"
@@ -556,6 +688,126 @@
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
             />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_voiceGuide"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addVoiceGuideSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/searchOthers"
+            android:textColor="@color/colorSubText"
+            android:layout_margin="3dp"
+            />
+
+
+
+
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_fancy"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addFancySwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_smell"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addSmellSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_confortableWide"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addConforableSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_parking"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addParkingSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_airCondition"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addAirConditionSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_wifi"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@drawable/border"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addWifiSwitch"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            />
+
+
 
     </LinearLayout>
 

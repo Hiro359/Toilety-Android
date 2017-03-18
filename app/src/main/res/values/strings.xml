@@ -104,6 +104,7 @@
     <string name="post_kansou">感想を投稿する</string>
 
     <!--Search category booleans-->
+    <string name="basicFucation">基本設備</string>
     <string name="searchBenkiFucation">機能</string>
     <string name="searchSettings">洗面台設備</string>
     <string name="searchForLadys">女性に優しい設備</string>

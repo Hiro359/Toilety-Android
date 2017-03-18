@@ -78,24 +78,43 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     Switch toiletWestern;
     Switch toiletOnlyFemale;
     Switch toiletUnisex;
+
     Switch toiletWashlet;
     Switch toiletWarmseat;
     Switch toiletAutoopen;
+    Switch toiletNoVirusBenki;
+    Switch toiletPaperForBenki;
+    Switch toiletCleanerForBenki;
+    Switch toiletNonTouchWash;
+
     Switch toiletSensor;
+    Switch toiletHandSoap;
+    Switch toiletNonHandSoap;
+    Switch toiletPaperTowel;
+    Switch toiletHandDrier;
+
+
     Switch toiletOtohime;
+    Switch toiletOmutu;
+    Switch toiletMilk;
+    Switch toiletMakeroom;
+    Switch toiletClothes;
+    Switch toiletBaggage;
+
+    Switch toiletWheelchair;
+    Switch toiletHandrail;
+    Switch toiletCallHelp;
+    Switch toiletOstomate;
+    Switch toiletWrittenEnglish;
+    Switch toiletBraille;
+    Switch toiletVoiceGuide;
+
     Switch toiletFancy;
     Switch toiletSmell;
     Switch toiletConfortable;
-    Switch toiletMilk;
-    Switch toiletOmutu;
-    Switch toiletMakeroom;
-    Switch toiletBaggage;
-    Switch toiletClothes;
-    Switch toiletWheelchair;
-    Switch toiletOstomate;
     Switch toiletParking;
-    Switch toiletWrittenEnglish;
-    Switch toiletBraille;
+    Switch toiletAirCondition;
+    Switch toiletWifi;
 
 
 
@@ -146,11 +165,11 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
 
-    ArrayAdapter<CharSequence> adapterJapaneseCount;
-    ArrayAdapter<CharSequence> adapterWesternCount;
-    ArrayAdapter<CharSequence> adapterPppCount;
-    ArrayAdapter<CharSequence> adapterWomenJapaneseCount;
-    ArrayAdapter<CharSequence> adapterWomenWesternCount;
+//    ArrayAdapter<CharSequence> adapterJapaneseCount;
+//    ArrayAdapter<CharSequence> adapterWesternCount;
+//    ArrayAdapter<CharSequence> adapterPppCount;
+//    ArrayAdapter<CharSequence> adapterWomenJapaneseCount;
+//    ArrayAdapter<CharSequence> adapterWomenWesternCount;
     ArrayAdapter<CharSequence> adapterType;
     ArrayAdapter<CharSequence> adapterWaitingtime;
     ArrayAdapter<CharSequence> adapterFloor;
@@ -250,12 +269,12 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
 
-        adapterJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
-        adapterJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
-        adapterWesternCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
-        adapterPppCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
-        adapterWomenJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
-        adapterWomenWesternCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
+//        adapterJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
+//        adapterJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
+//        adapterWesternCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
+//        adapterPppCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
+//        adapterWomenJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
+//        adapterWomenWesternCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
         adapterType = ArrayAdapter.createFromResource(this,R.array.places_names,android.R.layout.simple_spinner_item);
         adapterWaitingtime = ArrayAdapter.createFromResource(this,R.array.waitingTimeArray,android.R.layout.simple_spinner_item);
         adapterFloor = ArrayAdapter.createFromResource(this,R.array.floorCount,android.R.layout.simple_spinner_item);
@@ -265,11 +284,11 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         adapterEndMinutes = ArrayAdapter.createFromResource(this,R.array.minutesOption,android.R.layout.simple_spinner_item);
 
 
-        adapterJapaneseCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterWesternCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterPppCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterWomenJapaneseCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterWomenWesternCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        adapterJapaneseCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        adapterWesternCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        adapterPppCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        adapterWomenJapaneseCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        adapterWomenWesternCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterWaitingtime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterFloor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -434,24 +453,47 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         toiletWestern = (Switch) findViewById(R.id.addWesternSwitch);
         toiletOnlyFemale = (Switch) findViewById(R.id.addOnlyFemaleSwitch);
         toiletUnisex  = (Switch) findViewById(R.id.addUnisexSwitch);
+
         toiletWashlet  = (Switch) findViewById(R.id.addWashletSwitch);
         toiletWarmseat = (Switch) findViewById(R.id.addWarmSeatSwitch);
         toiletAutoopen = (Switch) findViewById(R.id.addAutoOpenSwitch);
+        toiletNoVirusBenki = (Switch) findViewById(R.id.addnoVirusBenkiSwitch);
+        toiletPaperForBenki = (Switch) findViewById(R.id.addPaperForBenkiSwitch);
+        toiletCleanerForBenki = (Switch) findViewById(R.id.addCleanerForBenkiSwitch);
+        toiletNonTouchWash = (Switch) findViewById(R.id.addNonTouchWashSwitch);
+
+
         toiletSensor = (Switch) findViewById(R.id.addSenserWashSwitch);
+        toiletHandSoap = (Switch) findViewById(R.id.addSoapSwitch);
+        toiletNonHandSoap = (Switch) findViewById(R.id.addNonTouchSoapSwitch);
+        toiletPaperTowel = (Switch) findViewById(R.id.addPaperTowelSwitch);
+        toiletHandDrier = (Switch) findViewById(R.id.addHandDrierSwitch);
+
+
         toiletOtohime = (Switch) findViewById(R.id.addOtohimeSwitch);
+        toiletOmutu = (Switch) findViewById(R.id.addOmutuSwitch);
+        toiletMilk = (Switch) findViewById(R.id.addMilkSwitch);
+        toiletMakeroom = (Switch) findViewById(R.id.addMakeSwitch);
+        toiletClothes = (Switch) findViewById(R.id.addClothesSwitch);
+        toiletBaggage = (Switch) findViewById(R.id.addBaggageSwitch);
+
+
+
+        toiletWheelchair = (Switch) findViewById(R.id.addWheelchairSwitch);
+        toiletHandrail = (Switch) findViewById(R.id.addHandrailSwitch);
+        toiletCallHelp = (Switch)findViewById(R.id.addCallHelpSwitch);
+        toiletOstomate = (Switch) findViewById(R.id.addOstomateSwitch);
+        toiletWrittenEnglish = (Switch) findViewById(R.id.addWrittenEnglishSwitch);
+        toiletBraille = (Switch) findViewById(R.id.addBraille);
+        toiletVoiceGuide = (Switch) findViewById(R.id.addVoiceGuideSwitch);
+
+
         toiletFancy = (Switch) findViewById(R.id.addFancySwitch);
         toiletSmell = (Switch) findViewById(R.id.addSmellSwitch);
         toiletConfortable = (Switch) findViewById(R.id.addConforableSwitch);
-        toiletMilk = (Switch) findViewById(R.id.addMilkSwitch);
-        toiletOmutu = (Switch) findViewById(R.id.addOmutuSwitch);
-        toiletMakeroom = (Switch) findViewById(R.id.addMakeSwitch);
-        toiletBaggage = (Switch) findViewById(R.id.addBaggageSwitch);
-        toiletClothes = (Switch) findViewById(R.id.addClothesSwitch);
-        toiletWheelchair = (Switch) findViewById(R.id.addWheelchairSwitch);
-        toiletOstomate = (Switch) findViewById(R.id.addOstomateSwitch);
         toiletParking = (Switch) findViewById(R.id.addParkingSwitch);
-        toiletWrittenEnglish = (Switch) findViewById(R.id.addWrittenEnglishSwitch);
-        toiletBraille = (Switch) findViewById(R.id.addBraille);
+        toiletAirCondition = (Switch) findViewById(R.id.addAirConditionSwitch);
+        toiletWifi = (Switch) findViewById(R.id.addWifiSwitch);
 
 
     }
