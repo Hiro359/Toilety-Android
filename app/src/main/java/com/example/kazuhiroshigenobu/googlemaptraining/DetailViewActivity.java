@@ -244,18 +244,23 @@ public class DetailViewActivity extends AppCompatActivity {
                     // List<String> toiletData = new ArrayList<>();
 
 
+
                     LatLng centerLocation = new LatLng(UserInfo.latitude, UserInfo.longitude);
                     //get from the location Manager
+                    Log.i("IS THIS THE ERROR???","4");
 
-
+                    Log.i("IS THIS THE ERROR???","1");
                     toilet.latitude = (Double) dataSnapshot.child("latitude").getValue();
-
                     toilet.longitude = (Double) dataSnapshot.child("longitude").getValue();
+                    Log.i("IS THIS THE ERROR???","2");
+
 
                     LatLng toiletLocation = new LatLng(toilet.latitude,toilet.longitude);
                     //get from the database
+                    Log.i("IS THIS THE ERROR???","5");
 
                     double distance = CalculationByDistance(centerLocation,toiletLocation);
+                    Log.i("IS THIS THE ERROR???","6");
 
                     if (distance > 1){
                         toilet.distance = String.valueOf(round(distance, 1)) + "km";
@@ -275,218 +280,109 @@ public class DetailViewActivity extends AppCompatActivity {
                     }
 
 
-                    //Log.i("toilet.distance", String.valueOf(toilet.distance));
+                    Log.i("IS THIS THE ERROR???","3");
+                    Log.i("BOOOL???","1");
 
-
-
+//
 
 
                     toilet.key = queryKey;
                     //Not sure about how to call key....
 
-                    Log.i("toilet777888.key",toilet.key);
-//                            String urlOne = (String) dataSnapshot.child("urlOne").getValue();
-//                            toilet.urlOne = urlOne;
-
                     toilet.name = (String) dataSnapshot.child("name").getValue();
-
-
+                    toilet.openAndCloseHours = (String) dataSnapshot.child("openAndCloseHours").getValue();
+                    toilet.type = (String) dataSnapshot.child("type").getValue();
                     toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
-
-                    //String urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
                     toilet.urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
+                    toilet.urlThree = (String) dataSnapshot.child("urlThree").getValue();
 
-                    //String urlThree= (String) dataSnapshot.child("urlThree").getValue();
-                    toilet.urlThree = (String) dataSnapshot.child("urlThree").getValue();;
+                    Log.i("BOOOL???","2");
 
-                    // String type = (String) dataSnapshot.child("type").getValue();
-                    toilet.type = (String) dataSnapshot.child("type").getValue();;
-
-                    Log.i("toilet777.type",toilet.type);
-//                            Double star  = (Double) dataSnapshot.child("star").getValue();
-//                            toilet.star = star;
-                    //commented
-
-                    Log.i("toilet777.star",toilet.type);
-
-
-                    // Boolean washlet= (Boolean) dataSnapshot.child("washlet").getValue();
-                    toilet.washlet = (Boolean) dataSnapshot.child("washlet").getValue();;
-
-
-                    //Boolean wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
-                    toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
-
-
-                    //Boolean onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
-                    toilet.onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
-
-
-                    //Boolean unisex = (Boolean) dataSnapshot.child("unisex").getValue();
-                    toilet.unisex = (Boolean) dataSnapshot.child("unisex").getValue();
-                    Log.i("toilet777.unisex",String.valueOf(toilet.unisex));
-
-
-                    //Boolean makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
-                    toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
-
-
-                    // Boolean milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
-                    toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
-
-
-                    // Boolean omutu = (Boolean) dataSnapshot.child("omutu").getValue();
-                    toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
-
-
-                    //Boolean ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
-                    toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
-
-
-                    Log.i("OnDataChangeCalled","777888999");
-                    //Boolean japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
-                    toilet.japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
-
-                    // Boolean westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
-                    toilet.westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
-
-
-                    //  Boolean warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
-                    toilet.warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
-                    Log.i("toilet777.warmSeat",String.valueOf(toilet.warmSeat));
-
-
-
-                    //Boolean baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
-                    toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
-
-
-                    // Boolean available = (Boolean) dataSnapshot.child("available").getValue();
-                    toilet.available = (Boolean) dataSnapshot.child("available").getValue();
-                    Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-                    //add boolean
-                    toilet.autoOpen = (Boolean) dataSnapshot.child("autoOpen").getValue();
-                    Log.i("toilet777.ave",String.valueOf(toilet.autoOpen));
-
-                    toilet.sensorHandWash = (Boolean) dataSnapshot.child("sensor").getValue();
-                    Log.i("toilet777.sensor",String.valueOf(toilet.sensorHandWash));
-
-                    toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
-                    Log.i("toilet777.ave",String.valueOf(toilet.otohime));
-
-                    toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
-                    Log.i("toilet777.ave",String.valueOf(toilet.fancy));
-
-                    toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
-                    // Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-                    toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
-                    // Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-                    toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
-                    //Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-                    toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
-                    Log.i("toilet777.parking",String.valueOf(toilet.parking));
-
-                    toilet.english = (Boolean) dataSnapshot.child("english").getValue();
-                    //Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-                    toilet.braille = (Boolean) dataSnapshot.child("braille").getValue();
-                    Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-
-
-
-
-                    // String howtoaceess = (String) dataSnapshot.child("howtoaccess").getValue();
+                    toilet.addedBy = (String) dataSnapshot.child("addedBy").getValue();
+                    toilet.editedBy = (String) dataSnapshot.child("editedBy").getValue();
+                    toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();
+                    toilet.address = (String) dataSnapshot.child("address").getValue();
                     toilet.howtoaccess = (String) dataSnapshot.child("howtoaccess").getValue();
-                    Log.i("toilet777.waitingtime",toilet.howtoaccess);
 
-
-//                            Integer waitingtime = (Integer) dataSnapshot.child("waitingtime").getValue();
-//                            toilet.waitingtime = waitingtime;
-//                            Log.i("toilet777.waitingtime",String.valueOf(toilet.waitingtime));
-//                            //I dont think this will be needed anymore......
-
-                    Log.i("toilet777.heyheyyyy",toilet.howtoaccess);
-                    //String openinghours = (String) dataSnapshot.child("openinghours").getValue();
-                    // Long toilet.openHours= (Long) dataSnapshot.child("star1").getValue();
-                    //toilet.openHours = (Integer) dataSnapshot.child("openHours").getValue();
+                    Log.i("BOOOL???","3");
 
                     Long openh = (Long) dataSnapshot.child("openHours").getValue();
                     toilet.openHours = openh.intValue();
-
                     Long closeh = (Long) dataSnapshot.child("closeHours").getValue();
                     toilet.closeHours = closeh.intValue();
+                    Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
+                    toilet.reviewCount = reviewCount.intValue();
+                    Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
+                    toilet.averageWait = averageWait.intValue();
+                    Long toiletFloor = (Long) dataSnapshot.child("toiletFloor").getValue();
+                    toilet.floor = toiletFloor.intValue();
 
-                    Log.i("toilet777.openingHours",String.valueOf(toilet.openHours));
+                    Log.i("BOOOL???","4");
 
-//                            toilet.closeHours = (Integer) dataSnapshot.child("closeHours").getValue();
-                    Log.i("toilet777.closeHours",String.valueOf(toilet.closeHours));
+//                    Log.i("IS THIS THE ERROR???","1");
+//                    toilet.latitude = (Double) dataSnapshot.child("latitude").getValue();
+//                    toilet.longitude = (Double) dataSnapshot.child("longitude").getValue();
+//                    Log.i("IS THIS THE ERROR???","2");
 
+                    toilet.available = (Boolean) dataSnapshot.child("available").getValue();
+                    toilet.japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
+                    toilet.westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
+                    toilet.onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
+                    toilet.unisex = (Boolean) dataSnapshot.child("unisex").getValue();
 
+                    Log.i("BOOOL???","5");
 
-                    // String addedBy  = (String) dataSnapshot.child("addedBy").getValue();
-                    toilet.addedBy = (String) dataSnapshot.child("addedBy").getValue();
+                    toilet.washlet = (Boolean) dataSnapshot.child("washlet").getValue();
+                    toilet.warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
+                    toilet.autoOpen = (Boolean) dataSnapshot.child("autoOpen").getValue();
+                    toilet.noVirus = (Boolean) dataSnapshot.child("noVirus").getValue();
+                    toilet.paperForBenki = (Boolean) dataSnapshot.child("paperForBenki").getValue();
+                    toilet.cleanerForBenki = (Boolean) dataSnapshot.child("cleanerForBenki").getValue();
+                    toilet.autoToiletWash = (Boolean) dataSnapshot.child("nonTouchWash").getValue();
 
-                    //String editedBy = (String) dataSnapshot.child("editedBy").getValue();
-                    toilet.editedBy = (String) dataSnapshot.child("editedBy").getValue();
-                    Log.i("toilet777.editBt",String.valueOf(toilet.editedBy));
+                    Log.i("BOOOL???","6");
 
-                    toilet.address = (String) dataSnapshot.child("address").getValue();
-
-
-
-
-                    // String averageStar = (String) dataSnapshot.child("averageStar").getValue();
-                    toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();;
-
-                    Log.i("toilet777.aveStar",String.valueOf(toilet.averageStar));
-
-                    //Its asking for Double, but somtimes it got Integer, which makes an error....
-
-
-
-                    Log.i("toilet777.averageStar",String.valueOf(toilet.averageStar));
-
-
-                    Log.i("I dont getiiiit",String.valueOf(toilet.averageStar));
+                    toilet.sensorHandWash = (Boolean) dataSnapshot.child("sensorHandWash").getValue();
+                    toilet.handSoap = (Boolean) dataSnapshot.child("handSoap").getValue();
+                    toilet.autoHandSoap = (Boolean) dataSnapshot.child("nonTouchHandSoap").getValue();
+                    toilet.paperTowel = (Boolean) dataSnapshot.child("paperTowel").getValue();
+                    toilet.handDrier = (Boolean) dataSnapshot.child("handDrier").getValue();
 
 
+                    toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
+                    toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+                    toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
+                    toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
+                    toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
+                    toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
 
 
-                    //Integer star1 = (Integer) dataSnapshot.child("star1").getValue();
-                    Log.i("What;'s wrog this","");
+                    toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
+                    toilet.handrail = (Boolean) dataSnapshot.child("handrail").getValue();
+                    toilet.callHelp = (Boolean) dataSnapshot.child("callHelp").getValue();
+                    toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
+                    toilet.english = (Boolean) dataSnapshot.child("english").getValue();
+                    toilet.braille = (Boolean) dataSnapshot.child("braille").getValue();
+                    toilet.voiceGuide = (Boolean) dataSnapshot.child("voiceGuide").getValue();
 
-                    // toilet.star1 = star1;
-                    //Log.i("toilet777.star1",String.valueOf(toilet.star1));
-                    Log.i("What;'s wrog this","22");
+
+
+                    toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
+                    toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
+                    toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
+                    toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
+                    toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
+                    toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
+
+
+
                     Float averaegeStarFloat = Float.parseFloat(toilet.averageStar);
 
 
+                    booleanArray.add("トイレの設備");
 
-                    Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
-                    toilet.reviewCount = reviewCount.intValue();
-
-                    Log.i("toilet777.reviewCount",String.valueOf(toilet.reviewCount));
-
-                    Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
-                    toilet.averageWait = averageWait.intValue();
-
-                    toilet.openAndCloseHours = (String) dataSnapshot.child("openAndCloseHours").getValue();
-
-                    ////Added feature elements March 3
-
-                    booleanArray.add("設備");
-
-                    Log.i("japaneseValue1919", String.valueOf(toilet.japanesetoilet));
                     if (toilet.japanesetoilet){
                         booleanArray.add("和式トイレ");
-                        Log.i("japaneseValue191999", String.valueOf(toilet.japanesetoilet));
-
-
                     }
 
                     if (toilet.westerntoilet){
@@ -501,12 +397,58 @@ public class DetailViewActivity extends AppCompatActivity {
                         booleanArray.add("男女兼用トイレ");
                     }
 
+
                     if (toilet.washlet){
                         booleanArray.add("ウォシュレット");
                     }
 
                     if (toilet.warmSeat){
                         booleanArray.add("暖房便座");
+                    }
+
+                    if (toilet.autoOpen){
+                        booleanArray.add("自動開閉便座");
+                    }
+
+                    if (toilet.noVirus){
+                        booleanArray.add("抗菌便座");
+                    }
+
+                    if (toilet.paperForBenki){
+                        booleanArray.add("便座用シート");
+                    }
+
+                    if (toilet.cleanerForBenki){
+                        booleanArray.add("便座クリーナー");
+                    }
+
+                    if (toilet.autoToiletWash){
+                        booleanArray.add("自動洗浄");
+                    }
+
+                    if (toilet.sensorHandWash){
+                        booleanArray.add("センサー式お手洗い");
+                    }
+
+                    if (toilet.handSoap){
+                        booleanArray.add("ハンドソープ");
+                    }
+
+                    if (toilet.autoHandSoap){
+                        booleanArray.add("センサー式ハンドソープ");
+                    }
+                    if (toilet.paperTowel){
+                        booleanArray.add("ペーパータオル");
+                    }
+
+                    if (toilet.handDrier){
+                        booleanArray.add("ハンドドライヤー");
+                    }
+
+
+
+                    if (toilet.otohime){
+                        booleanArray.add("音姫");
                     }
 
                     if (toilet.omutu){
@@ -522,6 +464,11 @@ public class DetailViewActivity extends AppCompatActivity {
                         booleanArray.add("メイクルーム");
                     }
 
+
+                    if (toilet.clothes){
+                        booleanArray.add("洋服かけ");
+                    }
+
                     if (toilet.baggageSpace){
                         booleanArray.add("荷物置き");
                     }
@@ -531,11 +478,28 @@ public class DetailViewActivity extends AppCompatActivity {
                         booleanArray.add("車イス対応");
                     }
 
+                    if (toilet.handrail){
+                        booleanArray.add("手すり");
+                    }
+
+                    if (toilet.callHelp){
+                        booleanArray.add("呼び出しボタン");
+                    }
 
                     if (toilet.ostomate){
                         booleanArray.add("オストメイト対応");
                     }
 
+                    if (toilet.english){
+                        booleanArray.add("英語表記");
+                    }
+
+                    if (toilet.braille){
+                        booleanArray.add("点字案内");
+                    }
+                    if (toilet.voiceGuide){
+                        booleanArray.add("音声案内");
+                    }
 
                     if (toilet.fancy){
                         booleanArray.add("おしゃれ");
@@ -546,42 +510,24 @@ public class DetailViewActivity extends AppCompatActivity {
                         booleanArray.add("良い香り");
                     }
 
+
                     if (toilet.conforatableWide){
                         booleanArray.add("快適な広さ");
                     }
 
 
-                    if (toilet.sensorHandWash){
-                        booleanArray.add("センサー式お手洗い");
-                    }
-
-
-                    if (toilet.otohime){
-                        booleanArray.add("音姫");
-                    }
-
-
-                    if (toilet.autoOpen){
-                        booleanArray.add("自動開閉便座");
-                    }
-
-                    if (toilet.clothes){
-                        booleanArray.add("洋服かけ");
-                    }
-
                     if (toilet.parking){
                         booleanArray.add("駐車場");
                     }
 
-                    if (toilet.english){
-                        booleanArray.add("英語表記");
+                    if (toilet.airCondition){
+                        booleanArray.add("冷暖房");
                     }
 
-                    if (toilet.braille){
-                        booleanArray.add("点字案内");
+                    if (toilet.wifi){
+                        booleanArray.add("Wi-Fi");
                     }
 
-                    Log.i("toilet777.aveWait",String.valueOf(toilet.averageWait));
 
 
                     toiletNameLabel.setText(toilet.name);
@@ -592,11 +538,6 @@ public class DetailViewActivity extends AppCompatActivity {
                     ratingCount.setText("(" + toilet.reviewCount + ")");
                     mapAddress.setText(toilet.address);
                     mapHowToAccess.setText(toilet.howtoaccess);
-
-
-
-
-
 
 
 

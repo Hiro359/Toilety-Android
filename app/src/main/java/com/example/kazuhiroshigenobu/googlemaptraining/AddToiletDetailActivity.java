@@ -716,55 +716,112 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         String firekey = newRef.getKey();
 
 
+       newRef.setValue(new Post(
+               tName,
+               openingString,
+               typeSpinner.getSelectedItem().toString(),
+               "",//String urlOne,
+               "",//String urlTwo,
+               "",//String urlThree,
+               "",//String addedBy,
+               "",//String editedBy,
+               avStar,
+               AddLocations.address,
+               "",//String howtoaccess,
+               openData,
+               endData,
+               1,//Integer reviewCount,
+               waitingValue,//Integer averageWait,
+               3,//Integer toiletFloor,
+               AddLocations.latitude,
+               AddLocations.longitude,
+               true,
+               toiletJapanese.isChecked(),
+               toiletWestern.isChecked(),
+               toiletOnlyFemale.isChecked(),
+               toiletUnisex.isChecked(),
+               toiletWashlet.isChecked(),
+               toiletWashlet.isChecked(),
+               toiletAutoopen.isChecked(),
+               toiletNoVirusBenki.isChecked(),
+               toiletPaperForBenki.isChecked(),
+               toiletCleanerForBenki.isChecked(),
+               toiletNonTouchWash.isChecked(),
+               toiletSensor.isChecked(),
+               toiletHandSoap.isChecked(),
+               toiletNonHandSoap.isChecked(),
+               toiletPaperTowel.isChecked(),
+               toiletHandDrier.isChecked(),
+               toiletOtohime.isChecked(),
+               toiletOmutu.isChecked(),
+               toiletMilk.isChecked(),
+               toiletMakeroom.isChecked(),
+               toiletClothes.isChecked(),
+               toiletBaggage.isChecked(),
+               toiletWheelchair.isChecked(),
+               toiletHandrail.isChecked(),
+               toiletCallHelp.isChecked(),
+               toiletOstomate.isChecked(),
+               toiletWrittenEnglish.isChecked(),
+               toiletBraille.isChecked(),
+               toiletVoiceGuide.isChecked(),
+               toiletFancy.isChecked(),
+               toiletSmell.isChecked(),
+               toiletConfortable.isChecked(),
+               toiletParking.isChecked(),
+               toiletAirCondition.isChecked(),
+               toiletWifi.isChecked()
+       ));
 
 
-        newRef.setValue(new Post(
-                tName,
-                openData,//open
-                endData,//close
-                openingString,
-                typeSpinner.getSelectedItem().toString(),
-                "", //urlOne //image to URL default ""
-                "", // urlTwo
-                "", //urlThree
-                toiletWashlet.isChecked(),
-                toiletWheelchair.isChecked(),
-                toiletOnlyFemale.isChecked(),
-                toiletUnisex.isChecked(),
-                toiletMakeroom.isChecked(),
-                toiletMilk.isChecked(),
-                toiletOmutu.isChecked(),
-                toiletOstomate.isChecked(),
-                toiletJapanese.isChecked(),
-                toiletWestern.isChecked(),
-                toiletWarmseat.isChecked(),
-                toiletBaggage.isChecked(),
-                toiletAutoopen.isChecked(),
-                toiletSensor.isChecked(),
-                toiletOtohime.isChecked(),
-                toiletFancy.isChecked(),
-                toiletConfortable.isChecked(),
-                toiletSmell.isChecked(),
-                toiletClothes.isChecked(),
-                toiletParking.isChecked(),
-                toiletWrittenEnglish.isChecked(),
-                toiletBraille.isChecked(),
-                true,//avaiable..
-                1 , //reviewCount
-                uid, //addedBy
-                "edit", //edittedBY
-                avStar,//av star should be string
-                waitingValue,
-                AddLocations.latitude,//Lat
-                AddLocations.longitude,//Lon
-                AddLocations.address, //Address
-                3,//manwestern
-                3,//manJap
-                3,//anSmall
-                3,//woWe
-                3,//woJp
-                3,//floor
-                "THIS IS THE WAY OF ACCESS"));//how ti access
+
+//        newRef.setValue(new Post(
+//                tName,
+//                openData,//open
+//                endData,//close
+//                openingString,
+//                typeSpinner.getSelectedItem().toString(),
+//                "", //urlOne //image to URL default ""
+//                "", // urlTwo
+//                "", //urlThree
+//                toiletWashlet.isChecked(),
+//                toiletWheelchair.isChecked(),
+//                toiletOnlyFemale.isChecked(),
+//                toiletUnisex.isChecked(),
+//                toiletMakeroom.isChecked(),
+//                toiletMilk.isChecked(),
+//                toiletOmutu.isChecked(),
+//                toiletOstomate.isChecked(),
+//                toiletJapanese.isChecked(),
+//                toiletWestern.isChecked(),
+//                toiletWarmseat.isChecked(),
+//                toiletBaggage.isChecked(),
+//                toiletAutoopen.isChecked(),
+//                toiletSensor.isChecked(),
+//                toiletOtohime.isChecked(),
+//                toiletFancy.isChecked(),
+//                toiletConfortable.isChecked(),
+//                toiletSmell.isChecked(),
+//                toiletClothes.isChecked(),
+//                toiletParking.isChecked(),
+//                toiletWrittenEnglish.isChecked(),
+//                toiletBraille.isChecked(),
+//                true,//avaiable..
+//                1 , //reviewCount
+//                uid, //addedBy
+//                "edit", //edittedBY
+//                avStar,//av star should be string
+//                waitingValue,
+//                AddLocations.latitude,//Lat
+//                AddLocations.longitude,//Lon
+//                AddLocations.address, //Address
+//                3,//manwestern
+//                3,//manJap
+//                3,//anSmall
+//                3,//woWe
+//                3,//woJp
+//                3,//floor
+//                "THIS IS THE WAY OF ACCESS"));//how ti access
 
     Log.i("please", "...");
        geolocationUpdate(firekey);

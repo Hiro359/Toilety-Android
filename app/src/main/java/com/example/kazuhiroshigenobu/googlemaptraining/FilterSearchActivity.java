@@ -95,6 +95,11 @@ public class FilterSearchActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.app_bar2);
         toolbar.setTitle("条件検索");
 
+
+        //toolbar.setTitleTextColor(getResources().R.color.colorPrimary);
+//        toolbar.setTitleTextColor(getResources().col);
+//        toolbar.setTitleTextColor(getResources().getColor(getApplicationContext(),R.color.colorPrimary));
+
         toolbar.setNavigationContentDescription("戻る");
 //        toolbar.setNavigationIcon(R.drawable.earth);
         // I can set an image like X for the left side

@@ -514,143 +514,65 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.key = key;
                             //Not sure about how to call key....
 
-//                            String urlOne = (String) dataSnapshot.child("urlOne").getValue();
-//                            toilet.urlOne = urlOne;
                             toilet.name = (String) dataSnapshot.child("name").getValue();
+                            toilet.type = (String) dataSnapshot.child("type").getValue();
                             toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
-
-                            //String urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
-                            toilet.urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
-
-                            //String urlThree= (String) dataSnapshot.child("urlThree").getValue();
-                            toilet.urlThree = (String) dataSnapshot.child("urlThree").getValue();;
-
-                           // String type = (String) dataSnapshot.child("type").getValue();
-                            toilet.type = (String) dataSnapshot.child("type").getValue();;
-
-
-
-                           // Boolean washlet= (Boolean) dataSnapshot.child("washlet").getValue();
-                            toilet.washlet = (Boolean) dataSnapshot.child("washlet").getValue();;
-
-
-                            //Boolean wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
-                            toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
-
-
-                            //Boolean onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
-                            toilet.onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
-
-
-                            //Boolean unisex = (Boolean) dataSnapshot.child("unisex").getValue();
-                            toilet.unisex = (Boolean) dataSnapshot.child("unisex").getValue();
-
-
-                            //Boolean makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
-                            toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
-
-
-                           // Boolean milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
-                            toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
-
-
-                           // Boolean omutu = (Boolean) dataSnapshot.child("omutu").getValue();
-                            toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
-
-
-                            //Boolean ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
-                            toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
-
-
-                            //Boolean japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
-                            toilet.japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
-
-                           // Boolean westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
-                            toilet.westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
-
-
-                          //  Boolean warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
-                            toilet.warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
-
-
-
-
-                            //Boolean baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
-                            toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
-
-
-                           // Boolean available = (Boolean) dataSnapshot.child("available").getValue();
-                            toilet.available = (Boolean) dataSnapshot.child("available").getValue();
-
-                            //add boolean
-                            toilet.autoOpen = (Boolean) dataSnapshot.child("autoOpen").getValue();
-
-
-                            toilet.sensorHandWash = (Boolean) dataSnapshot.child("sensor").getValue();
-
-
-                            toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
-
-
-                            toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
-
-                            toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
-                           // Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-                            toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
-                           // Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-                            toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
-                            //Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-                            toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
-                            Log.i("toilet777.parking",String.valueOf(toilet.parking));
-
-                            toilet.english = (Boolean) dataSnapshot.child("english").getValue();
-                            //Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-                            toilet.braille = (Boolean) dataSnapshot.child("braille").getValue();
-                            Log.i("toilet777.ave",String.valueOf(toilet.available));
-
-
-
-
-
-                           // String howtoaceess = (String) dataSnapshot.child("howtoaccess").getValue();
-                            toilet.howtoaccess = (String) dataSnapshot.child("howtoaccess").getValue();
+                            toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();
 
                             Long openh = (Long) dataSnapshot.child("openHours").getValue();
                             toilet.openHours = openh.intValue();
-
                             Long closeh = (Long) dataSnapshot.child("closeHours").getValue();
-                            toilet.openHours = closeh.intValue();
-
-
-
-                           // String addedBy  = (String) dataSnapshot.child("addedBy").getValue();
-                            toilet.addedBy = (String) dataSnapshot.child("addedBy").getValue();
-
-                            //String editedBy = (String) dataSnapshot.child("editedBy").getValue();
-                            toilet.editedBy = (String) dataSnapshot.child("editedBy").getValue();
-
-
-
-
-                           // String averageStar = (String) dataSnapshot.child("averageStar").getValue();
-                            toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();;
-
-
-                            Double averaegeStarDouble = Double.parseDouble(toilet.averageStar);
-
-
-
+                            toilet.closeHours = closeh.intValue();
                             Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
                             toilet.reviewCount = reviewCount.intValue();
-
                             Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
                             toilet.averageWait = averageWait.intValue();
 
-                            ////Added feature elements March 3
+                            toilet.available = (Boolean) dataSnapshot.child("available").getValue();
+                            toilet.japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
+                            toilet.westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
+                            toilet.onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
+                            toilet.unisex = (Boolean) dataSnapshot.child("unisex").getValue();
+
+                            toilet.washlet = (Boolean) dataSnapshot.child("washlet").getValue();
+                            toilet.warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
+                            toilet.autoOpen = (Boolean) dataSnapshot.child("autoOpen").getValue();
+                            toilet.noVirus = (Boolean) dataSnapshot.child("noVirus").getValue();
+                            toilet.paperForBenki = (Boolean) dataSnapshot.child("paperForBenki").getValue();
+                            toilet.cleanerForBenki = (Boolean) dataSnapshot.child("cleanerForBenki").getValue();
+                            toilet.autoToiletWash = (Boolean) dataSnapshot.child("nonTouchWash").getValue();
+
+
+                            toilet.sensorHandWash = (Boolean) dataSnapshot.child("sensorHandWash").getValue();
+                            toilet.handSoap = (Boolean) dataSnapshot.child("handSoap").getValue();
+                            toilet.autoHandSoap = (Boolean) dataSnapshot.child("nonTouchHandSoap").getValue();
+                            toilet.paperTowel = (Boolean) dataSnapshot.child("paperTowel").getValue();
+                            toilet.handDrier = (Boolean) dataSnapshot.child("handDrier").getValue();
+
+                            toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
+                            toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+                            toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
+                            toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
+                            toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
+                            toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+
+                            toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
+                            toilet.handrail = (Boolean) dataSnapshot.child("handrail").getValue();
+                            toilet.callHelp = (Boolean) dataSnapshot.child("callHelp").getValue();
+                            toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
+                            toilet.english = (Boolean) dataSnapshot.child("english").getValue();
+                            toilet.braille = (Boolean) dataSnapshot.child("braille").getValue();
+                            toilet.voiceGuide = (Boolean) dataSnapshot.child("voiceGuide").getValue();
+
+
+                            toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
+                            toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
+                            toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
+                            toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
+                            toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
+                            toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
+
+                            Double averaegeStarDouble = Double.parseDouble(toilet.averageStar);
 
                             if (averaegeStarDouble < Filter.starFilter) {
 
@@ -660,35 +582,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                // continue;
                             }
 
-                            if (Filter.washletFilter && !toilet.washlet) {
-                                removedToilet = true;
-                            }
 
-                            if (Filter.wheelchairFilter  && !toilet.wheelchair) {
-                                removedToilet = true;
-                            }
-
-                            if (Filter.onlyFemaleFilter && !toilet.onlyFemale) {
-                                removedToilet = true;
-                            }
-
-                            if (Filter.unisexFilter  && !toilet.unisex) {
-                                removedToilet = true;
-                            }
-
-                            if (Filter.makeroomFilter  && !toilet.makeuproom ) {
-                                removedToilet = true;
-                            }
-
-                            if (Filter.milkspaceFilter  && !toilet.milkspace) {
-                                removedToilet = true;
-                            }
-
-                            if (Filter.omutuFilter  && !toilet.omutu) {
-                                removedToilet = true;
-                            }
-
-                            if (Filter.ostomateFilter  && !toilet.ostomate) {
+                            if (Filter.availableFilter  && !toilet.available) {
                                 removedToilet = true;
                             }
 
@@ -699,49 +594,73 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (Filter.westernFilter && !toilet.westerntoilet ) {
                                 removedToilet = true;
                             }
+                            if (Filter.onlyFemaleFilter && !toilet.onlyFemale) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.unisexFilter  && !toilet.unisex) {
+                                removedToilet = true;
+                            }
+
+                            //Benki function
+
+                            if (Filter.washletFilter && !toilet.washlet) {
+                                removedToilet = true;
+                            }
 
                             if (Filter.warmSearFilter && !toilet.warmSeat) {
                                 removedToilet = true;
                             }
 
-                            if (Filter.baggageSpaceFilter  && !toilet.baggageSpace) {
-                                removedToilet = true;
-                            }
-
-                            if (Filter.availableFilter  && !toilet.available) {
-                                removedToilet = true;
-                            } 
-                            
-                            
-                            
-                            
-                            //Special one
-                            
-                            //need more
-
-                            
-                            
-                            
                             if (Filter.autoOpen  && !toilet.autoOpen) {
                                 removedToilet = true;
                             }
 
+                            if (Filter.noVirusFilter  && !toilet.noVirus) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.paperForBenkiFilter  && !toilet.paperForBenki) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.cleanerForBenkiFilter  && !toilet.cleanerForBenki) {
+                                removedToilet = true;
+                            }
+
+                            //washStand..
+
                             if (Filter.sensorHandWashFilter  && !toilet.sensorHandWash) {
                                 removedToilet = true;
                             }
+                            if (Filter.handSoapFilter  && !toilet.handSoap) {
+                                removedToilet = true;
+                            }
+                            if (Filter.autoHandSoapFilter  && !toilet.autoHandSoap) {
+                                removedToilet = true;
+                            }
+                            if (Filter.paperTowelFilter  && !toilet.paperTowel) {
+                                removedToilet = true;
+                            }
+                            if (Filter.handDrierFilter  && !toilet.handDrier) {
+                                removedToilet = true;
+                            }
+
+                            // For ladys...
 
                             if (Filter.otohime  && !toilet.otohime) {
                                 removedToilet = true;
                             }
 
-                            if (Filter.fancy  && !toilet.fancy) {
+                            if (Filter.omutuFilter  && !toilet.omutu) {
                                 removedToilet = true;
                             }
 
-                            if (Filter.confortableWise  && !toilet.conforatableWide) {
+                            if (Filter.milkspaceFilter  && !toilet.milkspace) {
                                 removedToilet = true;
                             }
-                            if (Filter.smell  && !toilet.smell) {
+
+                            if (Filter.makeroomFilter  && !toilet.makeuproom ) {
                                 removedToilet = true;
                             }
 
@@ -749,7 +668,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 removedToilet = true;
                             }
 
-                            if (Filter.parking  && !toilet.parking) {
+
+                            if (Filter.baggageSpaceFilter  && !toilet.baggageSpace) {
+                                removedToilet = true;
+                            }
+
+                            //Barrier free...
+
+                            if (Filter.wheelchairFilter  && !toilet.wheelchair) {
+                            removedToilet = true;
+                            }
+
+                            if (Filter.handrailFilter  && !toilet.handrail) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.callHelpFilter && !toilet.callHelp) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.ostomateFilter  && !toilet.ostomate) {
                                 removedToilet = true;
                             }
 
@@ -761,15 +699,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 removedToilet = true;
                             }
 
-                            
+                            if (Filter.voiceGuideFilter  && !toilet.voiceGuide) {
+                                removedToilet = true;
+                            }
+
+                            //Other stuffs...
+
+
+                            if (Filter.fancy  && !toilet.fancy) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.smell  && !toilet.smell) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.confortableWise  && !toilet.conforatableWide) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.parking  && !toilet.parking) {
+                                removedToilet = true;
+                            }
+                            if (Filter.airConditionFilter  && !toilet.airCondition) {
+                                removedToilet = true;
+                            }
+                            if (Filter.wifiFilter  && !toilet.wifi) {
+                                removedToilet = true;
+                            }
+
+
+
 
                             if (Filter.typeFilterOn  && toilet.type != Filter.typeFilter) {
                                 removedToilet = true;
                             }
 
-                            if (removedToilet == false){
-
-
+                            if (!removedToilet){
 
                                // toiletData.add(String.valueOf(toilet.key));
                                 toiletData.add(toilet);

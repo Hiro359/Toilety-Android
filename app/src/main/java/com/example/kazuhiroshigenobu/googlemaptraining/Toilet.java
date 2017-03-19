@@ -13,12 +13,17 @@ public class Toilet {
     String key;
     String type;
     String name;
-    Double latitude;
-    Double longitude;
     String urlOne;
     String urlTwo;
     String urlThree;
     String distance;
+    String openAndCloseHours;
+    String howtoaccess;
+    String tid;
+    String addedBy;
+    String editedBy;
+    String averageStar;
+    String address;
 
     Boolean available = true;
     Boolean japanesetoilet = false;
@@ -67,18 +72,12 @@ public class Toilet {
 
     Integer openHours;
     Integer closeHours;
-    String openAndCloseHours;
-    String howtoaccess;
-
-    String tid;
-    String addedBy;
-    String editedBy;
     Integer reviewCount;
-    Location loc;
-    String averageStar;
+    Integer floor;
     Integer averageWait;
-    String address;
 
+    Double latitude;
+    Double longitude;
 
     //Constructor
 
