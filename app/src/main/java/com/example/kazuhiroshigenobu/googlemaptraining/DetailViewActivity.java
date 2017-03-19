@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -79,6 +80,9 @@ public class DetailViewActivity extends AppCompatActivity {
     private String mActivityTitle;
 
     private Toolbar toolbar;
+    private TextView toolbarTitle;
+
+
     Toilet toilet =  new Toilet();
 
     public ArrayList<String> booleanArray = new ArrayList<String>();
@@ -89,10 +93,15 @@ public class DetailViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_view);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        mActivityTitle = getTitle().toString();
+       // mActivityTitle = getTitle().toString();
         mDrawerList = (ListView)findViewById(R.id.navList);
-        toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
+
+        toolbar = (Toolbar) findViewById(R.id.app_bar3);
+        toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbarTitle3);
+
+
+
+//        setSupportActionBar(toolbar);
 
 
         //Add in xml
@@ -102,11 +111,40 @@ public class DetailViewActivity extends AppCompatActivity {
         setupDrawer();
 
 
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(
+                new View.OnClickListener(){
+
+
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("Current.key","is This working???12321");
+                        Intent intent = new Intent(v.getContext(),MapsActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+        );
+        //toolbar.setNavigationIcon(R.drawable.earth);
+        //toolbar.setNavigationContentDescription("戻る");
+
+        //Trial....
+
+
+
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //It may cause a crash....
 
 
-        getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.detailViewMap);
@@ -131,6 +169,16 @@ public class DetailViewActivity extends AppCompatActivity {
         );
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        getMenuInflater().inflate(R.menu.filter2, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
     private void addDrawerItems() {
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, booleanArray);
         mDrawerList.setAdapter(mAdapter);
@@ -143,21 +191,25 @@ public class DetailViewActivity extends AppCompatActivity {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Navigation!");
+                //getSupportActionBar().setTitle("Navigation!");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mActivityTitle);
+                //getSupportActionBar().setTitle(mActivityTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
 
+        //Commented for adding a back button March 19th 18:30
 
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
+
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
+       // mDrawerLayout.addDrawerListener(mDrawerToggle);
+
+        //Commented for adding an back button 6:30pm 19th March
     }
 
 
@@ -351,6 +403,8 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
                     toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+                    toilet.omutuSelling = (Boolean) dataSnapshot.child("omutuSelling").getValue();
+                    toilet.napkinSelling = (Boolean) dataSnapshot.child("napkinSelling").getValue();
                     toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
                     toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
                     toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
@@ -453,6 +507,14 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     if (toilet.omutu){
                         booleanArray.add("おむつ交換台");
+                    }
+
+                    if (toilet.omutuSelling){
+                        booleanArray.add("おむつ販売機");
+                    }
+
+                    if (toilet.napkinSelling){
+                        booleanArray.add("ナプキン販売機");
                     }
 
                     if (toilet.milkspace){

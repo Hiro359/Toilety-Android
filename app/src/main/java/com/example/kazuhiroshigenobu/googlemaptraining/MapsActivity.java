@@ -551,6 +551,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
                             toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+                            toilet.omutuSelling = (Boolean) dataSnapshot.child("omutuSelling").getValue();
+                            toilet.napkinSelling = (Boolean) dataSnapshot.child("napkinSelling").getValue();
                             toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
                             toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
                             toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
@@ -655,6 +657,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (Filter.omutuFilter  && !toilet.omutu) {
                                 removedToilet = true;
                             }
+
+                            if (Filter.omutuSelling  && !toilet.omutuSelling) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.napkinSelling  && !toilet.napkinSelling) {
+                                removedToilet = true;
+                            }
+
 
                             if (Filter.milkspaceFilter  && !toilet.milkspace) {
                                 removedToilet = true;

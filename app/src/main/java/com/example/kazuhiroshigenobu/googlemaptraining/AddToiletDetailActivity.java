@@ -96,6 +96,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     Switch toiletOtohime;
     Switch toiletOmutu;
+    Switch toiletOmutuSelling;
+    Switch toiletNapkinSelling;
     Switch toiletMilk;
     Switch toiletMakeroom;
     Switch toiletClothes;
@@ -472,6 +474,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
         toiletOtohime = (Switch) findViewById(R.id.addOtohimeSwitch);
         toiletOmutu = (Switch) findViewById(R.id.addOmutuSwitch);
+        toiletOmutuSelling = (Switch) findViewById(R.id.addOmutuSellingSwitch);
+        toiletNapkinSelling = (Switch) findViewById(R.id.addNapkinSellingSwitch);
         toiletMilk = (Switch) findViewById(R.id.addMilkSwitch);
         toiletMakeroom = (Switch) findViewById(R.id.addMakeSwitch);
         toiletClothes = (Switch) findViewById(R.id.addClothesSwitch);
@@ -754,6 +758,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                toiletHandDrier.isChecked(),
                toiletOtohime.isChecked(),
                toiletOmutu.isChecked(),
+               toiletOmutuSelling.isChecked(),
+               toiletNapkinSelling.isChecked(),
                toiletMilk.isChecked(),
                toiletMakeroom.isChecked(),
                toiletClothes.isChecked(),

@@ -47,6 +47,8 @@ public class Toilet {
 
     Boolean otohime = false;
     Boolean omutu = false;
+    Boolean omutuSelling = false;
+    Boolean napkinSelling = false;
     Boolean milkspace = false;
     Boolean makeuproom = false;
     Boolean clothes = false;

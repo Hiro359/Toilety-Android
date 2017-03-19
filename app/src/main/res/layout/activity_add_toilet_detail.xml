@@ -213,7 +213,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="2350dp"
+        android:layout_height="2450dp"
         android:layout_marginTop="10dp"
 
 
@@ -527,6 +527,37 @@
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
             />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_omutuSelling"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addOmutuSellingSwitch"
+            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/name_napkinSelling"
+            android:textSize="24sp"
+            android:textColor="@color/colorSubText"
+            android:background="@color/colorLabel"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/addNapkinSellingSwitch"
+            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            />
+
         <Switch
             android:layout_width="match_parent"
             android:layout_height="60dp"

@@ -2,6 +2,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,7 @@ public class FilterSearchActivity extends AppCompatActivity {
 
     Button button;
     Toolbar toolbar;
+    TextView toolbarTitle;
     Spinner spinner1;
     Spinner spinner2;
     Spinner spinner3;
@@ -53,6 +55,8 @@ public class FilterSearchActivity extends AppCompatActivity {
 
     Switch othimeSwitch;
     Switch omutuSwitch;
+    Switch omutuSellingSwitch;
+    Switch napkinSellingSwitch;
     Switch milkSwitch;
     Switch makeroomSwitch;
     Switch clothesSwitch;
@@ -93,7 +97,13 @@ public class FilterSearchActivity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.startSearchButton);
         toolbar = (Toolbar) findViewById(R.id.app_bar2);
-        toolbar.setTitle("条件検索");
+        toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+
+        //TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        //toolbar.setTitle("条件検索");
+
+        //toolbar.setTitleTextColor(Color.BLUE);
+
 
 
         //toolbar.setTitleTextColor(getResources().R.color.colorPrimary);
@@ -107,6 +117,7 @@ public class FilterSearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
         Log.i("OKAY???","OKAY???5555");
@@ -248,6 +259,8 @@ public class FilterSearchActivity extends AppCompatActivity {
 
         othimeSwitch = (Switch) findViewById(R.id.otohimeSwitch);
         omutuSwitch = (Switch) findViewById(R.id.omutuSwitch);
+        omutuSellingSwitch = (Switch) findViewById(R.id.omutuSellingSwitch);
+        napkinSellingSwitch = (Switch) findViewById(R.id.napkinSellingSwitch);
         milkSwitch = (Switch) findViewById(R.id.milkSwitch);
         makeroomSwitch = (Switch) findViewById(R.id.makeroomSwitch);
         clothesSwitch = (Switch) findViewById(R.id.clothesSwitch);
@@ -296,6 +309,8 @@ public class FilterSearchActivity extends AppCompatActivity {
 
         othimeSwitch.setChecked(Filter.otohime);
         omutuSwitch.setChecked(Filter.omutuFilter);
+        omutuSellingSwitch.setChecked(Filter.omutuSelling);
+        napkinSellingSwitch.setChecked(Filter.napkinSelling);
         milkSwitch.setChecked(Filter.milkspaceFilter);
         makeroomSwitch.setChecked(Filter.makeroomFilter);
         clothesSwitch.setChecked(Filter.clothes);
@@ -561,6 +576,31 @@ public class FilterSearchActivity extends AppCompatActivity {
                 }
             }
         });
+
+        omutuSellingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "omutuSwitch", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.omutuSelling = true;
+                } else{
+                    Filter.omutuSelling = false;
+                }
+            }
+        });
+
+        napkinSellingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "omutuSwitch", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.napkinSelling = true;
+                } else{
+                    Filter.napkinSelling = false;
+                }
+            }
+        });
+
 
         milkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

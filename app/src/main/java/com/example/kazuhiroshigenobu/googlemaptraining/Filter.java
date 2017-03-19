@@ -40,6 +40,8 @@ public class Filter {
 
     static Boolean otohime = false;
     static Boolean omutuFilter = false;
+    static Boolean omutuSelling = false;
+    static Boolean napkinSelling = false;
     static Boolean milkspaceFilter = false;
     static Boolean makeroomFilter = false;
     static Boolean clothes = false;
