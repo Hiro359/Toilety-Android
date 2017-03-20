@@ -483,9 +483,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             Toilet toilet =  new Toilet();
                            // List<String> toiletData = new ArrayList<>();
-
-
-
+                            
                             Filter filter =  new Filter();
 
 

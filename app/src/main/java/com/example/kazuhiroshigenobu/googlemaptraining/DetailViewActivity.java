@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -244,6 +245,22 @@ public class DetailViewActivity extends AppCompatActivity {
                 intent.putExtra("reviewCount",toilet.reviewCount);
                 intent.putExtra("averageWait", toilet.averageWait);
                 intent.putExtra("averageStar", toilet.averageStar);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent intent = new Intent(v.getContext(), EditViewActivity.class);
+                Toast.makeText(DetailViewActivity.this, String.valueOf(toilet.key), Toast.LENGTH_SHORT).show();
+                intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+//                intent.putExtra("reviewCount",toilet.reviewCount);
+//                intent.putExtra("averageWait", toilet.averageWait);
+//                intent.putExtra("averageStar", toilet.averageStar);
                 startActivity(intent);
                 finish();
             }

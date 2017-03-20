@@ -835,6 +835,10 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     Log.i("please", "...");
        geolocationUpdate(firekey);
 
+       Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
+       startActivity(intent);
+       finish();
+
     }
 
 

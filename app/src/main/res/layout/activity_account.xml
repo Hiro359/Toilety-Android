@@ -21,11 +21,15 @@
 
         >
 
+        <include
+            android:id="@+id/app_bar4"
+            layout="@layout/app_bar4"/>
+
 
                 <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="160dp"
             android:gravity="center">
 
 
@@ -35,7 +39,7 @@
             app:srcCompat="@color/cast_intro_overlay_button_background_color"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/imageAccount"
             />
                     <TextView
@@ -45,7 +49,7 @@
             android:textSize="25dp"
             android:textColor="@color/colorText"
             android:id="@+id/userAccountName"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             />
             </LinearLayout>
 
@@ -207,26 +211,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:text="トイレを投稿する"
-                    android:id="@+id/buttonAddToilet"/>
+                    android:textColor="@color/colorText"
+                    android:id="@+id/buttonAddToilet"
+                    android:background="@drawable/buttonborder"
+                    android:layout_margin="3dp"
+                    />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:text="お気に入りリスト"
+                    android:textColor="@color/colorText"
                     android:id="@+id/buttonFavoriteList"
+                    android:background="@drawable/buttonborder"
+                    android:layout_margin="3dp"
                     />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:text="以前利用したトイレ"
-                    android:id="@+id/buttonToiletYouWent"/>
+                    android:textColor="@color/colorText"
+                    android:id="@+id/buttonToiletYouWent"
+                    android:background="@drawable/buttonborder"
+                    android:layout_margin="3dp"/>
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:text="以前投稿したトイレ"
-                    android:id="@+id/buttonYouAdded"/>
+                    android:textColor="@color/colorText"
+                    android:id="@+id/buttonYouAdded"
+                    android:background="@drawable/buttonborder"
+                    android:layout_margin="3dp"/>
             </LinearLayout>
 
     </LinearLayout>

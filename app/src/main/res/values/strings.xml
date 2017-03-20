@@ -8,6 +8,14 @@
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">ログイン </string>
     <string name="action_register">登録</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+
+
+    <!--FilterSearchActivity-->
     <string name="text_distance">距離</string>
     <string name="select_distance">距離を選択</string>
     <string name="orderToilet">並び順</string>
@@ -16,14 +24,6 @@
     <string name="detailToilet">トイレの詳細</string>
 
 
-
-
-
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
 
     <!--Strings related to boolean values-->
     <string name="name_japaneseToilet">和式トイレ</string>
@@ -66,8 +66,6 @@
     <string name="name_noNeedAsk">声かけ不要</string>
 
 
-
-
     <string name="benkiWestern">洋式便器</string>
     <string name="benkiJapanese">和式便器</string>
     <string name="benkiPee">小便器</string>
@@ -91,8 +89,6 @@
     <string name="timeDot"> : </string>
     <string name="search"> 検索 </string>
 
-
-
     <string name="braille">点字案内</string>
     <string name="access">アクセス方法</string>
     <string name="accessGo">具体的なアクセス方法</string>
@@ -103,7 +99,6 @@
     <string name="availableSwitch">利用可能</string>
 
 
-
     <string name="between">〜</string>
 
     <string name="drawer_open">Open navigation drawer</string>
@@ -111,6 +106,7 @@
     <string name="post_kansou">感想を投稿する</string>
     <string name="name_deleteFilters">検索条件を削除</string>
     <string name="deletingFilters">条件削除</string>
+    <string name="openAllDay">24時間営業の場合は 0:00 〜 24:00</string>
 
     <!--Search category booleans-->
     <string name="basicFucation">基本設備</string>
@@ -119,6 +115,13 @@
     <string name="searchForLadys">女性に優しい設備</string>
     <string name="searchBarrierFree">バリアフリー</string>
     <string name="searchOthers">その他</string>
+
+
+    <!--Related to App Bars-->
+    <string name="myPage">マイページ</string>
+    <string name="editPage">編集</string>
+
+
 
 
 
@@ -294,6 +297,19 @@
         <item> 21</item>
         <item> 22</item>
         <item> 23</item>
+        <item> 24</item>
+        <item> 25</item>
+        <item> 26</item>
+        <item> 27</item>
+        <item> 28</item>
+        <item> 29</item>
+        <item> 30</item>
+        <item> 31</item>
+        <item> 32</item>
+        <item> 33</item>
+        <item> 34</item>
+        <item> 35</item>
+        <item> 36</item>
 
 
     </string-array>

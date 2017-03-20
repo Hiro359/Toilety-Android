@@ -6,15 +6,19 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AccountActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
+
     Button buttonAddToielt;
     Button buttonFavorite;
     Button buttonYouWent;
     Button buttonYouAddd;
+
+    Toolbar toolbar;
+    TextView toolbarTitle;
 
 
     @Override
@@ -33,6 +37,26 @@ public class AccountActivity extends AppCompatActivity {
         buttonFavorite = (Button) findViewById(R.id.buttonFavoriteList);
         buttonYouWent = (Button) findViewById(R.id.buttonToiletYouWent);
         buttonYouAddd = (Button) findViewById(R.id.buttonYouAdded);
+
+        toolbar = (Toolbar) findViewById(R.id.app_bar4);
+        toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbarTitle4);
+
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(),MapsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+        );
 
         //SetOnClick
 
