@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
+<LinearLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,19 +8,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorForBackground"
-    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.FilterSearchActivity">
+    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.FilterSearchActivity"
+    >
+
+    <include
+        android:id="@+id/app_bar2"
+        layout="@layout/app_bar2"/>
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
-        <include
-            android:id="@+id/app_bar2"
-            layout="@layout/app_bar2"/>
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/deletingFilters"
+                android:textColor="@color/colorSubText"
+                android:layout_marginBottom="3dp"
+
+                />
+
+            <Button
+                android:id="@+id/deleteFiltersButton"
+                android:text="@string/name_deleteFilters"
+                android:textColor="@color/colorText"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/buttonborder"
+
+
+                />
+
+        </LinearLayout>
 
 
          <LinearLayout
@@ -141,7 +175,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="2550dp"
+            android:layout_height="2600dp"
             android:layout_margin="10dp"
             >
 
@@ -732,6 +766,20 @@
                 android:paddingEnd="10dp"
                 />
 
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/name_noNeedAsk"
+                android:textSize="24sp"
+                android:textColor="@color/colorSubText"
+                android:background="@color/colorLabel"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/noNeedAskSwitch"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                />
 
 
 
@@ -817,13 +865,14 @@
                 android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-                android:background="@color/colorLabel"
+                android:background="@drawable/buttonborder"
 
 
                 />
 
         </LinearLayout>
+
+
         　
         　
 
@@ -832,4 +881,6 @@
 
     </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+
+</LinearLayout>

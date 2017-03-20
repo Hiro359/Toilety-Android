@@ -63,6 +63,7 @@
     <string name="name_sensorHandWash">センサー式お手洗い</string>
     <string name="name_omutuSelling">おむつ販売機</string>
     <string name="name_napkinSelling">ナプキン販売機</string>
+    <string name="name_noNeedAsk">声かけ不要</string>
 
 
 
@@ -108,6 +109,8 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="post_kansou">感想を投稿する</string>
+    <string name="name_deleteFilters">検索条件を削除</string>
+    <string name="deletingFilters">条件削除</string>
 
     <!--Search category booleans-->
     <string name="basicFucation">基本設備</string>

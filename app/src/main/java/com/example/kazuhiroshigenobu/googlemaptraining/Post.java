@@ -65,12 +65,13 @@ public class Post {
     public Boolean fancy;
     public Boolean smell;
     public Boolean confortable;
+    public Boolean noNeedAsk;
     public Boolean parking;
     public Boolean airCondition;
     public Boolean wifi;
 
 
-    public Post(String name, String openAndCloseHours, String type, String urlOne, String urlTwo, String urlThree, String addedBy, String editedBy, String averageStar, String address, String howtoaccess, Integer openHours, Integer closeHours, Integer reviewCount, Integer averageWait, Integer toiletFloor, Double latitude, Double longitude, Boolean available, Boolean japanesetoilet, Boolean westerntoilet, Boolean onlyFemale, Boolean unisex, Boolean washlet, Boolean warmSeat, Boolean autoOpen, Boolean noVirus, Boolean paperForBenki, Boolean cleanerForBenki, Boolean nonTouchWash, Boolean sensorHandWash, Boolean handSoap, Boolean nonTouchHandSoap, Boolean paperTowel, Boolean handDrier, Boolean otohime, Boolean omutu, Boolean omutuSelling, Boolean napkinSelling, Boolean milkspace, Boolean makeuproom, Boolean clothes, Boolean baggageSpace, Boolean wheelchair, Boolean handrail, Boolean callHelp, Boolean ostomate, Boolean english, Boolean braille, Boolean voiceGuide, Boolean fancy, Boolean smell, Boolean confortable, Boolean parking, Boolean airCondition, Boolean wifi) {
+    public Post(String name, String openAndCloseHours, String type, String urlOne, String urlTwo, String urlThree, String addedBy, String editedBy, String averageStar, String address, String howtoaccess, Integer openHours, Integer closeHours, Integer reviewCount, Integer averageWait, Integer toiletFloor, Double latitude, Double longitude, Boolean available, Boolean japanesetoilet, Boolean westerntoilet, Boolean onlyFemale, Boolean unisex, Boolean washlet, Boolean warmSeat, Boolean autoOpen, Boolean noVirus, Boolean paperForBenki, Boolean cleanerForBenki, Boolean nonTouchWash, Boolean sensorHandWash, Boolean handSoap, Boolean nonTouchHandSoap, Boolean paperTowel, Boolean handDrier, Boolean otohime, Boolean omutu, Boolean omutuSelling, Boolean napkinSelling, Boolean milkspace, Boolean makeuproom, Boolean clothes, Boolean baggageSpace, Boolean wheelchair, Boolean handrail, Boolean callHelp, Boolean ostomate, Boolean english, Boolean braille, Boolean voiceGuide, Boolean fancy, Boolean smell, Boolean confortable, Boolean noNeedAsk, Boolean parking, Boolean airCondition, Boolean wifi) {
         this.name = name;
         this.openAndCloseHours = openAndCloseHours;
         this.type = type;
@@ -124,6 +125,7 @@ public class Post {
         this.fancy = fancy;
         this.smell = smell;
         this.confortable = confortable;
+        this.noNeedAsk = noNeedAsk;
         this.parking = parking;
         this.airCondition = airCondition;
         this.wifi = wifi;

@@ -424,6 +424,7 @@ public class DetailViewActivity extends AppCompatActivity {
                     toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
                     toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
                     toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
+                    toilet.noNeedAsk = (Boolean) dataSnapshot.child("noNeedAsk").getValue();
                     toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
                     toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
                     toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
@@ -575,6 +576,9 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     if (toilet.conforatableWide){
                         booleanArray.add("快適な広さ");
+                    }
+                    if (toilet.noNeedAsk){
+                        booleanArray.add("声かけ不要");
                     }
 
 

@@ -59,6 +59,7 @@ public class Filter {
     static Boolean fancy = false;
     static Boolean smell = false;
     static Boolean confortableWise = false;
+    static Boolean noNeedAsk = false;
     static Boolean parking = false;
     static Boolean airConditionFilter = false;
     static Boolean wifiFilter = false;

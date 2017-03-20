@@ -114,6 +114,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     Switch toiletFancy;
     Switch toiletSmell;
     Switch toiletConfortable;
+    Switch toiletNoNeedAsk;
     Switch toiletParking;
     Switch toiletAirCondition;
     Switch toiletWifi;
@@ -495,6 +496,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         toiletFancy = (Switch) findViewById(R.id.addFancySwitch);
         toiletSmell = (Switch) findViewById(R.id.addSmellSwitch);
         toiletConfortable = (Switch) findViewById(R.id.addConforableSwitch);
+        toiletNoNeedAsk = (Switch) findViewById(R.id.addNoNeedAskSwitch);
         toiletParking = (Switch) findViewById(R.id.addParkingSwitch);
         toiletAirCondition = (Switch) findViewById(R.id.addAirConditionSwitch);
         toiletWifi = (Switch) findViewById(R.id.addWifiSwitch);
@@ -774,6 +776,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                toiletFancy.isChecked(),
                toiletSmell.isChecked(),
                toiletConfortable.isChecked(),
+               toiletNoNeedAsk.isChecked(),
                toiletParking.isChecked(),
                toiletAirCondition.isChecked(),
                toiletWifi.isChecked()

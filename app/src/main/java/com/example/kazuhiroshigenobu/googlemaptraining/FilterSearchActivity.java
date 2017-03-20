@@ -74,6 +74,7 @@ public class FilterSearchActivity extends AppCompatActivity {
     Switch fancySwitch;
     Switch smellSwitch;
     Switch confortableSwitch;
+    Switch noNeedAskSwitch;
     Switch parkingSwitch;
     Switch airConditionSwitch;
     Switch wifiSwitch;
@@ -277,6 +278,7 @@ public class FilterSearchActivity extends AppCompatActivity {
         fancySwitch = (Switch) findViewById(R.id.fancySwitch);
         smellSwitch = (Switch) findViewById(R.id.smellSwitch);
         confortableSwitch = (Switch) findViewById(R.id.comfontableWideSwitch);
+        noNeedAskSwitch = (Switch) findViewById(R.id.noNeedAskSwitch);
         parkingSwitch = (Switch) findViewById(R.id.parkingSwitch);
         airConditionSwitch = (Switch) findViewById(R.id.airConditionSwitch);
         wifiSwitch = (Switch) findViewById(R.id.wifiSwitch);
@@ -329,6 +331,7 @@ public class FilterSearchActivity extends AppCompatActivity {
         fancySwitch.setChecked(Filter.fancy);
         smellSwitch.setChecked(Filter.smell);
         confortableSwitch.setChecked(Filter.confortableWise);
+        noNeedAskSwitch.setChecked(Filter.noNeedAsk);
         parkingSwitch.setChecked(Filter.parking);
         airConditionSwitch.setChecked(Filter.airConditionFilter);
         wifiSwitch.setChecked(Filter.wifiFilter);
@@ -788,6 +791,19 @@ public class FilterSearchActivity extends AppCompatActivity {
                     Filter.confortableWise = true;
                 } else{
                     Filter.confortableWise = false;
+                }
+            }
+        });
+
+        noNeedAskSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+//                return Filter.japaneseFilter();
+                if (isChecked){
+                    Filter.noNeedAsk = true;
+                } else{
+                    Filter.noNeedAsk = false;
                 }
             }
         });

@@ -570,6 +570,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
                             toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
                             toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
+                            toilet.noNeedAsk = (Boolean) dataSnapshot.child("noNeedAsk").getValue();
                             toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
                             toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
                             toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
@@ -728,6 +729,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (Filter.confortableWise  && !toilet.conforatableWide) {
                                 removedToilet = true;
                             }
+
+                            if (Filter.noNeedAsk && !toilet.noNeedAsk) {
+                                removedToilet = true;
+                            }
+
 
                             if (Filter.parking  && !toilet.parking) {
                                 removedToilet = true;

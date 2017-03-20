@@ -67,6 +67,7 @@ public class Toilet {
     Boolean fancy = false;
     Boolean smell = false;
     Boolean conforatableWide= false;
+    Boolean noNeedAsk = false;
     Boolean parking = false;
     Boolean airCondition = false;
     Boolean wifi = false;
