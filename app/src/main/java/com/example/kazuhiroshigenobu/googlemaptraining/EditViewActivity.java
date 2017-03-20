@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,7 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -203,6 +206,27 @@ public class EditViewActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        getMenuInflater().inflate(R.menu.editviewbar, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+
+
+            Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
+
+            return super.onOptionsItemSelected(item);
+        }
+
+
 
     private void switchesReady(){
 
@@ -255,6 +279,11 @@ public class EditViewActivity extends AppCompatActivity {
     private void othersReady(){
         textToiletName = (EditText) findViewById(R.id.writeToiletName);
         textHowToAccess = (EditText) findViewById(R.id.inputHowToAccess);
+        textFeedback = (EditText) findViewById(R.id.kansou);
+
+        textFeedback.setHint("トイレがとても綺麗でした。ありがとうございます。");
+        textFeedback.setMaxLines(Integer.MAX_VALUE);
+        textFeedback.setHorizontallyScrolling(false);
 
 
 

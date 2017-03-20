@@ -1015,7 +1015,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="140sp"
+                    android:layout_height="150sp"
                     android:background="@drawable/border"
                     android:id="@+id/addFeedback"
                     >
@@ -1032,7 +1032,7 @@
                         android:textColor="@color/colorText"
                         android:inputType="text"
                         android:imeOptions="actionDone"
-                        android:hint="@string/writeKansou"
+                        android:gravity="top"
                         />
 
 
@@ -1066,7 +1066,7 @@
                     android:textColor="@color/colorText"
                     android:background="@drawable/buttonborder"
                     android:id="@+id/editPinMap"
-                    android:layout_marginBottom="3dp"/>
+                    android:layout_marginBottom="5dp"/>
 
 
                 <fragment
