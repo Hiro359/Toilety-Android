@@ -6,7 +6,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 public class User {
 
-        public String email;
+        public String userName;
         public String password;
         public String userPhoto;
         public String userEmail;
@@ -19,15 +19,14 @@ public class User {
             // ...
 
     }
-        public User(String email, String password,String userPhoto,String userEmail,int totalLikedCount,int totalHelpedCount,int totalFavoriteCount)
-        {
-            this.email = email;
-            this.password = password;
-            this.userPhoto = userPhoto;
-            this.userEmail = userEmail;
-            this.totalLikedCount = totalLikedCount;
-            this.totalHelpedCount = totalHelpedCount;
-            this.totalFavoriteCount = totalFavoriteCount;
 
+    public User(String userName, String password, String userPhoto, String userEmail, int totalLikedCount, int totalHelpedCount, int totalFavoriteCount) {
+        this.userName = userName;
+        this.password = password;
+        this.userPhoto = userPhoto;
+        this.userEmail = userEmail;
+        this.totalLikedCount = totalLikedCount;
+        this.totalHelpedCount = totalHelpedCount;
+        this.totalFavoriteCount = totalFavoriteCount;
     }
 }

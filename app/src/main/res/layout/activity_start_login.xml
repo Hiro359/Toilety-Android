@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_start_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorForBackground"
+    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.StartLoginActivity"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/defaultappbar"
+        layout="@layout/defaultappbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/border"
+        android:id="@+id/inputLoginName"
+        android:layout_margin="10dp"
+        >
+
+
+        <EditText
+            android:id="@+id/writeLoginEmail"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textColorHint="@color/colorSubText"
+            android:textColor="@color/colorText"
+            android:inputType="textEmailAddress"
+            android:imeOptions="actionDone"
+
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/border"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/inputName"
+        android:layout_margin="10dp"
+        >
+
+
+        <EditText
+            android:id="@+id/writeLoginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textColorHint="@color/colorSubText"
+            android:textColor="@color/colorText"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+
+
+
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/startLogin"
+        android:textColor="@color/colorText"
+        android:background="@drawable/shape"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/buttonForStartingLogin"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/forgetPassword"
+        android:textColor="@color/colorSubText"
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/serviceRule"
+        android:textColor="@color/colorSubText"
+        android:layout_gravity="center"
+        android:background="@color/colorForBackground"
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personalInfo"
+        android:textColor="@color/colorSubText"
+        android:padding="2dp"
+        android:layout_gravity="center"
+        android:background="@color/colorForBackground"
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/readDocument"
+        android:textColor="@color/colorSubText"
+        android:padding="10dp"
+
+        />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

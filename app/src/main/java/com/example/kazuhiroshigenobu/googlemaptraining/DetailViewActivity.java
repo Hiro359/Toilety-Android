@@ -58,6 +58,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
     private DatabaseReference toiletRef;
     private DatabaseReference reviewsRef;
+    private DatabaseReference userRef;
     private GoogleApiClient client;
 
     TextView toiletNameLabel;
@@ -71,6 +72,7 @@ public class DetailViewActivity extends AppCompatActivity {
     Button buttonMoreDetail;
     Button buttonKansou;
     Button buttonEdit;
+    Button buttonFavorite;
     //DrawerLayout drawer;
 
     private ListView mDrawerList;
@@ -82,6 +84,8 @@ public class DetailViewActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView toolbarTitle;
+    private Boolean userLikePushed = false;
+    private FirebaseAuth firebaseAuth;
 
 
     Toilet toilet =  new Toilet();
@@ -226,6 +230,7 @@ public class DetailViewActivity extends AppCompatActivity {
         buttonMoreDetail = (Button) findViewById(R.id.buttonMoreDetail);
         buttonKansou = (Button) findViewById(R.id.buttonKansou);
         buttonEdit = (Button) findViewById(R.id.buttonEdit);
+        buttonFavorite = (Button) findViewById(R.id.detailFavoriteButton);
 
         buttonMoreDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,6 +268,24 @@ public class DetailViewActivity extends AppCompatActivity {
 //                intent.putExtra("averageStar", toilet.averageStar);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        buttonFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!userLikePushed) {
+                    Toast.makeText(DetailViewActivity.this, "Favorite", Toast.LENGTH_SHORT).show();
+                    buttonFavorite.setBackgroundResource(R.drawable.like);
+                    userLikePushed = true;
+                } else {
+                    buttonFavorite.setBackgroundResource(R.drawable.likebefore);
+                    userLikePushed = false;
+                }
+
+
+
             }
         });
 
@@ -725,5 +748,27 @@ public class DetailViewActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+
+    private void userLeave(){
+
+
+        String userID = firebaseAuth.getCurrentUser().getUid();
+        userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
+        userRef.child("favourite").setValue(toilet.tid);
+
+        
+
+
+
+        //Like list
+
+
+
+
+
+
+
     }
 }

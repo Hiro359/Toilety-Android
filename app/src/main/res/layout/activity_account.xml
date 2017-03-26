@@ -16,7 +16,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
 
         >
@@ -37,16 +37,15 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:srcCompat="@color/cast_intro_overlay_button_background_color"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:id="@+id/imageAccount"
+            android:contentDescription="@string/accountImage"
             />
                     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="userName"
-            android:textSize="25dp"
+            android:text="@string/notLogIn"
+            android:textSize="22sp"
             android:textColor="@color/colorText"
             android:id="@+id/userAccountName"
             android:layout_marginTop="10dp"
@@ -66,7 +65,8 @@
                     android:orientation="vertical"
                     android:id="@+id/likeLayout"
                     android:layout_toLeftOf="@+id/favoriteLayout"
-                    android:paddingRight="60dp"
+                    android:layout_toStartOf="@+id/favoriteLayout"
+
 
 
                     >
@@ -74,7 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/likeCount"
-                        android:text="1"
+                        android:text="@string/countZero"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
                         android:layout_gravity="center"
@@ -86,24 +86,23 @@
                         android:id="@+id/likeImage"
                         android:layout_gravity="center"
                         android:src="@drawable/thumb"
-
+                        android:contentDescription="@string/likeImage"
 
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/likeLabel"
-                        android:text="もらった"
+                        android:text="@string/get1"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/likeLabel2"
-                        android:text="いいね"
+                        android:text="@string/getliked2"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
                         android:layout_gravity="center"/>
@@ -114,14 +113,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_centerHorizontal="true"
-                    android:id="@+id/favoriteLayout">
+                    android:id="@+id/favoriteLayout"
+                    android:paddingRight="60sp"
+                    android:paddingLeft="60sp"
+                    >
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/favoriteCount"
-                        android:text="2"
+                        android:text="@string/countZero"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
                         android:layout_gravity="center"/>
@@ -130,12 +132,13 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/heartImage"
                         android:layout_gravity="center"
+                        android:contentDescription="@string/FavoriteImage"
                         android:src="@drawable/like"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/favoriteLabel"
-                        android:text="もらった"
+                        android:text="@string/get1"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
                         android:layout_gravity="center"/>
@@ -144,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/favoriteLabel2"
-                        android:text="お気に入り"
+                        android:text="@string/getFavorite2"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
                         android:layout_gravity="center"/>
@@ -157,14 +160,14 @@
                     android:orientation="vertical"
                     android:id="@+id/helpLayout"
                     android:layout_toRightOf="@+id/favoriteLayout"
-                    android:paddingLeft="60dp"
+                    android:layout_toEndOf="@+id/favoriteLayout"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/helepedCount"
-                        android:text="3"
+                        android:text="@string/countZero"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
                         android:layout_gravity="center"/>
@@ -174,12 +177,13 @@
                         android:id="@+id/helpedImage"
                         android:layout_gravity="center"
                         android:src="@drawable/standing"
+                        android:contentDescription="@string/HelpImage"
                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/helpedLabel"
-                        android:text="助けた"
+                        android:text="@string/helped1"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
                         android:layout_gravity="center"/>
@@ -188,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/helpedLabel2"
-                        android:text="人数"
+                        android:text="@string/helped2"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
                         android:layout_gravity="center"/>
@@ -210,7 +214,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="トイレを投稿する"
+                    android:text="@string/postToiletButtonText"
                     android:textColor="@color/colorText"
                     android:id="@+id/buttonAddToilet"
                     android:background="@drawable/buttonborder"
@@ -220,7 +224,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="お気に入りリスト"
+                    android:text="@string/showYouFavoriteText"
                     android:textColor="@color/colorText"
                     android:id="@+id/buttonFavoriteList"
                     android:background="@drawable/buttonborder"
@@ -230,7 +234,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="以前利用したトイレ"
+                    android:text="@string/showYouWentText"
                     android:textColor="@color/colorText"
                     android:id="@+id/buttonToiletYouWent"
                     android:background="@drawable/buttonborder"
@@ -239,7 +243,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="以前投稿したトイレ"
+                    android:text="@string/showYouPostedText"
                     android:textColor="@color/colorText"
                     android:id="@+id/buttonYouAdded"
                     android:background="@drawable/buttonborder"

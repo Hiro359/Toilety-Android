@@ -149,6 +149,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     private GoogleApiClient client;
     private GoogleMap mMap;
+    private FirebaseAuth firebaseAuth;
+
 
 
     Boolean spinnerLoaded = false;
@@ -237,6 +239,13 @@ public class AddToiletDetailActivity extends AppCompatActivity {
             );
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        //firebaseAuth.getCurrentUser().getUid();
+
+        Log.i("getUIDddd",String.valueOf(firebaseAuth.getCurrentUser().getUid()));
+
+        //firebaseAuth.getCurrentUser();
 
         sppinnerReady();
         textReady();

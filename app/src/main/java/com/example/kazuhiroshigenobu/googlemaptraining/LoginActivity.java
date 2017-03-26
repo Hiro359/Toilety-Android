@@ -349,7 +349,13 @@ public class LoginActivity extends AppCompatActivity
         User user = new User(email, password, "https://firebasestorage.googleapis.com/v0/b/problemsolving-299e4.appspot.com/o/images%2Fdefault%20picture.png?alt=media&token=b407a188-5a9d-4b0f-8b43-3bf6c2060573", email, 0, 0, 0);
 
         FirebaseUser userID = firebaseAuth.getCurrentUser();
-        databaseReference.child("users").push().setValue(user);
+        String userid = userID.getUid();
+        databaseReference.child("users").child(userid).setValue(user);
+
+        //should be changed puch() to getUserId......
+        //March 25
+
+
 
         //DatabaseReference userRef = mDatabase.child("users").push(user);
 

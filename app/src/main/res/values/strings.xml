@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Google Map Training</string>
+    <string name="app_name">Toilet Data</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_login">Sign in</string>
 
@@ -8,11 +8,45 @@
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">ログイン </string>
     <string name="action_register">登録</string>
+    <string name="createNewAccount">アカウント登録</string>
+    <string name="forgetPassword">パスワードを忘れましたか？</string>
+    <string name="serviceRule">ToiletDataサービス利用規約</string>
+    <string name="personalInfo">個人情報保護方針</string>
+    <string name="readDocument">ログインすることによりあなたはToilet Dataサービス利用規約と個人情報保護方針に同意することとします。</string>
+
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_user_exists">すでにユーザーが登録されています</string>
+    <string name="error_weak_password">パスワードが短すぎます</string>
+
+    <!--Strings related to Setting View Activity-->
+    <string name="changeUserName">ユーザーネームを変える</string>
+    <string name="changeUserPhoto">プロフィール写真を変える</string>
+    <string name="aboutThisApp">このアプリについて</string>
+    <string name="privacyInfo">プライバシー</string>
+    <string name="showHelp">ヘルプ</string>
+    <string name="logout">ログアウト</string>
+    <string name="settingsButton">設定</string>
+
+
+
+    <!--DetailViewActivity-->
+    <string name="mainDetailImage">メインイメージ</string>
+    <string name="detailName">名前</string>
+    <string name="detailDistance">コンビニエンスストア/ 500m</string>
+    <string name="detailAvailableTimes">ご利用時間12:00 - 18:00/ 平均待ち2分</string>
+    <string name="detailStarStrings">3.0</string>
+    <string name="detailRatingStrings">(45)</string>
+    <string name="detailAdreess">アドレス</string>
+    <string name="detailHowToAccess">具体的なアクセス方法</string>
+
+
+
+
+
 
 
     <!--FilterSearchActivity-->
@@ -22,7 +56,6 @@
     <string name="category">分類</string>
     <string name="searchWithFilter">条件検索</string>
     <string name="detailToilet">トイレの詳細</string>
-
 
 
     <!--Strings related to boolean values-->
@@ -120,6 +153,47 @@
     <!--Related to App Bars-->
     <string name="myPage">マイページ</string>
     <string name="editPage">編集</string>
+
+    <!--Related to Account Activity-->
+    <string name="countZero">0</string>
+    <string name="notLogIn">ユーザー未登録</string>
+    <string name="get1">もらった</string>
+    <string name="getliked2">いいね</string>
+    <string name="getFavorite2">お気に入り</string>
+    <string name="helped1">助けた</string>
+    <string name="helped2">人数</string>
+    <string name="postToiletButtonText">トイレを投稿する</string>
+    <string name="showYouFavoriteText">お気に入りリスト</string>
+    <string name="showYouPostedText">以前投稿したトイレ</string>
+    <string name="showYouWentText">以前利用したトイレ</string>
+    <string name="likeImage">いいね</string>
+    <string name="FavoriteImage">お気に入り</string>
+    <string name="HelpImage">助けた</string>
+    <string name="accountImage">アカウント</string>
+
+
+    <!--Related to First Time Activity-->
+    <string name="appDescription">Toilet Dataへようこそ</string>
+    <string name="appDescription2">あなたにぴったりのトイレを</string>
+    <string name="appDescription3">お届けします。</string>
+    <string name="skipLogin">スキップ</string>
+    <string name="startLogin">ログイン</string>
+    <string name="startSignUp">サインアップ</string>
+    <string name="appLogoImage">ロゴ</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

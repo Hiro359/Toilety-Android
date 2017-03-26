@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_setting_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorForBackground"
+    android:orientation="vertical"
+    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.SettingViewActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:text="@string/changeUserName"
+        android:textColor="@color/colorText"
+        android:background="@color/colorLabel"
+        android:textAlignment="center"
+        android:id="@+id/buttonChangeUserName"
+
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:text="@string/changeUserPhoto"
+        android:textColor="@color/colorText"
+        android:background="@color/colorLabel"
+        android:textAlignment="center"
+        android:id="@+id/buttonChangeUserPhoto"
+
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:text="@string/aboutThisApp"
+        android:textColor="@color/colorText"
+        android:background="@color/colorLabel"
+        android:textAlignment="center"
+        android:id="@+id/buttonAboutThisApp"
+
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:text="@string/privacyInfo"
+        android:textColor="@color/colorText"
+        android:background="@color/colorLabel"
+        android:textAlignment="center"
+        android:id="@+id/buttonPrivacyInfo"
+
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:text="@string/showHelp"
+        android:textColor="@color/colorText"
+        android:background="@color/colorLabel"
+        android:textAlignment="center"
+        android:id="@+id/buttonShowHelp"
+
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:text="@string/logout"
+        android:textColor="@color/colorText"
+        android:background="@color/colorLabel"
+        android:textAlignment="center"
+        android:id="@+id/buttonLogout"
+
+        />
+
+
+</LinearLayout>
