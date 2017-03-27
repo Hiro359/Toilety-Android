@@ -54,15 +54,13 @@ public class FilterSearchActivity extends AppCompatActivity {
     Switch handDrierSwitch;
 
     Switch othimeSwitch;
-    Switch omutuSwitch;
-    Switch omutuSellingSwitch;
     Switch napkinSellingSwitch;
-    Switch milkSwitch;
     Switch makeroomSwitch;
     Switch clothesSwitch;
     Switch baggageSpaceSwitch;
 
     Switch wheelChairSwitch;
+    Switch wheelChairAccessSwitch;
     Switch handrailSwitch;
     Switch callHelpSwitch;
     Switch ostomateSwitch;
@@ -78,6 +76,39 @@ public class FilterSearchActivity extends AppCompatActivity {
     Switch parkingSwitch;
     Switch airConditionSwitch;
     Switch wifiSwitch;
+
+
+    Switch milkSwitch;
+    Switch babyRoomOnlyFemaleSwitch;
+    Switch babyRoomManCanEnterSwitch;
+    Switch babyPersonalSpaceSwitch;
+    Switch babyPersonalSpaceWithLockSwitch;
+    Switch babyWideSpaceSwitch;
+    Switch babyCarRentalSwtich;
+    Switch babyCarAccessSwitch;
+    Switch omutuSwitch;
+    Switch hipWashStuffSwitch;
+    Switch babyTrashCanSwitch;
+    Switch omutuSellingSwitch;
+    Switch babySinkSwitch;
+    Switch babyWashstandSwitch;
+    Switch babyHotWaterSwitch;
+    Switch babyMicrowaveSwitch;
+    Switch babyWaterSellingSwitch;
+    Switch babyFoodSellingSwitch;
+    Switch babyEatingSpaceSwitch;
+    Switch babyChairSwitch;
+    Switch babySoffaSwitch;
+    Switch babyKidsToiletSwitch;
+    Switch kidsSpaceSwitch;
+    Switch babyHeightSwitch;
+    Switch bebyWeightSwitch;
+    Switch babyToySwitch;
+    Switch babyFancySwitch;
+    Switch babySmellGoodSwitch;
+
+
+
 
 
 
@@ -259,15 +290,13 @@ public class FilterSearchActivity extends AppCompatActivity {
         handDrierSwitch = (Switch) findViewById(R.id.handDrierSwitch);
 
         othimeSwitch = (Switch) findViewById(R.id.otohimeSwitch);
-        omutuSwitch = (Switch) findViewById(R.id.omutuSwitch);
-        omutuSellingSwitch = (Switch) findViewById(R.id.omutuSellingSwitch);
         napkinSellingSwitch = (Switch) findViewById(R.id.napkinSellingSwitch);
-        milkSwitch = (Switch) findViewById(R.id.milkSwitch);
         makeroomSwitch = (Switch) findViewById(R.id.makeroomSwitch);
         clothesSwitch = (Switch) findViewById(R.id.clothesSwitch);
         baggageSpaceSwitch = (Switch) findViewById(R.id.baggageSwitch);
 
         wheelChairSwitch = (Switch) findViewById(R.id.wheelChairSwitch);
+        wheelChairAccessSwitch = (Switch) findViewById(R.id.wheelChairAccessSwitch);
         handrailSwitch = (Switch) findViewById(R.id.handrailSwitch);
         callHelpSwitch = (Switch) findViewById(R.id.callHelpSwitch);
         ostomateSwitch = (Switch) findViewById(R.id.ostomateSwitch);
@@ -282,6 +311,37 @@ public class FilterSearchActivity extends AppCompatActivity {
         parkingSwitch = (Switch) findViewById(R.id.parkingSwitch);
         airConditionSwitch = (Switch) findViewById(R.id.airConditionSwitch);
         wifiSwitch = (Switch) findViewById(R.id.wifiSwitch);
+
+        milkSwitch = (Switch) findViewById(R.id.milkSwitch);
+        babyRoomOnlyFemaleSwitch = (Switch) findViewById(R.id.milkOnlyFemaleSwitch);
+        babyRoomManCanEnterSwitch = (Switch) findViewById(R.id.milkMaleOkaySwitch);
+        babyPersonalSpaceSwitch = (Switch) findViewById(R.id.babyPersonalSpaceSwitch);
+        babyPersonalSpaceWithLockSwitch = (Switch) findViewById(R.id.babyPersonalSpaceWithLockSwitch);
+        babyWideSpaceSwitch = (Switch) findViewById(R.id.wideBabySpaceSwitch);
+        babyCarRentalSwtich = (Switch) findViewById(R.id.rentalBabyCarSwitch);
+        babyCarAccessSwitch = (Switch) findViewById(R.id.babyCarAccessSwitch);
+        omutuSwitch = (Switch) findViewById(R.id.omutuSwitch);
+        hipWashStuffSwitch = (Switch) findViewById(R.id.hipCleanStuffSwitch);
+        babyTrashCanSwitch = (Switch) findViewById(R.id.omutuTrashCanSwitch);
+        omutuSellingSwitch = (Switch) findViewById(R.id.omutuSellingSwitch);
+        babySinkSwitch = (Switch) findViewById(R.id.babySinkSwitch);
+        babyWashstandSwitch = (Switch) findViewById(R.id.babyWashstandSwitch);
+        babyHotWaterSwitch = (Switch) findViewById(R.id.babyHotWaterSwitch);
+        babyMicrowaveSwitch = (Switch) findViewById(R.id.babyMicrowaveSwitch);
+        babyWaterSellingSwitch = (Switch) findViewById(R.id.babySellingWaterSwitch);
+        babyFoodSellingSwitch = (Switch) findViewById(R.id.foodForBabySellingSwitch);
+        babyEatingSpaceSwitch = (Switch) findViewById(R.id.babyEatingSpaceSwitch);
+        babyChairSwitch = (Switch) findViewById(R.id.babyChairSwitch);
+        babySoffaSwitch = (Switch) findViewById(R.id.babySoffaSwitch);
+        babyKidsToiletSwitch = (Switch) findViewById(R.id.kidsToiletSwitch);
+        kidsSpaceSwitch = (Switch) findViewById(R.id.kidsSpaceSwitch);
+        babyHeightSwitch = (Switch) findViewById(R.id.heightMeasureSwitch);
+        bebyWeightSwitch = (Switch) findViewById(R.id.weightMeasureSwitch);
+        babyToySwitch = (Switch) findViewById(R.id.babyToySwitch);
+        babyFancySwitch  = (Switch) findViewById(R.id.babyFancySwitch);
+        babySmellGoodSwitch = (Switch) findViewById(R.id.babySmellGoodSwitch);
+
+
 
 
 
@@ -310,16 +370,14 @@ public class FilterSearchActivity extends AppCompatActivity {
         handDrierSwitch.setChecked(Filter.handDrierFilter);
 
         othimeSwitch.setChecked(Filter.otohime);
-        omutuSwitch.setChecked(Filter.omutuFilter);
-        omutuSellingSwitch.setChecked(Filter.omutuSelling);
         napkinSellingSwitch.setChecked(Filter.napkinSelling);
-        milkSwitch.setChecked(Filter.milkspaceFilter);
         makeroomSwitch.setChecked(Filter.makeroomFilter);
         clothesSwitch.setChecked(Filter.clothes);
         baggageSpaceSwitch.setChecked(Filter.baggageSpaceFilter);
 
 
         wheelChairSwitch.setChecked(Filter.wheelchairFilter);
+        wheelChairAccessSwitch.setChecked(Filter.wheelchairAccessFilter);
         handrailSwitch.setChecked(Filter.handrailFilter);
         callHelpSwitch.setChecked(Filter.callHelpFilter);
         ostomateSwitch.setChecked(Filter.ostomateFilter);
@@ -335,6 +393,39 @@ public class FilterSearchActivity extends AppCompatActivity {
         parkingSwitch.setChecked(Filter.parking);
         airConditionSwitch.setChecked(Filter.airConditionFilter);
         wifiSwitch.setChecked(Filter.wifiFilter);
+
+        milkSwitch.setChecked(Filter.milkspaceFilter);
+        babyRoomOnlyFemaleSwitch.setChecked(Filter.babyRoomOnlyFemaleFilter);
+        babyRoomManCanEnterSwitch.setChecked(Filter.babyRoomMaleCanEnterFilter);
+        babyPersonalSpaceSwitch.setChecked(Filter.babyRoomPersonalSpaceFilter);
+        babyPersonalSpaceWithLockSwitch.setChecked(Filter.babyRoomPersonalWithLockFilter);
+        babyWideSpaceSwitch.setChecked(Filter.babyRoomWideSpaceFilter);
+        babyCarRentalSwtich.setChecked(Filter.babyCarRentalFilter);
+        babyCarAccessSwitch.setChecked(Filter.babyCarAccessFilter);
+        omutuSwitch.setChecked(Filter.omutuFilter);
+        hipWashStuffSwitch.setChecked(Filter.babyHipWashingStuffFilter);
+        babyTrashCanSwitch.setChecked(Filter.omutuTrashCanFilter);
+        omutuSellingSwitch.setChecked(Filter.omutuSelling);
+
+        babySinkSwitch.setChecked(Filter.babySinkFilter);
+        babyWashstandSwitch.setChecked(Filter.babyWashstandFilter);
+        babyHotWaterSwitch.setChecked(Filter.babyHotWaterFilter);
+        babyMicrowaveSwitch.setChecked(Filter.babyMicrowaveFilter);
+        babyWaterSellingSwitch.setChecked(Filter.babySellingWaterFilter);
+        babyFoodSellingSwitch.setChecked(Filter.babyFoodSellingFilter);
+        babyEatingSpaceSwitch.setChecked(Filter.babyEatingSpaceFilter);
+        babyChairSwitch.setChecked(Filter.babyChairFilter);
+        babySoffaSwitch.setChecked(Filter.babySoffaFilter);
+        babyKidsToiletSwitch.setChecked(Filter.babyToiletFilter);
+        kidsSpaceSwitch.setChecked(Filter.babyKidsSpaceFilter);
+        babyHeightSwitch.setChecked(Filter.babyHeightMeasureFilter);
+        bebyWeightSwitch.setChecked(Filter.babyWeightMeasureFilter);
+        babyToySwitch.setChecked(Filter.babyToyFilter);
+        babyFancySwitch.setChecked(Filter.babyRoomFancyFilter);
+        babySmellGoodSwitch.setChecked(Filter.babyRoomSmellGoodFilter);
+
+
+
 
 
        //Basic info......
@@ -568,29 +659,7 @@ public class FilterSearchActivity extends AppCompatActivity {
 
 
 
-        omutuSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(FilterSearchActivity.this, "omutuSwitch", Toast.LENGTH_SHORT).show();
-                if (isChecked){
-                    Filter.omutuFilter = true;
-                } else{
-                    Filter.omutuFilter = false;
-                }
-            }
-        });
 
-        omutuSellingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(FilterSearchActivity.this, "omutuSwitch", Toast.LENGTH_SHORT).show();
-                if (isChecked){
-                    Filter.omutuSelling = true;
-                } else{
-                    Filter.omutuSelling = false;
-                }
-            }
-        });
 
         napkinSellingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -605,17 +674,6 @@ public class FilterSearchActivity extends AppCompatActivity {
         });
 
 
-        milkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
-                if (isChecked){
-                    Filter.milkspaceFilter = true;
-                } else{
-                    Filter.milkspaceFilter = false;
-                }
-            }
-        });
         makeroomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -664,6 +722,18 @@ public class FilterSearchActivity extends AppCompatActivity {
                     Filter.wheelchairFilter = true;
                 } else{
                     Filter.wheelchairFilter = false;
+                }
+            }
+        });
+
+        wheelChairAccessSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.wheelchairAccessFilter = true;
+                } else{
+                    Filter.wheelchairAccessFilter = false;
                 }
             }
         });
@@ -848,6 +918,372 @@ public class FilterSearchActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
+        milkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.milkspaceFilter = true;
+                } else{
+                    Filter.milkspaceFilter = false;
+                }
+            }
+        });
+
+        babyRoomOnlyFemaleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyRoomOnlyFemaleFilter = true;
+                } else{
+                    Filter.babyRoomOnlyFemaleFilter = false;
+                }
+            }
+        });
+
+        babyRoomManCanEnterSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyRoomMaleCanEnterFilter = true;
+                } else{
+                    Filter.babyRoomMaleCanEnterFilter = false;
+                }
+            }
+        });
+
+        babyPersonalSpaceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyRoomPersonalSpaceFilter = true;
+                } else{
+                    Filter.babyRoomPersonalSpaceFilter = false;
+                }
+            }
+        });
+
+        babyPersonalSpaceWithLockSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyRoomPersonalWithLockFilter= true;
+                } else{
+                    Filter.babyRoomPersonalWithLockFilter = false;
+                }
+            }
+        });
+
+        babyWideSpaceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyRoomWideSpaceFilter = true;
+                } else{
+                    Filter.babyRoomWideSpaceFilter = false;
+                }
+            }
+        });
+
+
+        babyCarRentalSwtich.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyCarRentalFilter = true;
+                } else{
+                    Filter.babyCarRentalFilter = false;
+                }
+            }
+        });
+
+
+        babyCarAccessSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyCarAccessFilter = true;
+                } else{
+                    Filter.babyCarAccessFilter = false;
+                }
+            }
+        });
+
+        omutuSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "omutuSwitch", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.omutuFilter = true;
+                } else{
+                    Filter.omutuFilter = false;
+                }
+            }
+        });
+
+        hipWashStuffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyHipWashingStuffFilter = true;
+                } else{
+                    Filter.babyHipWashingStuffFilter = false;
+                }
+            }
+        });
+
+        babyTrashCanSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.omutuTrashCanFilter = true;
+                } else{
+                    Filter.omutuTrashCanFilter = false;
+                }
+            }
+        });
+
+        omutuSellingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "omutuSwitch", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.omutuSelling = true;
+                } else{
+                    Filter.omutuSelling = false;
+                }
+            }
+        });
+
+        babySinkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babySinkFilter = true;
+                } else{
+                    Filter.babySinkFilter = false;
+                }
+            }
+        });
+
+
+        babyWashstandSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyWashstandFilter = true;
+                } else{
+                    Filter.babyWashstandFilter = false;
+                }
+            }
+        });
+
+        babyHotWaterSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyHotWaterFilter = true;
+                } else{
+                    Filter.babyHotWaterFilter = false;
+                }
+            }
+        });
+
+
+        babyMicrowaveSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyMicrowaveFilter = true;
+                } else{
+                    Filter.babyMicrowaveFilter = false;
+                }
+            }
+        });
+
+        babyWaterSellingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babySellingWaterFilter = true;
+                } else{
+                    Filter.babySellingWaterFilter = false;
+                }
+            }
+        });
+
+        babyFoodSellingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyFoodSellingFilter = true;
+                } else{
+                    Filter.babyFoodSellingFilter = false;
+                }
+            }
+        });
+
+
+        babyEatingSpaceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyEatingSpaceFilter = true;
+                } else{
+                    Filter.babyEatingSpaceFilter = false;
+                }
+            }
+        });
+
+
+        babyChairSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyChairFilter = true;
+                } else{
+                    Filter.babyChairFilter = false;
+                }
+            }
+        });
+
+
+        babySoffaSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babySoffaFilter = true;
+                } else{
+                    Filter.babySoffaFilter = false;
+                }
+            }
+        });
+
+
+        babyKidsToiletSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyToiletFilter = true;
+                } else{
+                    Filter.babyToiletFilter = false;
+                }
+            }
+        });
+
+        kidsSpaceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyKidsSpaceFilter = true;
+                } else{
+                    Filter.babyKidsSpaceFilter = false;
+                }
+            }
+        });
+
+        babyHeightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyHeightMeasureFilter = true;
+                } else{
+                    Filter.babyHeightMeasureFilter = false;
+                }
+            }
+        });
+
+        bebyWeightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyWeightMeasureFilter = true;
+                } else{
+                    Filter.babyWeightMeasureFilter = false;
+                }
+            }
+        });
+
+
+        babyToySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyToyFilter = true;
+                } else{
+                    Filter.babyToyFilter = false;
+                }
+            }
+        });
+
+
+        babyFancySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyRoomFancyFilter = true;
+                } else{
+                    Filter.babyRoomFancyFilter = false;
+                }
+            }
+        });
+
+
+        babySmellGoodSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(FilterSearchActivity.this, "", Toast.LENGTH_SHORT).show();
+                if (isChecked){
+                    Filter.babyRoomSmellGoodFilter = true;
+                } else{
+                    Filter.babyRoomSmellGoodFilter = false;
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //
 
 
 

@@ -415,24 +415,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void toiletSearch(Location location){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
 
-
         Log.i("toiletSearch","Called");
-
         geoFire = new GeoFire(ref);
-
-//        Log.i("LastKnownLocation is here", String.valueOf(location));
-
 
         final Double centerLatitude = location.getLatitude();
         final Double centerLongitude = location.getLongitude();
-
-        //LatLng centerLocation = new LatLng(centerLatitude,centerLongitude);
-
-//        Log.i("centerLatitude", String.valueOf(centerLatitude));
-//        Log.i("centerLongitude", String.valueOf(centerLongitude));
-
-//        Double centerLatitude =
-//        Double centerLongitude = location.getLongitude();
 
 
         Double centerRadius = 5.0;
@@ -442,15 +429,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
 
-        //toiletList = new ArrayList<>();
 
-        //final List<Toilet>
-        // toiletData = new ArrayList<>();
-
-//
-  //GeoQuery geoQuery = geoFire.queryAtLocation(centerlocation), centerRadius);
-//
-        Log.i("toiletSearch","BeforeDeoQueryCalled");
+        Log.i("toiletSearch","BeforeGeoQueryCalled");
         GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(centerLatitude,centerLongitude), centerRadius);
         final LatLng centerLocation = new LatLng(centerLatitude,centerLongitude);
         UserInfo.latitude = centerLatitude;
@@ -463,17 +443,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onKeyEntered(final String key, final GeoLocation location) {
 
-
-
-
-
-//                Log.i("Geokey",key);
-//                Log.i("Geolocation",String.valueOf(location));
+//
                 toiletRef.child(key).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-//                        Log.i("OnDataChangeCalled","777");
-                       // for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
+//
                         {
 
                             Log.i("toiletSearch1212","Called");
@@ -482,8 +456,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Boolean removedToilet = false;
 
                             Toilet toilet =  new Toilet();
-                           // List<String> toiletData = new ArrayList<>();
-                            
                             Filter filter =  new Filter();
 
 

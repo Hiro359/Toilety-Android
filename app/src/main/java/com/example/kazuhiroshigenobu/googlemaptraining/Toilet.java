@@ -46,16 +46,14 @@ public class Toilet {
     Boolean handDrier = false;
 
     Boolean otohime = false;
-    Boolean omutu = false;
-    Boolean omutuSelling = false;
     Boolean napkinSelling = false;
-    Boolean milkspace = false;
     Boolean makeuproom = false;
     Boolean clothes = false;
     Boolean baggageSpace = false;
 
 
     Boolean wheelchair = false;
+    Boolean wheelchairAccess = false;
     Boolean handrail = false;
     Boolean callHelp = false;
     Boolean ostomate = false;
@@ -71,6 +69,41 @@ public class Toilet {
     Boolean parking = false;
     Boolean airCondition = false;
     Boolean wifi = false;
+
+    Boolean milkspace = false;
+
+
+
+    Boolean babyroomOnlyFemale = false;
+    Boolean babyroomManCanEnter = false;
+    Boolean babyPersonalSpace = false;
+    Boolean babyPersonalSpaceWithLock = false;
+    Boolean babyRoomWideSpace = false;
+    Boolean babyCarRental = false;
+    Boolean babyCarAccess = false;
+    Boolean omutu = false;
+    Boolean hipWashingStuff = false;
+    Boolean babyTrashCan = false;
+    Boolean omutuSelling = false;
+    Boolean babyFoddSelling = false;
+    Boolean babyRoomSink = false;
+    Boolean babyWashStand = false;
+    Boolean babyHotWater = false;
+    Boolean babyMicroWave = false;
+    Boolean babyWaterSelling = false;
+    Boolean babyEatingSpace = false;
+    Boolean babyChair = false;
+    Boolean babySoffa = false;
+    Boolean babyKidsToilet = false;
+    Boolean babyKidsSpace = false;
+    Boolean babyHeightMeasure = false;
+    Boolean babyWeightMeasure = false;
+    Boolean babyToy = false;
+    Boolean babyFancy = false;
+    Boolean babySmellGood = false;
+
+
+
 
 
     Integer openHours;

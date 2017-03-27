@@ -328,10 +328,8 @@ public class DetailViewActivity extends AppCompatActivity {
                 // for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
                 {
 
-                    Log.i("OnDataChangeCalled","777888");
                     Boolean removedToilet = false;
 
-                    Log.i("OnDataChangeCalled","777888999");
 //                    Toilet toilet =  new Toilet();
                     // List<String> toiletData = new ArrayList<>();
 
@@ -758,7 +756,7 @@ public class DetailViewActivity extends AppCompatActivity {
         userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
         userRef.child("favourite").setValue(toilet.tid);
 
-        
+
 
 
 

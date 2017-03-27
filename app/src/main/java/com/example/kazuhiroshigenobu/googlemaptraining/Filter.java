@@ -39,15 +39,13 @@ public class Filter {
     static Boolean handDrierFilter = false;
 
     static Boolean otohime = false;
-    static Boolean omutuFilter = false;
-    static Boolean omutuSelling = false;
     static Boolean napkinSelling = false;
-    static Boolean milkspaceFilter = false;
     static Boolean makeroomFilter = false;
     static Boolean clothes = false;
     static Boolean baggageSpaceFilter = false;
 
     static Boolean wheelchairFilter = false;
+    static Boolean wheelchairAccessFilter = false;
     static Boolean handrailFilter = false;
     static Boolean callHelpFilter = false;
     static Boolean ostomateFilter = false;
@@ -63,6 +61,39 @@ public class Filter {
     static Boolean parking = false;
     static Boolean airConditionFilter = false;
     static Boolean wifiFilter = false;
+
+    static Boolean milkspaceFilter = false;
+    static Boolean babyRoomOnlyFemaleFilter = false;
+    static Boolean babyRoomMaleCanEnterFilter = false;
+    static Boolean babyRoomPersonalSpaceFilter = false;
+    static Boolean babyRoomPersonalWithLockFilter = false;
+    static Boolean babyRoomWideSpaceFilter = false;
+    static Boolean babyCarRentalFilter = false;
+    static Boolean babyCarAccessFilter = false;
+    static Boolean omutuFilter = false;
+    static Boolean babyHipWashingStuffFilter = false;
+    static Boolean omutuTrashCanFilter = false;
+    static Boolean omutuSelling = false;
+
+    static Boolean  babySinkFilter = false;
+    static Boolean  babyWashstandFilter = false;
+    static Boolean  babyHotWaterFilter = false;
+    static Boolean  babyMicrowaveFilter = false;
+    static Boolean  babySellingWaterFilter = false;
+    static Boolean  babyFoodSellingFilter = false;
+    static Boolean  babyEatingSpaceFilter = false;
+    static Boolean  babyChairFilter = false;
+    static Boolean  babySoffaFilter = false;
+    static Boolean  babyToiletFilter = false;
+    static Boolean  babyKidsSpaceFilter = false;
+    static Boolean  babyHeightMeasureFilter = false;
+    static Boolean  babyWeightMeasureFilter = false;
+    static Boolean  babyToyFilter = false;
+    static Boolean  babyRoomFancyFilter = false;
+    static Boolean  babyRoomSmellGoodFilter = false;
+
+
+
 
 
 

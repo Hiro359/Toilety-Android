@@ -59,44 +59,81 @@
 
 
     <!--Strings related to boolean values-->
+    <string name="name_available">現在利用可能</string>
     <string name="name_japaneseToilet">和式トイレ</string>
     <string name="name_westernToilet">洋式トイレ</string>
     <string name="name_onlyFemale">女性専用トイレ</string>
     <string name="name_unisex">男女兼用トイレ</string>
+
     <string name="name_washlet">ウォシュレット</string>
     <string name="name_warmSeat">暖房便座</string>
     <string name="name_autoOpen">自動開閉便座</string>
-    <string name="name_senser">センサー式手洗い</string>
-    <string name="name_otohime">音姫</string>
-    <string name="name_fancy">おしゃれ</string>
-    <string name="name_confortableWide">快適な広さ</string>
-    <string name="name_omutu">おむつ交換台</string>
-    <string name="name_milk">授乳スペース</string>
-    <string name="name_makeroom">メイクルーム</string>
-    <string name="name_baggageSpace">荷物置き</string>
-    <string name="name_clothes">洋服掛け</string>
-    <string name="name_wheelChair">車イス対応</string>
-    <string name="name_ostomate">オストメイト対応</string>
-    <string name="name_available">現在利用可能</string>
-    <string name="name_parking">駐車場</string>
-    <string name="name_englishWritten">英語表記</string>
     <string name="name_noVirusBenki">抗菌便座</string>
     <string name="name_paperForBenki">便座用シート</string>
     <string name="name_cleanerForBenki">便座クリーナー</string>
     <string name="name_nonTouchWash">自動洗浄</string>
+
+    <string name="name_senser">センサー式手洗い</string>
+    <string name="name_sensorHandWash">センサー式お手洗い</string>
     <string name="name_soap">ハンドソープ</string>
     <string name="name_nonTouchSoap">自動ハンドソープ</string>
     <string name="name_paperTowel">ペーパータオル</string>
     <string name="name_handDrier">ハンドドライヤー</string>
+
+    <string name="name_otohime">音姫</string>
+    <string name="name_napkinSelling">ナプキン販売機</string>
+    <string name="name_makeroom">メイクルーム</string>
+    <string name="name_clothes">洋服掛け</string>
+    <string name="name_baggageSpace">荷物置き</string>
+
+    <string name="name_wheelChair">車イス対応</string>
+    <string name="name_wheelChairAccess">車イスでアクセス可能</string>
     <string name="name_handrail">手すり</string>
     <string name="name_callHelp">呼び出しボタン</string>
+    <string name="name_ostomate">オストメイト対応</string>
+    <string name="name_englishWritten">英語表記</string>
+    <string name="braille">点字案内</string>
     <string name="name_voiceGuide">音声案内</string>
-    <string name="name_airCondition">冷暖房</string>
-    <string name="name_wifi">Wi-Fi</string>
-    <string name="name_sensorHandWash">センサー式お手洗い</string>
-    <string name="name_omutuSelling">おむつ販売機</string>
-    <string name="name_napkinSelling">ナプキン販売機</string>
+
+    <string name="name_fancy">おしゃれ</string>
+    <string name="name_smell">良い香り</string>
+    <string name="name_confortableWide">快適な広さ</string>
     <string name="name_noNeedAsk">声かけ不要</string>
+    <string name="name_parking">駐車場</string>
+    <string name="name_airCondition">冷暖房</string>
+    <string name="name_wifi">無料Wi-Fi</string>
+
+
+    <string name="name_milk">授乳スペース</string>
+    <string name="name_milkOnlyFemale">女性限定</string>
+    <string name="name_milkMaleOkay">男性入室可能</string>
+    <string name="name_personalSpace">個室有り</string>
+    <string name="name_personalSpaceWithLock">鍵付き個室有り</string>
+    <string name="name_wideBabySpace">広いスペース</string>
+    <string name="name_rentalBabyCar">ベビーカー貸し出し</string>
+    <string name="name_babyCarAccess">ベビーカーでアクセス可能</string>
+    <string name="name_omutu">おむつ交換台</string>
+    <string name="name_hipCleanStuff">おしりふき</string>
+    <string name="name_omutuTrashCan">おむつ用ゴミ箱</string>
+    <string name="name_omutuSelling">おむつ販売機</string>
+    <string name="name_babyFood">ベビーフード</string>
+    <string name="name_babysink">シンク</string>
+    <string name="name_babyWashstand">洗面台</string>
+    <string name="name_babyHotWater">給湯器</string>
+    <string name="name_babyMicroWave">電子レンジ</string>
+    <string name="name_babySellingWater">飲料自販機</string>
+    <string name="name_foodForBabySelling">離乳食販売機</string>
+    <string name="name_spaceForEatingWithBaby">飲食スペース</string>
+    <string name="name_babyChair">ベビーチェア</string>
+    <string name="name_babySoffa">ソファ</string>
+    <string name="name_babyKidsToilet">キッズトイレ</string>
+    <string name="name_babyKidsSpace">キッズスペース</string>
+    <string name="name_heightMeasure">身長計</string>
+    <string name="name_weightMeasure">体重計</string>
+    <string name="name_babyPlayingToy">おもちゃ</string>
+    <string name="name_babyFancy">おしゃれ</string>
+    <string name="name_babySmellGood">良い香り</string>
+
 
 
     <string name="benkiWestern">洋式便器</string>
@@ -122,10 +159,10 @@
     <string name="timeDot"> : </string>
     <string name="search"> 検索 </string>
 
-    <string name="braille">点字案内</string>
+
     <string name="access">アクセス方法</string>
     <string name="accessGo">具体的なアクセス方法</string>
-    <string name="name_smell">良い香り</string>
+
     <string name="writeKansou">感想を記入してください</string>
     <string name="look_detail">詳細の情報</string>
     <string name="edit_detail">編集</string>
@@ -148,6 +185,8 @@
     <string name="searchForLadys">女性に優しい設備</string>
     <string name="searchBarrierFree">バリアフリー</string>
     <string name="searchOthers">その他</string>
+    <string name="papaMamaFriendly">ママ・パパに優しい</string>
+    <string name="aboutBabyRoom">ベビールーム</string>
 
 
     <!--Related to App Bars-->
@@ -180,24 +219,6 @@
     <string name="startLogin">ログイン</string>
     <string name="startSignUp">サインアップ</string>
     <string name="appLogoImage">ロゴ</string>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
