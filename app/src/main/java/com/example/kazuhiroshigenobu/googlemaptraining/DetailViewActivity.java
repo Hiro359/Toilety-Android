@@ -2,6 +2,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.*;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -13,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -156,6 +158,12 @@ public class DetailViewActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         String key = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        final Double toiletLat = getIntent().getDoubleExtra("toiletLatitude",0);
+        final Double toiletLon = getIntent().getDoubleExtra("toiletLongitude",0);
+        Log.i("OnCreateTOiletLati",String.valueOf(toiletLat));
+        Log.i("OnCreateTOiletLong",String.valueOf(toiletLon));
+
+
         Log.i("Current.key",key );
         //get name info
         Log.i("THis it it", key);
@@ -166,7 +174,8 @@ public class DetailViewActivity extends AppCompatActivity {
             @Override public void onMapReady(GoogleMap googleMap) {
                 if (googleMap != null) {
                     // your additional codes goes here
-                    onMapReadyCalled(googleMap);
+                    onMapReadyCalled(googleMap, toiletLat, toiletLon);
+
 
 
                 }
@@ -260,17 +269,15 @@ public class DetailViewActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Intent intent = new Intent(v.getContext(), EditViewActivity.class);
-                Toast.makeText(DetailViewActivity.this, String.valueOf(toilet.key), Toast.LENGTH_SHORT).show();
-                intent.putExtra("EXTRA_SESSION_ID", toilet.key);
-                intent.putExtra("toiletLatitude",toilet.latitude);
-                intent.putExtra("toiletLongitude",toilet.longitude);
-
-//                intent.putExtra("reviewCount",toilet.reviewCount);
-//                intent.putExtra("averageWait", toilet.averageWait);
-//                intent.putExtra("averageStar", toilet.averageStar);
-                startActivity(intent);
-                finish();
+                nextAvtivityChoose();
+//                Intent intent = new Intent(v.getContext(), EditViewActivity.class);
+//                Toast.makeText(DetailViewActivity.this, String.valueOf(toilet.key), Toast.LENGTH_SHORT).show();
+//                intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+//                intent.putExtra("toiletLatitude",toilet.latitude);
+//                intent.putExtra("toiletLongitude",toilet.longitude);
+//
+//                startActivity(intent);
+//                finish();
             }
         });
 
@@ -304,6 +311,50 @@ public class DetailViewActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
 
     }
+
+    private void nextAvtivityChoose(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("どちらの情報を編集しますか");
+        builder.setItems(new CharSequence[]
+                        {"位置情報を編集する", "設備情報を変更する"},
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                Intent intentA = new Intent(getApplicationContext(), EditPinLocationActivity.class);
+                                Toast.makeText(DetailViewActivity.this, String.valueOf(toilet.key), Toast.LENGTH_SHORT).show();
+                                intentA.putExtra("EXTRA_SESSION_ID", toilet.key);
+//                                intentA.putExtra("toiletLatitude",toilet.latitude);
+//                                intentA.putExtra("toiletLongitude",toilet.longitude);
+                                startActivity(intentA);
+                                finish();
+
+
+                                break;
+
+                            case 1:
+                                Intent intentB = new Intent(getApplicationContext(), EditViewActivity.class);
+                                Toast.makeText(DetailViewActivity.this, String.valueOf(toilet.key), Toast.LENGTH_SHORT).show();
+                                intentB.putExtra("EXTRA_SESSION_ID", toilet.key);
+                                intentB.putExtra("toiletLatitude",toilet.latitude);
+                                intentB.putExtra("toiletLongitude",toilet.longitude);
+
+                                startActivity(intentB);
+                                finish();
+
+                                break;
+
+                        }
+                    }
+                });
+        builder.create().show();
+
+
+    }
+
 
 //    @Override
 //    public void onConfigurationChanged(Configuration newConfig) {
@@ -343,16 +394,26 @@ public class DetailViewActivity extends AppCompatActivity {
                     Log.i("IS THIS THE ERROR???","4");
 
                     Log.i("IS THIS THE ERROR???","1");
+                    toilet.name = (String) dataSnapshot.child("name").getValue();
                     toilet.latitude = (Double) dataSnapshot.child("latitude").getValue();
                     toilet.longitude = (Double) dataSnapshot.child("longitude").getValue();
                     Log.i("IS THIS THE ERROR???","2");
 
 
                     LatLng toiletLocation = new LatLng(toilet.latitude,toilet.longitude);
+
+
+
+//                    mMap.addMarker(new MarkerOptions().position(toiletLocation).title(toilet.name));
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletLocation));
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletLocation, 20.0f));
+                    //14.0f to 20.0f
                     //get from the database
                     Log.i("IS THIS THE ERROR???","5");
 
                     double distance = CalculationByDistance(centerLocation,toiletLocation);
+
+
                     Log.i("IS THIS THE ERROR???","6");
 
                     if (distance > 1){
@@ -373,6 +434,9 @@ public class DetailViewActivity extends AppCompatActivity {
                     }
 
 
+
+
+
                     Log.i("IS THIS THE ERROR???","3");
                     Log.i("BOOOL???","1");
 
@@ -382,7 +446,9 @@ public class DetailViewActivity extends AppCompatActivity {
                     toilet.key = queryKey;
                     //Not sure about how to call key....
 
-                    toilet.name = (String) dataSnapshot.child("name").getValue();
+
+
+
                     toilet.openAndCloseHours = (String) dataSnapshot.child("openAndCloseHours").getValue();
                     toilet.type = (String) dataSnapshot.child("type").getValue();
                     toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
@@ -790,6 +856,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
 
+
                     toiletNameLabel.setText(toilet.name);
                     typeAndDistance.setText(toilet.type + "/" + toilet.distance);
                     availableAndWaiting.setText("ご利用時間" + toilet.openAndCloseHours+ "/平均待ち" + String.valueOf(toilet.averageWait) + "分");
@@ -819,7 +886,7 @@ public class DetailViewActivity extends AppCompatActivity {
         //reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener)
     }
 
-    public void onMapReadyCalled(GoogleMap googleMap) {
+    public void onMapReadyCalled(GoogleMap googleMap,Double toiletLat, Double toiletLon) {
         mMap = googleMap;
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -883,15 +950,20 @@ public class DetailViewActivity extends AppCompatActivity {
                     Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
 
 
-                    mMap.clear();
+//                    mMap.clear();
+//
+//                    LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+//
+//
+//                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
+//
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
 
-                    LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-
-
-                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
-
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
+                    LatLng toiletLocation = new LatLng(toiletLat,toiletLon);
+                    mMap.addMarker(new MarkerOptions().position(toiletLocation).title("施設の位置"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletLocation));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletLocation, 14.0f));
 
 
 

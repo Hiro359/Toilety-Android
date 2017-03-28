@@ -121,6 +121,8 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
 
                     Intent intent = new Intent(context, DetailViewActivity.class);
                     intent.putExtra("EXTRA_SESSION_ID", current.key);
+                    intent.putExtra("toiletLatitude",current.latitude);
+                    intent.putExtra("toiletLongitude",current.longitude);
                     Log.i("Current.key",current.key );
 //                    intent.putExtra("EXTRA_SESSION_ID", current.key);
                     context.startActivity(intent);

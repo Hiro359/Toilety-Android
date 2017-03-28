@@ -484,6 +484,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.key = key;
                             //Not sure about how to call key....
 
+                            toilet.latitude = location.latitude;
+                            toilet.longitude = location.longitude;
+
                             toilet.name = (String) dataSnapshot.child("name").getValue();
                             toilet.type = (String) dataSnapshot.child("type").getValue();
                             toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
@@ -886,7 +889,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                                 //LatLng sydney = new LatLng(-33.852, 151.211);
                                 mMap.addMarker(new MarkerOptions().position(toiletLocation)
-                                        .title(key));
+                                        .title(toilet.name));
                                 //System.out.println(toilets);
 
                                 createRecyclerView(toiletData);

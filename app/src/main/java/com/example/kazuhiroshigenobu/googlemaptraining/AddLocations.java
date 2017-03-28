@@ -8,5 +8,6 @@ public class AddLocations {
     static Double latitude;
     static Double longitude;
     static String address;
+    static Boolean userPinMoved = false;
 
 }

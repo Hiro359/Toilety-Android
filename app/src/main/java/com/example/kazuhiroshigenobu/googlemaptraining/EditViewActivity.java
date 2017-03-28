@@ -132,11 +132,6 @@ public class EditViewActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
     Spinner typeSpinner;
     Spinner waitingTimeSpinner;
     Spinner floorSpinner;
@@ -165,6 +160,7 @@ public class EditViewActivity extends AppCompatActivity {
 
     Button addPhoto;
     Button buttonRenewInfo;
+    Button buttonchangePinLocation;
 
    // Boolean onCreatedSpinner = false;
 
@@ -286,7 +282,8 @@ public class EditViewActivity extends AppCompatActivity {
         if (id == R.id.postEdit) {
             Toast.makeText(this, "Hey Post Exection!!", Toast.LENGTH_SHORT).show();
             Log.i("toilet.keyBeforePtEdit",toilet.key);
-            firebaseDeleteData();
+            firebaseRenewdata();
+            //firebaseDeleteData();
 
             //firebaseEditAction();
             ///////////////////////// 1pm 25th Feb
@@ -401,6 +398,7 @@ public class EditViewActivity extends AppCompatActivity {
         ratingBar.setRating(3);
         addPhoto = (Button) findViewById(R.id.buttonEditPicture);
         buttonRenewInfo = (Button) findViewById(R.id.buttonEditInfo);
+        buttonchangePinLocation = (Button) findViewById(R.id.buttonEditPinMap);
 
         mainImage = (ImageView) findViewById(R.id.picture1);
 //         ImageView subImage1 = (ImageView) findViewById(R.id.picture2);
@@ -432,6 +430,17 @@ public class EditViewActivity extends AppCompatActivity {
 
                 toiletNameCheck();
 //                 firebaseUpdate();
+
+            }
+        });
+
+        buttonchangePinLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Moved to change pin
+
+
+
 
             }
         });
@@ -1010,29 +1019,29 @@ public class EditViewActivity extends AppCompatActivity {
 
     }
 
-    private void firebaseDeleteData(){
-
-        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
-        toiletLocationRef = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
-
-        DatabaseReference deleteLocationsRef = toiletLocationRef.child(toilet.key);
-        deleteLocationsRef.removeValue();
-        DatabaseReference deleteToiletRef = toiletRef.child(toilet.key);
-        deleteToiletRef.removeValue();
-
-
-        firebaseRenewdata();
-
-
-
-
-
-
-        //call firebaseRenewData....
-
-
-
-    }
+//    private void firebaseDeleteData(){
+//
+//        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+//        toiletLocationRef = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
+//
+//        DatabaseReference deleteLocationsRef = toiletLocationRef.child(toilet.key);
+//        deleteLocationsRef.removeValue();
+//        DatabaseReference deleteToiletRef = toiletRef.child(toilet.key);
+//        deleteToiletRef.removeValue();
+//
+//
+//        firebaseRenewdata();
+//
+//
+//
+//
+//
+//
+//        //call firebaseRenewData....
+//
+//
+//
+//    }
     private void firebaseRenewdata(){
 
 
@@ -1097,6 +1106,10 @@ public class EditViewActivity extends AppCompatActivity {
 
         //delete original data in toilets brunch
         //delete original data in toiletLocations brunch
+
+        Log.i("datbaseUpdateLat", String.valueOf(AddLocations.latitude));
+        Log.i("datbaseUpdateLon", String.valueOf(AddLocations.longitude));
+
 
 
 
@@ -1208,7 +1221,9 @@ public class EditViewActivity extends AppCompatActivity {
 //        String newRef = ref.child("Toilets");
 //
 //        String newID = newRef
-        
+        Log.i("datbaseUpdateLat", String.valueOf(AddLocations.latitude));
+        Log.i("datbaseUpdateLon", String.valueOf(AddLocations.longitude));
+
         geoFire.setLocation(firekey, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
             @Override
             public void onComplete(String key, DatabaseError error) {
@@ -1226,7 +1241,7 @@ public class EditViewActivity extends AppCompatActivity {
 
 
 
-    public void onMapReadyCalled(GoogleMap googleMap, Double toiletLat, Double toiletLon) {
+    public void onMapReadyCalled(GoogleMap googleMap, double toiletLat, double toiletLon) {
         mMap = googleMap;
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -1293,12 +1308,12 @@ public class EditViewActivity extends AppCompatActivity {
                     mMap.clear();
 
 
-                    Log.i("toiletLatLng0909", String.valueOf(toiletLat) + String.valueOf(toiletLon));
+                   // Log.i("toiletLatLng0909", String.valueOf(toiletLat) + String.valueOf(toiletLon));
                     LatLng toiletLatLng = new LatLng(toiletLat, toiletLon);
 
 
 
-                    mMap.addMarker(new MarkerOptions().position(toiletLatLng).title("Toilet Location"));
+                    mMap.addMarker(new MarkerOptions().position(toiletLatLng).title("施設の場所"));
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletLatLng));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletLatLng, 14.0f));

@@ -2,96 +2,96 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 
 import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ActionMenuView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Toast;
+        import android.app.ProgressDialog;
+        import android.content.Context;
+        import android.content.DialogInterface;
+        import android.content.Intent;
+        import android.content.pm.PackageManager;
+        import android.graphics.drawable.Drawable;
+        import android.location.Address;
+        import android.location.Geocoder;
+        import android.location.Location;
+        import android.location.LocationListener;
+        import android.location.LocationManager;
+        import android.net.Uri;
+        import android.os.AsyncTask;
+        import android.os.Build;
+        import android.support.annotation.NonNull;
+        import android.support.v4.app.ActivityCompat;
+        import android.support.v4.app.FragmentActivity;
+        import android.os.Bundle;
+        import android.support.v4.content.ContextCompat;
+        import android.support.v7.app.AlertDialog;
+        import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.ActionMenuView;
+        import android.support.v7.widget.LinearLayoutManager;
+        import android.support.v7.widget.RecyclerView;
+        import android.support.v7.widget.Toolbar;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.Menu;
+        import android.view.MenuInflater;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.Button;
+        import android.widget.LinearLayout;
+        import android.widget.ListView;
+        import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.firebase.geofire.GeoFire;
-import com.firebase.geofire.GeoLocation;
-import com.firebase.geofire.GeoQuery;
-import com.firebase.geofire.GeoQueryEventListener;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.plus.model.people.Person;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+        import com.android.volley.RequestQueue;
+        import com.android.volley.Response;
+        import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.JsonObjectRequest;
+        import com.android.volley.toolbox.Volley;
+        import com.firebase.geofire.GeoFire;
+        import com.firebase.geofire.GeoLocation;
+        import com.firebase.geofire.GeoQuery;
+        import com.firebase.geofire.GeoQueryEventListener;
+        import com.google.android.gms.appindexing.Action;
+        import com.google.android.gms.appindexing.AppIndex;
+        import com.google.android.gms.appindexing.Thing;
+        import com.google.android.gms.common.api.GoogleApiClient;
+        import com.google.android.gms.maps.CameraUpdateFactory;
+        import com.google.android.gms.maps.GoogleMap;
+        import com.google.android.gms.maps.OnMapReadyCallback;
+        import com.google.android.gms.maps.SupportMapFragment;
+        import com.google.android.gms.maps.model.LatLng;
+        import com.google.android.gms.maps.model.Marker;
+        import com.google.android.gms.maps.model.MarkerOptions;
+        import com.google.android.gms.plus.model.people.Person;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
+        import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DatabaseError;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.database.ValueEventListener;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
+        import org.apache.http.HttpEntity;
+        import org.apache.http.HttpResponse;
+        import org.apache.http.client.ClientProtocolException;
+        import org.apache.http.client.HttpClient;
+        import org.apache.http.client.methods.HttpGet;
+        import org.apache.http.impl.client.DefaultHttpClient;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.net.URL;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+        import java.io.IOException;
+        import java.io.InputStream;
+        import java.math.BigDecimal;
+        import java.math.RoundingMode;
+        import java.net.URL;
+        import java.text.DecimalFormat;
+        import java.util.ArrayList;
+        import java.util.List;
+        import java.util.Locale;
 //import android.os.StrictMode;
 
 
 //Trying to remove strict network but other pople say its not the right way to do that 4th March
 
-public class AddToiletActivity extends FragmentActivity implements OnMapReadyCallback {
+public class EditPinLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
     private GoogleMap mMap;
@@ -99,7 +99,7 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 
     LocationListener locationListener;
 
-//    private Filter filter = new Filter();
+    //    private Filter filter = new Filter();
 //    private AddLocations addLocations = new AddLocations();
 //
 //    private ToiletListAdapter adapter;
@@ -138,7 +138,7 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         if (requestCode == 1){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 Log.i("Permission","Permission111");
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     Log.i("Permission","Permission222");
                     mMap.setMyLocationEnabled(true);
 
@@ -158,7 +158,11 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Context context;
-        setContentView(R.layout.activity_add_toilet);
+        setContentView(R.layout.activity_edit_pin_location);
+
+        final String originalkey = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        final Double originalLat = getIntent().getDoubleExtra("toiletLatitude",0);
+        final Double originalLon = getIntent().getDoubleExtra("toiletLongitude",0);
 
 //        if (android.os.Build.VERSION.SDK_INT > 9) {
 //            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -192,7 +196,8 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
                     Toast.makeText(getApplicationContext(), "Bring It On!!", Toast.LENGTH_SHORT).show();
 
 
-                    Intent intent = new Intent(v.getContext(), AddToiletDetailActivity.class);
+                    Intent intent = new Intent(v.getContext(), EditViewActivity.class);
+
 
                     startActivity(intent);
                     finish();
@@ -339,11 +344,11 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
                         .title("追加するトイレ"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(newToilet));
 
-                    AddLocations.latitude = l1;
-                    Log.i("AddLocations.latitude",String.valueOf(l1));
+                AddLocations.latitude = l1;
+                Log.i("AddLocations.latitude",String.valueOf(l1));
 
-                    AddLocations.longitude = l2;
-                    Log.i("AddLocations.longitude",String.valueOf(l2));
+                AddLocations.longitude = l2;
+                Log.i("AddLocations.longitude",String.valueOf(l2));
 
                 new JSONParse().execute();
 
@@ -380,10 +385,10 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 
         } else {
 
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
 
             } else {
@@ -407,7 +412,8 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
                     LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
 
 
-                    //mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
+
+                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
@@ -467,7 +473,7 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 //            uid = (TextView)findViewById(R.id.uid);
 //            name1 = (TextView)findViewById(R.id.name);
 //            email1 = (TextView)findViewById(R.id.email);
-            pDialog = new ProgressDialog(AddToiletActivity.this);
+            pDialog = new ProgressDialog(EditPinLocationActivity.this);
             pDialog.setMessage("Getting Data ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);

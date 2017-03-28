@@ -1515,7 +1515,7 @@
                     android:text="@string/changePin"
                     android:textColor="@color/colorText"
                     android:background="@drawable/buttonborder"
-                    android:id="@+id/editPinMap"
+                    android:id="@+id/buttonEditPinMap"
                     android:layout_marginBottom="5dp"/>
 
 

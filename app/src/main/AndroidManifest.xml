@@ -151,6 +151,8 @@
         </activity>
         <activity android:name=".SettingViewActivity">
         </activity>
+        <activity android:name=".EditPinLocationActivity">
+        </activity>
     </application>
 
 </manifest>
