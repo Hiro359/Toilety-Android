@@ -175,7 +175,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="4230dp"
+            android:layout_height="4330dp"
             android:layout_margin="10dp"
             >
 
@@ -807,7 +807,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="@string/aboutBabyRoom"
+                android:text="@string/aboutBabyRoomOne"
                 android:textColor="@color/colorSubText"
                 android:layout_margin="3dp"
 
@@ -892,6 +892,7 @@
                 android:paddingEnd="10dp"
                 />
 
+
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -905,6 +906,15 @@
                 android:paddingStart="20dp"
                 android:paddingRight="10dp"
                 android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/aboutBabyRoomTwo"
+                android:textColor="@color/colorSubText"
+                android:layout_margin="3dp"
+
                 />
 
 
@@ -1001,6 +1011,15 @@
                 android:paddingStart="20dp"
                 android:paddingRight="10dp"
                 android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/aboutBabyRoomThree"
+                android:textColor="@color/colorSubText"
+                android:layout_margin="3dp"
+
                 />
 
             <Switch
@@ -1111,6 +1130,15 @@
                 android:paddingStart="20dp"
                 android:paddingRight="10dp"
                 android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/aboutBabyRoomFour"
+                android:textColor="@color/colorSubText"
+                android:layout_margin="3dp"
+
                 />
 
 

@@ -263,6 +263,9 @@ public class DetailViewActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), EditViewActivity.class);
                 Toast.makeText(DetailViewActivity.this, String.valueOf(toilet.key), Toast.LENGTH_SHORT).show();
                 intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+                intent.putExtra("toiletLatitude",toilet.latitude);
+                intent.putExtra("toiletLongitude",toilet.longitude);
+
 //                intent.putExtra("reviewCount",toilet.reviewCount);
 //                intent.putExtra("averageWait", toilet.averageWait);
 //                intent.putExtra("averageStar", toilet.averageStar);
@@ -440,16 +443,14 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
                     toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
-                    toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
-                    toilet.omutuSelling = (Boolean) dataSnapshot.child("omutuSelling").getValue();
                     toilet.napkinSelling = (Boolean) dataSnapshot.child("napkinSelling").getValue();
-                    toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
                     toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
                     toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
                     toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
 
 
                     toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
+                    toilet.wheelchairAccess = (Boolean) dataSnapshot.child("wheelchairAccess").getValue();
                     toilet.handrail = (Boolean) dataSnapshot.child("handrail").getValue();
                     toilet.callHelp = (Boolean) dataSnapshot.child("callHelp").getValue();
                     toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
@@ -466,6 +467,44 @@ public class DetailViewActivity extends AppCompatActivity {
                     toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
                     toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
                     toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
+
+
+                    ////
+                    toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
+                    toilet.babyroomOnlyFemale = (Boolean) dataSnapshot.child("babyRoomOnlyFemale").getValue();
+                    toilet.babyroomManCanEnter = (Boolean) dataSnapshot.child("babyRoomMaleEnter").getValue();
+                    toilet.babyPersonalSpace = (Boolean) dataSnapshot.child("babyRoomPersonalSpace").getValue();
+                    toilet.babyPersonalSpaceWithLock = (Boolean) dataSnapshot.child("babyRoomPersonalSpaceWithLock").getValue();
+                    toilet.babyRoomWideSpace = (Boolean) dataSnapshot.child("babyRoomWideSpace").getValue();
+
+                    toilet.babyCarRental = (Boolean) dataSnapshot.child("babyCarRental").getValue();
+                    toilet.babyCarAccess = (Boolean) dataSnapshot.child("babyCarAccess").getValue();
+                    toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+                    toilet.hipWashingStuff = (Boolean) dataSnapshot.child("hipCleaningStuff").getValue();
+                    toilet.babyTrashCan = (Boolean) dataSnapshot.child("omutuTrashCan").getValue();
+                    toilet.omutuSelling = (Boolean) dataSnapshot.child("omutuSelling").getValue();
+
+
+                    toilet.babyRoomSink = (Boolean) dataSnapshot.child("babySink").getValue();
+                    toilet.babyWashStand = (Boolean) dataSnapshot.child("babyWashstand").getValue();
+                    toilet.babyHotWater = (Boolean) dataSnapshot.child("babyHotwater").getValue();
+                    toilet.babyMicroWave = (Boolean) dataSnapshot.child("babyMicrowave").getValue();
+                    toilet.babyWaterSelling = (Boolean) dataSnapshot.child("babyWaterSelling").getValue();
+                    toilet.babyFoddSelling = (Boolean) dataSnapshot.child("babyFoodSelling").getValue();
+                    toilet.babyEatingSpace = (Boolean) dataSnapshot.child("babyEatingSpace").getValue();
+
+
+                    toilet.babyChair = (Boolean) dataSnapshot.child("babyChair").getValue();
+                    toilet.babySoffa = (Boolean) dataSnapshot.child("babySoffa").getValue();
+                    toilet.babyKidsToilet = (Boolean) dataSnapshot.child("kidsToilet").getValue();
+                    toilet.babyKidsSpace = (Boolean) dataSnapshot.child("kidsSpace").getValue();
+                    toilet.babyHeightMeasure = (Boolean) dataSnapshot.child("babyHeight").getValue();
+                    toilet.babyWeightMeasure = (Boolean) dataSnapshot.child("babyWeight").getValue();
+                    toilet.babyToy = (Boolean) dataSnapshot.child("babyToy").getValue();
+                    toilet.babyFancy = (Boolean) dataSnapshot.child("babyFancy").getValue();
+                    toilet.babySmellGood = (Boolean) dataSnapshot.child("babySmellGood").getValue();
+
+
 
 
 
@@ -544,21 +583,12 @@ public class DetailViewActivity extends AppCompatActivity {
                         booleanArray.add("音姫");
                     }
 
-                    if (toilet.omutu){
-                        booleanArray.add("おむつ交換台");
-                    }
-
-                    if (toilet.omutuSelling){
-                        booleanArray.add("おむつ販売機");
-                    }
 
                     if (toilet.napkinSelling){
                         booleanArray.add("ナプキン販売機");
                     }
 
-                    if (toilet.milkspace){
-                        booleanArray.add("授乳スペース");
-                    }
+
 
 
                     if (toilet.makeuproom){
@@ -577,6 +607,10 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     if (toilet.wheelchair){
                         booleanArray.add("車イス対応");
+                    }
+
+                    if (toilet.wheelchairAccess){
+                        booleanArray.add("車イスでアクセス可能");
                     }
 
                     if (toilet.handrail){
@@ -631,6 +665,128 @@ public class DetailViewActivity extends AppCompatActivity {
                     if (toilet.wifi){
                         booleanArray.add("Wi-Fi");
                     }
+
+
+                    if (toilet.milkspace){
+                        booleanArray.add("授乳スペース");
+                    }
+
+                    if (toilet.babyroomOnlyFemale){
+                        booleanArray.add("女性限定");
+                    }
+
+                    if (toilet.babyroomManCanEnter){
+                        booleanArray.add("男性入室可能");
+                    }
+
+
+                    if (toilet.babyPersonalSpace){
+                        booleanArray.add("個室あり");
+                    }
+                    if (toilet.babyPersonalSpaceWithLock){
+                        booleanArray.add("鍵付き個室あり");
+                    }
+
+                    if (toilet.babyRoomWideSpace){
+                        booleanArray.add("広いスペース");
+                    }
+
+
+
+
+                    if (toilet.babyCarRental){
+                        booleanArray.add("ベビーカーレンタル");
+                    }
+
+
+                    if (toilet.babyCarAccess){
+                        booleanArray.add("ベビーカーでアクセス可能");
+                    }
+
+
+
+                    if (toilet.omutu){
+                        booleanArray.add("おむつ交換台");
+
+
+                    }
+
+                    if (toilet.hipWashingStuff){
+                        booleanArray.add("おしりふき");
+                    }
+
+                    if (toilet.babyTrashCan){
+                        booleanArray.add("おむつ用ゴミ箱");
+                    }
+
+
+                    if (toilet.omutuSelling){
+                        booleanArray.add("おむつ販売機");
+                    }
+
+                    if (toilet.babyRoomSink){
+                        booleanArray.add("シンク");
+                    }
+
+                    if (toilet.babyWashStand){
+                        booleanArray.add("洗面台");
+                    }
+
+
+                    if (toilet.babyHotWater){
+                        booleanArray.add("給湯器");
+                    }
+                    if (toilet.babyMicroWave){
+                        booleanArray.add("電子レンジ");
+                    }
+
+                    if (toilet.babyWaterSelling){
+                        booleanArray.add("飲料自販機");
+                    }
+
+                    if (toilet.babyFoddSelling){
+                        booleanArray.add("離乳食販売");
+                    }
+                    if (toilet.babyEatingSpace){
+                        booleanArray.add("飲食スペース");
+                    }
+
+
+
+                    if (toilet.babyChair){
+                        booleanArray.add("ベビーチェア");
+                    }
+
+                    if (toilet.babySoffa){
+                        booleanArray.add("ソファ");
+                    }
+                    if (toilet.babyKidsToilet){
+                        booleanArray.add("キッズトイレ");
+                    }
+
+                    if (toilet.babyKidsSpace){
+                        booleanArray.add("キッズスペース");
+                    }
+
+                    if (toilet.babyHeightMeasure){
+                        booleanArray.add("身長計");
+                    }
+                    if (toilet.babyWeightMeasure){
+                        booleanArray.add("体重計");
+                    }
+
+                    if (toilet.babyToy){
+                        booleanArray.add("おもちゃ");
+                    }
+
+
+                    if (toilet.babyFancy){
+                        booleanArray.add("おしゃれ");
+                    }
+                    if (toilet.babySmellGood){
+                        booleanArray.add("良い香り");
+                    }
+
 
 
 

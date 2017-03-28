@@ -95,15 +95,13 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
     Switch toiletOtohime;
-    Switch toiletOmutu;
-    Switch toiletOmutuSelling;
     Switch toiletNapkinSelling;
-    Switch toiletMilk;
     Switch toiletMakeroom;
     Switch toiletClothes;
     Switch toiletBaggage;
 
     Switch toiletWheelchair;
+    Switch toiletWheelchairAccess;
     Switch toiletHandrail;
     Switch toiletCallHelp;
     Switch toiletOstomate;
@@ -128,6 +126,47 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     Spinner startMinutesSpinner;
     Spinner endHoursSpinner;
     Spinner endMinutesSpinner;
+
+    Switch toiletMilk;
+    Switch toiletBabyRoomOnlyFemale;
+    Switch toiletBabyRoomMaleEnter;
+    Switch toiletBabyPersonalRoom;
+    Switch toiletBabyPersonalRoomWithLock;
+    Switch toiletBabyRoomWide;
+
+    Switch toiletBabyCarRental;
+    Switch toiletBabyCarAccess;
+    Switch toiletOmutu;
+    Switch toiletHipCleaningStuff;
+    Switch toiletOmutuTrashCan;
+    Switch toiletOmutuSelling;
+
+    Switch toiletBabySink;
+    Switch toiletBabyWashstand;
+    Switch toiletBabyHotWater;
+    Switch toiletBabyMicrowave;
+    Switch toiletBabyWaterSelling;
+    Switch toiletBabyFoodSelling;
+    Switch toiletBabyEatingSpace;
+
+    Switch toiletBabyChair;
+    Switch toiletBabySoffa;
+    Switch toiletKidsToilet;
+    Switch toiletKidsSpace;
+    Switch toiletHeight;
+    Switch toiletWeight;
+    Switch toiletToy;
+    Switch toiletBabyFancy;
+    Switch toiletBabySmellGood;
+
+
+
+    Switch toilet;
+
+
+
+
+
 
 
 
@@ -483,10 +522,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
         toiletOtohime = (Switch) findViewById(R.id.addOtohimeSwitch);
-        toiletOmutu = (Switch) findViewById(R.id.addOmutuSwitch);
-        toiletOmutuSelling = (Switch) findViewById(R.id.addOmutuSellingSwitch);
         toiletNapkinSelling = (Switch) findViewById(R.id.addNapkinSellingSwitch);
-        toiletMilk = (Switch) findViewById(R.id.addMilkSwitch);
         toiletMakeroom = (Switch) findViewById(R.id.addMakeSwitch);
         toiletClothes = (Switch) findViewById(R.id.addClothesSwitch);
         toiletBaggage = (Switch) findViewById(R.id.addBaggageSwitch);
@@ -494,6 +530,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
         toiletWheelchair = (Switch) findViewById(R.id.addWheelchairSwitch);
+        toiletWheelchairAccess = (Switch) findViewById(R.id.addWheelchairAccessSwitch);
         toiletHandrail = (Switch) findViewById(R.id.addHandrailSwitch);
         toiletCallHelp = (Switch)findViewById(R.id.addCallHelpSwitch);
         toiletOstomate = (Switch) findViewById(R.id.addOstomateSwitch);
@@ -509,6 +546,42 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         toiletParking = (Switch) findViewById(R.id.addParkingSwitch);
         toiletAirCondition = (Switch) findViewById(R.id.addAirConditionSwitch);
         toiletWifi = (Switch) findViewById(R.id.addWifiSwitch);
+
+        toiletMilk = (Switch) findViewById(R.id.addMilkSwitch);
+        toiletBabyRoomOnlyFemale = (Switch)findViewById(R.id.addMilkOnlyFemaleSwitch);
+        toiletBabyRoomMaleEnter = (Switch)findViewById(R.id.addMilkMaleOkaySwitch);
+        toiletBabyPersonalRoom = (Switch)findViewById(R.id.addBabyPersonalSpaceSwitch);
+        toiletBabyPersonalRoomWithLock = (Switch)findViewById(R.id.addBabyPersonalSpaceWithLockSwitch);
+        toiletBabyRoomWide = (Switch)findViewById(R.id.addWideBabySpaceSwitch);
+
+
+        toiletBabyCarRental = (Switch)findViewById(R.id.addRentalBabyCarSwitch);
+        toiletBabyCarAccess = (Switch)findViewById(R.id.addBabyCarAccessSwitch);
+        toiletOmutu = (Switch) findViewById(R.id.addOmutuSwitch);
+        toiletHipCleaningStuff = (Switch)findViewById(R.id.addHipCleanStuffSwitch);
+        toiletOmutuTrashCan = (Switch)findViewById(R.id.addOmutuTrashCanSwitch);
+        toiletOmutuSelling = (Switch) findViewById(R.id.addOmutuSellingSwitch);
+
+
+        toiletBabySink = (Switch)findViewById(R.id.addBabySinkSwitch);
+        toiletBabyWashstand = (Switch)findViewById(R.id.addBabyWashstandSwitch);
+        toiletBabyHotWater = (Switch)findViewById(R.id.addBabyHotWaterSwitch);
+        toiletBabyMicrowave = (Switch)findViewById(R.id.addBabyMicrowaveSwitch);
+        toiletBabyWaterSelling = (Switch)findViewById(R.id.addBabySellingWaterSwitch);
+        toiletBabyFoodSelling = (Switch)findViewById(R.id.addfoodForBabySellingSwitch);
+        toiletBabyEatingSpace = (Switch)findViewById(R.id.addBabyEatingSpaceSwitch);
+
+
+        toiletBabyChair = (Switch)findViewById(R.id.addBabyChairSwitch);
+        toiletBabySoffa = (Switch)findViewById(R.id.addBabySoffaSwitch);
+        toiletKidsToilet = (Switch)findViewById(R.id.addkidsToiletSwitch);
+        toiletKidsSpace = (Switch)findViewById(R.id.addkidsSpaceSwitch);
+        toiletHeight = (Switch)findViewById(R.id.addheightMeasureSwitch);
+        toiletWeight = (Switch)findViewById(R.id.addweightMeasureSwitch);
+        toiletToy = (Switch)findViewById(R.id.addBabyToySwitch);
+        toiletBabyFancy = (Switch)findViewById(R.id.addBabyFancySwitch);
+        toiletBabySmellGood = (Switch)findViewById(R.id.addBabySmellGoodSwitch);
+
 
 
     }
@@ -533,7 +606,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                      requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
                  } else {
 
-                     alertCall();
+                     imageSetPlaceChoose();
 
                  }
              }
@@ -556,7 +629,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
      }
 
 
-    private void alertCall(){
+    private void imageSetPlaceChoose(){
         final Integer imageNum = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("どこに写真を追加しますか");
@@ -768,14 +841,12 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                toiletPaperTowel.isChecked(),
                toiletHandDrier.isChecked(),
                toiletOtohime.isChecked(),
-               toiletOmutu.isChecked(),
-               toiletOmutuSelling.isChecked(),
                toiletNapkinSelling.isChecked(),
-               toiletMilk.isChecked(),
                toiletMakeroom.isChecked(),
                toiletClothes.isChecked(),
                toiletBaggage.isChecked(),
                toiletWheelchair.isChecked(),
+               toiletWheelchairAccess.isChecked(),
                toiletHandrail.isChecked(),
                toiletCallHelp.isChecked(),
                toiletOstomate.isChecked(),
@@ -788,58 +859,38 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                toiletNoNeedAsk.isChecked(),
                toiletParking.isChecked(),
                toiletAirCondition.isChecked(),
-               toiletWifi.isChecked()
+               toiletWifi.isChecked(),
+               toiletMilk.isChecked(),
+               toiletBabyRoomOnlyFemale.isChecked(),
+               toiletBabyRoomMaleEnter.isChecked(),
+               toiletBabyPersonalRoom.isChecked(),
+               toiletBabyPersonalRoomWithLock.isChecked(),
+               toiletBabyPersonalRoomWithLock.isChecked(),
+               toiletBabyCarRental.isChecked(),
+               toiletBabyCarAccess.isChecked(),
+               toiletOmutu.isChecked(),
+               toiletHipCleaningStuff.isChecked(),
+               toiletOmutuTrashCan.isChecked(),
+               toiletOmutuSelling.isChecked(),
+               toiletBabySink.isChecked(),
+               toiletBabyWashstand.isChecked(),
+               toiletBabyHotWater.isChecked(),
+               toiletBabyMicrowave.isChecked(),
+               toiletBabyWaterSelling.isChecked(),
+               toiletBabyFoodSelling.isChecked(),
+               toiletBabyEatingSpace.isChecked(),
+               toiletBabyChair.isChecked(),
+               toiletBabySoffa.isChecked(),
+               toiletKidsToilet.isChecked(),
+               toiletKidsSpace.isChecked(),
+               toiletHeight.isChecked(),
+               toiletWeight.isChecked(),
+               toiletToy.isChecked(),
+               toiletBabyFancy.isChecked(),
+               toiletBabySmellGood.isChecked()
+
        ));
 
-
-
-//        newRef.setValue(new Post(
-//                tName,
-//                openData,//open
-//                endData,//close
-//                openingString,
-//                typeSpinner.getSelectedItem().toString(),
-//                "", //urlOne //image to URL default ""
-//                "", // urlTwo
-//                "", //urlThree
-//                toiletWashlet.isChecked(),
-//                toiletWheelchair.isChecked(),
-//                toiletOnlyFemale.isChecked(),
-//                toiletUnisex.isChecked(),
-//                toiletMakeroom.isChecked(),
-//                toiletMilk.isChecked(),
-//                toiletOmutu.isChecked(),
-//                toiletOstomate.isChecked(),
-//                toiletJapanese.isChecked(),
-//                toiletWestern.isChecked(),
-//                toiletWarmseat.isChecked(),
-//                toiletBaggage.isChecked(),
-//                toiletAutoopen.isChecked(),
-//                toiletSensor.isChecked(),
-//                toiletOtohime.isChecked(),
-//                toiletFancy.isChecked(),
-//                toiletConfortable.isChecked(),
-//                toiletSmell.isChecked(),
-//                toiletClothes.isChecked(),
-//                toiletParking.isChecked(),
-//                toiletWrittenEnglish.isChecked(),
-//                toiletBraille.isChecked(),
-//                true,//avaiable..
-//                1 , //reviewCount
-//                uid, //addedBy
-//                "edit", //edittedBY
-//                avStar,//av star should be string
-//                waitingValue,
-//                AddLocations.latitude,//Lat
-//                AddLocations.longitude,//Lon
-//                AddLocations.address, //Address
-//                3,//manwestern
-//                3,//manJap
-//                3,//anSmall
-//                3,//woWe
-//                3,//woJp
-//                3,//floor
-//                "THIS IS THE WAY OF ACCESS"));//how ti access
 
     Log.i("please", "...");
        geolocationUpdate(firekey);
@@ -1111,7 +1162,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                         //Photo Permission
 
                         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                            alertCall();
+                            imageSetPlaceChoose();
 
 
                         }

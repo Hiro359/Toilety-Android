@@ -520,15 +520,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.handDrier = (Boolean) dataSnapshot.child("handDrier").getValue();
 
                             toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
-                            toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
-                            toilet.omutuSelling = (Boolean) dataSnapshot.child("omutuSelling").getValue();
                             toilet.napkinSelling = (Boolean) dataSnapshot.child("napkinSelling").getValue();
-                            toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
                             toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
                             toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
                             toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
 
                             toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
+                            toilet.wheelchairAccess = (Boolean) dataSnapshot.child("wheelchairAccess").getValue();
                             toilet.handrail = (Boolean) dataSnapshot.child("handrail").getValue();
                             toilet.callHelp = (Boolean) dataSnapshot.child("callHelp").getValue();
                             toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
@@ -544,6 +542,42 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
                             toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
                             toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
+
+                            toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
+                            toilet.babyroomOnlyFemale = (Boolean) dataSnapshot.child("babyRoomOnlyFemale").getValue();
+                            toilet.babyroomManCanEnter = (Boolean) dataSnapshot.child("babyRoomMaleEnter").getValue();
+                            toilet.babyPersonalSpace = (Boolean) dataSnapshot.child("babyRoomPersonalSpace").getValue();
+                            toilet.babyPersonalSpaceWithLock = (Boolean) dataSnapshot.child("babyRoomPersonalSpaceWithLock").getValue();
+                            toilet.babyRoomWideSpace = (Boolean) dataSnapshot.child("babyRoomWideSpace").getValue();
+
+                            toilet.babyCarRental = (Boolean) dataSnapshot.child("babyCarRental").getValue();
+                            toilet.babyCarAccess = (Boolean) dataSnapshot.child("babyCarAccess").getValue();
+                            toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+                            toilet.hipWashingStuff = (Boolean) dataSnapshot.child("hipCleaningStuff").getValue();
+                            toilet.babyTrashCan = (Boolean) dataSnapshot.child("omutuTrashCan").getValue();
+                            toilet.omutuSelling = (Boolean) dataSnapshot.child("omutuSelling").getValue();
+
+
+                            toilet.babyRoomSink = (Boolean) dataSnapshot.child("babySink").getValue();
+                            toilet.babyWashStand = (Boolean) dataSnapshot.child("babyWashstand").getValue();
+                            toilet.babyHotWater = (Boolean) dataSnapshot.child("babyHotwater").getValue();
+                            toilet.babyMicroWave = (Boolean) dataSnapshot.child("babyMicrowave").getValue();
+                            toilet.babyWaterSelling = (Boolean) dataSnapshot.child("babyWaterSelling").getValue();
+                            toilet.babyFoddSelling = (Boolean) dataSnapshot.child("babyFoodSelling").getValue();
+                            toilet.babyEatingSpace = (Boolean) dataSnapshot.child("babyEatingSpace").getValue();
+
+
+                            toilet.babyChair = (Boolean) dataSnapshot.child("babyChair").getValue();
+                            toilet.babySoffa = (Boolean) dataSnapshot.child("babySoffa").getValue();
+                            toilet.babyKidsToilet = (Boolean) dataSnapshot.child("kidsToilet").getValue();
+                            toilet.babyKidsSpace = (Boolean) dataSnapshot.child("kidsSpace").getValue();
+                            toilet.babyHeightMeasure = (Boolean) dataSnapshot.child("babyHeight").getValue();
+                            toilet.babyWeightMeasure = (Boolean) dataSnapshot.child("babyWeight").getValue();
+                            toilet.babyToy = (Boolean) dataSnapshot.child("babyToy").getValue();
+                            toilet.babyFancy = (Boolean) dataSnapshot.child("babyFancy").getValue();
+                            toilet.babySmellGood = (Boolean) dataSnapshot.child("babySmellGood").getValue();
+
+
 
                             Double averaegeStarDouble = Double.parseDouble(toilet.averageStar);
 
@@ -625,22 +659,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 removedToilet = true;
                             }
 
-                            if (Filter.omutuFilter  && !toilet.omutu) {
-                                removedToilet = true;
-                            }
-
-                            if (Filter.omutuSelling  && !toilet.omutuSelling) {
-                                removedToilet = true;
-                            }
 
                             if (Filter.napkinSelling  && !toilet.napkinSelling) {
                                 removedToilet = true;
                             }
 
 
-                            if (Filter.milkspaceFilter  && !toilet.milkspace) {
-                                removedToilet = true;
-                            }
 
                             if (Filter.makeroomFilter  && !toilet.makeuproom ) {
                                 removedToilet = true;
@@ -659,6 +683,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             if (Filter.wheelchairFilter  && !toilet.wheelchair) {
                             removedToilet = true;
+                            }
+
+                            if (Filter.wheelchairAccessFilter  && !toilet.wheelchairAccess) {
+                                removedToilet = true;
                             }
 
                             if (Filter.handrailFilter  && !toilet.handrail) {
@@ -714,6 +742,133 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (Filter.wifiFilter  && !toilet.wifi) {
                                 removedToilet = true;
                             }
+
+
+
+                            if (Filter.milkspaceFilter  && !toilet.milkspace) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyRoomOnlyFemaleFilter  && !toilet.babyroomOnlyFemale) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyRoomMaleCanEnterFilter  && !toilet.babyroomManCanEnter) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyRoomPersonalSpaceFilter  && !toilet.babyPersonalSpace) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyRoomPersonalWithLockFilter  && !toilet.babyPersonalSpaceWithLock) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyRoomWideSpaceFilter  && !toilet.babyRoomWideSpace) {
+                                removedToilet = true;
+                            }
+
+
+
+                            if (Filter.babyCarRentalFilter  && !toilet.babyCarRental) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyCarAccessFilter  && !toilet.babyCarAccess) {
+                                removedToilet = true;
+                            }
+
+
+
+                            if (Filter.omutuFilter  && !toilet.omutu) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyHipWashingStuffFilter  && !toilet.hipWashingStuff) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.omutuTrashCanFilter  && !toilet.babyTrashCan) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.omutuSelling  && !toilet.omutuSelling) {
+                                removedToilet = true;
+                            }
+
+
+
+
+                            if (Filter.babySinkFilter  && !toilet.babyRoomSink) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyWashstandFilter  && !toilet.babyWashStand) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyHotWaterFilter  && !toilet.babyHotWater) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyMicrowaveFilter  && !toilet.babyMicroWave) {
+                                removedToilet = true;
+                            }
+
+
+                            if (Filter.babySellingWaterFilter  && !toilet.babyWaterSelling) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyFoodSellingFilter  && !toilet.babyFoddSelling) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyEatingSpaceFilter  && !toilet.babyEatingSpace) {
+                                removedToilet = true;
+                            }
+
+
+                            if (Filter.babyChairFilter  && !toilet.babyChair) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babySoffaFilter  && !toilet.babySoffa) {
+                                removedToilet = true;
+                            }
+
+
+                            if (Filter.babyToiletFilter  && !toilet.babyKidsToilet) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyKidsSpaceFilter  && !toilet.babyKidsSpace) {
+                                removedToilet = true;
+                            }
+
+
+                            if (Filter.babyHeightMeasureFilter  && !toilet.babyHeightMeasure) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyWeightMeasureFilter  && !toilet.babyWeightMeasure) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyToyFilter  && !toilet.babyToy) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyRoomFancyFilter  && !toilet.babyFancy) {
+                                removedToilet = true;
+                            }
+
+                            if (Filter.babyRoomSmellGoodFilter  && !toilet.babySmellGood) {
+                                removedToilet = true;
+                            }
+
+
 
 
 

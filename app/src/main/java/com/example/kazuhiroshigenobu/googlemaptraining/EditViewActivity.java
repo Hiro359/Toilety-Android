@@ -1,17 +1,22 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.*;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,12 +25,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,6 +42,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -67,15 +76,13 @@ public class EditViewActivity extends AppCompatActivity {
 
 
     Switch toiletOtohime;
-    Switch toiletOmutu;
-    Switch toiletOmutuSelling;
     Switch toiletNapkinSelling;
-    Switch toiletMilk;
     Switch toiletMakeroom;
     Switch toiletClothes;
     Switch toiletBaggage;
 
     Switch toiletWheelchair;
+    Switch toiletWheelchairAccess;
     Switch toiletHandrail;
     Switch toiletCallHelp;
     Switch toiletOstomate;
@@ -90,6 +97,43 @@ public class EditViewActivity extends AppCompatActivity {
     Switch toiletParking;
     Switch toiletAirCondition;
     Switch toiletWifi;
+
+    Switch toiletMilk;
+    Switch toiletBabyRoomOnlyFemale;
+    Switch toiletBabyRoomMaleEnter;
+    Switch toiletBabyPersonalRoom;
+    Switch toiletBabyPersonalRoomWithLock;
+    Switch toiletBabyRoomWide;
+
+    Switch toiletBabyCarRental;
+    Switch toiletBabyCarAccess;
+    Switch toiletOmutu;
+    Switch toiletHipCleaningStuff;
+    Switch toiletOmutuTrashCan;
+    Switch toiletOmutuSelling;
+
+    Switch toiletBabySink;
+    Switch toiletBabyWashstand;
+    Switch toiletBabyHotWater;
+    Switch toiletBabyMicrowave;
+    Switch toiletBabyWaterSelling;
+    Switch toiletBabyFoodSelling;
+    Switch toiletBabyEatingSpace;
+
+    Switch toiletBabyChair;
+    Switch toiletBabySoffa;
+    Switch toiletKidsToilet;
+    Switch toiletKidsSpace;
+    Switch toiletHeight;
+    Switch toiletWeight;
+    Switch toiletToy;
+    Switch toiletBabyFancy;
+    Switch toiletBabySmellGood;
+
+
+
+
+
 
 
 
@@ -111,13 +155,16 @@ public class EditViewActivity extends AppCompatActivity {
 
     //
     RatingBar ratingBar;
+    ImageView mainImage;
+    ImageView subImage1;
+    ImageView subImage2;
 
     LocationManager locationManager;
 
     android.location.LocationListener locationListener;
 
     Button addPhoto;
-    Button buttonAddInfo;
+    Button buttonRenewInfo;
 
    // Boolean onCreatedSpinner = false;
 
@@ -140,7 +187,11 @@ public class EditViewActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView toolbarTitle;
     private DatabaseReference toiletRef;
+    private DatabaseReference toiletLocationRef;
+//    DatabaseReference deleteLocationsRef
     Toilet toilet =  new Toilet();
+    DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("ToiletLocations");
+    GeoFire geoFire = new GeoFire(locationRef);
 
     ArrayAdapter<CharSequence> adapterType;
     ArrayAdapter<CharSequence> adapterWaitingtime;
@@ -170,8 +221,19 @@ public class EditViewActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         }
-        final String key = getIntent().getStringExtra("EXTRA_SESSION_ID");
-        toileGetData(key);
+        final String originalkey = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        final Double originalLat = getIntent().getDoubleExtra("toiletLatitude",0);
+        final Double originalLon = getIntent().getDoubleExtra("toiletLongitude",0);
+
+//        final Double originalLon = getIntent().getStringExtra("toiletLongitude");
+//        final Double originalLat = getIntent().getStringExtra("toiletLatitude");
+//        final Double originalLon = getIntent().getStringExtra("toiletLongitude");
+
+
+
+
+        toileGetData(originalkey);
+
 
 
         toolbar.setNavigationOnClickListener(
@@ -181,7 +243,8 @@ public class EditViewActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(v.getContext(),DetailViewActivity.class);
-                        intent.putExtra("EXTRA_SESSION_ID", key);
+                        intent.putExtra("EXTRA_SESSION_ID", originalkey);
+
                         startActivity(intent);
                         finish();
                     }
@@ -196,7 +259,8 @@ public class EditViewActivity extends AppCompatActivity {
             @Override public void onMapReady(GoogleMap googleMap) {
                 if (googleMap != null) {
                     // your additional codes goes here
-                    onMapReadyCalled(googleMap);
+
+                    onMapReadyCalled(googleMap, originalLat, originalLon);
 
 
                 }
@@ -219,8 +283,20 @@ public class EditViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        if (id == R.id.postEdit) {
+            Toast.makeText(this, "Hey Post Exection!!", Toast.LENGTH_SHORT).show();
+            Log.i("toilet.keyBeforePtEdit",toilet.key);
+            firebaseDeleteData();
+
+            //firebaseEditAction();
+            ///////////////////////// 1pm 25th Feb
+            return true;
+
+        }
 
 
+        //edit exection.....
+        //firebaseUpdate()
             Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
 
             return super.onOptionsItemSelected(item);
@@ -250,15 +326,13 @@ public class EditViewActivity extends AppCompatActivity {
         toiletHandDrier = (Switch) findViewById(R.id.editHandDrierSwitch);
 
         toiletOtohime = (Switch) findViewById(R.id.editOtohimeSwitch);
-        toiletOmutu = (Switch) findViewById(R.id.editOmutuSwitch);
-        toiletOmutuSelling = (Switch) findViewById(R.id.editOmutuSellingSwitch);
         toiletNapkinSelling = (Switch) findViewById(R.id.editNapkinSellingSwitch);
-        toiletMilk = (Switch) findViewById(R.id.editMilkSwitch);
         toiletMakeroom = (Switch) findViewById(R.id.editMakeSwitch);
         toiletClothes = (Switch) findViewById(R.id.editClothesSwitch);
         toiletBaggage = (Switch) findViewById(R.id.editBaggageSwitch);
 
         toiletWheelchair = (Switch) findViewById(R.id.editWheelchairSwitch);
+        toiletWheelchairAccess = (Switch) findViewById(R.id.editWheelchairAccessSwitch);
         toiletHandrail = (Switch) findViewById(R.id.editHandrailSwitch);
         toiletCallHelp = (Switch) findViewById(R.id.editCallHelpSwitch);
         toiletOstomate = (Switch) findViewById(R.id.editOstomateSwitch);
@@ -274,9 +348,47 @@ public class EditViewActivity extends AppCompatActivity {
         toiletAirCondition =  (Switch) findViewById(R.id.editAirConditionSwitch);
         toiletWifi = (Switch) findViewById(R.id.editWifiSwitch);
 
+
+        toiletMilk = (Switch) findViewById(R.id.editMilkSwitch);
+        toiletBabyRoomOnlyFemale = (Switch)findViewById(R.id.editMilkOnlyFemaleSwitch);
+        toiletBabyRoomMaleEnter = (Switch)findViewById(R.id.editMilkMaleOkaySwitch);
+        toiletBabyPersonalRoom = (Switch)findViewById(R.id.editBabyPersonalSpaceSwitch);
+        toiletBabyPersonalRoomWithLock = (Switch)findViewById(R.id.editBabyPersonalSpaceWithLockSwitch);
+        toiletBabyRoomWide = (Switch)findViewById(R.id.editWideBabySpaceSwitch);
+
+
+        toiletBabyCarRental = (Switch)findViewById(R.id.editRentalBabyCarSwitch);
+        toiletBabyCarAccess = (Switch)findViewById(R.id.editBabyCarAccessSwitch);
+        toiletOmutu = (Switch) findViewById(R.id.editOmutuSwitch);
+        toiletHipCleaningStuff = (Switch)findViewById(R.id.editHipCleanStuffSwitch);
+        toiletOmutuTrashCan = (Switch)findViewById(R.id.editOmutuTrashCanSwitch);
+        toiletOmutuSelling = (Switch) findViewById(R.id.editOmutuSellingSwitch);
+
+
+        toiletBabySink = (Switch)findViewById(R.id.editBabySinkSwitch);
+        toiletBabyWashstand = (Switch)findViewById(R.id.editBabyWashstandSwitch);
+        toiletBabyHotWater = (Switch)findViewById(R.id.editBabyHotWaterSwitch);
+        toiletBabyMicrowave = (Switch)findViewById(R.id.editBabyMicrowaveSwitch);
+        toiletBabyWaterSelling = (Switch)findViewById(R.id.editBabySellingWaterSwitch);
+        toiletBabyFoodSelling = (Switch)findViewById(R.id.editfoodForBabySellingSwitch);
+        toiletBabyEatingSpace = (Switch)findViewById(R.id.editBabyEatingSpaceSwitch);
+
+
+        toiletBabyChair = (Switch)findViewById(R.id.editBabyChairSwitch);
+        toiletBabySoffa = (Switch)findViewById(R.id.editBabySoffaSwitch);
+        toiletKidsToilet = (Switch)findViewById(R.id.editkidsToiletSwitch);
+        toiletKidsSpace = (Switch)findViewById(R.id.editkidsSpaceSwitch);
+        toiletHeight = (Switch)findViewById(R.id.editheightMeasureSwitch);
+        toiletWeight = (Switch)findViewById(R.id.editweightMeasureSwitch);
+        toiletToy = (Switch)findViewById(R.id.editBabyToySwitch);
+        toiletBabyFancy = (Switch)findViewById(R.id.editBabyFancySwitch);
+        toiletBabySmellGood = (Switch)findViewById(R.id.editBabySmellGoodSwitch);
+
     }
 
     private void othersReady(){
+
+
         textToiletName = (EditText) findViewById(R.id.writeToiletName);
         textHowToAccess = (EditText) findViewById(R.id.inputHowToAccess);
         textFeedback = (EditText) findViewById(R.id.kansou);
@@ -285,12 +397,108 @@ public class EditViewActivity extends AppCompatActivity {
         textFeedback.setMaxLines(Integer.MAX_VALUE);
         textFeedback.setHorizontallyScrolling(false);
 
+        ratingBar = (RatingBar) findViewById(R.id.editRating);
+        ratingBar.setRating(3);
+        addPhoto = (Button) findViewById(R.id.buttonEditPicture);
+        buttonRenewInfo = (Button) findViewById(R.id.buttonEditInfo);
+
+        mainImage = (ImageView) findViewById(R.id.picture1);
+//         ImageView subImage1 = (ImageView) findViewById(R.id.picture2);
+//         ImageView subImage2 = (ImageView) findViewById(R.id.picture3);
+
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
 
 
+                    requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},2);
+                } else {
 
+
+                   imageSetPlaceChoose();
+
+                }
+            }
+        });
+
+
+        buttonRenewInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+//                 pictureUpload(); March 3 18pm
+
+                toiletNameCheck();
+//                 firebaseUpdate();
+
+            }
+        });
+
+    }
+
+    private void toiletNameCheck(){
+        String tName = textToiletName.getText().toString();
+
+        if(TextUtils.isEmpty(tName)) {
+
+            textToiletName.setError("Your message");
+            Log.i("HEy", "00");
+        }
+        else {
+            //there is a valid name
+
+            //firebaseUpdate();
+        }
+    }
+    private void imageSetPlaceChoose(){
+        final Integer imageNum = 0;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("どこに写真を追加しますか");
+        builder.setItems(new CharSequence[]
+                        {"メインイメージ", "サブイメージ1", "サブイメージ2"},
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                photoSelected = 0;
+                                showPhoto();
+
+//                                Toast.makeText(this, "clicked 1", 0).show();
+                                break;
+
+                            case 1:
+                                photoSelected = 1;
+                                showPhoto();
+//                                Toast.makeText(context, "clicked 2", 0).show();
+                                break;
+                            case 2:
+                                photoSelected = 2;
+                                showPhoto();
+                                //Toast.makeText(context, "clicked 3", 0).show();
+                                break;
+
+                        }
+                    }
+                });
+        builder.create().show();
 
 
     }
+
+
+
+    private void showPhoto(){
+
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent,2);
+
+
+    }
+
 
     private void sppinnerReady(){
 
@@ -489,11 +697,11 @@ public class EditViewActivity extends AppCompatActivity {
 
     }
 
-    private void toileGetData(final String queryKey) {
+    private void toileGetData(final String originalKey) {
 
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
 
-        toiletRef.child(queryKey).addValueEventListener(new ValueEventListener() {
+        toiletRef.child(originalKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i("OnDataChangeCalled", "777");
@@ -508,6 +716,10 @@ public class EditViewActivity extends AppCompatActivity {
                     // List<String> toiletData = new ArrayList<>();
 
 
+                    Log.i("UserInfo.latitude", String.valueOf(UserInfo.latitude));
+                    Log.i("UserInfo.longitude", String.valueOf(UserInfo.longitude));
+
+                    Log.i("OnDataChangeCalled", "777888999");
                     LatLng centerLocation = new LatLng(UserInfo.latitude, UserInfo.longitude);
                     //get from the location Manager
                     Log.i("IS THIS THE ERROR???", "4");
@@ -549,7 +761,7 @@ public class EditViewActivity extends AppCompatActivity {
 //
 
 
-                    toilet.key = queryKey;
+                    toilet.key = originalKey;
                     //Not sure about how to call key....
 
                     toilet.name = (String) dataSnapshot.child("name").getValue();
@@ -613,16 +825,14 @@ public class EditViewActivity extends AppCompatActivity {
 
 
                     toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
-                    toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
-                    toilet.omutuSelling = (Boolean) dataSnapshot.child("omutuSelling").getValue();
                     toilet.napkinSelling = (Boolean) dataSnapshot.child("napkinSelling").getValue();
-                    toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
                     toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
                     toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
                     toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
 
 
                     toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
+                    toilet.wheelchairAccess = (Boolean) dataSnapshot.child("wheelchairAccess").getValue();
                     toilet.handrail = (Boolean) dataSnapshot.child("handrail").getValue();
                     toilet.callHelp = (Boolean) dataSnapshot.child("callHelp").getValue();
                     toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
@@ -638,6 +848,42 @@ public class EditViewActivity extends AppCompatActivity {
                     toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
                     toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
                     toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
+
+                    toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
+                    toilet.babyroomOnlyFemale = (Boolean) dataSnapshot.child("babyRoomOnlyFemale").getValue();
+                    toilet.babyroomManCanEnter = (Boolean) dataSnapshot.child("babyRoomMaleEnter").getValue();
+                    toilet.babyPersonalSpace = (Boolean) dataSnapshot.child("babyRoomPersonalSpace").getValue();
+                    toilet.babyPersonalSpaceWithLock = (Boolean) dataSnapshot.child("babyRoomPersonalSpaceWithLock").getValue();
+                    toilet.babyRoomWideSpace = (Boolean) dataSnapshot.child("babyRoomWideSpace").getValue();
+
+                    toilet.babyCarRental = (Boolean) dataSnapshot.child("babyCarRental").getValue();
+                    toilet.babyCarAccess = (Boolean) dataSnapshot.child("babyCarAccess").getValue();
+                    toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+                    toilet.hipWashingStuff = (Boolean) dataSnapshot.child("hipCleaningStuff").getValue();
+                    toilet.babyTrashCan = (Boolean) dataSnapshot.child("omutuTrashCan").getValue();
+                    toilet.omutuSelling = (Boolean) dataSnapshot.child("omutuSelling").getValue();
+
+
+                    toilet.babyRoomSink = (Boolean) dataSnapshot.child("babySink").getValue();
+                    toilet.babyWashStand = (Boolean) dataSnapshot.child("babyWashstand").getValue();
+                    toilet.babyHotWater = (Boolean) dataSnapshot.child("babyHotwater").getValue();
+                    toilet.babyMicroWave = (Boolean) dataSnapshot.child("babyMicrowave").getValue();
+                    toilet.babyWaterSelling = (Boolean) dataSnapshot.child("babyWaterSelling").getValue();
+                    toilet.babyFoddSelling = (Boolean) dataSnapshot.child("babyFoodSelling").getValue();
+                    toilet.babyEatingSpace = (Boolean) dataSnapshot.child("babyEatingSpace").getValue();
+
+
+                    toilet.babyChair = (Boolean) dataSnapshot.child("babyChair").getValue();
+                    toilet.babySoffa = (Boolean) dataSnapshot.child("babySoffa").getValue();
+                    toilet.babyKidsToilet = (Boolean) dataSnapshot.child("kidsToilet").getValue();
+                    toilet.babyKidsSpace = (Boolean) dataSnapshot.child("kidsSpace").getValue();
+                    toilet.babyHeightMeasure = (Boolean) dataSnapshot.child("babyHeight").getValue();
+                    toilet.babyWeightMeasure = (Boolean) dataSnapshot.child("babyWeight").getValue();
+                    toilet.babyToy = (Boolean) dataSnapshot.child("babyToy").getValue();
+                    toilet.babyFancy = (Boolean) dataSnapshot.child("babyFancy").getValue();
+                    toilet.babySmellGood = (Boolean) dataSnapshot.child("babySmellGood").getValue();
+
+
 
 
                     Float averaegeStarFloat = Float.parseFloat(toilet.averageStar);
@@ -667,16 +913,14 @@ public class EditViewActivity extends AppCompatActivity {
 
 
                     toiletOtohime.setChecked(toilet.otohime);
-                    toiletOmutu.setChecked(toilet.omutu);
-                    toiletOmutuSelling.setChecked(toilet.omutuSelling);
                     toiletNapkinSelling.setChecked(toilet.napkinSelling);
-                    toiletMilk.setChecked(toilet.milkspace);
                     toiletMakeroom.setChecked(toilet.makeuproom);
                     toiletClothes.setChecked(toilet.clothes);
                     toiletBaggage.setChecked(toilet.baggageSpace);
 
 
                     toiletWheelchair.setChecked(toilet.wheelchair);
+                    toiletWheelchairAccess.setChecked(toilet.wheelchairAccess);
                     toiletHandrail.setChecked(toilet.handrail);
                     toiletCallHelp.setChecked(toilet.callHelp);
                     toiletOstomate.setChecked(toilet.ostomate);
@@ -694,8 +938,45 @@ public class EditViewActivity extends AppCompatActivity {
                     textToiletName.setText(toilet.name);
                     textHowToAccess.setText(toilet.howtoaccess);
 
+
+                    toiletMilk.setChecked(toilet.milkspace);
+                    toiletBabyRoomOnlyFemale.setChecked(toilet.babyroomOnlyFemale);
+                    toiletBabyRoomMaleEnter.setChecked(toilet.babyroomManCanEnter);
+                    toiletBabyPersonalRoom.setChecked(toilet.babyPersonalSpace);
+                    toiletBabyPersonalRoomWithLock.setChecked(toilet.babyPersonalSpaceWithLock);
+                    toiletBabyRoomWide.setChecked(toilet.babyRoomWideSpace);
+
+                    toiletBabyCarRental.setChecked(toilet.babyCarRental);
+                    toiletBabyCarAccess.setChecked(toilet.babyCarAccess);
+                    toiletOmutu.setChecked(toilet.omutu);
+                    toiletHipCleaningStuff.setChecked(toilet.hipWashingStuff);
+                    toiletOmutuTrashCan.setChecked(toilet.babyTrashCan);
+                    toiletOmutuSelling.setChecked(toilet.omutuSelling);
+
+                    toiletBabySink.setChecked(toilet.babyRoomSink);
+                    toiletBabyWashstand.setChecked(toilet.babyWashStand);
+                    toiletBabyHotWater.setChecked(toilet.babyHotWater);
+                    toiletBabyMicrowave.setChecked(toilet.babyMicroWave);
+                    toiletBabyWaterSelling.setChecked(toilet.babyWaterSelling);
+                    toiletBabyFoodSelling.setChecked(toilet.babyFoddSelling);
+                    toiletBabyEatingSpace.setChecked(toilet.babyEatingSpace);
+
+                    toiletBabyChair.setChecked(toilet.babyChair);
+                    toiletBabySoffa.setChecked(toilet.babySoffa);
+                    toiletKidsToilet.setChecked(toilet.babyKidsToilet);
+                    toiletKidsSpace.setChecked(toilet.babyKidsSpace);
+
+                    toiletHeight.setChecked(toilet.babyHeightMeasure);
+                    toiletWeight.setChecked(toilet.babyWeightMeasure);
+                    toiletToy.setChecked(toilet.babyToy);
+                    toiletBabyFancy.setChecked(toilet.babyFancy);
+                    toiletBabySmellGood.setChecked(toilet.babySmellGood);
+
+
                     Log.i("Type@@@",toilet.type);
                     sppinnerReady();
+
+
 
 
 
@@ -729,9 +1010,223 @@ public class EditViewActivity extends AppCompatActivity {
 
     }
 
+    private void firebaseDeleteData(){
+
+        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+        toiletLocationRef = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
+
+        DatabaseReference deleteLocationsRef = toiletLocationRef.child(toilet.key);
+        deleteLocationsRef.removeValue();
+        DatabaseReference deleteToiletRef = toiletRef.child(toilet.key);
+        deleteToiletRef.removeValue();
 
 
-    public void onMapReadyCalled(GoogleMap googleMap) {
+        firebaseRenewdata();
+
+
+
+
+
+
+        //call firebaseRenewData....
+
+
+
+    }
+    private void firebaseRenewdata(){
+
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
+        Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
+        Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
+        Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
+        Integer openTime = stHour * 100 + stMinu;
+        Integer endTime = enHour * 100 + enMinu;
+
+        Integer openData = 5000;
+        Integer endData = 5000;
+        String tName = textToiletName.getText().toString();
+
+        if (openTime < endTime){
+            openData = openTime;
+            endData = endTime;
+            Log.i(String.valueOf(openData),String.valueOf(endData));
+
+        }else if (openTime == endTime){
+            openData = 5000;
+            endData = 5000;
+            Log.i(String.valueOf(openData),String.valueOf(endData));
+        } else if (openTime > endTime){
+            openData = openTime;
+            endData = endTime + 2400;
+            Log.i(String.valueOf(openData),String.valueOf(endData));
+
+        }
+
+//       Log.i(String.valueOf(openData),String.valueOf(endData));
+
+
+        double ratingValue = ratingBar.getRating();
+        //float to double
+        Integer star1Value = ratingBar.getNumStars();
+
+        String waitingV = waitingTimeSpinner.getSelectedItem().toString();
+        //float to Int
+        Integer waitingValue = Integer.parseInt(waitingV);
+
+        String openingString = startHoursSpinner.getSelectedItem().toString() + ":" + startMinutesSpinner.getSelectedItem().toString() + "〜" + endHoursSpinner.getSelectedItem().toString() + ":" + endMinutesSpinner.getSelectedItem().toString();
+
+        String avStar = String.valueOf(ratingValue);
+        Log.i("datbase", "called121");
+
+
+        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+        toiletLocationRef = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
+
+
+        geolocationUpdate(toilet.key);
+
+
+        DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
+
+
+
+
+        //String firekey = updateRef.getKey();
+
+        //delete original data in toilets brunch
+        //delete original data in toiletLocations brunch
+
+
+
+
+
+
+
+        updateToiletRef.setValue(new Post(
+                tName,
+                openingString,
+                typeSpinner.getSelectedItem().toString(),
+                "",//String urlOne,
+                "",//String urlTwo,
+                "",//String urlThree,
+                "",//String addedBy,
+                "",//String editedBy,
+                avStar,
+                AddLocations.address,
+                "",//String howtoaccess,
+                openData,
+                endData,
+                1,//Integer reviewCount,
+                waitingValue,//Integer averageWait,
+                3,//Integer toiletFloor,
+                AddLocations.latitude,
+                AddLocations.longitude,
+                true,
+                toiletJapanese.isChecked(),
+                toiletWestern.isChecked(),
+                toiletOnlyFemale.isChecked(),
+                toiletUnisex.isChecked(),
+                toiletWashlet.isChecked(),
+                toiletWashlet.isChecked(),
+                toiletAutoopen.isChecked(),
+                toiletNoVirusBenki.isChecked(),
+                toiletPaperForBenki.isChecked(),
+                toiletCleanerForBenki.isChecked(),
+                toiletNonTouchWash.isChecked(),
+                toiletSensor.isChecked(),
+                toiletHandSoap.isChecked(),
+                toiletNonHandSoap.isChecked(),
+                toiletPaperTowel.isChecked(),
+                toiletHandDrier.isChecked(),
+                toiletOtohime.isChecked(),
+                toiletNapkinSelling.isChecked(),
+                toiletMakeroom.isChecked(),
+                toiletClothes.isChecked(),
+                toiletBaggage.isChecked(),
+                toiletWheelchair.isChecked(),
+                toiletWheelchairAccess.isChecked(),
+                toiletHandrail.isChecked(),
+                toiletCallHelp.isChecked(),
+                toiletOstomate.isChecked(),
+                toiletWrittenEnglish.isChecked(),
+                toiletBraille.isChecked(),
+                toiletVoiceGuide.isChecked(),
+                toiletFancy.isChecked(),
+                toiletSmell.isChecked(),
+                toiletConfortable.isChecked(),
+                toiletNoNeedAsk.isChecked(),
+                toiletParking.isChecked(),
+                toiletAirCondition.isChecked(),
+                toiletWifi.isChecked(),
+                toiletMilk.isChecked(),
+                toiletBabyRoomOnlyFemale.isChecked(),
+                toiletBabyRoomMaleEnter.isChecked(),
+                toiletBabyPersonalRoom.isChecked(),
+                toiletBabyPersonalRoomWithLock.isChecked(),
+                toiletBabyPersonalRoomWithLock.isChecked(),
+                toiletBabyCarRental.isChecked(),
+                toiletBabyCarAccess.isChecked(),
+                toiletOmutu.isChecked(),
+                toiletHipCleaningStuff.isChecked(),
+                toiletOmutuTrashCan.isChecked(),
+                toiletOmutuSelling.isChecked(),
+                toiletBabySink.isChecked(),
+                toiletBabyWashstand.isChecked(),
+                toiletBabyHotWater.isChecked(),
+                toiletBabyMicrowave.isChecked(),
+                toiletBabyWaterSelling.isChecked(),
+                toiletBabyFoodSelling.isChecked(),
+                toiletBabyEatingSpace.isChecked(),
+                toiletBabyChair.isChecked(),
+                toiletBabySoffa.isChecked(),
+                toiletKidsToilet.isChecked(),
+                toiletKidsSpace.isChecked(),
+                toiletHeight.isChecked(),
+                toiletWeight.isChecked(),
+                toiletToy.isChecked(),
+                toiletBabyFancy.isChecked(),
+                toiletBabySmellGood.isChecked()
+
+        ));
+
+
+        Log.i("please", "...");
+       // geolocationUpdate(firekey);
+
+        Intent intent = new Intent(getApplicationContext(),DetailViewActivity.class);
+        intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+        startActivity(intent);
+        finish();
+
+    }
+
+
+    private void geolocationUpdate(String firekey){
+
+//        String newRef = ref.child("Toilets");
+//
+//        String newID = newRef
+        
+        geoFire.setLocation(firekey, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
+            @Override
+            public void onComplete(String key, DatabaseError error) {
+                if (error != null) {
+                    System.err.println("There was an error saving the location to GeoFire: " + error);
+
+                } else {
+                    System.out.println("Location saved on server successfully!");
+//                    firebaseUpdate();
+                }
+
+            }
+        });
+    }
+
+
+
+    public void onMapReadyCalled(GoogleMap googleMap, Double toiletLat, Double toiletLon) {
         mMap = googleMap;
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -797,7 +1292,10 @@ public class EditViewActivity extends AppCompatActivity {
 
                     mMap.clear();
 
-                    LatLng toiletLatLng = new LatLng(toilet.latitude, toilet.longitude);
+
+                    Log.i("toiletLatLng0909", String.valueOf(toiletLat) + String.valueOf(toiletLon));
+                    LatLng toiletLatLng = new LatLng(toiletLat, toiletLon);
+
 
 
                     mMap.addMarker(new MarkerOptions().position(toiletLatLng).title("Toilet Location"));

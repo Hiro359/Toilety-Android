@@ -186,7 +186,11 @@
     <string name="searchBarrierFree">バリアフリー</string>
     <string name="searchOthers">その他</string>
     <string name="papaMamaFriendly">ママ・パパに優しい</string>
-    <string name="aboutBabyRoom">ベビールーム</string>
+    <string name="aboutBabyRoomOne">ベビールームについて①</string>
+    <string name="aboutBabyRoomTwo">ベビールームについて②</string>
+    <string name="aboutBabyRoomThree">ベビールームについて③</string>
+    <string name="aboutBabyRoomFour">ベビールームについて④</string>
+    <string name="aboutBabyRoomFive">ベビールームについて⑤</string>
 
 
     <!--Related to App Bars-->

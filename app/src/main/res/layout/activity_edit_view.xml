@@ -223,7 +223,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="2550dp"
+                android:layout_height="4250dp"
                 android:layout_marginTop="10dp"
 
 
@@ -523,35 +523,6 @@
                     android:paddingRight="10dp"
                     />
 
-                <Switch
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="@string/name_omutu"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorSubText"
-                    android:background="@drawable/border"
-                    android:layout_marginBottom="2dp"
-                    android:id="@+id/editOmutuSwitch"
-                    android:paddingStart="20dp"
-                    android:paddingLeft="20dp"
-                    android:paddingEnd="10dp"
-                    android:paddingRight="10dp"
-                    />
-
-                <Switch
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="@string/name_omutuSelling"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorSubText"
-                    android:background="@drawable/border"
-                    android:layout_marginBottom="2dp"
-                    android:id="@+id/editOmutuSellingSwitch"
-                    android:paddingLeft="20dp"
-                    android:paddingStart="20dp"
-                    android:paddingRight="10dp"
-                    android:paddingEnd="10dp"
-                    />
 
                 <Switch
                     android:layout_width="match_parent"
@@ -568,20 +539,7 @@
                     android:paddingEnd="10dp"
                     />
 
-                <Switch
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="@string/name_milk"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorSubText"
-                    android:background="@drawable/border"
-                    android:layout_marginBottom="2dp"
-                    android:id="@+id/editMilkSwitch"
-                    android:paddingStart="20dp"
-                    android:paddingLeft="20dp"
-                    android:paddingEnd="10dp"
-                    android:paddingRight="10dp"
-                    />
+
 
                 <Switch
                     android:layout_width="match_parent"
@@ -647,6 +605,21 @@
                     android:background="@drawable/border"
                     android:layout_marginBottom="2dp"
                     android:id="@+id/editWheelchairSwitch"
+                    android:paddingStart="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingEnd="10dp"
+                    android:paddingRight="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_wheelChairAccess"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editWheelchairAccessSwitch"
                     android:paddingStart="20dp"
                     android:paddingLeft="20dp"
                     android:paddingEnd="10dp"
@@ -862,6 +835,483 @@
                     android:paddingRight="10dp"
                     />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="@string/aboutBabyRoomOne"
+                    android:textColor="@color/colorSubText"
+                    android:layout_margin="3dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_milk"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editMilkSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+
+                    />
+
+
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_milkOnlyFemale"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editMilkOnlyFemaleSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_milkMaleOkay"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editMilkMaleOkaySwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_personalSpace"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabyPersonalSpaceSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_personalSpaceWithLock"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabyPersonalSpaceWithLockSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_wideBabySpace"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editWideBabySpaceSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="@string/aboutBabyRoomTwo"
+                    android:textColor="@color/colorSubText"
+                    android:layout_margin="3dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_rentalBabyCar"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editRentalBabyCarSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babyCarAccess"
+                    android:textSize="22sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabyCarAccessSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_omutu"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editOmutuSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_hipCleanStuff"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editHipCleanStuffSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_omutuTrashCan"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editOmutuTrashCanSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_omutuSelling"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editOmutuSellingSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="@string/aboutBabyRoomThree"
+                    android:textColor="@color/colorSubText"
+                    android:layout_margin="3dp"
+                    />
+
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babysink"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabySinkSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babyWashstand"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabyWashstandSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babyHotWater"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabyHotWaterSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babyMicroWave"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabyMicrowaveSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babySellingWater"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabySellingWaterSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_foodForBabySelling"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editfoodForBabySellingSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_spaceForEatingWithBaby"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabyEatingSpaceSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="@string/aboutBabyRoomFour"
+                    android:textColor="@color/colorSubText"
+                    android:layout_margin="3dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babyChair"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/border"
+                    android:id="@+id/editBabyChairSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babySoffa"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabySoffaSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babyKidsToilet"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editkidsToiletSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babyKidsSpace"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editkidsSpaceSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_heightMeasure"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/border"
+                    android:id="@+id/editheightMeasureSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_weightMeasure"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editweightMeasureSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babyPlayingToy"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabyToySwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babyFancy"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabyFancySwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/name_babySmellGood"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorSubText"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/editBabySmellGoodSwitch"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    />
+
+
 
 
             </LinearLayout>
@@ -968,7 +1418,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:id="@+id/addRating"
+                        android:id="@+id/editRating"
 
 
                         />
@@ -1108,7 +1558,7 @@
                     android:text="@string/addPicture"
                     android:textColor="@color/colorText"
                     android:background="@drawable/border"
-                    android:id="@+id/buttonAddPicture"
+                    android:id="@+id/buttonEditPicture"
                     android:layout_marginBottom="5dp"/>
             </LinearLayout>
 
@@ -1183,7 +1633,7 @@
                     android:text="@string/sendFeedback"
                     android:textColor="@color/colorText"
                     android:background="@drawable/buttonborder"
-                    android:id="@+id/buttonAddInfo"/>
+                    android:id="@+id/buttonEditInfo"/>
             </LinearLayout>
 
         </LinearLayout>
