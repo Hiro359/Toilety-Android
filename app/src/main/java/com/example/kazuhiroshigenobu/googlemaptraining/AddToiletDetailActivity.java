@@ -236,6 +236,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     DatabaseReference toiletRef = FirebaseDatabase.getInstance().getReference("Toilets");
 
+
+
 //    AddLocations addLocations;
 
 //    String tName = textToiletName.getText().toString();
@@ -752,6 +754,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
    private void firebaseUpdate(){
 
 
+
+
        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
        Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
        Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
@@ -804,6 +808,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         String firekey = newRef.getKey();
 
 
+
        newRef.setValue(new Post(
                tName,
                openingString,
@@ -811,8 +816,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                "",//String urlOne,
                "",//String urlTwo,
                "",//String urlThree,
-               "",//String addedBy,
-               "",//String editedBy,
+               uid,//String addedBy,
+               uid,//String editedBy,
                avStar,
                AddLocations.address,
                "",//String howtoaccess,

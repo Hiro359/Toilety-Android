@@ -96,7 +96,7 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
             Log.i("current.key", String.valueOf(position));
 
 
-            Uri uri = Uri.parse(current.urlOne);
+            //Uri uri = Uri.parse(current.urlOne);
 
 
             final Context context = holder.image.getContext();
@@ -110,7 +110,13 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
             holder.ratingBar.setRating(starFloatValue);
             holder.distance.setText(current.distance);
 
-            Picasso.with(context).load(uri).into(holder.image);
+            if (current.urlOne.equals("")){
+                holder.image.setImageResource(R.drawable.app_logo);
+
+            }else {
+                Uri uri = Uri.parse(current.urlOne);
+                Picasso.with(context).load(uri).into(holder.image);
+            }
 
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

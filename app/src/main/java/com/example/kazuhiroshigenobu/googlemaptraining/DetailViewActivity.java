@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -44,6 +46,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -90,8 +93,22 @@ public class DetailViewActivity extends AppCompatActivity {
     private Boolean userLikePushed = false;
     private FirebaseAuth firebaseAuth;
 
+    private ImageView firstPosterImage;
+    private TextView firstPosterName;
+    private TextView firstPosterLikeCount;
+    private TextView firstPosterFavoriteCount;
+    private TextView lastPosterName;
+
+    private ImageView lastEditorImage;
+    private TextView firstPosterHelpCount;
+    private TextView lastEditorLikeCount;
+    private TextView lastEditorFavoriteCount;
+    private TextView lastEditorHelpCount;
+
+
 
     Toilet toilet =  new Toilet();
+    User user = new User();
 
     public ArrayList<String> booleanArray = new ArrayList<String>();
     //public String[] booleanArray = {"設備"};
@@ -245,6 +262,24 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
     private void settingReady(){
+        //First Poster and Last Editer...
+        firstPosterImage = (ImageView) findViewById(R.id.firstPosterImage);
+        firstPosterName = (TextView) findViewById(R.id.firstPosterUserName);
+        firstPosterLikeCount = (TextView) findViewById(R.id.firstPosterLikeCount);
+        firstPosterFavoriteCount  = (TextView) findViewById(R.id.firstPosterFavoriteCount);
+        firstPosterHelpCount = (TextView) findViewById(R.id.firstPosterHelpCount);
+
+
+        lastEditorImage = (ImageView) findViewById(R.id.lastEditerImage);
+        lastPosterName = (TextView) findViewById(R.id.lastEditerUserName) ;
+        lastEditorLikeCount = (TextView) findViewById(R.id.lastEditerLikeCount);
+        lastEditorFavoriteCount = (TextView) findViewById(R.id.lastEditerFavoriteCount);
+        lastEditorHelpCount = (TextView) findViewById(R.id.lastEditerHelpCount);
+
+
+
+
+        //First Poster and Last Editer
         toiletNameLabel = (TextView) findViewById(R.id.toiletName);
         typeAndDistance = (TextView) findViewById(R.id.typeAndDistance);
         availableAndWaiting = (TextView) findViewById(R.id.avaulableAndWaiting);
@@ -257,6 +292,8 @@ public class DetailViewActivity extends AppCompatActivity {
         buttonKansou = (Button) findViewById(R.id.buttonKansou);
         buttonEdit = (Button) findViewById(R.id.buttonEdit);
         buttonFavorite = (Button) findViewById(R.id.detailFavoriteButton);
+
+
 
         buttonMoreDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -318,9 +355,6 @@ public class DetailViewActivity extends AppCompatActivity {
 
             }
         });
-
-
-
 
     }
 
@@ -886,6 +920,9 @@ public class DetailViewActivity extends AppCompatActivity {
                     mapAddress.setText(toilet.address);
                     mapHowToAccess.setText(toilet.howtoaccess);
 
+                    firstPosterGetInfo(toilet.addedBy);
+                    lastEditerGetInfo(toilet.editedBy);
+
 
 
                 }}
@@ -905,6 +942,66 @@ public class DetailViewActivity extends AppCompatActivity {
 
         //reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener)
     }
+
+    private void firstPosterGetInfo(String firstPosterID){
+
+        userRef = FirebaseDatabase.getInstance().getReference().child("users");
+        userRef.child(firstPosterID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user.userName = (String) dataSnapshot.child("userName").getValue();
+                user.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
+                
+                Long totalLikedCountLong = (Long) dataSnapshot.child("totalLikedCount").getValue();
+                Long totalFavoriteCountLong = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
+                Long totalHelpedCountLong = (Long) dataSnapshot.child("totalHelpedCount").getValue();
+
+                firstPosterName.setText(String.valueOf(user.userName));
+                firstPosterLikeCount.setText(String.valueOf(totalLikedCountLong));
+                firstPosterFavoriteCount.setText(String.valueOf(totalFavoriteCountLong));
+                firstPosterHelpCount.setText(String.valueOf(totalHelpedCountLong));
+                //if user == "" ....
+
+                Uri uri = Uri.parse(user.userPhoto);
+                Picasso.with(getApplicationContext()).load(uri).into(firstPosterImage);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void lastEditerGetInfo(String lastEditerID){
+
+        userRef = FirebaseDatabase.getInstance().getReference().child("users");
+        userRef.child(lastEditerID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user.userName = (String) dataSnapshot.child("userName").getValue();
+                user.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
+
+                Long totalLikedCountLong = (Long) dataSnapshot.child("totalLikedCount").getValue();
+                Long totalFavoriteCountLong = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
+                Long totalHelpedCountLong = (Long) dataSnapshot.child("totalHelpedCount").getValue();
+
+                lastPosterName.setText(user.userName);
+                lastEditorLikeCount.setText(String.valueOf(totalLikedCountLong));
+                lastEditorFavoriteCount.setText(String.valueOf(totalFavoriteCountLong));
+                lastEditorHelpCount.setText(String.valueOf(totalHelpedCountLong));
+                //if user == "" ....
+                Uri uri = Uri.parse(user.userPhoto);
+                Picasso.with(getApplicationContext()).load(uri).into(lastEditorImage);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     public void onMapReadyCalled(GoogleMap googleMap,Double toiletLat, Double toiletLon) {
         mMap = googleMap;

@@ -41,6 +41,14 @@
     <string name="detailRatingStrings">(45)</string>
     <string name="detailAdreess">アドレス</string>
     <string name="detailHowToAccess">具体的なアクセス方法</string>
+    <string name="goToThisPlace">この施設に行く</string>
+    <string name="firstPosterPlace">投稿者</string>
+    <string name="lastEditerPlace">最終編集者</string>
+    <string name="sendTroubles">報告</string>
+    <string name="defaultCount">1</string>
+    <string name="image">イメージ</string>
+
+
 
 
     <!--FilterSearchActivity-->
