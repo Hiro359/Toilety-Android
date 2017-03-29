@@ -353,9 +353,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
 
 
-                    mMap.clear();
+                   // mMap.clear();
                     LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
+                   // mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
                     toiletSearch(lastKnownLocation);

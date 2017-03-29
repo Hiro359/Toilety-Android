@@ -1,9 +1,13 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +18,7 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -32,6 +37,8 @@ public class KansouActivity extends AppCompatActivity {
     long originalReviewCount;
     long originalAverageWait;
     String originalAverageStar;
+    private Toolbar toolbar;
+    private TextView toolbarTitle;
 
     //private Toilet toilet = new Toilet();
 
@@ -51,6 +58,38 @@ public class KansouActivity extends AppCompatActivity {
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         waitingSpinner.setAdapter(adapter1);
 
+        toolbar = (Toolbar) findViewById(R.id.kansou_app_bar);
+        toolbarTitle = (TextView) toolbar.findViewById(R.id.kansouAppBarTitle);
+
+        final String key = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        final Double toiletLat = getIntent().getDoubleExtra("toiletLatitude",0);
+        final Double toiletLon = getIntent().getDoubleExtra("toiletLongitude",0);
+
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(
+                new View.OnClickListener(){
+
+
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(),DetailViewActivity.class);
+                        intent.putExtra("EXTRA_SESSION_ID", key);
+                        intent.putExtra("toiletLatitude",toiletLat);
+                        intent.putExtra("toiletLongitude",toiletLon);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+        );
+
 
 
 
@@ -68,6 +107,31 @@ public class KansouActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        getMenuInflater().inflate(R.menu.kansou_view_bar, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.postKansou) {
+            Toast.makeText(this, "Hey Did you post Kansou??", Toast.LENGTH_SHORT).show();
+            ///////////////////////// 1pm 25th Feb
+            return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }
+
 
     private void settingReady(){
 

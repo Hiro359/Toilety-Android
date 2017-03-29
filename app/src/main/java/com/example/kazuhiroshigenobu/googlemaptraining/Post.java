@@ -1,5 +1,10 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by KazuhiroShigenobu on 1/3/17.
  */
@@ -100,6 +105,25 @@ public class Post {
     public Boolean babyFancy;
     public Boolean babySmellGood;
 
+
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("address",address );
+        result.put("latitude", latitude);
+        result.put("longitude", longitude);
+
+
+        return result;
+    }
+
+//    public Post(String address,Double latitude,Double longitude){
+//        this.address = address;
+//        this.latitude = latitude;
+//        this.longitude = longitude;
+//
+//    }
 
     public Post(String name, String openAndCloseHours, String type, String urlOne, String urlTwo, String urlThree, String addedBy, String editedBy, String averageStar, String address, String howtoaccess, Integer openHours, Integer closeHours, Integer reviewCount, Integer averageWait, Integer toiletFloor, Double latitude, Double longitude, Boolean available, Boolean japanesetoilet, Boolean westerntoilet, Boolean onlyFemale, Boolean unisex, Boolean washlet, Boolean warmSeat, Boolean autoOpen, Boolean noVirus, Boolean paperForBenki, Boolean cleanerForBenki, Boolean nonTouchWash, Boolean sensorHandWash, Boolean handSoap, Boolean nonTouchHandSoap, Boolean paperTowel, Boolean handDrier, Boolean otohime, Boolean napkinSelling, Boolean makeuproom, Boolean clothes, Boolean baggageSpace, Boolean wheelchair, Boolean wheelchairAccess, Boolean handrail, Boolean callHelp, Boolean ostomate, Boolean english, Boolean braille, Boolean voiceGuide, Boolean fancy, Boolean smell, Boolean confortable, Boolean noNeedAsk, Boolean parking, Boolean airCondition, Boolean wifi, Boolean milkspace, Boolean babyRoomOnlyFemale, Boolean babyRoomMaleEnter, Boolean babyRoomPersonalSpace, Boolean babyRoomPersonalSpaceWithLock, Boolean babyRoomWideSpace, Boolean babyCarRental, Boolean babyCarAccess, Boolean omutu, Boolean hipCleaningStuff, Boolean omutuTrashCan, Boolean omutuSelling, Boolean babySink, Boolean babyWashstand, Boolean babyHotwater, Boolean babyMicrowave, Boolean babyWaterSelling, Boolean babyFoodSelling, Boolean babyEatingSpace, Boolean babyChair, Boolean babySoffa, Boolean kidsToilet, Boolean kidsSpace, Boolean babyHeight, Boolean babyWeight, Boolean babyToy, Boolean babyFancy, Boolean babySmellGood) {
         this.name = name;

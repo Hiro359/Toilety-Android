@@ -37,7 +37,8 @@ import android.Manifest;
         import android.widget.Button;
         import android.widget.LinearLayout;
         import android.widget.ListView;
-        import android.widget.Toast;
+import android.widget.TextView;
+import android.widget.Toast;
 
         import com.android.volley.RequestQueue;
         import com.android.volley.Response;
@@ -84,14 +85,18 @@ import android.Manifest;
         import java.net.URL;
         import java.text.DecimalFormat;
         import java.util.ArrayList;
-        import java.util.List;
+import java.util.HashMap;
+import java.util.List;
         import java.util.Locale;
+import java.util.Map;
 //import android.os.StrictMode;
 
 
 //Trying to remove strict network but other pople say its not the right way to do that 4th March
 
-public class EditPinLocationActivity extends FragmentActivity implements OnMapReadyCallback {
+public class EditPinLocationActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    //Change Fragment Activity to AppCompatActivity 29th March
 
 
     private GoogleMap mMap;
@@ -99,36 +104,26 @@ public class EditPinLocationActivity extends FragmentActivity implements OnMapRe
 
     LocationListener locationListener;
 
-    //    private Filter filter = new Filter();
-//    private AddLocations addLocations = new AddLocations();
-//
-//    private ToiletListAdapter adapter;
-//
-//
-//    private RecyclerView recyclertView;
-//    private RecyclerView.LayoutManager layoutManager;
-//    private LayoutInflater inflater;
-//    private ViewGroup container;
-//    private LinearLayoutManager mLinearLayoutManager;
-//
+
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-//    private Toolbar toolbar;
-//    private ActionMenuView amvMenu;
 
     private Button buttonLocationSend;
-//    private LayoutInflater layoutInflater;
 
     private RequestQueue requestQueue;
 
     private Boolean markerSetted = false;
+    private Toolbar toolbar;
+    private TextView toolbarTitle;
+
+    private DatabaseReference toiletRef;
+    private DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("ToiletLocations");
+    GeoFire geoFire = new GeoFire(locationRef);
 
 
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+    Toilet toilet =  new Toilet();
+
     private GoogleApiClient client;
 
 
@@ -159,17 +154,43 @@ public class EditPinLocationActivity extends FragmentActivity implements OnMapRe
         super.onCreate(savedInstanceState);
         final Context context;
         setContentView(R.layout.activity_edit_pin_location);
+        toilet.key = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        toilet.latitude = getIntent().getDoubleExtra("toiletLatitude",0);
+        toilet.longitude = getIntent().getDoubleExtra("toiletLongitude",0);
 
-        final String originalkey = getIntent().getStringExtra("EXTRA_SESSION_ID");
-        final Double originalLat = getIntent().getDoubleExtra("toiletLatitude",0);
-        final Double originalLon = getIntent().getDoubleExtra("toiletLongitude",0);
+        toolbar = (Toolbar) findViewById(R.id.edit_pin_location_bar_layout);
+        toolbarTitle = (TextView) toolbar.findViewById(R.id.editPinLocationLayoutAppBarTitle);
 
-//        if (android.os.Build.VERSION.SDK_INT > 9) {
-//            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//            StrictMode.setThreadPolicy(policy);
-//        }
 
-        //Should be changed to the exact file name
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(
+                new View.OnClickListener(){
+
+
+                    @Override
+                    public void onClick(View v) {
+
+                        //firebase locaitons update......
+
+                        Log.i("Current.key","is This working???12321");
+                        Intent intent = new Intent(v.getContext(),DetailViewActivity.class);
+                        intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+                        intent.putExtra("toiletLatitude",toilet.latitude);
+                        intent.putExtra("toiletLongitude",toilet.longitude);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+        );
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -190,24 +211,19 @@ public class EditPinLocationActivity extends FragmentActivity implements OnMapRe
                     //Location is null
                     alertCall();
 
-
-
                 } else {
-                    Toast.makeText(getApplicationContext(), "Bring It On!!", Toast.LENGTH_SHORT).show();
-
-
-                    Intent intent = new Intent(v.getContext(), EditViewActivity.class);
-
-
-                    startActivity(intent);
-                    finish();
+                    firebaseToiletLocationChildRenew();
+                    //                    Toast.makeText(getApplicationContext(), "Bring It On!!", Toast.LENGTH_SHORT).show();
+//
+//
+//                    Intent intent = new Intent(v.getContext(), EditViewActivity.class);
+//
+//
+//                    startActivity(intent);
+//                    finish();
                 }
             }
         });
-
-
-
-        Log.i("JAP98789000",String.valueOf(Filter.japaneseFilter));
 
 
 
@@ -260,7 +276,7 @@ public class EditPinLocationActivity extends FragmentActivity implements OnMapRe
     public boolean onCreateOptionsMenu(Menu menu) {
 
 
-        getMenuInflater().inflate(R.menu.filter, menu);
+        getMenuInflater().inflate(R.menu.edit_pin_location_activity_bar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -270,56 +286,96 @@ public class EditPinLocationActivity extends FragmentActivity implements OnMapRe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-
-        Log.i("R.menu.account",String.valueOf(R.id.account));
-        Log.i("R.menu.filter",String.valueOf(R.id.filter));
-        Log.i("R.menu.toolbar",String.valueOf(R.id.toolbar));
-        Log.i("R.id.app_bar",String.valueOf(R.id.app_bar));
-
-        Log.i("YouSelect", String.valueOf(item));
-        //Log.i("GetSupportActionBar",String.valueOf(getSupportActionBar()));
-        Log.i("Earth", String.valueOf(R.drawable.earth));
-
-
-        if (id == R.id.account){
-            Toast.makeText(this, "Hey Did you Click Account??", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
-            startActivity(intent);
-            finish();
-            ///////////////////////// 1pm 25th Feb
-            return  true;
-
-        } else
-
-        if (id == R.id.filter){
-            Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
-            startActivity(intent);
-            finish();
-
-            ///////////////////////// 1pm 25th Feb
-            return  true;
-
-        } else {
+        if (id == R.id.buttonChangePin){
+            if (!markerSetted){
+                alertCall();
+            }else{
+                firebaseToiletLocationChildRenew();
+            }
+        }
 
             Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
 
 //        if id == R.id.
             return super.onOptionsItemSelected(item);
+
+    }
+
+
+    private void firebaseToiletLocationChildRenew(){
+
+
+            Log.i("datbaseUpdateLat", String.valueOf(AddLocations.latitude));
+            Log.i("datbaseUpdateLon", String.valueOf(AddLocations.longitude));
+
+            geoFire.setLocation(toilet.key, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
+                @Override
+                public void onComplete(String key, DatabaseError error) {
+                    if (error != null) {
+                        System.err.println("There was an error saving the location to GeoFire: " + error);
+
+
+                    } else {
+                        System.out.println("Location saved on server successfully!");
+                        firebaseToiletsChildLatLonAddressUpdate();
+
+//                    firebaseUpdate();
+                    }
+
+                }
+            });
         }
+
+    private void firebaseToiletsChildLatLonAddressUpdate(){
+
+        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+        DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
+
+        //Hash map ..
+
+//        Post post = new Post(AddLocations.address, AddLocations.latitude, AddLocations.longitude);
+//        Map<String, Object> postValues = post.toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("address",AddLocations.address);
+        childUpdates.put("latitude",AddLocations.latitude);
+        childUpdates.put("longitude",AddLocations.longitude);
+
+        updateToiletRef.updateChildren(childUpdates);
+
+
+
+        //updateToiletRef.updateChildren(new Post(AddLocations.address,AddLocations.latitude,AddLocations.longitude));
+
+        //updateToiletRef.put(new Post(AddLocations.address,AddLocations.latitude,AddLocations.longitude));
+        //this will give me an error becuase it doesnot consider the other boolean values, which are going to be destroyed
+
+        //Maybe the right way to do this is a use update or put instead of using the set value....
+
+        Intent intent = new Intent(getApplicationContext(),DetailViewActivity.class);
+        intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+        intent.putExtra("toiletLatitude",AddLocations.latitude);
+        intent.putExtra("toiletLongitude",AddLocations.longitude);
+        startActivity(intent);
+        finish();
+
+
+
+
+
+
     }
 
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
+
+
+
+
+
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -350,7 +406,9 @@ public class EditPinLocationActivity extends FragmentActivity implements OnMapRe
                 AddLocations.longitude = l2;
                 Log.i("AddLocations.longitude",String.valueOf(l2));
 
+              //  new AddToiletActivity.JSONParse().execute();
                 new JSONParse().execute();
+
 
                 markerSetted = true;
 
@@ -412,12 +470,18 @@ public class EditPinLocationActivity extends FragmentActivity implements OnMapRe
                     LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
 
 
+                    if (toilet.latitude != null && toilet.longitude != null){
+                        LatLng toiletsLatLng = new LatLng(toilet.latitude, toilet.longitude);
+                        mMap.addMarker(new MarkerOptions().position(toiletsLatLng).title("施設の位置"));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletsLatLng));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletsLatLng, 14.0f));
+                    }
 
-                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
 
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
-//                                                       toiletSearch(lastKnownLocation);
+//                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
+////                                                       toiletSearch(lastKnownLocation);
 
 
                 } else {
@@ -462,7 +526,9 @@ public class EditPinLocationActivity extends FragmentActivity implements OnMapRe
 
 
 
-    ///AsycTask
+
+
+   //AsycTask
 
     private class JSONParse extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
@@ -474,6 +540,9 @@ public class EditPinLocationActivity extends FragmentActivity implements OnMapRe
 //            name1 = (TextView)findViewById(R.id.name);
 //            email1 = (TextView)findViewById(R.id.email);
             pDialog = new ProgressDialog(EditPinLocationActivity.this);
+
+
+            //pDialog = new ProgressDialog(EditPinLocationActivity.this);
             pDialog.setMessage("Getting Data ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);

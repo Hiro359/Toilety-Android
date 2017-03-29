@@ -154,19 +154,19 @@ public class EditViewActivity extends AppCompatActivity {
     ImageView subImage1;
     ImageView subImage2;
 
-    LocationManager locationManager;
+    //LocationManager locationManager;
 
-    android.location.LocationListener locationListener;
+    //android.location.LocationListener locationListener;
 
     Button addPhoto;
     Button buttonRenewInfo;
-    Button buttonchangePinLocation;
+    //Button buttonchangePinLocation;
 
    // Boolean onCreatedSpinner = false;
 
 
     private GoogleApiClient client;
-    private GoogleMap mMap;
+    //private GoogleMap mMap;
 
 
    // Boolean spinnerLoaded = false;
@@ -218,8 +218,8 @@ public class EditViewActivity extends AppCompatActivity {
 
         }
         final String originalkey = getIntent().getStringExtra("EXTRA_SESSION_ID");
-        final Double originalLat = getIntent().getDoubleExtra("toiletLatitude",0);
-        final Double originalLon = getIntent().getDoubleExtra("toiletLongitude",0);
+        toilet.latitude = getIntent().getDoubleExtra("toiletLatitude",0);
+        toilet.longitude = getIntent().getDoubleExtra("toiletLongitude",0);
 
 //        final Double originalLon = getIntent().getStringExtra("toiletLongitude");
 //        final Double originalLat = getIntent().getStringExtra("toiletLatitude");
@@ -240,6 +240,9 @@ public class EditViewActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(v.getContext(),DetailViewActivity.class);
                         intent.putExtra("EXTRA_SESSION_ID", originalkey);
+                        intent.putExtra("toiletLatitude",toilet.latitude);
+                        intent.putExtra("toiletLongitude",toilet.longitude);
+
 
                         startActivity(intent);
                         finish();
@@ -247,21 +250,21 @@ public class EditViewActivity extends AppCompatActivity {
                 }
         );
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.editCheckMap);
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.editCheckMap);
+//        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        mapFragment.getMapAsync(new OnMapReadyCallback(){
-            @Override public void onMapReady(GoogleMap googleMap) {
-                if (googleMap != null) {
-                    // your additional codes goes here
-
-                    onMapReadyCalled(googleMap, originalLat, originalLon);
-
-
-                }
-            }}
-        );
+//        mapFragment.getMapAsync(new OnMapReadyCallback(){
+//            @Override public void onMapReady(GoogleMap googleMap) {
+//                if (googleMap != null) {
+//                    // your additional codes goes here
+//
+//                    onMapReadyCalled(googleMap, originalLat, originalLon);
+//
+//
+//                }
+//            }}
+//        );
 
 
     }
@@ -282,6 +285,7 @@ public class EditViewActivity extends AppCompatActivity {
         if (id == R.id.postEdit) {
             Toast.makeText(this, "Hey Post Exection!!", Toast.LENGTH_SHORT).show();
             Log.i("toilet.keyBeforePtEdit",toilet.key);
+
             firebaseRenewdata();
             //firebaseDeleteData();
 
@@ -398,7 +402,7 @@ public class EditViewActivity extends AppCompatActivity {
         ratingBar.setRating(3);
         addPhoto = (Button) findViewById(R.id.buttonEditPicture);
         buttonRenewInfo = (Button) findViewById(R.id.buttonEditInfo);
-        buttonchangePinLocation = (Button) findViewById(R.id.buttonEditPinMap);
+        //buttonchangePinLocation = (Button) findViewById(R.id.buttonEditPinMap);
 
         mainImage = (ImageView) findViewById(R.id.picture1);
 //         ImageView subImage1 = (ImageView) findViewById(R.id.picture2);
@@ -434,16 +438,16 @@ public class EditViewActivity extends AppCompatActivity {
             }
         });
 
-        buttonchangePinLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Moved to change pin
-
-
-
-
-            }
-        });
+//        buttonchangePinLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Moved to change pin
+//
+//
+//
+//
+//            }
+//        });
 
     }
 
@@ -771,6 +775,7 @@ public class EditViewActivity extends AppCompatActivity {
 
 
                     toilet.key = originalKey;
+                    toilet.address = (String) dataSnapshot.child("address").getValue();
                     //Not sure about how to call key....
 
                     toilet.name = (String) dataSnapshot.child("name").getValue();
@@ -1094,7 +1099,7 @@ public class EditViewActivity extends AppCompatActivity {
         toiletLocationRef = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
 
 
-        geolocationUpdate(toilet.key);
+       // geolocationUpdate(toilet.key);
 
 
         DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
@@ -1107,8 +1112,14 @@ public class EditViewActivity extends AppCompatActivity {
         //delete original data in toilets brunch
         //delete original data in toiletLocations brunch
 
-        Log.i("datbaseUpdateLat", String.valueOf(AddLocations.latitude));
-        Log.i("datbaseUpdateLon", String.valueOf(AddLocations.longitude));
+        Log.i("datbaseUpdateLat", String.valueOf(toilet));
+        Log.i("datbaseUpdateLon", String.valueOf(toilet.longitude));
+        Log.i("datbaseUpdateAVSTAR", String.valueOf(avStar));
+
+
+
+
+
 
 
 
@@ -1127,15 +1138,15 @@ public class EditViewActivity extends AppCompatActivity {
                 "",//String addedBy,
                 "",//String editedBy,
                 avStar,
-                AddLocations.address,
+                toilet.address,
                 "",//String howtoaccess,
                 openData,
                 endData,
                 1,//Integer reviewCount,
                 waitingValue,//Integer averageWait,
                 3,//Integer toiletFloor,
-                AddLocations.latitude,
-                AddLocations.longitude,
+                toilet.latitude,
+                toilet.longitude,
                 true,
                 toiletJapanese.isChecked(),
                 toiletWestern.isChecked(),
@@ -1210,124 +1221,127 @@ public class EditViewActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(),DetailViewActivity.class);
         intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+        intent.putExtra("toiletLatitude",toilet.latitude);
+        intent.putExtra("toiletLongitude",toilet.longitude);
+
         startActivity(intent);
         finish();
 
     }
 
 
-    private void geolocationUpdate(String firekey){
-
-//        String newRef = ref.child("Toilets");
+//    private void geolocationUpdate(String firekey){
 //
-//        String newID = newRef
-        Log.i("datbaseUpdateLat", String.valueOf(AddLocations.latitude));
-        Log.i("datbaseUpdateLon", String.valueOf(AddLocations.longitude));
-
-        geoFire.setLocation(firekey, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
-            @Override
-            public void onComplete(String key, DatabaseError error) {
-                if (error != null) {
-                    System.err.println("There was an error saving the location to GeoFire: " + error);
-
-                } else {
-                    System.out.println("Location saved on server successfully!");
-//                    firebaseUpdate();
-                }
-
-            }
-        });
-    }
-
-
-
-    public void onMapReadyCalled(GoogleMap googleMap, double toiletLat, double toiletLon) {
-        mMap = googleMap;
-
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-        locationListener = new android.location.LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-
-                Log.i("onLocationChanged","Called");
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-
-
-        if (Build.VERSION.SDK_INT < 23) {
-
-            Log.i("Build.VERSION.SDK_INT ","Build.VERSION.SDK_INT ");
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
-
-
-        }
-        else{
-//            Log.i("Build.VERSION.SDK_INT>23 ","Build.VERSION.SDK_INT ");
-
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-
-
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
-
-
-
-            }else {
-                //When the permission is granted....
-                Log.i("HeyHey333", "locationManager.requestLocationUpdates");
-
-
+////        String newRef = ref.child("Toilets");
+////
+////        String newID = newRef
+//        Log.i("datbaseUpdateLat", String.valueOf(AddLocations.latitude));
+//        Log.i("datbaseUpdateLon", String.valueOf(AddLocations.longitude));
 //
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
-                mMap.setMyLocationEnabled(true);
-                Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
+//        geoFire.setLocation(firekey, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
+//            @Override
+//            public void onComplete(String key, DatabaseError error) {
+//                if (error != null) {
+//                    System.err.println("There was an error saving the location to GeoFire: " + error);
+//
+//                } else {
+//                    System.out.println("Location saved on server successfully!");
+////                    firebaseUpdate();
+//                }
+//
+//            }
+//        });
+//    }
 
 
 
-
-                if (lastKnownLocation != null){
-                    Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
-
-
-                    mMap.clear();
-
-
-                   // Log.i("toiletLatLng0909", String.valueOf(toiletLat) + String.valueOf(toiletLon));
-                    LatLng toiletLatLng = new LatLng(toiletLat, toiletLon);
-
-
-
-                    mMap.addMarker(new MarkerOptions().position(toiletLatLng).title("施設の場所"));
-
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletLatLng));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletLatLng, 14.0f));
-
-
-
-
-                } else {
-                    //When you could not get the last known location...
-
-                }
-            }
-        }
-    }
+//    public void onMapReadyCalled(GoogleMap googleMap, double toiletLat, double toiletLon) {
+//        mMap = googleMap;
+//
+//        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+//
+//        locationListener = new android.location.LocationListener() {
+//            @Override
+//            public void onLocationChanged(Location location) {
+//
+//                Log.i("onLocationChanged","Called");
+//            }
+//
+//            @Override
+//            public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//            }
+//
+//            @Override
+//            public void onProviderEnabled(String provider) {
+//
+//            }
+//
+//            @Override
+//            public void onProviderDisabled(String provider) {
+//
+//            }
+//        };
+//
+//
+//        if (Build.VERSION.SDK_INT < 23) {
+//
+//            Log.i("Build.VERSION.SDK_INT ","Build.VERSION.SDK_INT ");
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+//
+//
+//        }
+//        else{
+////            Log.i("Build.VERSION.SDK_INT>23 ","Build.VERSION.SDK_INT ");
+//
+//            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+//
+//
+//                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
+//
+//
+//
+//            }else {
+//                //When the permission is granted....
+//                Log.i("HeyHey333", "locationManager.requestLocationUpdates");
+//
+//
+////
+//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//                Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+//                mMap.setMyLocationEnabled(true);
+//                Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
+//
+//
+//
+//
+//                if (lastKnownLocation != null){
+//                    Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
+//
+//
+//                    mMap.clear();
+//
+//
+//                   // Log.i("toiletLatLng0909", String.valueOf(toiletLat) + String.valueOf(toiletLon));
+//                    LatLng toiletLatLng = new LatLng(toiletLat, toiletLon);
+//
+//
+//
+//                    mMap.addMarker(new MarkerOptions().position(toiletLatLng).title("施設の場所"));
+//
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletLatLng));
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletLatLng, 14.0f));
+//
+//
+//
+//
+//                } else {
+//                    //When you could not get the last known location...
+//
+//                }
+//            }
+//        }
+//    }
 
 
 }

@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -187,10 +188,26 @@ public class DetailViewActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
 
-        getMenuInflater().inflate(R.menu.filter2, menu);
+        getMenuInflater().inflate(R.menu.detailviewappbar, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.detailSettingsButton) {
+            Toast.makeText(this, "Hey Did you Detail Settings??", Toast.LENGTH_SHORT).show();
+            ///////////////////////// 1pm 25th Feb
+            return true;
+
+        }
+
+            return super.onOptionsItemSelected(item);
+
+    }
+
 
 
     private void addDrawerItems() {
@@ -256,6 +273,9 @@ public class DetailViewActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), KansouActivity.class);
+                intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+                intent.putExtra("toiletLatitude",toilet.latitude);
+                intent.putExtra("toiletLongitude",toilet.longitude);
                 intent.putExtra("reviewCount",toilet.reviewCount);
                 intent.putExtra("averageWait", toilet.averageWait);
                 intent.putExtra("averageStar", toilet.averageStar);
@@ -327,8 +347,8 @@ public class DetailViewActivity extends AppCompatActivity {
                                 Intent intentA = new Intent(getApplicationContext(), EditPinLocationActivity.class);
                                 Toast.makeText(DetailViewActivity.this, String.valueOf(toilet.key), Toast.LENGTH_SHORT).show();
                                 intentA.putExtra("EXTRA_SESSION_ID", toilet.key);
-//                                intentA.putExtra("toiletLatitude",toilet.latitude);
-//                                intentA.putExtra("toiletLongitude",toilet.longitude);
+                                intentA.putExtra("toiletLatitude",toilet.latitude);
+                                intentA.putExtra("toiletLongitude",toilet.longitude);
                                 startActivity(intentA);
                                 finish();
 

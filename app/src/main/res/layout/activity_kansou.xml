@@ -16,8 +16,8 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/app_bar"
-            layout="@layout/app_bar"
+            android:id="@+id/kansou_app_bar"
+            layout="@layout/kansou_app_bar"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"/>
 
