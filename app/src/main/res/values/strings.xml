@@ -45,7 +45,10 @@
     <string name="firstPosterPlace">投稿者</string>
     <string name="lastEditerPlace">最終編集者</string>
     <string name="sendTroubles">報告</string>
+    <string name="userKansou">ユーザーの感想</string>
     <string name="defaultCount">1</string>
+    <string name="superCount">100000</string>
+
     <string name="image">イメージ</string>
 
 

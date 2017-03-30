@@ -21,7 +21,7 @@ import java.util.List;
  * Created by KazuhiroShigenobu on 8/3/17.
  */
 //
-public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.MyViewHolder> {
+public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewViewHolder> {
 
         private LayoutInflater inflator;
         //List<Toilet> toiletData;
@@ -39,17 +39,17 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.My
 
 
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ReviewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        View view = inflator.inflate(R.layout.custom_row,parent,false);
 //        MyViewHolder holder = new MyViewHolder(view);
 
-            Log.i("MyMyholder12345", "12345");
+            Log.i("Reviewholder12345", "12345");
 
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_custom_row,parent,false);
 
-            MyViewHolder holder = new MyViewHolder(view);
+            ReviewViewHolder holder = new ReviewViewHolder(view);
 
-            Log.i("holder12345", String.valueOf(holder));
+            Log.i("Reviewholder12345", String.valueOf(holder));
 
             return holder;
         }
@@ -57,22 +57,23 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.My
 
 
         @Override
-        public void onBindViewHolder(com.example.kazuhiroshigenobu.googlemaptraining.ReviewListAdapter.MyViewHolder holder, int position) {
+        public void onBindViewHolder(com.example.kazuhiroshigenobu.googlemaptraining.ReviewListAdapter.ReviewViewHolder holder, int position) {
 
 
             if (reviewList.isEmpty()) {
-                Log.i("current.key", "Its empty");
+                Log.i("Reviewcurrent.key", "Its empty");
 
             } else {
-                Log.i("toiletDataContent.get0", String.valueOf(reviewList.get(0)));
-                Log.i("current.key", "Its Not empty");
-                Log.i("current.position", String.valueOf(position));
-                Log.i("current.holder", String.valueOf(holder));
+                Log.i("ReviewDataContent.get0", String.valueOf(reviewList.get(0)));
+                Log.i("Reviewcurrent.key", "Its Not empty");
+                Log.i("Reviewcurrent.position", String.valueOf(position));
+                Log.i("Reviewcurrent.holder", String.valueOf(holder));
 
 
                 final Review current = reviewList.get(position);
 
-                Log.i("current.key", String.valueOf(position));
+                Log.i("Reviewcurrent.key", String.valueOf(position));
+
 
 
 //                Uri uri = Uri.parse(current.urlOne);
@@ -83,15 +84,31 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.My
 //
 ////                float starFloatValue = Float.parseFloat(current.averageStar);
 //
-//
-//                holder.name.setText(current.key);
-//                holder.starRate.setText(current.averageStar);
-//                holder.waitingTime.setText("待ち時間"+ String.valueOf(current.averageWait) +"分");
-//                holder.ratingBar.setRating(starFloatValue);
-//                holder.distance.setText(current.distance);
-//
-//                Picasso.with(context).load(uri).into(holder.image);
-//
+
+
+                ///
+           //     ImageView reviewUserImage;
+               // TextView reviewUserName;
+//                TextView reviewLikeCount;
+//                TextView reviewFavoriteCount;
+//                TextView reviewManCount;
+//                RatingBar reviewStarBar;
+//                TextView reviewWaitingTime;
+
+
+                ///
+                holder.reviewUserName.setText(current.userName);
+                holder.reviewLikeCount.setText(String.valueOf(current.totalLikedCount));
+                holder.reviewFavoriteCount.setText(String.valueOf(current.totalFavoriteCount));
+                holder.reviewManCount.setText(String.valueOf(current.totalHelpedCount));
+                holder.reviewStarBar.setRating(current.star.floatValue());
+                holder.reviewWaitingTime.setText("待ち"+ String.valueOf(current.waitingtime) +"分");
+                Uri uri = Uri.parse(current.userPhoto);
+                final Context context = holder.reviewUserImage.getContext();
+                Picasso.with(context).load(uri).into(holder.reviewUserImage);
+
+
+
 //
 //                holder.itemView.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -126,15 +143,14 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.My
         @Override
         public int getItemCount() {
 
-            Log.i("toiletData.size()",String.valueOf(reviewList.size()));
+            Log.i("ReviewtoiletData.size()",String.valueOf(reviewList.size()));
             return reviewList.size();
 
 
         }
 
 
-        public class MyViewHolder extends RecyclerView.ViewHolder {
-
+        public class ReviewViewHolder extends RecyclerView.ViewHolder {
 
             ImageView reviewUserImage;
             TextView reviewUserName;
@@ -152,8 +168,10 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.My
 //            ImageView image;
 
 
-            public MyViewHolder(View itemView) {
+            public ReviewViewHolder(View itemView) {
                 super(itemView);
+
+
 
                 reviewUserImage = (ImageView) itemView.findViewById(R.id.reviewUserImage);
                 reviewUserName = (TextView) itemView.findViewById(R.id.reviewUserName);

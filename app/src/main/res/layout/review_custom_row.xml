@@ -18,14 +18,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="75sp"
+        android:layout_height="90sp"
         android:orientation="horizontal"
         android:id="@+id/reviewLayoutOne">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@color/colorPrimary"
             android:id="@+id/reviewUserImage"
             android:padding="10dp"/>
 
@@ -61,8 +60,8 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="@color/colorPrimary"
-                        android:id="@+id/reviewLikeImage"/>
+                        android:id="@+id/reviewLikeImage"
+                        android:src="@drawable/thumb"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -87,8 +86,8 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="@color/colorPrimary"
-                        android:id="@+id/reviewFavoriteImage"/>
+                        android:id="@+id/reviewFavoriteImage"
+                        android:src="@drawable/like"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -113,8 +112,8 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="@color/colorPrimary"
-                        android:id="@+id/reviewManImage"/>
+                        android:id="@+id/reviewManImage"
+                        android:src="@drawable/standing"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -139,24 +138,27 @@
 
 
                 <RatingBar
+                    android:theme="@style/RatingBar"
                     android:id="@+id/reviewRatingBar"
-                    style="?android:attr/ratingBarStyleSmall"
+                    android:rating="3"
+                    android:stepSize="0.3"
+                    android:numStars="5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleX=".5"
-                    android:scaleY=".5"
-                    android:transformPivotX="0dp"
-                    android:transformPivotY="0dp"
-                    android:isIndicator="true"
-                    android:max="5" />
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
+
+                  />
+
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="待ち2分"
                     android:textColor="@color/colorText"
-                    android:textSize="15sp"
-                    android:id="@+id/reviewWaitingTime"/>
+                    android:textSize="20sp"
+                    android:id="@+id/reviewWaitingTime"
+                    android:layout_gravity="center_vertical"/>
 
 
             </LinearLayout>

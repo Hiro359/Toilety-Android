@@ -73,7 +73,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
-
     }
 
     @Override//location permission

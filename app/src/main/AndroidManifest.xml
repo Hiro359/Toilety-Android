@@ -99,7 +99,8 @@
         </activity>
         <activity
             android:name=".AddToiletActivity"
-            android:label="@string/title_activity_add_toilet">
+            android:label="@string/title_activity_add_toilet"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AddToiletDetailActivity"
@@ -111,7 +112,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".DetailViewActivity">
+        <activity android:name=".DetailViewActivity"
+                  android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".DetailDrawerActivity"
@@ -119,13 +121,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".KansouActivity">
+        <activity android:name=".KansouActivity"
+                  android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".EditViewActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".FirstTimeActivity">
+        <activity android:name=".FirstTimeActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -1320,7 +1320,9 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+                //((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
 
 
@@ -1375,7 +1377,7 @@ public class FilterSearchActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String filterName;
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
 //                ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(position)));
 
@@ -1430,7 +1432,7 @@ public class FilterSearchActivity extends AppCompatActivity {
         spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
 //                ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(position)));
 
@@ -1466,7 +1468,7 @@ public class FilterSearchActivity extends AppCompatActivity {
         spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
                 //((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(position) + "以上を検索");
 

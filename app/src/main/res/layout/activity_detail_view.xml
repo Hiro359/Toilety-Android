@@ -379,7 +379,6 @@
                         android:layout_height="100dp"
                         android:contentDescription="@string/firstPosterPlace"
                         android:id="@+id/firstPosterImage"
-                        android:background="@color/colorPrimary"
                         android:layout_margin="3dp"/>
 
 
@@ -396,7 +395,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="30dp"
                             android:text="@string/firstPosterPlace"
                             android:textSize="22sp"
                             android:textColor="@color/colorText"
@@ -422,7 +421,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="50dp"
-                                android:text="@string/defaultCount"
+                                android:text = "@string/defaultCount"
                                 android:textSize="25sp"
                                 android:textColor="@color/colorText"
                                 android:id="@+id/firstPosterLikeCount"
@@ -444,7 +443,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="50dp"
-                                android:text="@string/defaultCount"
+                                android:text = "@string/defaultCount"
                                 android:textSize="25sp"
                                 android:textColor="@color/colorText"
                                 android:id="@+id/firstPosterFavoriteCount"
@@ -465,21 +464,15 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="50dp"
-                                android:text="@string/defaultCount"
+                                android:text = "@string/superCount"
                                 android:textSize="25sp"
                                 android:textColor="@color/colorText"
 
                                 android:id="@+id/firstPosterHelpCount"
                                 android:textAlignment="center"
-                                android:layout_gravity="center_vertical"
-                                android:layout_margin="3sp"/>
+                                android:layout_gravity="center_vertical"/>
 
                         </LinearLayout>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/colorText"
-                            />
 
 
                     </LinearLayout>
@@ -505,7 +498,6 @@
                         android:layout_height="100dp"
                         android:contentDescription="@string/lastEditerPlace"
                         android:id="@+id/lastEditerImage"
-                        android:background="@color/colorPrimary"
                         android:layout_margin="3dp"
                         />
 
@@ -523,7 +515,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="30dp"
                             android:text="@string/lastEditerPlace"
                             android:textSize="22sp"
                             android:textColor="@color/colorText"
@@ -600,16 +592,34 @@
                                 android:id="@+id/lastEditerHelpCount"
                                 android:textAlignment="center"
                                 android:layout_gravity="center_vertical"
-                                android:layout_margin="3sp"/>
+                                />
+
+
                         </LinearLayout>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/colorText"
-                            />
+
+
+
                     </LinearLayout>
+
                 </RelativeLayout>
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/userKansou"
+                android:textColor="@color/colorSubText"
+                android:layout_margin="3dp"
+                />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/toiletReviewList"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_gravity="bottom"
+                >
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
 

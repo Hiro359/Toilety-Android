@@ -71,32 +71,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     android.location.LocationListener locationListener;
 
-    //    private DatabaseReference databaseReference;
     private DatabaseReference toiletRef;
     private GeoFire geoFire;
     private Filter filter = new Filter();
-    //    private List toilets = new ArrayList();
-//    private ListView lvtoilet;
     private ToiletListAdapter adapter;
-//    private List<Toilet> toiletList;
-    //<Toilet> to <String>
 
-    //    private List<Toilet> toiletData;
-//    //<Toilet> to <String>
     private RecyclerView recyclertView;
     private RecyclerView.LayoutManager layoutManager;
-//    private LayoutInflater inflater;
-//    private ViewGroup container;
-//    private LinearLayoutManager mLinearLayoutManager;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Toolbar toolbar;
-//    private ActionMenuView amvMenu;
-
-
-//
-//    DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference();
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -139,17 +124,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setNavigationIcon(R.drawable.earth);
+        toolbar.setNavigationIcon(R.drawable.app_funnel);
 
         Log.i("JAP98789000", String.valueOf(Filter.japaneseFilter));
-
-        //amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
-//        amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem menuItem) {
-//                return onOptionsItemSelected(menuItem);
-//            }
-//        });
 
 //        getActionBar().setIcon(R.drawable.earth);
         setSupportActionBar(toolbar);
@@ -157,23 +134,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                                                 @Override
-                                                 public void onClick(View v) {
-                                                     Log.i("YouareThebest", "11");
+            @Override
+            public void onClick(View v) {
 
-                                                     Intent intent = new Intent(v.getContext(), FilterSearchActivity.class);
-                                                     startActivity(intent);
-                                                     finish();
-
-
-//                v.startActivity(SettingsActivity.class);
-
-//                Intent intent = new Intent(SettingsActivity.class);
-                                                     //  startActivity(intent);
-
-                                                 }
-                                             }
+                Intent intent = new Intent(v.getContext(), FilterSearchActivity.class);
+                startActivity(intent);
+                finish();
+             }
+        }
         );
+
+
+
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -206,12 +178,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         getMenuInflater().inflate(R.menu.filter, menu);
-        //Commented for adding below code at 5pm
-        //getMenuInflater().inflate(R.menu.filter,amvMenu.getMenu());
 
-
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menufile);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -219,22 +186,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-
-        Log.i("R.menu.account", String.valueOf(R.id.account));
-        Log.i("R.menu.filter", String.valueOf(R.id.filter));
-        Log.i("R.menu.toolbar", String.valueOf(R.id.toolbar));
-        Log.i("R.id.app_bar", String.valueOf(R.id.app_bar));
-
-        Log.i("YouSelect", String.valueOf(item));
-        Log.i("GetSupportActionBar", String.valueOf(getSupportActionBar()));
-        Log.i("Earth", String.valueOf(R.drawable.earth));
-
-
-//        Log.i("R.menu.filter",String.valueOf(R.menu.filter));
-//        Log.i("R.menu.appBar",String.valueOf(R.layout.app_bar));
-//        Log.i("Home", String.valueOf(R.id.home));
-
 
         if (id == R.id.account) {
             Toast.makeText(this, "Hey Did you Click Account??", Toast.LENGTH_SHORT).show();
@@ -275,6 +226,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         recyclertView.setHasFixedSize(true);
         recyclertView.setAdapter(adapter);
         Log.i("createReclerView()Ended", "");
+
 
 
     }
@@ -344,6 +296,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 //Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
                 Location lastKnownLocation = getLastKnownLocation();
                 mMap.setMyLocationEnabled(true);
+
+                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+
+                        Toast.makeText(MapsActivity.this, "Map was touched", Toast.LENGTH_SHORT).show();
+                        if (recyclertView != null){
+                            recyclertView.setVisibility(View.INVISIBLE);
+                        }
+
+
+                        //Do what you want on obtained latLng
+                    }
+                });
+
+                //Added 30 March
 
 
                 Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
@@ -939,17 +907,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
   );
 }
-
-//
-//    public static Drawable LoadImageFromWebOperations(String url) {
-//        try {
-//            InputStream is = (InputStream) new URL(url).getContent();
-//            Drawable d = Drawable.createFromStream(is, "src name");
-//            return d;
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
 
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();

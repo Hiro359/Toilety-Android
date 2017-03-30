@@ -18,6 +18,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -49,6 +51,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.CalculationByDistance;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.round;
@@ -88,6 +91,11 @@ public class DetailViewActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
 
+    private RecyclerView recyclertView;
+    private RecyclerView.LayoutManager layoutManager;
+    private ReviewListAdapter adapter;
+
+
     private Toolbar toolbar;
     private TextView toolbarTitle;
     private Boolean userLikePushed = false;
@@ -123,6 +131,8 @@ public class DetailViewActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.app_bar3);
         toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbarTitle3);
+
+
 
 
 
@@ -225,6 +235,19 @@ public class DetailViewActivity extends AppCompatActivity {
 
     }
 
+    public void createRecyclerView(List reviewList) {
+        Log.i("reviewRecycle", "Called");
+        recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
+        adapter = new ReviewListAdapter(reviewList);
+        //adapter = new ToiletListAdapter(reviewData);
+        layoutManager = new LinearLayoutManager(this);
+        recyclertView.setLayoutManager(layoutManager);
+        recyclertView.setHasFixedSize(true);
+        recyclertView.setAdapter(adapter);
+        Log.i("reviewRecycle", "Ended");
+
+
+    }
 
 
     private void addDrawerItems() {
@@ -525,6 +548,12 @@ public class DetailViewActivity extends AppCompatActivity {
                     toilet.closeHours = closeh.intValue();
                     Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
                     toilet.reviewCount = reviewCount.intValue();
+
+
+
+                    Log.i("toilet.ReviewCountII",String.valueOf(toilet.reviewCount));
+
+
                     Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
                     toilet.averageWait = averageWait.intValue();
                     Long toiletFloor = (Long) dataSnapshot.child("toiletFloor").getValue();
@@ -922,6 +951,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     firstPosterGetInfo(toilet.addedBy);
                     lastEditerGetInfo(toilet.editedBy);
+                    reviewQuery(toilet.key);
 
 
 
@@ -938,7 +968,106 @@ public class DetailViewActivity extends AppCompatActivity {
 
     private void reviewQuery(String queryKey) {
 
+        final List<Review> reviewList = new ArrayList<>();
+        final Review review = new Review();
+
+
         reviewsRef = FirebaseDatabase.getInstance().getReference().child("reviews");
+        //Not sure i get the right toilet.key
+        reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+
+                Log.i("reviewQueryCalled","Start");
+
+                review.uid = (String) dataSnapshot.child("uid").getValue();
+                review.feedback = (String) dataSnapshot.child("feedback").getValue();
+                review.time = (String) dataSnapshot.child("time").getValue();
+                review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
+
+                Long likedCount = (Long) dataSnapshot.child("likedCount").getValue();
+                review.likedCount = likedCount.intValue();
+                Long star = (Long) dataSnapshot.child("star").getValue();
+                review.star = star.doubleValue();
+
+
+                Log.i("reviewQueryCalled","Middle");
+
+                //this may cause an error, it might be needed to be long
+
+                userRef = FirebaseDatabase.getInstance().getReference().child("users");
+
+                userRef.child(review.uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.i("userInfoQuery","Called");
+
+
+                        review.userName = (String) dataSnapshot.child("userName").getValue();
+                        Log.i("userInfoQuery1","Called");
+                        review.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
+                        Log.i("userInfoQuery2","Called");
+//                        review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
+//                        Log.i("review.waitingTime",review.waitingtime);
+
+
+
+
+
+
+                        Long totalLikedCount = (Long) dataSnapshot.child("totalLikedCount").getValue();
+                        Long totalFavoriteCount = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
+                        Long totalHelpedCount = (Long) dataSnapshot.child("totalHelpedCount").getValue();
+                        review.totalLikedCount = totalLikedCount.intValue();
+                        review.totalFavoriteCount = totalFavoriteCount.intValue();
+                        review.totalHelpedCount = totalHelpedCount.intValue();
+
+
+                        reviewList.add(review);
+                        createRecyclerView(reviewList);
+
+                        Log.i("reviewQueryCalled","End");
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         //reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener)
     }
@@ -951,7 +1080,7 @@ public class DetailViewActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 user.userName = (String) dataSnapshot.child("userName").getValue();
                 user.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
-                
+
                 Long totalLikedCountLong = (Long) dataSnapshot.child("totalLikedCount").getValue();
                 Long totalFavoriteCountLong = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
                 Long totalHelpedCountLong = (Long) dataSnapshot.child("totalHelpedCount").getValue();
