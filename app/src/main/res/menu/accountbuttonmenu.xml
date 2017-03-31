@@ -8,13 +8,13 @@
 
     <item
         android:id="@+id/settingButton"
-        android:icon="@drawable/app_settings"
+        android:icon="@drawable/app_settings_icon_drawable"
         app:showAsAction="ifRoom"
         android:orderInCategory="200"
         android:title="@string/settingsButton">
     </item>
 
-    
+
 
 
 

@@ -28,6 +28,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -63,6 +64,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static android.view.View.GONE;
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
     //extends FramgementActivity to AppCompatActivity
 
@@ -82,7 +85,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Toolbar toolbar;
-
+    private View mProgressView;
+    private Button buttonShowListview;
+    private Button buttonMapCenter;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -124,7 +129,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setNavigationIcon(R.drawable.app_funnel);
+        toolbar.setNavigationIcon(R.drawable.app_filter_icon_drawable);
 
         Log.i("JAP98789000", String.valueOf(Filter.japaneseFilter));
 
@@ -143,11 +148,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
              }
         }
         );
-
-
-
-
-
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -171,6 +171,46 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // ...
             }
         };
+
+        mProgressView = findViewById(R.id.map_search_progress);
+        buttonMapCenter = (Button)findViewById(R.id.buttonMapCenter);
+        buttonShowListview = (Button)findViewById(R.id.buttonShowListView);
+        mProgressView.setVisibility(View.VISIBLE);
+        buttonSetClick();
+
+
+    }
+
+    private void buttonSetClick(){
+        buttonMapCenter.setVisibility(View.VISIBLE);
+        buttonShowListview.setVisibility(View.VISIBLE);
+
+        buttonMapCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
+        buttonShowListview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonMapCenter.setVisibility(GONE);
+                buttonShowListview.setVisibility(GONE);
+
+                if (recyclertView != null)
+                {
+                    recyclertView.setVisibility(View.VISIBLE);
+                } else{
+                    Toast.makeText(MapsActivity.this, "We DiD not find toilets sorry man!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
     }
 
     @Override
@@ -304,6 +344,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         Toast.makeText(MapsActivity.this, "Map was touched", Toast.LENGTH_SHORT).show();
                         if (recyclertView != null){
                             recyclertView.setVisibility(View.INVISIBLE);
+                            buttonMapCenter.setVisibility(View.VISIBLE);
+                            buttonShowListview.setVisibility(View.VISIBLE);
+
+
+
+
+
                         }
 
 
@@ -893,10 +940,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onGeoQueryReady() {
-               // prepareData();
-                Log.i("GeoQueryReady","Fuckkkk");
-               // createRecyclerView();
-                Log.i("GeoQueryReady","Sorry");
+              mProgressView.setVisibility(GONE);
             }
 
             @Override

@@ -9,6 +9,7 @@
 
 
 
+
     <fragment
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -26,6 +27,19 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
+    <ProgressBar
+        android:id="@+id/map_search_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        />
+
+
+
+
 
 
 
@@ -36,10 +50,49 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_gravity="bottom"
+        android:visibility="gone"
         >
     </android.support.v7.widget.RecyclerView>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="50dp"
+        >
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/app_list_icon_drawable"
+            android:layout_gravity="bottom"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
+            android:visibility="visible"
+            android:id="@+id/buttonShowListView"
+
+            />
+
+        <Button
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/app_center_icon_drawable"
+            android:layout_gravity="bottom"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginEnd="50dp"
+            android:visibility="visible"
+            android:id="@+id/buttonMapCenter"
+
+            />
+
+
+    </RelativeLayout>
 
 
 </FrameLayout>
