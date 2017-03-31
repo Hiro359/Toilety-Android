@@ -30,6 +30,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
@@ -45,6 +47,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -77,6 +80,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private DatabaseReference toiletRef;
     private GeoFire geoFire;
     private Filter filter = new Filter();
+    private ToiletMarker tMarker = new ToiletMarker();
     private ToiletListAdapter adapter;
 
     private RecyclerView recyclertView;
@@ -88,11 +92,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private View mProgressView;
     private Button buttonShowListview;
     private Button buttonMapCenter;
+    private Boolean markerWindowToDetailViewActivity = false;
+
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+
+
+
+
 
 
     @Override
@@ -289,9 +300,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationListener = new android.location.LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
                 Log.i("onLocationChanged", "Called");
-
             }
 
             @Override
@@ -309,7 +318,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         };
-
 
         if (Build.VERSION.SDK_INT < 23) {
 
@@ -347,18 +355,103 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             buttonMapCenter.setVisibility(View.VISIBLE);
                             buttonShowListview.setVisibility(View.VISIBLE);
 
-
-
-
-
                         }
-
-
                         //Do what you want on obtained latLng
                     }
                 });
 
+//                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//                    @Override
+//                    public boolean onMarkerClick(Marker marker) {
+//
+//                        if (markerWindowToDetailViewActivity) {
+//
+//                            Log.i("GotMarker", "YEAH888");
+//                            Toast.makeText(MapsActivity.this, "DID YOU FIND CLICKING", Toast.LENGTH_SHORT).show();
+//
+//                            //Convert LatLng to lat log
+//                            Intent intent = new Intent(getApplicationContext(), DetailViewActivity.class);
+//                            double lat = marker.getPosition().latitude;
+//                            double lng = marker.getPosition().longitude;
+//                            intent.putExtra("EXTRA_SESSION_ID", marker.getSnippet());
+//
+//                            intent.putExtra("toiletLatitude", lat);
+//                            intent.putExtra("toiletLongitude", lng);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                            return false;
+//
+//                    }
+//                });
+
+
+
                 //Added 30 March
+
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                    @Override
+                    public View getInfoWindow(Marker marker) {
+                        return null;
+                    }
+
+                    @Override
+                    public View getInfoContents(final Marker marker) {
+
+                        Log.i("GotMarker","YEAH");
+
+                        View v = getLayoutInflater().inflate(R.layout.marker_window, null);
+
+                        TextView marketName = (TextView) v.findViewById(R.id.markerName);
+                        TextView markerDetail = (TextView) v.findViewById(R.id.markerDetailText);
+                        RatingBar markerRatingBar = (RatingBar) v.findViewById(R.id.markerRatingBar);
+                        TextView marketRatingString = (TextView) v.findViewById(R.id.markerRatingString);
+                        Button markerButtonDetail = (Button) v.findViewById(R.id.markerDetailButton);
+
+                        Float distanceA = marker.getZIndex();
+                        String distanceSting;
+
+                        if (distanceA > 1){
+                            distanceSting = String.valueOf(round(distanceA, 1)) + "km";
+
+                        }else{
+                            Float meterDistance = distanceA * 100;
+                            Integer meterA = meterDistance.intValue();
+                            Integer meterB = meterA * 10;
+
+                            distanceSting = String.valueOf(meterB) + "m";
+                        }
+
+                        marketName.setText(marker.getTitle());
+                        markerDetail.setText("平均"+ String.valueOf(marker.getAlpha()) +"分待ち/" + distanceSting);
+                        markerRatingBar.setRating(marker.getRotation());
+                        marketRatingString.setText(String.valueOf(marker.getRotation()));
+
+
+                        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                            @Override
+                            public void onInfoWindowClick(Marker marker) {
+
+                                Toast.makeText(MapsActivity.this, "DID YOU FUCKING CLICKING STUPID AAA", Toast.LENGTH_SHORT).show();
+
+                                //Convert LatLng to lat log
+                                Intent intent = new Intent(getApplicationContext(), DetailViewActivity.class);
+                                double lat = marker.getPosition().latitude;
+                                double lng = marker.getPosition().longitude;
+                                intent.putExtra("EXTRA_SESSION_ID", marker.getSnippet());
+
+                                intent.putExtra("toiletLatitude",lat);
+                                intent.putExtra("toiletLongitude",lng);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+
+                        return v;
+                    }
+                });
+
+
 
 
                 Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
@@ -478,6 +571,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
 
                             double distance = CalculationByDistance(centerLocation,toiletLocation);
+                            toilet.distanceNumberString = String.valueOf(distance);
+
 
                             if (distance > 1){
                                 toilet.distance = String.valueOf(round(distance, 1)) + "km";
@@ -902,9 +997,29 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
+
+
+                                //mMap.addMarker(new)
+
+                                float averageStarFloat = Float.parseFloat(toilet.averageStar);
+                                float distanceFloat = Float.parseFloat(toilet.distanceNumberString);
+                                float averageWaitFloat = toilet.averageWait;
+
+
+
                                 //LatLng sydney = new LatLng(-33.852, 151.211);
                                 mMap.addMarker(new MarkerOptions().position(toiletLocation)
-                                        .title(toilet.name));
+                                        .title(toilet.name)
+                                        .snippet(toilet.key)
+                                        .rotation(averageStarFloat)
+                                        .alpha(averageWaitFloat)
+                                        .zIndex(distanceFloat)
+                                        .flat(toilet.available)
+
+                                );
+
+
+
                                 //System.out.println(toilets);
 
                                 createRecyclerView(toiletData);
