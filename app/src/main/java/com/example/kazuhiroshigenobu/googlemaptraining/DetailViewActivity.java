@@ -82,6 +82,7 @@ public class DetailViewActivity extends AppCompatActivity {
     Button buttonKansou;
     Button buttonEdit;
     Button buttonFavorite;
+    Button buttonGetDirection;
     //DrawerLayout drawer;
 
     private ListView mDrawerList;
@@ -315,6 +316,16 @@ public class DetailViewActivity extends AppCompatActivity {
         buttonKansou = (Button) findViewById(R.id.buttonKansou);
         buttonEdit = (Button) findViewById(R.id.buttonEdit);
         buttonFavorite = (Button) findViewById(R.id.detailFavoriteButton);
+        buttonGetDirection = (Button) findViewById(R.id.buttonGoToThisPlace);
+
+        buttonGetDirection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://maps.google.com/maps?" + "saddr="+ UserInfo.latitude + "," + UserInfo.longitude + "&daddr=" + toilet.latitude + "," + toilet.longitude));
+                intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+                startActivity(intent);
+            }
+        });
 
 
 

@@ -1,6 +1,7 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,6 +11,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -21,16 +23,22 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +50,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.PlaceTypes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -57,13 +66,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -71,6 +88,10 @@ import static android.view.View.GONE;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
     //extends FramgementActivity to AppCompatActivity
+
+
+
+    //AppCompatActivity to Activity April 1
 
     private GoogleMap mMap;
     LocationManager locationManager;
@@ -92,7 +113,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private View mProgressView;
     private Button buttonShowListview;
     private Button buttonMapCenter;
-    private Boolean markerWindowToDetailViewActivity = false;
+    private Button buttonSearch;
+    private EditText searchTextView;
+
+    AutoCompleteTextView atvPlaces;
+//    PlacesTask placesTask;
+//    ParserTask parserTask;
 
 
     /**
@@ -149,6 +175,40 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+//
+//        atvPlaces = (AutoCompleteTextView) findViewById(R.id.atv_places);
+//        atvPlaces.setThreshold(1);
+//
+//        atvPlaces.addTextChangedListener(new TextWatcher() {
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                placesTask = new PlacesTask();
+//                placesTask.execute(s.toString());
+//            }
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count,
+//                                          int after) {
+//                // TODO Auto-generated method stub
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // TODO Auto-generated method stub
+//            }
+//        });
+//
+//        atvPlaces.setOnTouchListener(new View.OnTouchListener(){
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event){
+//                atvPlaces.showDropDown();
+//                return false;
+//            }
+//        });
+
+        //Google Places API Copied April1
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,6 +243,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         };
 
+//        searchTextView = (EditText) findViewById(R.id.searchTextView);
+//        buttonSearch = (Button) findViewById(R.id.buttonSearchLocation);
+
+        //Added March 31....
+
+
         mProgressView = findViewById(R.id.map_search_progress);
         buttonMapCenter = (Button)findViewById(R.id.buttonMapCenter);
         buttonShowListview = (Button)findViewById(R.id.buttonShowListView);
@@ -195,6 +261,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void buttonSetClick(){
         buttonMapCenter.setVisibility(View.VISIBLE);
         buttonShowListview.setVisibility(View.VISIBLE);
+
+
 
         buttonMapCenter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,33 +288,129 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+//        buttonSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String adderess = c.getString(c.getColumnIndex(SQLiteAdapter.KEY_CONTENT3));
+//// get address in string for used location for the map
+//
+///* get latitude and longitude from the adderress */
+//
+//                Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
+//                try
+//                {
+//                    List<Address> addresses = geoCoder.getFromLocationName(adderess, 5);
+//                    if (addresses.size() > 0)
+//                    {
+//                        Double lat = (double) (addresses.get(0).getLatitude());
+//                        Double lon = (double) (addresses.get(0).getLongitude());
+//
+//                        Log.d("lat-long", "" + lat + "......." + lon);
+//                        final LatLng user = new LatLng(lat, lon);
+//        /*used marker for show the location */
+//                        Marker hamburg = map.addMarker(new MarkerOptions()
+//                                .position(user)
+//                                .title(adderess)
+//                                .icon(BitmapDescriptorFactory
+//                                        .fromResource(R.drawable.marker)));
+//                        // Move the camera instantly to hamburg with a zoom of 15.
+//                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(user, 15));
+//
+//                        // Zoom in, animating the camera.
+//                        map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+//                    }
+//                }
+//                catch (IOException e)
+//                {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
+//        buttonSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String g = searchTextView.getText().toString();
+//
+//                Geocoder geocoder = new Geocoder(getBaseContext());
+//                List<Address> addresses = null;
+//
+//                try {
+//                    // Getting a maximum of 3 Address that matches the input
+//                    // text
+//                    addresses = geocoder.getFromLocationName(g, 3);
+//                    if (addresses != null && !addresses.equals(""))
+//                        search(addresses);
+//
+//                } catch (Exception e) {
+//
+//                }
+//
+//            }
+//            });
 
     }
+
+//    private void search(List<Address> addresses) {
+//
+//        Address address = (Address) addresses.get(0);
+//        Double home_long = address.getLongitude();
+//        Double home_lat = address.getLatitude();
+//        LatLng latLng = new LatLng(home_long, home_lat);
+//
+//        String addressText = String.format(
+//                "%s, %s",
+//                address.getMaxAddressLineIndex() > 0 ? address
+//                        .getAddressLine(0) : "", address.getCountryName());
+//
+//        MarkerOptions markerOptions = new MarkerOptions();
+//
+//        markerOptions.position(latLng);
+//        markerOptions.title(addressText);
+//
+//        mMap.clear();
+//        mMap.addMarker(markerOptions);
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+////        locationTv.setText("Latitude:" + address.getLatitude() + ", Longitude:"
+////                + address.getLongitude());
+//
+//
+//    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
 
         getMenuInflater().inflate(R.menu.filter, menu);
+       // getMenuInflater().inflate(R.menu.places_search, menu);
+        //Google Places API Copied April1
+
+
 
         return super.onCreateOptionsMenu(menu);
     }
+
+
+    //Commetnted April 1 google places api
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.account) {
+        if (id == R.id.searchStartButton) {
             Toast.makeText(this, "Hey Did you Click Account??", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SearchLocationActivity.class);
             startActivity(intent);
             finish();
             ///////////////////////// 1pm 25th Feb
             return true;
 
-        } else if (id == R.id.filter) {
+        } else if (id == R.id.userMyPageButton) {
             Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
             startActivity(intent);
@@ -1067,6 +1231,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
   );
 }
 
+
+
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
@@ -1138,4 +1304,148 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+//
+//    private String downloadUrl(String strUrl) throws IOException{
+//        String data = "";
+//        InputStream iStream = null;
+//        HttpURLConnection urlConnection = null;
+//        try{
+//            URL url = new URL(strUrl);
+//
+//            // Creating an http connection to communicate with url
+//            urlConnection = (HttpURLConnection) url.openConnection();
+//
+//            // Connecting to url
+//            urlConnection.connect();
+//
+//            // Reading data from url
+//            iStream = urlConnection.getInputStream();
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+//
+//            StringBuffer sb = new StringBuffer();
+//
+//            String line = "";
+//            while( ( line = br.readLine()) != null){
+//                sb.append(line);
+//            }
+//
+//            data = sb.toString();
+//
+//            br.close();
+//
+//        }catch(Exception e){
+//            Log.d("Excepwhileloading url", e.toString());
+//        }finally{
+//            iStream.close();
+//            urlConnection.disconnect();
+//        }
+//        return data;
+//    }
+//
+//
+//    private class PlacesTask extends AsyncTask<String, Void, String> {
+//
+//        @Override
+//        protected String doInBackground(String... place) {
+//            // For storing data from web service
+//            String data = "";
+//
+//            // Obtain browser key from https://code.google.com/apis/console
+//            String key = "AIzaSyDj0TpUShX4Jp22p6HT9kiGXCuxjhp6tUo";
+//
+//            String input="";
+//
+//            try {
+//                input = "input=" + URLEncoder.encode(place[0], "utf-8");
+//            } catch (UnsupportedEncodingException e1) {
+//                e1.printStackTrace();
+//            }
+//
+//            // place type to be searched
+//            String types = "types=geocode";
+//
+//            // Sensor enabled
+//            String sensor = "sensor=false";
+//
+//            // Building the parameters to the web service
+//            String parameters = input+"&"+types+"&"+sensor+"&"+key;
+//
+//            // Output format
+//            String output = "json";
+//
+//            // Building the url to the web service
+//            String url = "https://maps.googleapis.com/maps/api/place/autocomplete/"+output+"?"+parameters;
+//
+//            try{
+//                // Fetching the data from we service
+//                data = downloadUrl(url);
+//            }catch(Exception e){
+//                Log.d("Background Task",e.toString());
+//            }
+//            return data;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String result) {
+//            super.onPostExecute(result);
+//
+//            // Creating ParserTask
+//            parserTask = new ParserTask();
+//
+//            // Starting Parsing the JSON string returned by Web Service
+//            parserTask.execute(result);
+//        }
+//    }
+//    /** A class to parse the Google Places in JSON format */
+//    private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String,String>>>{
+//
+//        JSONObject jObject;
+//
+//        @Override
+//        protected List<HashMap<String, String>> doInBackground(String... jsonData) {
+//
+//            List<HashMap<String, String>> places = null;
+//
+//            PlaceJSONParser placeJsonParser = new PlaceJSONParser();
+//
+//            try{
+//                jObject = new JSONObject(jsonData[0]);
+//
+//                // Getting the parsed data as a List construct
+//                places = placeJsonParser.parse(jObject);
+//
+//            }catch(Exception e){
+//                Log.d("Exception",e.toString());
+//            }
+//            return places;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(List<HashMap<String, String>> result) {
+//
+//            String[] from = new String[] { "description"};
+//            int[] to = new int[] { android.R.id.text1 };
+//
+//            // Creating a SimpleAdapter for the AutoCompleteTextView
+//            SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), result, android.R.layout.simple_list_item_1, from, to);
+//
+//            // Setting the adapter
+//            atvPlaces.setAdapter(adapter);
+//        }
+//    }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.places_search, menu);
+//        return true;
+//
+//
+//    }
+
+    //Google Places API Copied April1
+
+    //Commented April 1
+
 }

@@ -14,7 +14,7 @@
 
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
-        android:id="@+id/account"
+        android:id="@+id/searchStartButton"
         android:icon="@drawable/app_search_icon_drawable"
         android:title="Account"
         app:showAsAction="ifRoom"
@@ -23,7 +23,7 @@
     </item>
 
     <item
-        android:id="@+id/filter"
+        android:id="@+id/userMyPageButton"
         android:icon="@drawable/app_icon_user_drawable"
         android:title="Filter"
         app:showAsAction="ifRoom"

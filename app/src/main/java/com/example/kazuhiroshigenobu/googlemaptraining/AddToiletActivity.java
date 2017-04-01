@@ -266,17 +266,13 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         int id = item.getItemId();
 
 
-        Log.i("R.menu.account",String.valueOf(R.id.account));
-        Log.i("R.menu.filter",String.valueOf(R.id.filter));
-        Log.i("R.menu.toolbar",String.valueOf(R.id.toolbar));
-        Log.i("R.id.app_bar",String.valueOf(R.id.app_bar));
 
         Log.i("YouSelect", String.valueOf(item));
         //Log.i("GetSupportActionBar",String.valueOf(getSupportActionBar()));
         Log.i("Earth", String.valueOf(R.drawable.earth));
 
 
-        if (id == R.id.account){
+        if (id == R.id.searchStartButton){
             Toast.makeText(this, "Hey Did you Click Account??", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
             startActivity(intent);
@@ -286,7 +282,7 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 
         } else
 
-        if (id == R.id.filter){
+        if (id == R.id.userMyPageButton){
             Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
             startActivity(intent);

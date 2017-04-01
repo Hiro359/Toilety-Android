@@ -31,6 +31,9 @@
     <string name="logout">ログアウト</string>
     <string name="settingsButton">設定</string>
 
+    <!--Maps Activity -->
+    <string name="str_atv_places">Enter Place Here</string>
+
 
     <!--DetailViewActivity-->
     <string name="mainDetailImage">メインイメージ</string>
@@ -50,8 +53,6 @@
     <string name="superCount">100000</string>
 
     <string name="image">イメージ</string>
-
-
 
 
     <!--FilterSearchActivity-->
@@ -202,7 +203,6 @@
     <string name="editPage">編集</string>
     <string name="kansouPosting">感想を投稿</string>
     <string name="changePinLocation">施設の位置を変更</string>
-
 
 
     <!--Related to Account Activity-->

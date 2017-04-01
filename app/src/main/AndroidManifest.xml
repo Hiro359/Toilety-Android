@@ -112,8 +112,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".DetailViewActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".DetailViewActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".DetailDrawerActivity"
@@ -121,15 +122,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".KansouActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".KansouActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".EditViewActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".FirstTimeActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".FirstTimeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -156,6 +159,8 @@
         <activity android:name=".SettingViewActivity">
         </activity>
         <activity android:name=".EditPinLocationActivity">
+        </activity>
+        <activity android:name=".SearchLocationActivity">
         </activity>
     </application>
 

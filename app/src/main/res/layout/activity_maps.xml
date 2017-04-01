@@ -5,11 +5,6 @@
              tools:context=".MapsActivity" >
 
 
-
-
-
-
-
     <fragment
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -27,6 +22,53 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/colorLabel"
+
+        >
+
+        <com.example.kazuhiroshigenobu.googlemaptraining.CustomAutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/atv_places"
+            android:hint="@string/str_atv_places"
+            android:textColor="@color/colorText"
+
+
+
+            />
+
+
+    <!--<EditText-->
+        <!--android:id="@+id/searchTextView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:hint="Search Location"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--android:background="@color/colorPrimary" >-->
+    <!--</EditText>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/buttonSearchLocation"-->
+        <!--android:layout_width="56dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_alignBaseline="@+id/searchView1"-->
+        <!--android:layout_alignBottom="@+id/searchView1"-->
+        <!--android:layout_alignRight="@+id/searchView1"-->
+        <!--android:text="@string/search"-->
+        <!--android:textColor="@color/colorText"-->
+        <!--android:background="@color/colorLabel"-->
+         <!--/>-->
+    </RelativeLayout>
     <ProgressBar
         android:id="@+id/map_search_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -36,13 +78,6 @@
         android:visibility="gone"
         android:layout_gravity="center"
         />
-
-
-
-
-
-
-
 
 
     <android.support.v7.widget.RecyclerView
@@ -90,10 +125,6 @@
             android:id="@+id/buttonMapCenter"
 
             />
-
-
     </RelativeLayout>
-
-
 </FrameLayout>
 
