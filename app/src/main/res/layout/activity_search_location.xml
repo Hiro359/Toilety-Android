@@ -1,17 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/activity_search_location"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/colorForBackground"
                 tools:context="com.example.kazuhiroshigenobu.googlemaptraining.SearchLocationActivity">
 
+
+
+
+    <include
+        android:id="@+id/search_location_app_bar_layout"
+        layout="@layout/search_location_app_bar_layout"/>
 
     <com.example.kazuhiroshigenobu.googlemaptraining.CustomAutoCompleteTextView
 
     android:id="@+id/atv_places"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:hint="@string/str_atv_places" />
-</RelativeLayout>
+    android:layout_width="match_parent"
+    android:layout_height="60sp"
+    android:background="@color/colorPrimary"
+    android:layout_margin="20dp"
+    android:layout_marginTop="30dp"
+    android:hint="@string/str_atv_places"
+    android:imeOptions="actionDone"
+        />
+
+
+
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:id="@+id/buttonSearchLatLngFromAddress"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        />
+
+
+</LinearLayout>

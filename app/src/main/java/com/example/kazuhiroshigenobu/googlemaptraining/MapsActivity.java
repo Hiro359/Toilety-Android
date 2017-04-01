@@ -114,6 +114,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button buttonShowListview;
     private Button buttonMapCenter;
     private Button buttonSearch;
+    private Button buttonForOriginalLocation;
+
     private EditText searchTextView;
 
     AutoCompleteTextView atvPlaces;
@@ -252,6 +254,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mProgressView = findViewById(R.id.map_search_progress);
         buttonMapCenter = (Button)findViewById(R.id.buttonMapCenter);
         buttonShowListview = (Button)findViewById(R.id.buttonShowListView);
+        buttonForOriginalLocation = (Button)findViewById(R.id.buttonForOriginalLocation);
         mProgressView.setVisibility(View.VISIBLE);
         buttonSetClick();
 
@@ -261,6 +264,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void buttonSetClick(){
         buttonMapCenter.setVisibility(View.VISIBLE);
         buttonShowListview.setVisibility(View.VISIBLE);
+
+        if (!UserInfo.userSelectedLocation){
+            buttonForOriginalLocation.setVisibility(View.GONE);
+        }
+
+        buttonForOriginalLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserInfo.userSelectedLocation = false;
+
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+
+
+            }
+        });
+
 
 
 
@@ -506,7 +527,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                 //Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
-                Location lastKnownLocation = getLastKnownLocation();
+                Location lastKnownLocation;
+                if (UserInfo.userSelectedLocation){
+                    Location userDestination = new Location(LocationManager.GPS_PROVIDER);
+                    userDestination.setLatitude(UserInfo.userSelectedLatLng.latitude);
+                    userDestination.setLongitude(UserInfo.userSelectedLatLng.longitude);
+                    lastKnownLocation = userDestination;
+
+                } else {
+                    lastKnownLocation = getLastKnownLocation();
+                }
+
+
                 mMap.setMyLocationEnabled(true);
 
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {

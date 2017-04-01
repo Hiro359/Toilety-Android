@@ -34,6 +34,10 @@
     <!--Maps Activity -->
     <string name="str_atv_places">Enter Place Here</string>
 
+    <!--Search Location Activity-->
+    <string name="searchLocationAppBarTitle">目的地を検索</string>
+
+
 
     <!--DetailViewActivity-->
     <string name="mainDetailImage">メインイメージ</string>
