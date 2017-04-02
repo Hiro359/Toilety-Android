@@ -12,7 +12,7 @@ public class Review {
     Integer totalLikedCount;
     Integer totalFavoriteCount;
     Integer totalHelpedCount;
-    Double star;
+    String star;
     String tid;
     String time;
     Double timeNumbers;
@@ -34,5 +34,5 @@ public class Review {
 //        this.timeNumbers = timeNumbers;
 //        this.uid = uid;
 //        this.waitingtime = waitingtime;
-   // }
-}
+    }
+

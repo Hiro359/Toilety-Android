@@ -9,7 +9,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
         Boolean available;
         String feedback;
         Integer likedCount;
-        Double star;
+        String star;
         String tid;
         String time;
         Double timeNumbers;
@@ -18,7 +18,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
         Boolean userLiked = false;
 
 
-        public ReviewPost(Boolean available, String feedback, Integer likedCount, Double star, String tid, String time, Double timeNumbers, String uid, String waitingtime) {
+        public ReviewPost(Boolean available, String feedback, Integer likedCount, String star, String tid, String time, Double timeNumbers, String uid, String waitingtime) {
             this.available = available;
             this.feedback = feedback;
             this.likedCount = likedCount;

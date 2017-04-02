@@ -61,14 +61,14 @@
            android:layout_gravity="center_vertical"
            android:id="@+id/markerRatingString"/>
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/defaultCount"
-           android:textColor="@color/colorPrimary"
-           android:textSize="20sp"
-           android:layout_gravity="center_vertical"
-           android:id="@+id/markerRatingCount"/>
+       <!--<TextView-->
+           <!--android:layout_width="wrap_content"-->
+           <!--android:layout_height="wrap_content"-->
+           <!--android:text="@string/defaultCount"-->
+           <!--android:textColor="@color/colorPrimary"-->
+           <!--android:textSize="20sp"-->
+           <!--android:layout_gravity="center_vertical"-->
+           <!--android:id="@+id/markerRatingCount"/>-->
 
 
 

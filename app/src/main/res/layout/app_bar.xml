@@ -7,7 +7,6 @@
     android:minHeight="?attr/actionBarSize"
     android:background="@color/colorForBackground"
     android:id="@+id/app_bar"
-    android:title="app bar"
 
     >
 

@@ -76,6 +76,9 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
 
 
 
+                Log.i("StarValue", String.valueOf(Float.parseFloat(current.star)));
+
+
 //                Uri uri = Uri.parse(current.urlOne);
 //
 //
@@ -97,11 +100,12 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
 
 
                 ///
+
                 holder.reviewUserName.setText(current.userName);
                 holder.reviewLikeCount.setText(String.valueOf(current.totalLikedCount));
                 holder.reviewFavoriteCount.setText(String.valueOf(current.totalFavoriteCount));
                 holder.reviewManCount.setText(String.valueOf(current.totalHelpedCount));
-                holder.reviewStarBar.setRating(current.star.floatValue());
+                holder.reviewStarBar.setRating(Float.parseFloat(current.star));
                 holder.reviewWaitingTime.setText("待ち"+ String.valueOf(current.waitingtime) +"分");
                 Uri uri = Uri.parse(current.userPhoto);
                 final Context context = holder.reviewUserImage.getContext();

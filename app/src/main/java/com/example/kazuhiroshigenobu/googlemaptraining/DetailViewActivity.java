@@ -979,15 +979,18 @@ public class DetailViewActivity extends AppCompatActivity {
 
     private void reviewQuery(String queryKey) {
 
-        final List<Review> reviewList = new ArrayList<>();
-        final Review review = new Review();
 
+        final List<Review> reviewList = new ArrayList<>();
 
         reviewsRef = FirebaseDatabase.getInstance().getReference().child("reviews");
         //Not sure i get the right toilet.key
         reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+
+                final Review review = new Review();
+
 
 
                 Log.i("reviewQueryCalled","Start");
@@ -997,10 +1000,16 @@ public class DetailViewActivity extends AppCompatActivity {
                 review.time = (String) dataSnapshot.child("time").getValue();
                 review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
 
+
                 Long likedCount = (Long) dataSnapshot.child("likedCount").getValue();
                 review.likedCount = likedCount.intValue();
-                Long star = (Long) dataSnapshot.child("star").getValue();
-                review.star = star.doubleValue();
+//                Long star = (Long) dataSnapshot.child("star").getValue();
+//                review.star = star.doubleValue();
+
+
+                review.star = (String) dataSnapshot.child("star").getValue();
+//                review.star = star.doubleValue();
+
 
 
                 Log.i("reviewQueryCalled","Middle");

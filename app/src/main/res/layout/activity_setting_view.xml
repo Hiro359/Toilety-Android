@@ -9,6 +9,14 @@
     android:orientation="vertical"
     tools:context="com.example.kazuhiroshigenobu.googlemaptraining.SettingViewActivity">
 
+
+    <include
+        android:id="@+id/settings_view_app_bar"
+        layout="@layout/settings_view_app_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="60sp"
@@ -17,6 +25,7 @@
         android:background="@color/colorLabel"
         android:textAlignment="center"
         android:id="@+id/buttonChangeUserName"
+        android:layout_margin="5dp"
 
         />
 
@@ -28,6 +37,7 @@
         android:background="@color/colorLabel"
         android:textAlignment="center"
         android:id="@+id/buttonChangeUserPhoto"
+        android:layout_margin="5dp"
 
         />
 
@@ -39,6 +49,7 @@
         android:background="@color/colorLabel"
         android:textAlignment="center"
         android:id="@+id/buttonAboutThisApp"
+        android:layout_margin="5dp"
 
         />
 
@@ -50,6 +61,7 @@
         android:background="@color/colorLabel"
         android:textAlignment="center"
         android:id="@+id/buttonPrivacyInfo"
+        android:layout_margin="5dp"
 
         />
 
@@ -61,6 +73,7 @@
         android:background="@color/colorLabel"
         android:textAlignment="center"
         android:id="@+id/buttonShowHelp"
+        android:layout_margin="5dp"
 
         />
 
@@ -72,6 +85,7 @@
         android:background="@color/colorLabel"
         android:textAlignment="center"
         android:id="@+id/buttonLogout"
+        android:layout_margin="5dp"
 
         />
 

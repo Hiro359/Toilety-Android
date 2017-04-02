@@ -283,7 +283,7 @@ public class KansouActivity extends AppCompatActivity {
         long timeStamp = System.currentTimeMillis();
         Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
 
-        double ratingValue = kansouRaitng.getRating();
+        String ratingValue = String.valueOf(kansouRaitng.getRating());
 
         String dateString = getDate(timeStamp);
         //String dateString = toDate(timeStamp);
