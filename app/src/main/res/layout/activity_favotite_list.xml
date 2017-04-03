@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_favotite_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorForBackground"
+
+    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.FavotiteListActivity">
+
+
+
+    <include
+        android:id="@+id/favorite_list_app_bar"
+        layout="@layout/favorite_list_app_bar"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/toiletFavoriteList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="50dp"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

@@ -170,6 +170,9 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
         RatingBar ratingBar;
         TextView distance;
         ImageView image;
+        TextView reviewCount;
+
+
 
 
         public MyViewHolder(View itemView) {
@@ -181,6 +184,7 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
             ratingBar = (RatingBar) itemView.findViewById(R.id.tv_starRateBar);
             distance = (TextView) itemView.findViewById(R.id.distance);
             image = (ImageView) itemView.findViewById(R.id.imageView);
+
 
         }
     }

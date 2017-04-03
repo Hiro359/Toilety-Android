@@ -112,7 +112,41 @@ public class AccountActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        buttonFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!userAlreadyLogin){
+                    loginPlease();
+
+                }else {
+                    Toast.makeText(AccountActivity.this, "FAV", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(v.getContext(), FavotiteListActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+        buttonYouWent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!userAlreadyLogin){
+                    loginPlease();
+
+                }else {
+                    Toast.makeText(AccountActivity.this, "FAV", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(v.getContext(), UserWentActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

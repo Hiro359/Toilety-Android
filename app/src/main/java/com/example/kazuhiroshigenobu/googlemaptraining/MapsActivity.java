@@ -62,6 +62,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -585,6 +586,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     //get last location funtions
 
+    //original toiletSearch ...  ...  ....
+
     public void toiletSearch(Location location){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
 
@@ -612,20 +615,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
 
 
-
             @Override
             public void onKeyEntered(final String key, final GeoLocation location) {
 
-//
+
                 toiletRef.child(key).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-//
+
                         {
 
+                            Log.i("getKey222",String.valueOf(dataSnapshot.getKey()));
+
+                            Log.i("DataSnapshot",String.valueOf(dataSnapshot));
                             Log.i("toiletSearch1212","Called");
 
-//
+
                             Boolean removedToilet = false;
 
                             Toilet toilet =  new Toilet();
@@ -633,6 +638,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
                             LatLng centerLocation = new LatLng(centerLatitude, centerLongitude);
+                            Log.i("centerLocationMAP", String.valueOf(centerLocation));
                             LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
 
                             double distance = CalculationByDistance(centerLocation,toiletLocation);

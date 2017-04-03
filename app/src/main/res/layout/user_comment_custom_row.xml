@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:background="#f4f6f7">
+
+
+    <TextView
+        android:id="@+id/userCommentDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_distance"
+        android:textColor="@color/colorText"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="false"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:layout_width="260dp"
+        android:layout_height="30dp"
+        android:id="@+id/uc_name"
+        android:text="@string/name_available"
+        android:textSize="20sp"
+        android:textColor="#080808"
+        android:layout_toRightOf="@+id/ucImageView"
+        android:layout_toEndOf="@+id/ucImageView"/>
+
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:id="@+id/uc_waitingTime"
+        android:text="@string/avereageWait"
+        android:textSize="18sp"
+        android:textColor="#5c5859"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="true"/>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:layout_alignTop="@+id/tv_name"
+        android:layout_toStartOf="@+id/uc_waitingTime"
+        android:id="@+id/ucImageView"
+        android:layout_toLeftOf="@+id/uc_waitingTime"
+        android:contentDescription="@string/image"/>
+
+    <RatingBar
+        android:theme="@style/RatingBar"
+        android:id="@+id/uc_starRateBar"
+        android:rating="3"
+        android:stepSize="0.5"
+        android:numStars="5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/ucImageView"
+        android:layout_toEndOf="@+id/ucImageView"/>
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        android:id="@+id/uc_starRate"
+        android:text="@string/ratingValue"
+        android:textSize="18sp"
+        android:textColor="#dec107"
+        android:textAlignment="textStart"
+        android:gravity="start"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+       />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorForBackground"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:text="@string/commentTime"
+            android:textColor="@color/colorText"
+            android:layout_gravity="end"
+            android:id="@+id/ucReviewTime"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/thankYouComment"
+            android:textColor="@color/colorText"
+            android:layout_margin="10dp"
+            android:id="@+id/ucCommentText"
+
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+        <RatingBar
+            android:theme="@style/RatingBar"
+            android:id="@+id/uc_starRateBarBefore"
+            android:rating="3"
+            android:stepSize="0.5"
+            android:numStars="5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            android:layout_margin="5dp"
+            />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/commentWaitingTime"
+                android:textColor="@color/colorText"
+                android:layout_gravity="center"
+                android:id="@+id/ucUserWaitedTime"
+
+              />
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

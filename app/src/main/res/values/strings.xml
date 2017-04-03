@@ -37,6 +37,23 @@
     <!--Search Location Activity-->
     <string name="searchLocationAppBarTitle">目的地を検索</string>
 
+    <!--FavoriteListActivity -->
+    <string name="favListTitle">お気に入りリスト</string>
+
+    <!--UserWentActivity-->
+    <string name="userWentTitle">以前利用したトイレ</string>
+
+    <!--CommentListView-->
+    <string name="commentTime">4/3/2017</string>
+    <string name="thankYouComment">トイレが最高でした。ありがとうございます</string>
+    <string name="commentWaitingTime">3分待ちました</string>
+    <string name="distanceString">500m</string>
+    <string name="nameString">名前</string>
+    <string name="avereageWait">平均待ち　３分</string>
+    <string name="ratingValue">3.0</string>
+
+
+
 
 
     <!--DetailViewActivity-->

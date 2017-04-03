@@ -115,6 +115,9 @@ public class DetailViewActivity extends AppCompatActivity {
     private TextView lastEditorHelpCount;
 
 
+    //Experiment April 3 1pm...
+    List<Toilet> universityList = new ArrayList<>();
+    //Experiment April 3 1pm...
 
     Toilet toilet =  new Toilet();
     User user = new User();
@@ -469,6 +472,43 @@ public class DetailViewActivity extends AppCompatActivity {
                 Log.i("OnDataChangeCalled","777");
                 // for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
                 {
+
+                    Log.i("getKey333",String.valueOf(dataSnapshot.getKey()));
+                    Log.i("getValueString333",String.valueOf(dataSnapshot.getValue().toString()));
+
+
+
+
+
+
+
+//                    //Experiment April 3 1pm...
+
+                    Log.i("getChildren333",String.valueOf(dataSnapshot.getChildren()));
+
+                    dataSnapshot.getChildren();
+                    Log.i("getChildren2222333",dataSnapshot.getChildren().toString());
+
+
+                    dataSnapshot.toString();
+
+
+//                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+////                        Toilet university = postSnapshot.getValue(Toilet.class);
+////                        universityList.add(university);
+////
+////                        Log.i("getUniversityList333", String.valueOf(universityList));
+//
+//                        postSnapshot.
+//
+//
+//                    }
+
+
+
+
+                        //Experiment April 3 1pm...
+
 
                     Boolean removedToilet = false;
 
