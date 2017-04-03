@@ -24,13 +24,13 @@ import java.util.List;
 public class UserCommentListAdapter extends RecyclerView.Adapter<UserCommentListAdapter.UserCommentViewHolder> {
 
         private LayoutInflater inflator;
-        List<Toilet> toiletData;
+        List<UserReviewComment> commentData;
         //String [] toiletNames;
 
 
-        public UserCommentListAdapter(List<Toilet> toiletData) {
+    public UserCommentListAdapter(List<UserReviewComment> commentData) {
 
-            this.toiletData = toiletData;
+            this.commentData = commentData;
 
 
         }
@@ -43,7 +43,9 @@ public class UserCommentListAdapter extends RecyclerView.Adapter<UserCommentList
 
             Log.i("MyMyholder12345", "12345");
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_row, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_comment_custom_row, parent, false);
+
+            //I gotta change the layout name
 
             UserCommentViewHolder holder = new UserCommentViewHolder(view);
 
@@ -57,20 +59,18 @@ public class UserCommentListAdapter extends RecyclerView.Adapter<UserCommentList
         public void onBindViewHolder(UserCommentViewHolder holder, int position) {
 
 
-            if (toiletData.isEmpty()) {
+            if (commentData.isEmpty()) {
                 Log.i("current.key", "Its empty");
 
             } else {
-                Log.i("toiletDataContent.get0", String.valueOf(toiletData.get(0)));
+                Log.i("toiletDataContent.get0", String.valueOf(commentData.get(0)));
                 Log.i("current.key", "Its Not empty");
                 Log.i("current.position", String.valueOf(position));
                 Log.i("current.holder", String.valueOf(holder));
 
-
-                final Toilet current = toiletData.get(position);
+                final UserReviewComment current = commentData.get(position);
 
                 Log.i("current.key", String.valueOf(position));
-
 
                 //Uri uri = Uri.parse(current.urlOne);
 
@@ -78,12 +78,18 @@ public class UserCommentListAdapter extends RecyclerView.Adapter<UserCommentList
                 final Context context = holder.image.getContext();
 
                 float starFloatValue = Float.parseFloat(current.averageStar);
+                float starUserRatedRating = Float.parseFloat(current.userRatedStar);
+
 
                 holder.toiletName.setText(current.name);
                 holder.starRate.setText(current.averageStar);
-                holder.waitingTime.setText("待ち時間" + String.valueOf(current.averageWait) + "分");
+                holder.waitingTime.setText("待ち時間" + String.valueOf(current.avWaitingtime) + "分");
                 holder.ratingBar.setRating(starFloatValue);
                 holder.distance.setText(current.distance);
+                holder.userReviewText.setText(current.feedback);
+                holder.userRatedRatingBar.setRating(starUserRatedRating);
+                holder.reviewTimeText.setText(current.time);
+                holder.userWaitedTime.setText(current.userWaitingtime);
 
                 if (current.urlOne.equals("")) {
                     holder.image.setImageResource(R.drawable.app_logo);
@@ -110,15 +116,6 @@ public class UserCommentListAdapter extends RecyclerView.Adapter<UserCommentList
                     }
                 });
 
-//            final String element = toiletData[position];
-
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    onClickSubject.onNext(element);
-//                }
-//            });
 
 
             }
@@ -128,8 +125,8 @@ public class UserCommentListAdapter extends RecyclerView.Adapter<UserCommentList
         @Override
         public int getItemCount() {
 
-            Log.i("toiletData.size()", String.valueOf(toiletData.size()));
-            return toiletData.size();
+            Log.i("toiletData.size()", String.valueOf(commentData.size()));
+            return commentData.size();
 
 
         }

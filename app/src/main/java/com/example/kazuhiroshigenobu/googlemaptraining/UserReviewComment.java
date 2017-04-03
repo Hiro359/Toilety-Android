@@ -13,14 +13,19 @@ public class UserReviewComment {
     String averageStar;
     String address;
     Boolean available;
+    String tid;
+    Integer reviewCount;
+    String userWaitingtime;
 
     String feedback;
     Integer likedCount;
-    String star;
+    String userRatedStar;
     String time;
     Double timeNumbers;
     String uid;
-    String waitingtime;
+    String avWaitingtime;
     Boolean userLiked = false;
+    Double latitude;
+    Double longitude;
 
 }

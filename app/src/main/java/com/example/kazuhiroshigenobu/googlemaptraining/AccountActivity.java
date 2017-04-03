@@ -144,6 +144,21 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
+        buttonYouAddd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!userAlreadyLogin){
+                    loginPlease();
+
+                }else {
+                    Toast.makeText(AccountActivity.this, "FAV", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(v.getContext(), CommentListView.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
 
     }
 
