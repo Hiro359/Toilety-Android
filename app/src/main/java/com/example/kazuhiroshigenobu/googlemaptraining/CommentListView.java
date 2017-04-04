@@ -42,8 +42,6 @@ public class CommentListView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_list_view);
 
-
-
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
         reviewRef = FirebaseDatabase.getInstance().getReference().child("reviews");
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -88,7 +86,7 @@ public class CommentListView extends AppCompatActivity {
                 userReviewComment.uid = (String) dataSnapshot.child("uid").getValue();
                 userReviewComment.feedback = (String) dataSnapshot.child("feedback").getValue();
                 userReviewComment.time = (String) dataSnapshot.child("time").getValue();
-                userReviewComment.userWaitingtime = (String) dataSnapshot.child("waitingtime").getValue();
+                userReviewComment.userWaitingtime = (String) dataSnapshot.child("waitingtime").getValue() + "分待ちました";
 
                 userReviewComment.userRatedStar = (String) dataSnapshot.child("star").getValue();
 
