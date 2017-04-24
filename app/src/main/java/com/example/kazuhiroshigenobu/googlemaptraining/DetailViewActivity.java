@@ -1022,7 +1022,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
         final List<Review> reviewList = new ArrayList<>();
 
-        reviewsRef = FirebaseDatabase.getInstance().getReference().child("reviews");
+        reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
         //Not sure i get the right toilet.key
         reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener() {
             @Override
@@ -1056,7 +1056,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
                 //this may cause an error, it might be needed to be long
 
-                userRef = FirebaseDatabase.getInstance().getReference().child("users");
+                userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
                 userRef.child(review.uid).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -1134,7 +1134,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
     private void firstPosterGetInfo(String firstPosterID){
 
-        userRef = FirebaseDatabase.getInstance().getReference().child("users");
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         userRef.child(firstPosterID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -1164,7 +1164,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
     private void lastEditerGetInfo(String lastEditerID){
 
-        userRef = FirebaseDatabase.getInstance().getReference().child("users");
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         userRef.child(lastEditerID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -1287,7 +1287,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
         String userID = firebaseAuth.getCurrentUser().getUid();
-        userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         userRef.child("favourite").setValue(toilet.tid);
 
 

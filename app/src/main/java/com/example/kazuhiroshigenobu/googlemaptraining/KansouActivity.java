@@ -263,7 +263,9 @@ public class KansouActivity extends AppCompatActivity {
         childUpdates.put("reviewCount",newReviewCount);
         childUpdates.put("averageStar",newAvStarString);
         childUpdates.put("averageWait",newWaitingTime);
-        childUpdates.put("editedBy",uid);
+        //childUpdates.put("editedBy",uid);
+
+        //We dont need to updata editedBy uid....
 
 
         updateToiletRef.updateChildren(childUpdates);
@@ -290,7 +292,7 @@ public class KansouActivity extends AppCompatActivity {
         Log.i("This is the dateString",dateString);
 
 
-        reviewsRef = FirebaseDatabase.getInstance().getReference().child("reviews");
+        reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
         reviewsRef.push().setValue(new ReviewPost(
                 availableSwitch.isChecked(),
                 String.valueOf(kansouText.getText()),

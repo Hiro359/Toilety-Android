@@ -234,7 +234,7 @@ public class AccountActivity extends AppCompatActivity {
 
     }
     private void getUserInfo(String userID){
-        userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         //addValueEventListener(new ValueEventListener() {
 
         userRef.addValueEventListener(new ValueEventListener() {

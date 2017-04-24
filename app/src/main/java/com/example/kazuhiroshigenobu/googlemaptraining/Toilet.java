@@ -10,6 +10,7 @@ public class Toilet {
 
 
 
+
     String key;
     String type;
     String name;
@@ -23,6 +24,8 @@ public class Toilet {
     String addedBy;
     String editedBy;
     String averageStar;
+
+
     String address;
 
     Boolean available = true;

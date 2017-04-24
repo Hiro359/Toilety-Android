@@ -432,12 +432,7 @@
         <item> 28</item>
         <item> 29</item>
         <item> 30</item>
-        <item> 31</item>
-        <item> 32</item>
-        <item> 33</item>
-        <item> 34</item>
-        <item> 35</item>
-        <item> 36</item>
+
 
 
     </string-array>
@@ -478,6 +473,7 @@
         <item> 商業施設</item>
         <item> 観光地・スタジアム</item>
         <item> 仮設トイレ</item>
+        <item>一般家庭(断水時のみ)</item>
     </string-array>
 
     <string-array name="star_numbers">

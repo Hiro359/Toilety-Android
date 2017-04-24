@@ -43,7 +43,7 @@ public class CommentListView extends AppCompatActivity {
         setContentView(R.layout.activity_comment_list_view);
 
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
-        reviewRef = FirebaseDatabase.getInstance().getReference().child("reviews");
+        reviewRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         reviewListRef = FirebaseDatabase.getInstance().getReference().child("ReviewList").child(uid);
 

@@ -1,11 +1,17 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -57,6 +63,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -479,11 +487,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
 
 
-
                         Float fixedAlpha =  marker.getAlpha();
                         Double doubleAlpha = fixedAlpha.doubleValue() - 0.5;
                         Double alpha = doubleAlpha * 10;
                         Log.i("alpha000",String.valueOf(alpha));
+
+//                        Float fixedAlpha =  marker.getAlpha();
+//                        Double doubleAlpha = fixedAlpha.doubleValue() - 0.5;
+//                        Double alpha = doubleAlpha * 10;
+//                        Log.i("alpha000",String.valueOf(alpha));
 
                         double roundedAlpha = round(alpha, 1);
 
@@ -1098,6 +1110,61 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //
 //                                );
 
+                               // Bitmap icon;
+//                                Bitmap pinImage = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+//                                        R.drawable.pin_one_icon_drawable);
+//                                Bitmap pinImage = BitmapFactory.decodeResource(getApplicationContext(),
+//                                        R.drawable.pin_three_icon_drawable);
+//                                Bitmap pinImage = BitmapDescriptorFactory.fromResource(R.drawable.pin_one_icon_drawable);
+//
+//                                Bitmap pinImage =
+
+                                Double avStar = Double.parseDouble(toilet.averageStar);
+                                Drawable dImage;
+
+                                if (avStar < 2){
+                                    dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_one_pin_drawable);
+
+                                    //icon = BitmapDescriptorFactory.fromResource(R.drawable.pin_one_icon_drawable);
+
+                                } else if (avStar < 3){
+                                    dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_two_pin_drawable);
+
+
+                                } else if (avStar < 4){
+                                    dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_three_pin_drawable);
+
+
+                                }else if (avStar < 5){
+                                    dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_four_pin_drawable);
+
+
+
+                                } else {
+                                    dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_five_pin_drawable);
+
+
+
+                                }
+
+
+
+                                //Drawable circleDrawable = getResources().getDrawable(R.drawable.pin_three_icon_drawable, null);
+                                //dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_one_pin_drawable);
+                                //circleDrawable.setBounds(20,20,20,20);
+
+                                //Drawable circleDrawable = getResources().getDrawable(R.drawable.circle_shape);
+
+                                BitmapDescriptor markerIcon = getMarkerIconFromDrawable(dImage);
+
+
+
+
+                                // Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(, 50, 50, true));
+
+
+                                // BitmapDescriptor pinImage = BitmapDescriptorFactory.fromResource(R.drawable.pin_one_icon_drawable);
+
 
 
 //
@@ -1108,15 +1175,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 mMap.addMarker(new MarkerOptions().position(toiletLocation)
                                         .title(toilet.name)
                                         .snippet(toilet.key)
-                                        .rotation(averageWaitFloat)
                                         .alpha(fixedStar)
+                                        .rotation(averageWaitFloat)
                                         .zIndex(distanceFloat)
                                         .flat(toilet.available)
+                                        .icon(markerIcon)
 
-                                        //rotation averageWaitFloat
-                                        //alpha averageStarFloat
+                                        //.alpha(fixedStar)
+
 
                                 );
+
+
 
 
 
@@ -1167,6 +1237,59 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
   );
 }
 
+//    private BitmapDescriptor getBitmapDescriptor(int id) {
+//        Drawable vectorDrawable = getApplicationContext().getDrawable(id);
+////         int h = ((int) )
+//        int h = ((int) Utils.convertDpToPixel(42, context));
+//        int w = ((int) Utils.convertDpToPixel(25, context));
+//        vectorDrawable.setBounds(0, 0, w, h);
+//        Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+//        Canvas canvas = new Canvas(bm);
+//        vectorDrawable.draw(canvas);
+//        return BitmapDescriptorFactory.fromBitmap(bm);
+//    }
+//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+//    private static Bitmap getBitmap(VectorDrawable vectorDrawable) {
+//        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+//                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+//        Canvas canvas = new Canvas(bitmap);
+//        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+//        vectorDrawable.draw(canvas);
+//        return bitmap;
+//    }
+
+//    public Bitmap resizeMapIcons(String iconName,int width, int height){
+//        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
+//        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+//        return resizedBitmap;
+//    }
+
+    private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
+        Canvas canvas = new Canvas();
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        canvas.setBitmap(bitmap);
+       // drawable.setBounds(0, 0, 20, 20);
+
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+//    private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
+//        Canvas canvas = new Canvas();
+//        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+//        Bitmap resizedBitmap = Bitmap.createScaledBitmap(
+//                bitmap, 20, 20, false);
+//        canvas.setBitmap(resizedBitmap);
+//
+//        // drawable.setBounds(0, 0, 20, 20);
+//
+//        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+//        drawable.draw(canvas);
+//
+//        return BitmapDescriptorFactory.fromBitmap(resizedBitmap);
+//    }
 
 
     public static double round(double value, int places) {
