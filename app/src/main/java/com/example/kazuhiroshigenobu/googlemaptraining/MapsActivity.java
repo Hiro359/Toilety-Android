@@ -487,23 +487,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
 
 
-                        Float fixedAlpha =  marker.getAlpha();
-                        Double doubleAlpha = fixedAlpha.doubleValue() - 0.5;
-                        Double alpha = doubleAlpha * 10;
-                        Log.i("alpha000",String.valueOf(alpha));
+//                        Float fixedAlpha =  marker.getTag().;
+////                        Float fixedAlpha =  marker.getAlpha();
+//                        Double doubleAlpha = fixedAlpha.doubleValue() - 0.5;
+//                        Double alpha = doubleAlpha * 10;
+//                        Log.i("alpha000",String.valueOf(alpha));
 
 //                        Float fixedAlpha =  marker.getAlpha();
 //                        Double doubleAlpha = fixedAlpha.doubleValue() - 0.5;
 //                        Double alpha = doubleAlpha * 10;
 //                        Log.i("alpha000",String.valueOf(alpha));
 
-                        double roundedAlpha = round(alpha, 1);
+                       // double roundedAlpha = round(alpha, 1);
+
+                        String avStar = marker.getTag().toString();
+
 
 
                         marketName.setText(marker.getTitle());
                         markerDetail.setText("平均"+ String.valueOf(marker.getRotation()) +"分待ち/" + distanceSting);
                         markerRatingBar.setRating(marker.getRotation());
-                        marketRatingString.setText(String.valueOf(roundedAlpha));
+                        marketRatingString.setText(avStar);
 
 
                         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -1081,16 +1085,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-
-                                //mMap.addMarker(new)
-                                Double fixedA = Double.parseDouble(toilet.averageStar) / 10;
-
-                                Log.i("fixedA111",String.valueOf(fixedA));
-
-                                Double fixedB = fixedA + 0.5;
-
-                                Log.i("fixedB111",String.valueOf(fixedB));
-                                float fixedStar = fixedB.floatValue();
+//
+//
+//                                //mMap.addMarker(new)
+//                                Double fixedA = Double.parseDouble(toilet.averageStar) / 10;
+//
+//                                Log.i("fixedA111",String.valueOf(fixedA));
+//
+//                                Double fixedB = fixedA + 0.5;
+//
+//                                Log.i("fixedB111",String.valueOf(fixedB));
+//                                float fixedStar = fixedB.floatValue();
 
 
                                 //float fixedStar = Float.parseFloat(toilet.averageStar);
@@ -1169,23 +1174,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 //
 //
-
-                                //Looking for an error....April 2
-
-                                mMap.addMarker(new MarkerOptions().position(toiletLocation)
+                                Marker marker= mMap.addMarker(new MarkerOptions().position(toiletLocation)
                                         .title(toilet.name)
                                         .snippet(toilet.key)
-                                        .alpha(fixedStar)
                                         .rotation(averageWaitFloat)
                                         .zIndex(distanceFloat)
                                         .flat(toilet.available)
                                         .icon(markerIcon)
 
-                                        //.alpha(fixedStar)
-
-
                                 );
 
+                                marker.setTag(toilet.averageStar);
 
 
 
