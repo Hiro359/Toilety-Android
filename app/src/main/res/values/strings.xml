@@ -33,9 +33,14 @@
 
     <!--Maps Activity -->
     <string name="str_atv_places">Enter Place Here</string>
+    <string name="backToOriginalPlace">現在地に戻る</string>
 
     <!--Search Location Activity-->
     <string name="searchLocationAppBarTitle">目的地を検索</string>
+    <string name="enterPlaceHere">目的地を入力してください</string>
+
+    <string name="searchStart">検索</string>
+
 
     <!--FavoriteListActivity -->
     <string name="favListTitle">お気に入りリスト</string>

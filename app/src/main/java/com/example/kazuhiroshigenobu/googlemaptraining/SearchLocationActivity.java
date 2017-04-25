@@ -15,11 +15,13 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -39,6 +41,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.vision.barcode.Barcode;
 
 public class SearchLocationActivity extends AppCompatActivity {
+    //changed AppCompatActivity to Activity
 
     AutoCompleteTextView atvPlaces;
     PlacesTask placesTask;
@@ -46,6 +49,8 @@ public class SearchLocationActivity extends AppCompatActivity {
     Button buttonSearchLocationFromAddress;
     Toolbar toolbar;
     TextView toolbarTitle;
+
+    Boolean addressStringSetted = false;
 
 
 
@@ -81,16 +86,23 @@ public class SearchLocationActivity extends AppCompatActivity {
         buttonSearchLocationFromAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Address",String.valueOf(atvPlaces.getText()));
-                LatLng getLatLng = getLocationFromAddress(getApplicationContext(),String.valueOf(atvPlaces.getText()));
-                startSearchUsingNewLatLng(getLatLng);
+
+                Log.i("Is this the add 765 AA","");
+                Log.i("Is this the add 765??",String.valueOf(atvPlaces.getText()));
+
+
+
+                if (addressStringSetted) {
+
+                    Log.i("Address 765 in seton", String.valueOf(atvPlaces.getText()));
+
+                    LatLng getLatLng = getLocationFromAddress(getApplicationContext(), String.valueOf(atvPlaces.getText()));
+                    startSearchUsingNewLatLng(getLatLng);
+                }
 
 
             }
         });
-
-
-
 
         atvPlaces.setThreshold(1);
 
@@ -189,7 +201,7 @@ public class SearchLocationActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... place) {
 
-            Log.i("doInBackGroundCalled", "099");
+            Log.i("doInBackGroundCalled", "765");
             // For storing data from web service
             String data = "";
 
@@ -245,6 +257,7 @@ public class SearchLocationActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
+            Log.i("onPostExecuteCalled", "765");
             // Creating ParserTask
             parserTask = new ParserTask();
 
@@ -269,7 +282,7 @@ public class SearchLocationActivity extends AppCompatActivity {
 
             try {
 
-                Log.i("JSONGET090", "HEY COMMEN ON");
+                Log.i("doInBackground J ob", "765");
                 jObject = new JSONObject(jsonData[0]);
                 Log.i("JSONGET090", String.valueOf(jObject));
 //                Log.i("THis is the jason1",String.valueOf(jsonData[1]));
@@ -281,14 +294,36 @@ public class SearchLocationActivity extends AppCompatActivity {
 //                Log.i("THis is the jason1",String.valueOf(jsonData[7]));
 //
 
+
+
                 // Getting the parsed data as a List construct
                 places = placeJsonParser.parse(jObject);
-                Log.i("JSONGET090", String.valueOf(places));
+
+
+                Log.i("JSONGET 765", String.valueOf(places));
+
+                if (places.isEmpty()){
+                    Log.i("Places Empty", "765");
+
+                    addressStringSetted = false;
+
+                } else {
+
+                    Log.i("Places Not Empty", "765");
+                    addressStringSetted = true;
+                }
+
+
+
+
+
+
 
 
             } catch (Exception e) {
                 Log.d("Exception", e.toString());
             }
+
             return places;
         }
 
@@ -321,10 +356,14 @@ public class SearchLocationActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
 
-            Log.i("Address",String.valueOf(atvPlaces.getText()));
-            LatLng getLatLng = getLocationFromAddress(getApplicationContext(),String.valueOf(atvPlaces.getText()));
+            String addressText = String.valueOf(atvPlaces.getText());
+            Log.i("addressText111",addressText);
 
-            startSearchUsingNewLatLng(getLatLng);
+                Log.i("Address", String.valueOf(atvPlaces.getText()));
+                LatLng getLatLng = getLocationFromAddress(getApplicationContext(), String.valueOf(atvPlaces.getText()));
+
+                startSearchUsingNewLatLng(getLatLng);
+
 
             return  true;
 
@@ -338,6 +377,7 @@ public class SearchLocationActivity extends AppCompatActivity {
     private void startSearchUsingNewLatLng(LatLng newLatLng) {
 
         if (newLatLng != null) {
+            Log.i(" newLatLng 765","");
             //get the correct latlng
             //start avtivity with the latlng
             Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
@@ -348,8 +388,17 @@ public class SearchLocationActivity extends AppCompatActivity {
             finish();
         } else {
 
+            Log.i(" newLatLng 765 what?","");
+
             Toast.makeText(this, "What the fuck??", Toast.LENGTH_SHORT).show();
+            atvPlaces.setError("目的地が入力されていません");
+
+
+            //display something for letting the user know its not the right address...
+
+           // showSearchAgain();
             //dont
+
 
             //Write something on Display
 
@@ -365,25 +414,32 @@ public class SearchLocationActivity extends AppCompatActivity {
         List<Address> address;
         LatLng p1 = null;
 
-        try {
-            // May throw an IOException
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return null;
+        Log.i(" strAddress 765",strAddress);
+        //crash before..
+        //It didnt give me anything..
+
+            try {
+                // May throw an IOException
+                address = coder.getFromLocationName(strAddress, 5);
+                if (address == null) {
+                    return null;
+                }
+                Address location = address.get(0);
+                location.getLatitude();
+                location.getLongitude();
+
+                p1 = new LatLng(location.getLatitude(), location.getLongitude());
+                Log.i("THIS P1ONE", String.valueOf(p1));
+
+
+            } catch (IOException ex) {
+
+                Log.i("THIS ERROR765", "GIVE ME");
+                ex.printStackTrace();
             }
-            Address location = address.get(0);
-            location.getLatitude();
-            location.getLongitude();
-
-            p1 = new LatLng(location.getLatitude(), location.getLongitude());
-            Log.i("THIS P1ONE", String.valueOf(p1));
 
 
-        } catch (IOException ex) {
 
-            Log.i("THIS ERROR", "GIVE ME");
-            ex.printStackTrace();
-        }
 
         return p1;
     }

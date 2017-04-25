@@ -25,8 +25,12 @@
    <Button
        android:layout_width="match_parent"
        android:layout_height="50sp"
-       android:layout_marginTop="70dp"
+       android:layout_marginTop="55dp"
        android:id="@+id/buttonForOriginalLocation"
+       android:background="@color/colorPrimary"
+       android:text="@string/backToOriginalPlace"
+       android:textColor="@color/colorWhiteText"
+       android:textSize="20sp"
 
        />
 

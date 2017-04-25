@@ -23,8 +23,9 @@
     android:background="@color/colorPrimary"
     android:layout_margin="20dp"
     android:layout_marginTop="30dp"
-    android:hint="@string/str_atv_places"
+    android:hint="@string/enterPlaceHere"
     android:imeOptions="actionDone"
+    android:textColor="@color/colorWhiteText"
         />
 
 
@@ -32,11 +33,15 @@
 
     <Button
         android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:id="@+id/buttonSearchLatLngFromAddress"
         android:background="@color/colorPrimary"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        android:text="@string/searchStart"
+        android:textColor="@color/colorWhiteText"
+        android:textSize="20sp"
+
         />
 
 
