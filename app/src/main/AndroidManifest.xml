@@ -22,11 +22,10 @@
         android:icon="@drawable/app_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
 
+        <!-- //android:theme="@style/AppTheme" -->
 
-        <!--//android:theme="@style/AppTheme"-->
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -172,6 +171,8 @@
         <activity android:name=".UserWentActivity">
         </activity>
         <activity android:name=".CommentListView">
+        </activity>
+        <activity android:name=".ReviewToiletViewActivity">
         </activity>
     </application>
 

@@ -83,6 +83,7 @@ public class DetailViewActivity extends AppCompatActivity {
     Button buttonEdit;
     Button buttonFavorite;
     Button buttonGetDirection;
+    Button buttonGoToReviewList;
     //DrawerLayout drawer;
 
     private ListView mDrawerList;
@@ -137,13 +138,6 @@ public class DetailViewActivity extends AppCompatActivity {
         toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbarTitle3);
 
 
-
-
-
-//        setSupportActionBar(toolbar);
-
-
-        //Add in xml
 
 
         addDrawerItems();
@@ -321,6 +315,8 @@ public class DetailViewActivity extends AppCompatActivity {
         buttonFavorite = (Button) findViewById(R.id.detailFavoriteButton);
         buttonGetDirection = (Button) findViewById(R.id.buttonGoToThisPlace);
 
+        buttonGoToReviewList = (Button) findViewById(R.id.buttonGoToReviewList);
+
         buttonGetDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -389,6 +385,17 @@ public class DetailViewActivity extends AppCompatActivity {
                 }
 
 
+
+            }
+        });
+
+        buttonGoToReviewList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ReviewToiletViewActivity.class);
+                intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+                startActivity(intent);
+                finish();
 
             }
         });
@@ -1289,16 +1296,6 @@ public class DetailViewActivity extends AppCompatActivity {
         String userID = firebaseAuth.getCurrentUser().getUid();
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         userRef.child("favourite").setValue(toilet.tid);
-
-
-
-
-
-        //Like list
-
-
-
-
 
 
 

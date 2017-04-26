@@ -1166,7 +1166,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     }
 
 
-    
+
 
 
     public void onMapReadyCalled(GoogleMap googleMap) {

@@ -62,10 +62,6 @@
     <string name="addPinHere">地図上をタップしてください</string>
 
 
-
-
-
-
     <!--DetailViewActivity-->
     <string name="mainDetailImage">メインイメージ</string>
     <string name="detailName">名前</string>
@@ -235,7 +231,6 @@
     <string name="kansouPosting">感想を投稿</string>
     <string name="changePinLocation">施設の位置を変更</string>
     <string name="addNewToilet">施設を追加</string>
-
 
 
     <!--Related to Account Activity-->
@@ -444,7 +439,6 @@
         <item> 28</item>
         <item> 29</item>
         <item> 30</item>
-
 
 
     </string-array>
