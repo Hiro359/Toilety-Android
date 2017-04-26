@@ -1,6 +1,7 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,13 +15,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -57,6 +63,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+
+import static android.R.attr.targetSdkVersion;
 
 public class AddToiletDetailActivity extends AppCompatActivity {
 
@@ -148,7 +156,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
 
-    Switch toilet;
+   // Switch toilet;
 
 
 
@@ -223,6 +231,10 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     DatabaseReference toiletRef = FirebaseDatabase.getInstance().getReference("Toilets");
 
+    Toolbar toolbar;
+    TextView toolbarTitle;
+
+
 
 
 //    AddLocations addLocations;
@@ -275,6 +287,28 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
         //firebaseAuth.getCurrentUser();
 
+        toolbar = (Toolbar) findViewById(R.id.app_bar_add_toilet);
+        toolbarTitle = (TextView) toolbar.findViewById(R.id.addToiletTitleText);
+        setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(
+                new View.OnClickListener(){
+
+
+                    @Override
+                    public void onClick(View v) {
+                        backToAccountActivity();
+                    }
+                }
+        );
+
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        }
+
         sppinnerReady();
         textReady();
         switchReady();
@@ -295,6 +329,38 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
     }
+
+    private void backToAccountActivity(){
+
+        Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        getMenuInflater().inflate(R.menu.edit_pin_location_activity_bar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+
+        if (id == R.id.buttonChangePin){
+            backToAccountActivity();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
     private void sppinnerReady(){
@@ -586,18 +652,42 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 //         ImageView subImage1 = (ImageView) findViewById(R.id.picture2);
 //         ImageView subImage2 = (ImageView) findViewById(R.id.picture3);
 
+
          addPhoto.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
 
+                 checkPermissionAndAddPhoto();
 
-                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
-                 } else {
-
-                     imageSetPlaceChoose();
-
-                 }
+//                 if (Build.VERSION.SDK_INT < 23) {
+//
+//                     int permission = PermissionChecker.checkSelfPermission(getApplicationContext(), permission);
+//
+//                     if (permission != PermissionChecker.PERMISSION_GRANTED){
+//                         //permission is not granted, so request a permission
+//
+//
+//
+//                     } else {
+//                         //permission is granted, so do add photo
+//
+//
+//
+//                     }
+//
+//
+//
+//
+//
+//                 } else if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+//
+//
+//                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
+//                 } else {
+//
+//                     imageSetPlaceChoose();
+//
+//                 }
              }
          });
 
@@ -616,6 +706,31 @@ public class AddToiletDetailActivity extends AppCompatActivity {
          });
 
      }
+
+
+
+    public void checkPermissionAndAddPhoto() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                //request permission...
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
+
+            } else {
+                //Have a permission
+                imageSetPlaceChoose();
+            }
+        } else {
+            //Build.VERSION.SDK_INT < Build.VERSION_CODES.M(23)
+
+           imageSetPlaceChoose();
+
+        }
+
+    }
+
+
 
 
     private void imageSetPlaceChoose(){
@@ -887,9 +1002,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     Log.i("please", "...");
        geolocationUpdate(firekey);
 
-       Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
-       startActivity(intent);
-       finish();
+       backToAccountActivity();
 
     }
 

@@ -93,6 +93,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button buttonSearch;
     private Button buttonForOriginalLocation;
 
+    private Integer recycleViewHeight = 900;
+
 
 
 
@@ -210,6 +212,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         buttonSetClick();
 
 
+
     }
 
     private void buttonSetClick(){
@@ -252,7 +255,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 if (recyclertView != null)
                 {
-                    recyclertView.setVisibility(View.VISIBLE);
+
+                    Log.i("recgetHeight()", String.valueOf(recyclertView.getHeight()));
+
+
+                    //recyclertView.setVisibility(View.VISIBLE);
+                    ResizeAnimation resizeAnimation = new ResizeAnimation(
+                            recyclertView,
+                            recycleViewHeight,
+                            recyclertView.getHeight()
+                    );
+
+                    resizeAnimation.setDuration(400);
+                    recyclertView.startAnimation(resizeAnimation);
+
+
+                    //recyclertView.setVisibility(View.VISIBLE);
+                    //Write something in order to scorll down the view...
+
+                    //April 25
+
+//                    recyclertView.scrollTo(5,10);
                 } else{
                     Toast.makeText(MapsActivity.this, "We DiD not find toilets sorry man!", Toast.LENGTH_SHORT).show();
                 }
@@ -325,7 +348,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         recyclertView.setAdapter(adapter);
         Log.i("createReclerView()Ended", "");
 
+        if (recyclertView != null) {
+            if (toiletData.size() < 2) {
+                recycleViewHeight = 300;
+            } else if (toiletData.size() < 3) {
 
+                recycleViewHeight = 600;
+            } else {
+
+                recycleViewHeight = 900;
+            }
+
+        }
 
     }
 
@@ -409,7 +443,32 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         Toast.makeText(MapsActivity.this, "Map was touched", Toast.LENGTH_SHORT).show();
                         if (recyclertView != null){
-                            recyclertView.setVisibility(View.INVISIBLE);
+                            //recyclertView.scrollTo(0,recyclertView.getBottom());
+
+                            //recyclertView.layout(0,0,0,0);
+
+                            //recyclertView.layout
+                            //April 25 for scrolling down
+
+                            Log.i("recgetHeight()", String.valueOf(recyclertView.getHeight()));
+
+
+                            ResizeAnimation resizeAnimation = new ResizeAnimation(
+                                    recyclertView,
+                                    -recyclertView.getHeight(),
+                                    recyclertView.getHeight()
+                            );
+
+                            //resizeAnimation.setDuration(10000000);
+                            //resizeAnimation.scaleCurrentDuration(100);
+                            //resizeAnimation.setDuration();
+
+                            resizeAnimation.setDuration(400);
+                            recyclertView.startAnimation(resizeAnimation);
+
+
+
+                            //recyclertView.setVisibility(View.GONE);
                             buttonMapCenter.setVisibility(View.VISIBLE);
                             buttonShowListview.setVisibility(View.VISIBLE);
 
@@ -1035,10 +1094,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             }
 
 
-
-
-
-
                             if (Filter.typeFilterOn  && toilet.type != Filter.typeFilter) {
                                 removedToilet = true;
                             }
@@ -1049,46 +1104,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 toiletData.add(toilet);
 
 
-
-
-//
-//
-//                                //mMap.addMarker(new)
-//                                Double fixedA = Double.parseDouble(toilet.averageStar) / 10;
-//
-//                                Log.i("fixedA111",String.valueOf(fixedA));
-//
-//                                Double fixedB = fixedA + 0.5;
-//
-//                                Log.i("fixedB111",String.valueOf(fixedB));
-//                                float fixedStar = fixedB.floatValue();
-
-
-                                //float fixedStar = Float.parseFloat(toilet.averageStar);
-
                                 float distanceFloat = Float.parseFloat(toilet.distanceNumberString);
                                 float averageWaitFloat = toilet.averageWait;
 
 
-//
-//                                LatLng sydney = new LatLng(-33.852, 151.211);
-//
-//                                mMap.addMarker(new MarkerOptions().position(sydney) .title(toilet.name)
-//                                        .snippet(toilet.key)
-//                                        .rotation(averageStarFloat)
-//                                        .zIndex(distanceFloat)
-//                                        .flat(toilet.available)
-//
-//                                );
-
-                               // Bitmap icon;
-//                                Bitmap pinImage = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-//                                        R.drawable.pin_one_icon_drawable);
-//                                Bitmap pinImage = BitmapFactory.decodeResource(getApplicationContext(),
-//                                        R.drawable.pin_three_icon_drawable);
-//                                Bitmap pinImage = BitmapDescriptorFactory.fromResource(R.drawable.pin_one_icon_drawable);
-//
-//                                Bitmap pinImage =
 
                                 Double avStar = Double.parseDouble(toilet.averageStar);
                                 Drawable dImage;
@@ -1119,27 +1138,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 }
 
 
-
-                                //Drawable circleDrawable = getResources().getDrawable(R.drawable.pin_three_icon_drawable, null);
-                                //dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_one_pin_drawable);
-                                //circleDrawable.setBounds(20,20,20,20);
-
-                                //Drawable circleDrawable = getResources().getDrawable(R.drawable.circle_shape);
-
                                 BitmapDescriptor markerIcon = getMarkerIconFromDrawable(dImage);
 
 
-
-
-                                // Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(, 50, 50, true));
-
-
-                                // BitmapDescriptor pinImage = BitmapDescriptorFactory.fromResource(R.drawable.pin_one_icon_drawable);
-
-
-
-//
-//
                                 Marker marker= mMap.addMarker(new MarkerOptions().position(toiletLocation)
                                         .title(toilet.name)
                                         .snippet(toilet.key)
@@ -1151,11 +1152,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 );
 
                                 marker.setTag(toilet.averageStar);
-
-
-
-
-                                //System.out.println(toilets);
 
                                 createRecyclerView(toiletData);
                                 Log.i("ToiletSearch1212", "Ended");
@@ -1202,32 +1198,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
   );
 }
 
-//    private BitmapDescriptor getBitmapDescriptor(int id) {
-//        Drawable vectorDrawable = getApplicationContext().getDrawable(id);
-////         int h = ((int) )
-//        int h = ((int) Utils.convertDpToPixel(42, context));
-//        int w = ((int) Utils.convertDpToPixel(25, context));
-//        vectorDrawable.setBounds(0, 0, w, h);
-//        Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-//        Canvas canvas = new Canvas(bm);
-//        vectorDrawable.draw(canvas);
-//        return BitmapDescriptorFactory.fromBitmap(bm);
-//    }
-//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-//    private static Bitmap getBitmap(VectorDrawable vectorDrawable) {
-//        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
-//                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-//        Canvas canvas = new Canvas(bitmap);
-//        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-//        vectorDrawable.draw(canvas);
-//        return bitmap;
-//    }
-
-//    public Bitmap resizeMapIcons(String iconName,int width, int height){
-//        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
-//        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
-//        return resizedBitmap;
-//    }
 
     private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
         Canvas canvas = new Canvas();
@@ -1241,20 +1211,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
-//    private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
-//        Canvas canvas = new Canvas();
-//        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-//        Bitmap resizedBitmap = Bitmap.createScaledBitmap(
-//                bitmap, 20, 20, false);
-//        canvas.setBitmap(resizedBitmap);
-//
-//        // drawable.setBounds(0, 0, 20, 20);
-//
-//        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-//        drawable.draw(canvas);
-//
-//        return BitmapDescriptorFactory.fromBitmap(resizedBitmap);
-//    }
 
 
     public static double round(double value, int places) {

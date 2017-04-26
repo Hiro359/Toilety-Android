@@ -314,12 +314,6 @@ public class SearchLocationActivity extends AppCompatActivity {
                 }
 
 
-
-
-
-
-
-
             } catch (Exception e) {
                 Log.d("Exception", e.toString());
             }

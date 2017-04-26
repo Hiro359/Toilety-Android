@@ -19,11 +19,14 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -48,7 +51,7 @@ import org.json.JSONObject;
 
 //Trying to remove strict network but other pople say its not the right way to do that 4th March
 
-public class AddToiletActivity extends FragmentActivity implements OnMapReadyCallback {
+public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCallback {
 
 
     private GoogleMap mMap;
@@ -56,29 +59,15 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
 
     LocationListener locationListener;
 
-//    private Filter filter = new Filter();
-//    private AddLocations addLocations = new AddLocations();
-//
-//    private ToiletListAdapter adapter;
-//
-//
-//    private RecyclerView recyclertView;
-//    private RecyclerView.LayoutManager layoutManager;
-//    private LayoutInflater inflater;
-//    private ViewGroup container;
-//    private LinearLayoutManager mLinearLayoutManager;
-//
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-//    private Toolbar toolbar;
-//    private ActionMenuView amvMenu;
-
     private Button buttonLocationSend;
-//    private LayoutInflater layoutInflater;
-
+    private Toolbar toolbar;
+    private TextView toolbarTitle;
     private RequestQueue requestQueue;
 
     private Boolean markerSetted = false;
+    private ProgressDialog pDialog;
 
 
 
@@ -106,30 +95,41 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
                 }
 
             }
-
-
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Context context;
+       // final Context context;
         setContentView(R.layout.activity_add_toilet);
 
-//        if (android.os.Build.VERSION.SDK_INT > 9) {
-//            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//            StrictMode.setThreadPolicy(policy);
-//        }
 
-        //Should be changed to the exact file name
+        toolbar = (Toolbar) findViewById(R.id.app_bar_add_toilet);
+        toolbarTitle = (TextView) toolbar.findViewById(R.id.addToiletTitleText);
+        setSupportActionBar(toolbar);
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        toolbar.setNavigationOnClickListener(
+                new View.OnClickListener(){
+
+
+                    @Override
+                    public void onClick(View v) {
+                       backToAccountActivity();
+                    }
+                }
+        );
+
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        }
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.addToiletMap);
         mapFragment.getMapAsync(this);
-
-        Toast.makeText(this, "is this working", Toast.LENGTH_SHORT).show();
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -139,28 +139,9 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         buttonLocationSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (markerSetted == false){
-                    //Location is null
-                    alertCall();
-
-
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Bring It On!!", Toast.LENGTH_SHORT).show();
-
-
-                    Intent intent = new Intent(v.getContext(), AddToiletDetailActivity.class);
-
-                    startActivity(intent);
-                    finish();
-                }
+                goToAddDetailView();
             }
         });
-
-
-
-        Log.i("JAP98789000",String.valueOf(Filter.japaneseFilter));
-
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -188,6 +169,30 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         };
     }
 
+
+
+
+    private void backToAccountActivity(){
+
+        Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
+    private void goToAddDetailView(){
+
+        if (!markerSetted){
+            //Location is null
+            alertCall();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), AddToiletDetailActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+
     private void alertCall(){
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("画面上をタップして、トイレの位置情報を加えてください");
@@ -205,14 +210,13 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         AlertDialog alert11 = builder1.create();
         alert11.show();
 
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
 
-        getMenuInflater().inflate(R.menu.filter, menu);
+        getMenuInflater().inflate(R.menu.edit_pin_location_activity_bar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -223,51 +227,12 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         int id = item.getItemId();
 
 
+        if (id == R.id.buttonChangePin){
+            goToAddDetailView();
 
-        Log.i("YouSelect", String.valueOf(item));
-        //Log.i("GetSupportActionBar",String.valueOf(getSupportActionBar()));
-        Log.i("Earth", String.valueOf(R.drawable.earth));
-
-
-        if (id == R.id.searchStartButton){
-            Toast.makeText(this, "Hey Did you Click Account??", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
-            startActivity(intent);
-            finish();
-            ///////////////////////// 1pm 25th Feb
-            return  true;
-
-        } else
-
-        if (id == R.id.userMyPageButton){
-            Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
-            startActivity(intent);
-            finish();
-
-            ///////////////////////// 1pm 25th Feb
-            return  true;
-
-        } else {
-
-            Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
-
-//        if id == R.id.
-            return super.onOptionsItemSelected(item);
         }
+            return super.onOptionsItemSelected(item);
     }
-
-
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -277,7 +242,6 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-
 
                 mMap.clear();
                 Double l1=latLng.latitude;
@@ -349,6 +313,7 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
                 Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
                 mMap.setMyLocationEnabled(true);
                 Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
+                Log.i("Location12", "12");
 
 
                 if (lastKnownLocation != null) {
@@ -366,9 +331,15 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
 //                                                       toiletSearch(lastKnownLocation);
 
+                } else if (UserInfo.latitude != null && UserInfo.longitude != null){
+                    LatLng userOldLocationInfo = new LatLng(UserInfo.latitude, UserInfo.longitude);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userOldLocationInfo));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userOldLocationInfo, 14.0f));
 
-                } else {
-                    //When you could not get the last known location...
+                } else{
+                    //Maybe Call alert view??
+
+                    Log.i("WeNotGetLocAddress", "Sorry");
 
                 }
             }
@@ -407,12 +378,22 @@ public class AddToiletActivity extends FragmentActivity implements OnMapReadyCal
         client.disconnect();
     }
 
+        @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (pDialog != null) {
+            pDialog.dismiss();
+            pDialog = null;
+        }
+    }
+
+
 
 
     ///AsycTask
 
     private class JSONParse extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
+//        private ProgressDialog pDialog;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
