@@ -111,7 +111,7 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
             holder.distance.setText(current.distance);
 
             if (current.urlOne.equals("")){
-                holder.image.setImageResource(R.drawable.app_logo);
+                holder.image.setImageResource(R.drawable.default_photo_white_drawable);
 
             }else {
                 Uri uri = Uri.parse(current.urlOne);

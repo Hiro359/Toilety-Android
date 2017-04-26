@@ -18,6 +18,8 @@ public class Post {
     public String urlThree;
     public String addedBy;
     public String editedBy;
+    public String reviewOne;
+    public String reviewTwo;
     public String averageStar;
     public String address;
     public String howtoaccess;
@@ -125,7 +127,7 @@ public class Post {
 //
 //    }
 
-    public Post(String name, String openAndCloseHours, String type, String urlOne, String urlTwo, String urlThree, String addedBy, String editedBy, String averageStar, String address, String howtoaccess, Integer openHours, Integer closeHours, Integer reviewCount, Integer averageWait, Integer toiletFloor, Double latitude, Double longitude, Boolean available, Boolean japanesetoilet, Boolean westerntoilet, Boolean onlyFemale, Boolean unisex, Boolean washlet, Boolean warmSeat, Boolean autoOpen, Boolean noVirus, Boolean paperForBenki, Boolean cleanerForBenki, Boolean nonTouchWash, Boolean sensorHandWash, Boolean handSoap, Boolean nonTouchHandSoap, Boolean paperTowel, Boolean handDrier, Boolean otohime, Boolean napkinSelling, Boolean makeuproom, Boolean clothes, Boolean baggageSpace, Boolean wheelchair, Boolean wheelchairAccess, Boolean handrail, Boolean callHelp, Boolean ostomate, Boolean english, Boolean braille, Boolean voiceGuide, Boolean fancy, Boolean smell, Boolean confortable, Boolean noNeedAsk, Boolean parking, Boolean airCondition, Boolean wifi, Boolean milkspace, Boolean babyRoomOnlyFemale, Boolean babyRoomMaleEnter, Boolean babyRoomPersonalSpace, Boolean babyRoomPersonalSpaceWithLock, Boolean babyRoomWideSpace, Boolean babyCarRental, Boolean babyCarAccess, Boolean omutu, Boolean hipCleaningStuff, Boolean omutuTrashCan, Boolean omutuSelling, Boolean babySink, Boolean babyWashstand, Boolean babyHotwater, Boolean babyMicrowave, Boolean babyWaterSelling, Boolean babyFoodSelling, Boolean babyEatingSpace, Boolean babyChair, Boolean babySoffa, Boolean kidsToilet, Boolean kidsSpace, Boolean babyHeight, Boolean babyWeight, Boolean babyToy, Boolean babyFancy, Boolean babySmellGood) {
+    public Post(String name, String openAndCloseHours, String type, String urlOne, String urlTwo, String urlThree, String addedBy, String editedBy, String reviewOne, String reviewTwo, String averageStar, String address, String howtoaccess, Integer openHours, Integer closeHours, Integer reviewCount, Integer averageWait, Integer toiletFloor, Double latitude, Double longitude, Boolean available, Boolean japanesetoilet, Boolean westerntoilet, Boolean onlyFemale, Boolean unisex, Boolean washlet, Boolean warmSeat, Boolean autoOpen, Boolean noVirus, Boolean paperForBenki, Boolean cleanerForBenki, Boolean nonTouchWash, Boolean sensorHandWash, Boolean handSoap, Boolean nonTouchHandSoap, Boolean paperTowel, Boolean handDrier, Boolean otohime, Boolean napkinSelling, Boolean makeuproom, Boolean clothes, Boolean baggageSpace, Boolean wheelchair, Boolean wheelchairAccess, Boolean handrail, Boolean callHelp, Boolean ostomate, Boolean english, Boolean braille, Boolean voiceGuide, Boolean fancy, Boolean smell, Boolean confortable, Boolean noNeedAsk, Boolean parking, Boolean airCondition, Boolean wifi, Boolean milkspace, Boolean babyRoomOnlyFemale, Boolean babyRoomMaleEnter, Boolean babyRoomPersonalSpace, Boolean babyRoomPersonalSpaceWithLock, Boolean babyRoomWideSpace, Boolean babyCarRental, Boolean babyCarAccess, Boolean omutu, Boolean hipCleaningStuff, Boolean omutuTrashCan, Boolean omutuSelling, Boolean babySink, Boolean babyWashstand, Boolean babyHotwater, Boolean babyMicrowave, Boolean babyWaterSelling, Boolean babyFoodSelling, Boolean babyEatingSpace, Boolean babyChair, Boolean babySoffa, Boolean kidsToilet, Boolean kidsSpace, Boolean babyHeight, Boolean babyWeight, Boolean babyToy, Boolean babyFancy, Boolean babySmellGood) {
         this.name = name;
         this.openAndCloseHours = openAndCloseHours;
         this.type = type;
@@ -134,6 +136,8 @@ public class Post {
         this.urlThree = urlThree;
         this.addedBy = addedBy;
         this.editedBy = editedBy;
+        this.reviewOne = reviewOne;
+        this.reviewTwo = reviewTwo;
         this.averageStar = averageStar;
         this.address = address;
         this.howtoaccess = howtoaccess;

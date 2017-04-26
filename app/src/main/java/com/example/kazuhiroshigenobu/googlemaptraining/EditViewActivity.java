@@ -1123,6 +1123,8 @@ public class EditViewActivity extends AppCompatActivity {
                 "",//String urlThree,
                 uid,//String addedBy,
                 uid,//String editedBy,
+                "",//reviewOne
+                "",//reviewTwo
                 avStar,
                 toilet.address,
                 "",//String howtoaccess,

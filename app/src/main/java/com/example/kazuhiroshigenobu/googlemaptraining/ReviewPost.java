@@ -31,4 +31,5 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
         }
 
 
+
 }

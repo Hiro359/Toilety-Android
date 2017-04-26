@@ -2,7 +2,9 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,7 +29,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -57,12 +62,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnPausedListener;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.UUID;
 
 import static android.R.attr.targetSdkVersion;
 
@@ -156,7 +166,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
 
-   // Switch toilet;
+    // Switch toilet;
 
 
 
@@ -171,7 +181,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     // EditText added is not a TextInputEditText. Please switch to using that class instead.
 
-//
+    //
     RatingBar ratingBar;
 
     LocationManager locationManager;
@@ -181,6 +191,10 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     Button addPhoto;
     Button buttonAddInfo;
 
+    Boolean mainImageAdded;
+    Boolean subImageOneAdded;
+    Boolean subImageTwoAdded;
+
     private GoogleApiClient client;
     private GoogleMap mMap;
     private FirebaseAuth firebaseAuth;
@@ -189,26 +203,33 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     Boolean spinnerLoaded = false;
     Integer photoSelected = 0;
-    private Uri mainfilePath;
-    private Uri subOnefilePath;
-    private Uri subTwofilePath;
+    private String urlOne = "";
+    private String urlTwo = "";
+    private String urlThree = "";
 
     //private GeoFire geoFire;
 
-    File file;
-    Metadata metadata;
+//    File file;
+//    Metadata metadata;
 
     ImageView mainImage;
     ImageView subImage1;
     ImageView subImage2;
 
+    ///
+
+    private Uri filePath;
+
+    Uri mainImageUri;
+    Uri subImageOneUri;
+    Uri subImageTwoUri;
 
 
-//    ArrayAdapter<CharSequence> adapterJapaneseCount;
-//    ArrayAdapter<CharSequence> adapterWesternCount;
-//    ArrayAdapter<CharSequence> adapterPppCount;
-//    ArrayAdapter<CharSequence> adapterWomenJapaneseCount;
-//    ArrayAdapter<CharSequence> adapterWomenWesternCount;
+    //private FirebaseStorage storageReference = FirebaseStorage.getInstance();
+    //Added for uploading files to database
+
+
+
     ArrayAdapter<CharSequence> adapterType;
     ArrayAdapter<CharSequence> adapterWaitingtime;
     ArrayAdapter<CharSequence> adapterFloor;
@@ -219,43 +240,33 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
 
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseDatabase fireDatabase = FirebaseDatabase.getInstance();
     //DatabaseReference ref = database.getReference();
 
-//    private DatabaseReference toiletRef;
+    //    private DatabaseReference toiletRef;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference().child("images");
 
+
     DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("ToiletLocations");
+
     GeoFire geoFire = new GeoFire(locationRef);
 
     DatabaseReference toiletRef = FirebaseDatabase.getInstance().getReference("Toilets");
 
+    String newRid = UUID.randomUUID().toString();
+    String newTid = UUID.randomUUID().toString();
+
+
     Toolbar toolbar;
     TextView toolbarTitle;
 
-
-
-
-//    AddLocations addLocations;
-
-//    String tName = textToiletName.getText().toString();
-    //the above causes an null warining ....
-    //March 4th 9am
-
-
-
-//    Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
-//    Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
-//    Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
-//    Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
-//    Integer openTime = stHour * 100 + stMinu;
-//    Integer endTime = enHour * 100 + enMinu;
-
-
-
-
-//    StorageReference storageRef = FirebaseStorage.getReference();
+    java.util.Calendar c = java.util.Calendar.getInstance();
+    int year = c.get(Calendar.YEAR);
+    int month = c.get(Calendar.MONTH) + 1 ;
+    int day = c.get(Calendar.DATE);
+    int hour = c.get(java.util.Calendar.HOUR_OF_DAY);
+    int minute = c.get(java.util.Calendar.MINUTE);
 
 
 
@@ -276,7 +287,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
                 }
             }}
-            );
+        );
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
@@ -313,9 +324,10 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         textReady();
         switchReady();
         othersReady();
-        final java.util.Calendar c = java.util.Calendar.getInstance();
-        int hour = c.get(java.util.Calendar.HOUR_OF_DAY);
-        int minute = c.get(java.util.Calendar.MINUTE);
+
+        //final java.util.Calendar c = java.util.Calendar.getInstance();
+
+
         if (hour == 0){
             Log.i("Time12321", String.valueOf(minute));
 
@@ -326,6 +338,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
 
+        setupUI(findViewById(R.id.activity_add_toilet_detail));
 
 
     }
@@ -355,12 +368,41 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
         if (id == R.id.buttonChangePin){
-            backToAccountActivity();
-
+            valueCheck();
+            //backToAccountActivity();
         }
         return super.onOptionsItemSelected(item);
     }
 
+
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
+    public void setupUI(View view) {
+
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(AddToiletDetailActivity.this);
+                    return false;
+                }
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setupUI(innerView);
+            }
+        }
+    }
 
 
     private void sppinnerReady(){
@@ -373,14 +415,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         endHoursSpinner = (Spinner) findViewById(R.id.endHoursSpinner);
         endMinutesSpinner = (Spinner) findViewById(R.id.endMinutesSpinner);
 
-
-
-//        adapterJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
-//        adapterJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
-//        adapterWesternCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
-//        adapterPppCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
-//        adapterWomenJapaneseCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
-//        adapterWomenWesternCount = ArrayAdapter.createFromResource(this,R.array.benkiCountArray,android.R.layout.simple_spinner_item);
         adapterType = ArrayAdapter.createFromResource(this,R.array.places_names,android.R.layout.simple_spinner_item);
         adapterWaitingtime = ArrayAdapter.createFromResource(this,R.array.waitingTimeArray,android.R.layout.simple_spinner_item);
         adapterFloor = ArrayAdapter.createFromResource(this,R.array.floorCount,android.R.layout.simple_spinner_item);
@@ -390,11 +424,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         adapterEndMinutes = ArrayAdapter.createFromResource(this,R.array.minutesOption,android.R.layout.simple_spinner_item);
 
 
-//        adapterJapaneseCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        adapterWesternCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        adapterPppCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        adapterWomenJapaneseCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        adapterWomenWesternCount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterWaitingtime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterFloor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -414,121 +443,115 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         endHoursSpinner.setAdapter(adapterEndHours);
         endMinutesSpinner.setAdapter(adapterEndMinutes);
 
-        // I have not writtern setOnItemSElected yet...
-        //...
-
-
-
-
 
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView) parent.getChildAt(0)).setTextSize(16);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        }
+                                                  @Override
+                                                  public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                      ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                                                      ((TextView) parent.getChildAt(0)).setTextSize(16);
+                                                  }
+                                                  @Override
+                                                  public void onNothingSelected(AdapterView<?> parent) {
+                                                  }
+                                              }
         );
 
         waitingTimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView) parent.getChildAt(0)).setTextSize(16);
+                                                         @Override
+                                                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                             ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                                                             ((TextView) parent.getChildAt(0)).setTextSize(16);
 
-                 ((TextView) parent.getChildAt(0)).setText("待ち時間  " + parent.getItemAtPosition(position) + "分");
+                                                             ((TextView) parent.getChildAt(0)).setText("待ち時間  " + parent.getItemAtPosition(position) + "分");
 
 
 
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        }
+                                                         }
+                                                         @Override
+                                                         public void onNothingSelected(AdapterView<?> parent) {
+                                                         }
+                                                     }
 
         );
 
         floorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView) parent.getChildAt(0)).setTextSize(16);
+                                                   @Override
+                                                   public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                       ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                                                       ((TextView) parent.getChildAt(0)).setTextSize(16);
 //                                                            ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(position) + "以上を検索");
-                 if (!spinnerLoaded){
+                                                       if (!spinnerLoaded){
 
-                     // ((TextView) parent.getChildAt(0)).setText(parent.getSelectedItem()));
-                     ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(3) + "");
-                     spinnerLoaded = true;
-                 }
+                                                           // ((TextView) parent.getChildAt(0)).setText(parent.getSelectedItem()));
+                                                           ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(3) + "");
+                                                           spinnerLoaded = true;
+                                                       }
 
 
 
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        }
+                                                   }
+                                                   @Override
+                                                   public void onNothingSelected(AdapterView<?> parent) {
+                                                   }
+                                               }
 
         );
         startHoursSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView) parent.getChildAt(0)).setTextSize(16);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-             }
-        }
+                                                        @Override
+                                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                            ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                                                            ((TextView) parent.getChildAt(0)).setTextSize(16);
+                                                        }
+                                                        @Override
+                                                        public void onNothingSelected(AdapterView<?> parent) {
+                                                        }
+                                                    }
         );
 
         startMinutesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView) parent.getChildAt(0)).setTextSize(16);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        }
+                                                          @Override
+                                                          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                              ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                                                              ((TextView) parent.getChildAt(0)).setTextSize(16);
+                                                          }
+                                                          @Override
+                                                          public void onNothingSelected(AdapterView<?> parent) {
+                                                          }
+                                                      }
 
         );
 
         endHoursSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-             @Override
-             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                 ((TextView) parent.getChildAt(0)).setTextSize(16);
-             }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        }
+                                                      @Override
+                                                      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                          ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                                                          ((TextView) parent.getChildAt(0)).setTextSize(16);
+                                                      }
+                                                      @Override
+                                                      public void onNothingSelected(AdapterView<?> parent) {
+                                                      }
+                                                  }
 
         );
 
         endMinutesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView) parent.getChildAt(0)).setTextSize(16);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        }
+                                                        @Override
+                                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                            ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                                                            ((TextView) parent.getChildAt(0)).setTextSize(16);
+                                                        }
+                                                        @Override
+                                                        public void onNothingSelected(AdapterView<?> parent) {
+                                                        }
+                                                    }
         );
     }
 
@@ -641,71 +664,42 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     }
 
-     private void othersReady(){
+    private void othersReady(){
 
-         ratingBar = (RatingBar) findViewById(R.id.addRating);
-         ratingBar.setRating(3);
-         addPhoto = (Button) findViewById(R.id.buttonAddPicture);
-         buttonAddInfo = (Button) findViewById(R.id.buttonAddInfo);
+        ratingBar = (RatingBar) findViewById(R.id.addRating);
+        ratingBar.setRating(3);
+        addPhoto = (Button) findViewById(R.id.buttonAddPicture);
+        buttonAddInfo = (Button) findViewById(R.id.buttonAddInfo);
 
-         mainImage = (ImageView) findViewById(R.id.picture1);
+        mainImage = (ImageView) findViewById(R.id.picture1);
 //         ImageView subImage1 = (ImageView) findViewById(R.id.picture2);
 //         ImageView subImage2 = (ImageView) findViewById(R.id.picture3);
 
 
-         addPhoto.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                 checkPermissionAndAddPhoto();
+                checkPermissionAndAddPhoto();
 
-//                 if (Build.VERSION.SDK_INT < 23) {
-//
-//                     int permission = PermissionChecker.checkSelfPermission(getApplicationContext(), permission);
-//
-//                     if (permission != PermissionChecker.PERMISSION_GRANTED){
-//                         //permission is not granted, so request a permission
-//
-//
-//
-//                     } else {
-//                         //permission is granted, so do add photo
-//
-//
-//
-//                     }
-//
-//
-//
-//
-//
-//                 } else if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-//
-//
-//                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
-//                 } else {
-//
-//                     imageSetPlaceChoose();
-//
-//                 }
-             }
-         });
+            }
+        });
 
 
-         buttonAddInfo.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
+        buttonAddInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
 
 //                 pictureUpload(); March 3 18pm
 
-                 valueCheck();
+                valueCheck();
 //                 firebaseUpdate();
 
-             }
-         });
+            }
+        });
 
-     }
+    }
 
 
 
@@ -724,7 +718,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         } else {
             //Build.VERSION.SDK_INT < Build.VERSION_CODES.M(23)
 
-           imageSetPlaceChoose();
+            imageSetPlaceChoose();
 
         }
 
@@ -757,7 +751,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 //                                Toast.makeText(context, "clicked 2", 0).show();
                                 break;
                             case 2:
-                              photoSelected = 2;
+                                photoSelected = 2;
                                 showPhoto();
                                 //Toast.makeText(context, "clicked 3", 0).show();
                                 break;
@@ -803,15 +797,16 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
                 if (photoSelected == 0){
                     targetView = mainImage;
-                    //mainfilePath = selectedImage;
-
+                    uploadImageToDatabase(0, selectedImage);
 
                 } else if (photoSelected == 1){
                     targetView = subImage1;
+                    uploadImageToDatabase(1, selectedImage);
                     //subOnefilePath = selectedImage;
 
                 } else if  (photoSelected == 2){
                     targetView = subImage2;
+                    uploadImageToDatabase(3, selectedImage);
                     //subTwofilePath = selectedImage;
 
                 }
@@ -829,13 +824,13 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getFragmentManager(), "timePicker");
-
-
-
-    }
+//    public void showTimePickerDialog(View v) {
+//        DialogFragment newFragment = new TimePickerFragment();
+//        newFragment.show(getFragmentManager(), "timePicker");
+//
+//
+//
+//    }
 
     private void valueCheck(){
         String tName = textToiletName.getText().toString();
@@ -853,38 +848,38 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
 
-   private void firebaseUpdate(){
+    private void firebaseUpdate(){
 
 
 
 
-       String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-       Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
-       Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
-       Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
-       Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
-       Integer openTime = stHour * 100 + stMinu;
-       Integer endTime = enHour * 100 + enMinu;
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
+        Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
+        Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
+        Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
+        Integer openTime = stHour * 100 + stMinu;
+        Integer endTime = enHour * 100 + enMinu;
 
-       Integer openData = 5000;
-       Integer endData = 5000;
-       String tName = textToiletName.getText().toString();
+        Integer openData = 5000;
+        Integer endData = 5000;
+        String tName = textToiletName.getText().toString();
 
-       if (openTime < endTime){
-           openData = openTime;
-           endData = endTime;
-           Log.i(String.valueOf(openData),String.valueOf(endData));
+        if (openTime < endTime){
+            openData = openTime;
+            endData = endTime;
+            Log.i(String.valueOf(openData),String.valueOf(endData));
 
-       }else if (openTime == endTime){
-           openData = 5000;
-           endData = 5000;
-           Log.i(String.valueOf(openData),String.valueOf(endData));
-       } else if (openTime > endTime){
+        }else if (openTime == endTime){
+            openData = 5000;
+            endData = 5000;
+            Log.i(String.valueOf(openData),String.valueOf(endData));
+        } else if (openTime > endTime){
             openData = openTime;
             endData = endTime + 2400;
-           Log.i(String.valueOf(openData),String.valueOf(endData));
+            Log.i(String.valueOf(openData),String.valueOf(endData));
 
-       }
+        }
 
 //       Log.i(String.valueOf(openData),String.valueOf(endData));
 
@@ -899,110 +894,113 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
         String openingString = startHoursSpinner.getSelectedItem().toString() + ":" + startMinutesSpinner.getSelectedItem().toString() + "〜" + endHoursSpinner.getSelectedItem().toString() + ":" + endMinutesSpinner.getSelectedItem().toString();
 
-       String avStar = String.valueOf(ratingValue);
+        String avStar = String.valueOf(ratingValue);
         Log.i("datbase", "called121");
 
 
 //        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
 
-        DatabaseReference newRef = toiletRef.push();
+        DatabaseReference newRef = toiletRef.child(newTid);
 
-        String firekey = newRef.getKey();
-
-
-
-       newRef.setValue(new Post(
-               tName,
-               openingString,
-               typeSpinner.getSelectedItem().toString(),
-               "",//String urlOne,
-               "",//String urlTwo,
-               "",//String urlThree,
-               uid,//String addedBy,
-               uid,//String editedBy,
-               avStar,
-               AddLocations.address,
-               "",//String howtoaccess,
-               openData,
-               endData,
-               1,//Integer reviewCount,
-               waitingValue,//Integer averageWait,
-               3,//Integer toiletFloor,
-               AddLocations.latitude,
-               AddLocations.longitude,
-               true,
-               toiletJapanese.isChecked(),
-               toiletWestern.isChecked(),
-               toiletOnlyFemale.isChecked(),
-               toiletUnisex.isChecked(),
-               toiletWashlet.isChecked(),
-               toiletWashlet.isChecked(),
-               toiletAutoopen.isChecked(),
-               toiletNoVirusBenki.isChecked(),
-               toiletPaperForBenki.isChecked(),
-               toiletCleanerForBenki.isChecked(),
-               toiletNonTouchWash.isChecked(),
-               toiletSensor.isChecked(),
-               toiletHandSoap.isChecked(),
-               toiletNonHandSoap.isChecked(),
-               toiletPaperTowel.isChecked(),
-               toiletHandDrier.isChecked(),
-               toiletOtohime.isChecked(),
-               toiletNapkinSelling.isChecked(),
-               toiletMakeroom.isChecked(),
-               toiletClothes.isChecked(),
-               toiletBaggage.isChecked(),
-               toiletWheelchair.isChecked(),
-               toiletWheelchairAccess.isChecked(),
-               toiletHandrail.isChecked(),
-               toiletCallHelp.isChecked(),
-               toiletOstomate.isChecked(),
-               toiletWrittenEnglish.isChecked(),
-               toiletBraille.isChecked(),
-               toiletVoiceGuide.isChecked(),
-               toiletFancy.isChecked(),
-               toiletSmell.isChecked(),
-               toiletConfortable.isChecked(),
-               toiletNoNeedAsk.isChecked(),
-               toiletParking.isChecked(),
-               toiletAirCondition.isChecked(),
-               toiletWifi.isChecked(),
-               toiletMilk.isChecked(),
-               toiletBabyRoomOnlyFemale.isChecked(),
-               toiletBabyRoomMaleEnter.isChecked(),
-               toiletBabyPersonalRoom.isChecked(),
-               toiletBabyPersonalRoomWithLock.isChecked(),
-               toiletBabyPersonalRoomWithLock.isChecked(),
-               toiletBabyCarRental.isChecked(),
-               toiletBabyCarAccess.isChecked(),
-               toiletOmutu.isChecked(),
-               toiletHipCleaningStuff.isChecked(),
-               toiletOmutuTrashCan.isChecked(),
-               toiletOmutuSelling.isChecked(),
-               toiletBabySink.isChecked(),
-               toiletBabyWashstand.isChecked(),
-               toiletBabyHotWater.isChecked(),
-               toiletBabyMicrowave.isChecked(),
-               toiletBabyWaterSelling.isChecked(),
-               toiletBabyFoodSelling.isChecked(),
-               toiletBabyEatingSpace.isChecked(),
-               toiletBabyChair.isChecked(),
-               toiletBabySoffa.isChecked(),
-               toiletKidsToilet.isChecked(),
-               toiletKidsSpace.isChecked(),
-               toiletHeight.isChecked(),
-               toiletWeight.isChecked(),
-               toiletToy.isChecked(),
-               toiletBabyFancy.isChecked(),
-               toiletBabySmellGood.isChecked()
-
-       ));
+        //String firekey = newRef.getKey();
 
 
-    Log.i("please", "...");
-       geolocationUpdate(firekey);
 
-       backToAccountActivity();
+        newRef.setValue(new Post(
+                tName,
+                openingString,
+                typeSpinner.getSelectedItem().toString(),
+                urlOne,//String urlOne,
+                urlTwo,//String urlTwo,
+                urlThree,//String urlThree,
+                uid,//String addedBy,
+                uid,//String editedBy,
+                newRid,
+                "",
+                avStar,
+                AddLocations.address,
+                "",//String howtoaccess,
+                openData,
+                endData,
+                1,//Integer reviewCount,
+                waitingValue,//Integer averageWait,
+                3,//Integer toiletFloor,
+                AddLocations.latitude,
+                AddLocations.longitude,
+                true,
+                toiletJapanese.isChecked(),
+                toiletWestern.isChecked(),
+                toiletOnlyFemale.isChecked(),
+                toiletUnisex.isChecked(),
+                toiletWashlet.isChecked(),
+                toiletWashlet.isChecked(),
+                toiletAutoopen.isChecked(),
+                toiletNoVirusBenki.isChecked(),
+                toiletPaperForBenki.isChecked(),
+                toiletCleanerForBenki.isChecked(),
+                toiletNonTouchWash.isChecked(),
+                toiletSensor.isChecked(),
+                toiletHandSoap.isChecked(),
+                toiletNonHandSoap.isChecked(),
+                toiletPaperTowel.isChecked(),
+                toiletHandDrier.isChecked(),
+                toiletOtohime.isChecked(),
+                toiletNapkinSelling.isChecked(),
+                toiletMakeroom.isChecked(),
+                toiletClothes.isChecked(),
+                toiletBaggage.isChecked(),
+                toiletWheelchair.isChecked(),
+                toiletWheelchairAccess.isChecked(),
+                toiletHandrail.isChecked(),
+                toiletCallHelp.isChecked(),
+                toiletOstomate.isChecked(),
+                toiletWrittenEnglish.isChecked(),
+                toiletBraille.isChecked(),
+                toiletVoiceGuide.isChecked(),
+                toiletFancy.isChecked(),
+                toiletSmell.isChecked(),
+                toiletConfortable.isChecked(),
+                toiletNoNeedAsk.isChecked(),
+                toiletParking.isChecked(),
+                toiletAirCondition.isChecked(),
+                toiletWifi.isChecked(),
+                toiletMilk.isChecked(),
+                toiletBabyRoomOnlyFemale.isChecked(),
+                toiletBabyRoomMaleEnter.isChecked(),
+                toiletBabyPersonalRoom.isChecked(),
+                toiletBabyPersonalRoomWithLock.isChecked(),
+                toiletBabyPersonalRoomWithLock.isChecked(),
+                toiletBabyCarRental.isChecked(),
+                toiletBabyCarAccess.isChecked(),
+                toiletOmutu.isChecked(),
+                toiletHipCleaningStuff.isChecked(),
+                toiletOmutuTrashCan.isChecked(),
+                toiletOmutuSelling.isChecked(),
+                toiletBabySink.isChecked(),
+                toiletBabyWashstand.isChecked(),
+                toiletBabyHotWater.isChecked(),
+                toiletBabyMicrowave.isChecked(),
+                toiletBabyWaterSelling.isChecked(),
+                toiletBabyFoodSelling.isChecked(),
+                toiletBabyEatingSpace.isChecked(),
+                toiletBabyChair.isChecked(),
+                toiletBabySoffa.isChecked(),
+                toiletKidsToilet.isChecked(),
+                toiletKidsSpace.isChecked(),
+                toiletHeight.isChecked(),
+                toiletWeight.isChecked(),
+                toiletToy.isChecked(),
+                toiletBabyFancy.isChecked(),
+                toiletBabySmellGood.isChecked()
+
+        ));
+
+
+        Log.i("please", "...");
+        geolocationUpload();
+        reviewUpload();
+
+        backToAccountActivity();
 
     }
 
@@ -1036,13 +1034,13 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void geolocationUpdate(String firekey){
+    private void geolocationUpload(){
 
 //        String newRef = ref.child("Toilets");
 //
 //        String newID = newRef
 
-        geoFire.setLocation(firekey, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
+        geoFire.setLocation(newTid, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
             @Override
             public void onComplete(String key, DatabaseError error) {
                 if (error != null) {
@@ -1057,102 +1055,118 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         });
     }
 
-//
-//    private void  photoUpload(){
-//        // File or Blob
-////        file = Uri.fromFile(new File("path/to/mountains.jpg"));
-//        file = mainImage.
-//
-//// Create the file metadata
-//        metadata = new StorageMetadata.Builder()
-//                .setContentType("image/jpeg")
-//                .build();
-//
-//// Upload file and metadata to the path 'images/mountains.jpg'
-//        uploadTask = storageRef.child("images/"+file.getLastPathSegment()).putFile(file, metadata);
-//
-//// Listen for state changes, errors, and completion of the upload.
-//        uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-//                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-//                System.out.println("Upload is " + progress + "% done");
-//            }
-//        }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
-//                System.out.println("Upload is paused");
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                // Handle unsuccessful uploads
-//            }
-//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                // Handle successful uploads on complete
-//                Uri downloadUrl = taskSnapshot.getMetadata().getDownloadUrl();
-//            }
-//        });
-//    }
-//
+    private void reviewUpload() {
 
-//    private void uploadFile() {
-//        //if there is a file to upload
-//        if (filePath != null) {
-//            //displaying a progress dialog while upload is going on
-//            final ProgressDialog progressDialog = new ProgressDialog(this);
-//            progressDialog.setTitle("Uploading");
-//            progressDialog.show();
-//
-//            //In this example, filePath means the image
-//
-//            StorageReference riversRef = storageRef.child("images");
-//
-//
-////            riversRef.putFile(filePath)
-//            riversRef.putFile()
-//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//
-//
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            //if the upload is successfull
-//                            //hiding the progress dialog
-//                            progressDialog.dismiss();
-//
-//                            //and displaying a success toast
-//                            Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception exception) {
-//                            //if the upload is not successfull
-//                            //hiding the progress dialog
-//                            progressDialog.dismiss();
-//
-//                            //and displaying error message
-//                            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-//                        }
-//                    })
-//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-//                            //calculating progress percentage
-//                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-//
-//                            //displaying percentage in progress dialog
-//                            progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
-//                        }
-//                    });
-//        }
-//        //if there is not any file
-//        else {
-//            //you can display an error toast
-//        }
-//    }
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //I need to do somthing.. inv
+
+        double ratingValue = ratingBar.getRating();
+        String avStar = String.valueOf(ratingValue);
+        String dateString = year + "-" + month + "-" + day;
+
+        String waitingTime = waitingTimeSpinner.getSelectedItem().toString();
+        //float to Int
+        //Integer waitingValue = Integer.parseInt(waitingV);
+
+
+        Long timeLong = System.currentTimeMillis() / 1000l;
+        //Long timeLong = System.currentTimeMillis() / 1000l;
+        double timeNumbers = timeLong.doubleValue();
+
+
+        DatabaseReference reviewInfoRef = fireDatabase.getReference("ReviewInfo");
+        DatabaseReference toiletReviewsRef = fireDatabase.getReference("ToiletReviews");
+        DatabaseReference reviewListRef = fireDatabase.getReference("ReviewList");
+
+        ReviewPost newPost = new ReviewPost(
+                true,
+                textFeedback.getText().toString(),//String feedback,
+                0,//Integer likedCount,
+                avStar,//String star,
+                newTid,
+                dateString,//String time,
+                timeNumbers,
+                uid,
+                waitingTime);
+
+
+        reviewInfoRef.child(newRid).setValue(newPost);
+
+        reviewListRef.child(uid).setValue(newRid);
+
+        toiletReviewsRef.child(newTid).setValue(newRid);
+
+
+    }
+
+
+    private void uploadImageToDatabase(final int placeNumber, Uri file){
+
+
+        String photoId = UUID.randomUUID().toString();
+
+
+// Create the file metadata
+        StorageMetadata metadata = new StorageMetadata.Builder()
+                .setContentType("image/jpeg")
+                .build();
+
+// Upload file and metadata to the path 'images/mountains.jpg'
+        UploadTask uploadTask = storageRef.child(photoId).putFile(file, metadata);
+
+// Listen for state changes, errors, and completion of the upload.
+        uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                System.out.println("Upload is " + progress + "% done");
+            }
+        }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+                System.out.println("Upload is paused");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // Handle successful uploads on complete
+
+                if (taskSnapshot.getMetadata() != null) {
+
+                    Uri downloadUrl = taskSnapshot.getMetadata().getDownloadUrl();
+
+                    if (downloadUrl != null) {
+
+                        if (placeNumber == 0) {
+                            Log.i("urlOne found", downloadUrl.toString());
+                            urlOne = downloadUrl.toString();
+                        }
+                        if (placeNumber == 1) {
+                            Log.i("urlTwo found", downloadUrl.toString());
+                            urlTwo = downloadUrl.toString();
+                        }
+                        if (placeNumber == 2) {
+                            Log.i("urlThree found", downloadUrl.toString());
+                            urlThree = downloadUrl.toString();
+                        }
+
+                        //changed urlOne to this downloadUrl...
+                    }
+
+                }
+
+            }
+        });
+    }
+
+
+    
 
 
     public void onMapReadyCalled(GoogleMap googleMap) {
@@ -1241,7 +1255,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     }
 
 
-                @Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1){
@@ -1263,15 +1277,15 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         }
 
 
-                    if (requestCode == 2){
-                        //Photo Permission
+        if (requestCode == 2){
+            //Photo Permission
 
-                        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                            imageSetPlaceChoose();
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                imageSetPlaceChoose();
 
 
-                        }
-                    }
+            }
+        }
 
     }
 
