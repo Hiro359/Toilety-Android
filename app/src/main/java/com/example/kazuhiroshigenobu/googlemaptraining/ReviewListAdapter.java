@@ -2,6 +2,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -78,13 +79,16 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
 
                 Log.i("StarValue", String.valueOf(Float.parseFloat(current.star)));
 
+                //String st =
+                //String st = String.format(Resources.getString(R.string.waitingTime);)
 
-                holder.reviewUserName.setText(current.userName);
+
+                holder.reviewUserName.setText(current.userName + "分待ちました");
                 holder.reviewLikeCount.setText(String.valueOf(current.totalLikedCount));
                 holder.reviewFavoriteCount.setText(String.valueOf(current.totalFavoriteCount));
                 holder.reviewManCount.setText(String.valueOf(current.totalHelpedCount));
                 holder.reviewStarBar.setRating(Float.parseFloat(current.star));
-                holder.reviewWaitingTime.setText("待ち"+ String.valueOf(current.waitingtime) +"分");
+                holder.reviewWaitingTime.setText(current.waitingtime );
                 Uri uri = Uri.parse(current.userPhoto);
                 final Context context = holder.reviewUserImage.getContext();
                 Picasso.with(context).load(uri).into(holder.reviewUserImage);

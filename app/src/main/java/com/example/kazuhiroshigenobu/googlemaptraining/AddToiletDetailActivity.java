@@ -1093,9 +1093,9 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
         reviewInfoRef.child(newRid).setValue(newPost);
 
-        reviewListRef.child(uid).setValue(newRid);
+        reviewListRef.child(uid).child(newRid).setValue(true);
 
-        toiletReviewsRef.child(newTid).setValue(newRid);
+        toiletReviewsRef.child(newTid).child(newRid).setValue(true);
 
 
     }

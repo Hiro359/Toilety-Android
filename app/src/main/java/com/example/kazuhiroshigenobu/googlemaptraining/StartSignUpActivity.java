@@ -251,7 +251,7 @@ public class StartSignUpActivity extends AppCompatActivity {
 
 
 
-        User user = new User(userName, password, "https://firebasestorage.googleapis.com/v0/b/problemsolving-299e4.appspot.com/o/images%2Fdefault%20picture.png?alt=media&token=b407a188-5a9d-4b0f-8b43-3bf6c2060573", email, 0, 0, 0);
+        User user = new User(userName, password, "", email, 0, 0, 0);
 
 //        FirebaseUser userID = firebaseAuth.getCurrentUser();
 //        String userid = userID.getUid();

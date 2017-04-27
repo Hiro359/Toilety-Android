@@ -28,7 +28,7 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ReviewListAdapter adapter;
 
-    private DatabaseReference toiletRef;
+    private DatabaseReference toiletReviewsRef;
     private DatabaseReference reviewsRef;
     private DatabaseReference userRef;
 
@@ -87,7 +87,8 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
 
         Log.i("ReivewToiletList Loaded","Yeah");
 
-        reviewQuery(key);
+        toiletReviewQuery(key);
+        //reviewQuery(key);
     }
 
     public void createRecyclerView(List reviewList) {
@@ -104,23 +105,53 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
 
     }
 
-    private void reviewQuery(String queryKey) {
+    private void toiletReviewQuery(String queryKey){
+       // final List<Review> reviewList = new ArrayList<>();
+
+        toiletReviewsRef = FirebaseDatabase.getInstance().getReference().child("ToiletReviews");
+
+        toiletReviewsRef.child(queryKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (final DataSnapshot child : dataSnapshot.getChildren()) {
+
+                    final String ridKey = child.getKey();
+
+                    getReviewInfoAndUserInfo(ridKey);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
+
+    private void getReviewInfoAndUserInfo(String ridKey){
 
 
         final List<Review> reviewList = new ArrayList<>();
 
         reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
-        //Not sure i get the right toilet.key
-        reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener() {
+
+
+        reviewsRef.child(ridKey).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
                 final Review review = new Review();
 
 
-
-                Log.i("reviewQueryCalled","Start");
 
                 review.uid = (String) dataSnapshot.child("uid").getValue();
                 review.feedback = (String) dataSnapshot.child("feedback").getValue();
@@ -135,13 +166,8 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
 
 
                 review.star = (String) dataSnapshot.child("star").getValue();
-//                review.star = star.doubleValue();
 
 
-
-                Log.i("reviewQueryCalled","Middle");
-
-                //this may cause an error, it might be needed to be long
 
                 userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -186,27 +212,6 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
                 });
 
 
-
-
-
-
-
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
@@ -215,6 +220,255 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
             }
         });
 
-        //reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener)
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//    private void reviewQuery(String queryKey) {
+//
+//
+//        final List<Review> reviewList = new ArrayList<>();
+//
+//        toiletReviewsRef = FirebaseDatabase.getInstance().getReference().child("ToiletReviews");
+//        toiletReviewsRef.child(queryKey).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//
+//                for (final DataSnapshot child : dataSnapshot.getChildren()) {
+//
+//                    final String ridKey = child.getKey();
+//
+//
+//
+//                    reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
+//
+//
+//                    reviewsRef.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//
+//
+//
+//                Log.i("reviewQueryCalled","Start");
+//
+//                review.uid = (String) dataSnapshot.child("uid").getValue();
+//                review.feedback = (String) dataSnapshot.child("feedback").getValue();
+//                review.time = (String) dataSnapshot.child("time").getValue();
+//                review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
+//
+//
+//                Long likedCount = (Long) dataSnapshot.child("likedCount").getValue();
+//                review.likedCount = likedCount.intValue();
+////                Long star = (Long) dataSnapshot.child("star").getValue();
+////                review.star = star.doubleValue();
+//
+//
+//                review.star = (String) dataSnapshot.child("star").getValue();
+////                review.star = star.doubleValue();
+//
+//
+//
+//                Log.i("reviewQueryCalled","Middle");
+//
+//                //this may cause an error, it might be needed to be long
+//
+//                userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+//
+//                userRef.child(review.uid).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        Log.i("userInfoQuery","Called");
+//
+//
+//                        review.userName = (String) dataSnapshot.child("userName").getValue();
+//                        Log.i("userInfoQuery1","Called");
+//                        review.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
+//                        Log.i("userInfoQuery2","Called");
+////                        review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
+////                        Log.i("review.waitingTime",review.waitingtime);
+//
+//
+//
+//
+//
+//
+//                        Long totalLikedCount = (Long) dataSnapshot.child("totalLikedCount").getValue();
+//                        Long totalFavoriteCount = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
+//                        Long totalHelpedCount = (Long) dataSnapshot.child("totalHelpedCount").getValue();
+//                        review.totalLikedCount = totalLikedCount.intValue();
+//                        review.totalFavoriteCount = totalFavoriteCount.intValue();
+//                        review.totalHelpedCount = totalHelpedCount.intValue();
+//
+//
+//                        reviewList.add(review);
+//                        createRecyclerView(reviewList);
+//
+//                        Log.i("reviewQueryCalled","End");
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//
+//
+//
+//
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+//        reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
+//        //Not sure i get the right toilet.key
+//        reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//
+//
+//                final Review review = new Review();
+//
+//
+//
+//                Log.i("reviewQueryCalled","Start");
+//
+//                review.uid = (String) dataSnapshot.child("uid").getValue();
+//                review.feedback = (String) dataSnapshot.child("feedback").getValue();
+//                review.time = (String) dataSnapshot.child("time").getValue();
+//                review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
+//
+//
+//                Long likedCount = (Long) dataSnapshot.child("likedCount").getValue();
+//                review.likedCount = likedCount.intValue();
+////                Long star = (Long) dataSnapshot.child("star").getValue();
+////                review.star = star.doubleValue();
+//
+//
+//                review.star = (String) dataSnapshot.child("star").getValue();
+////                review.star = star.doubleValue();
+//
+//
+//
+//                Log.i("reviewQueryCalled","Middle");
+//
+//                //this may cause an error, it might be needed to be long
+//
+//                userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+//
+//                userRef.child(review.uid).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        Log.i("userInfoQuery","Called");
+//
+//
+//                        review.userName = (String) dataSnapshot.child("userName").getValue();
+//                        Log.i("userInfoQuery1","Called");
+//                        review.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
+//                        Log.i("userInfoQuery2","Called");
+////                        review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
+////                        Log.i("review.waitingTime",review.waitingtime);
+//
+//
+//
+//
+//
+//
+//                        Long totalLikedCount = (Long) dataSnapshot.child("totalLikedCount").getValue();
+//                        Long totalFavoriteCount = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
+//                        Long totalHelpedCount = (Long) dataSnapshot.child("totalHelpedCount").getValue();
+//                        review.totalLikedCount = totalLikedCount.intValue();
+//                        review.totalFavoriteCount = totalFavoriteCount.intValue();
+//                        review.totalHelpedCount = totalHelpedCount.intValue();
+//
+//
+//                        reviewList.add(review);
+//                        createRecyclerView(reviewList);
+//
+//                        Log.i("reviewQueryCalled","End");
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//
+//
+//
+//
+//
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        //reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener)
+
 }
