@@ -79,28 +79,6 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
                 Log.i("StarValue", String.valueOf(Float.parseFloat(current.star)));
 
 
-//                Uri uri = Uri.parse(current.urlOne);
-//
-//
-//
-//                final Context context = holder.image.getContext();
-//
-////                float starFloatValue = Float.parseFloat(current.averageStar);
-//
-
-
-                ///
-           //     ImageView reviewUserImage;
-               // TextView reviewUserName;
-//                TextView reviewLikeCount;
-//                TextView reviewFavoriteCount;
-//                TextView reviewManCount;
-//                RatingBar reviewStarBar;
-//                TextView reviewWaitingTime;
-
-
-                ///
-
                 holder.reviewUserName.setText(current.userName);
                 holder.reviewLikeCount.setText(String.valueOf(current.totalLikedCount));
                 holder.reviewFavoriteCount.setText(String.valueOf(current.totalFavoriteCount));
