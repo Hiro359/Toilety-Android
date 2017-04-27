@@ -1,11 +1,15 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +35,10 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
 
 
     Toilet toilet =  new Toilet();
+    Toolbar toolbar;
+    TextView toolbarTitle;
+
+
 
 
     @Override
@@ -38,9 +46,46 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_toilet_view);
 
-        Log.i("ReivewToiletList Loaded","Yeah");
+        toolbar = (Toolbar) findViewById(R.id.app_bar_toilet_review_list_view);
+        toolbarTitle = (TextView) toolbar.findViewById(R.id.reviewListViewTitleText);
 
-        String key = getIntent().getStringExtra("EXTRA_SESSION_ID");
+
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        final String key = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        final Double toiletLat = getIntent().getDoubleExtra("toiletLatitude",0);
+        final Double toiletLon = getIntent().getDoubleExtra("toiletLongitude",0);
+
+
+        toolbar.setNavigationOnClickListener(
+                new View.OnClickListener(){
+
+
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("Current.key","is This working???12321");
+                        Intent intent = new Intent(getApplicationContext(),DetailViewActivity.class);
+                        intent.putExtra("EXTRA_SESSION_ID", key);
+                        intent.putExtra("toiletLatitude",toiletLat);
+                        intent.putExtra("toiletLongitude",toiletLon);
+
+                        startActivity(intent);
+                        finish();
+                        //onBackPressed();
+                        //finish();
+                    }
+                }
+        );
+
+        Log.i("ReivewToiletList Loaded","Yeah");
 
         reviewQuery(key);
     }

@@ -394,6 +394,8 @@ public class DetailViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ReviewToiletViewActivity.class);
                 intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+                intent.putExtra("toiletLatitude",toilet.latitude);
+                intent.putExtra("toiletLongitude",toilet.longitude);
                 startActivity(intent);
                 finish();
 
