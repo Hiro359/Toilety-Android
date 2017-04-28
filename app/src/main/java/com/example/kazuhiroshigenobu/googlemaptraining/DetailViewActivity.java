@@ -349,6 +349,7 @@ public class DetailViewActivity extends AppCompatActivity {
                 intent.putExtra("reviewCount",toilet.reviewCount);
                 intent.putExtra("averageWait", toilet.averageWait);
                 intent.putExtra("averageStar", toilet.averageStar);
+                intent.putExtra("reviewOne", toilet.reviewOne);
                 startActivity(intent);
                 finish();
             }
@@ -596,6 +597,8 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     toilet.addedBy = (String) dataSnapshot.child("addedBy").getValue();
                     toilet.editedBy = (String) dataSnapshot.child("editedBy").getValue();
+                    toilet.reviewOne = (String) dataSnapshot.child("reviewOne").getValue();
+                    toilet.reviewTwo = (String) dataSnapshot.child("reviewTwo").getValue();
                     toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();
                     toilet.address = (String) dataSnapshot.child("address").getValue();
                     toilet.howtoaccess = (String) dataSnapshot.child("howtoaccess").getValue();

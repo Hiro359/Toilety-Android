@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 public class KansouActivity extends AppCompatActivity {
 
@@ -44,12 +45,17 @@ public class KansouActivity extends AppCompatActivity {
 
     private DatabaseReference toiletRef;
     private DatabaseReference reviewsRef;
+    private DatabaseReference toiletReviewRef;
+    private DatabaseReference reviewListRef;
     long originalReviewCount;
     long originalAverageWait;
     String originalAverageStar;
+    String originalReviewOne;
     private Toolbar toolbar;
     private TextView toolbarTitle;
     Toilet toilet =  new Toilet();
+    String newRid = UUID.randomUUID().toString();
+
 
     //private Toilet toilet = new Toilet();
 
@@ -75,6 +81,7 @@ public class KansouActivity extends AppCompatActivity {
         toilet.key = getIntent().getStringExtra("EXTRA_SESSION_ID");
         toilet.latitude = getIntent().getDoubleExtra("toiletLatitude",0);
         toilet.longitude = getIntent().getDoubleExtra("toiletLongitude",0);
+        toilet.reviewOne = getIntent().getStringExtra("reviewOne");
 
 
 
@@ -109,6 +116,7 @@ public class KansouActivity extends AppCompatActivity {
         originalReviewCount = getIntent().getIntExtra("reviewCount",0);
         originalAverageWait = getIntent().getIntExtra("avereageWait",0);
         originalAverageStar = getIntent().getStringExtra("averageStar");
+        originalReviewOne = getIntent().getStringExtra("reviewOne");
 
     }
 
@@ -263,6 +271,11 @@ public class KansouActivity extends AppCompatActivity {
         childUpdates.put("reviewCount",newReviewCount);
         childUpdates.put("averageStar",newAvStarString);
         childUpdates.put("averageWait",newWaitingTime);
+        childUpdates.put("reviewOne", newRid);
+        childUpdates.put("reviewTwo", originalReviewOne);
+
+
+
         //childUpdates.put("editedBy",uid);
 
         //We dont need to updata editedBy uid....
@@ -281,6 +294,8 @@ public class KansouActivity extends AppCompatActivity {
 //        }
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        Log.i("This is the UID", uid);
+
 
         long timeStamp = System.currentTimeMillis();
         Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
@@ -293,7 +308,10 @@ public class KansouActivity extends AppCompatActivity {
 
 
         reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
-        reviewsRef.push().setValue(new ReviewPost(
+        toiletReviewRef = FirebaseDatabase.getInstance().getReference().child("ToiletReviews");
+        reviewListRef = FirebaseDatabase.getInstance().getReference().child("ReviewList");
+
+        reviewsRef.child(newRid).setValue(new ReviewPost(
                 availableSwitch.isChecked(),
                 String.valueOf(kansouText.getText()),
                 0,
@@ -304,6 +322,18 @@ public class KansouActivity extends AppCompatActivity {
                 uid,
                 waitingSpinner.getSelectedItem().toString()
         ));
+
+
+        Log.i("before", "toiletReviewRef");
+        Log.i("toilet.key", toilet.key);
+        Log.i("newRid", newRid);
+        toiletReviewRef.child(toilet.key).child(newRid).setValue(true);
+
+
+        Log.i("before", "reviewListRef");
+        reviewListRef.child(uid).child(newRid).setValue(true);
+
+
 
     }
 

@@ -17,6 +17,7 @@ public class Review {
     String time;
     Double timeNumbers;
     String uid;
+    String rid;
     String userName;
     String userPhoto;
     String waitingtime;

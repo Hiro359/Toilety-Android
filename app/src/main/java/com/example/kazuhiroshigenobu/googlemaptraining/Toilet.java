@@ -23,6 +23,8 @@ public class Toilet {
     String tid;
     String addedBy;
     String editedBy;
+    String reviewOne;
+    String reviewTwo;
     String averageStar;
 
 

@@ -21,7 +21,6 @@
             android:layout_height="75dp"
             android:id="@+id/reviewUserImage"
             android:padding="10dp"
-            android:background="@drawable/app_default_user_icon"
             android:layout_gravity="center"
             android:contentDescription="@string/image"/>
 
@@ -132,9 +131,9 @@
             android:layout_height="wrap_content"
             android:text="@string/feedback"
             android:textColor="@color/colorText"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:layout_margin="10dp"
-
+            android:id="@+id/reviewFeedbackTextView"
             />
 
 
@@ -146,6 +145,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+
             >
 
 
@@ -166,26 +168,26 @@
                 android:layout_toEndOf="@+id/reviewLikeButton"
                 android:layout_toRightOf="@+id/reviewLikeButton"
                 android:layout_centerVertical="true"
-                android:id="@+id/reviewLikeCountLabel"
+                android:id="@+id/reviewLikeCountNextToButton"
                 android:padding="10dp"
                 />
 
 
             <TextView
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/waitingTime"
                 android:textColor="@color/colorText"
                 android:textSize="16sp"
-                android:layout_toEndOf="@+id/reviewLikeCountLabel"
-                android:layout_toRightOf="@+id/reviewLikeCountLabel"
+                android:layout_toEndOf="@+id/reviewLikeCountNextToButton"
+                android:layout_toRightOf="@+id/reviewLikeCountNextToButton"
                 android:layout_centerVertical="true"
                 android:id="@+id/reviewWaitingTime"
                 android:padding="10dp"
                 />
 
             <TextView
-                android:layout_width="90dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dateString"
                 android:textColor="@color/colorText"

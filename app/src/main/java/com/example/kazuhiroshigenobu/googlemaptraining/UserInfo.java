@@ -11,4 +11,6 @@ public class UserInfo {
     static Double longitude;
     static Boolean userSelectedLocation = false;
     static LatLng userSelectedLatLng;
+    static Boolean viewloaded = false;
+
 }
