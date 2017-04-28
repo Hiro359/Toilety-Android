@@ -475,6 +475,7 @@
                             </LinearLayout>
 
 
+
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -619,7 +620,14 @@
                     android:id="@+id/buttonGoToReviewList"/>
 
 
-
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/toiletReviewList"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    >
+                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
         </ScrollView>
 

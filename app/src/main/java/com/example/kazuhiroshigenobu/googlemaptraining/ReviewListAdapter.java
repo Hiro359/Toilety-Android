@@ -102,6 +102,13 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
 
             }
 
+            if (current.userLiked){
+                holder.reviewLikeButton.setBackgroundResource(R.drawable.app_thumb_icon_colored_24);
+
+            } else {
+                holder.reviewLikeButton.setBackgroundResource(R.drawable.app_thumb_icon_white_drawable);
+
+            }
 
 
 
@@ -111,7 +118,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
                 @Override
                 public void onClick(View v) {
 
-                    if (holder.userLiked){
+                    if (current.userLiked){
 
                         UserInfo.viewloaded = true;
                         current.totalLikedCount = current.totalLikedCount - 1;
@@ -121,12 +128,14 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
                         holder.reviewLikeCountNextToButton.setText("いいね" + String.valueOf(current.likedCount)+ "件");
                         holder.reviewLikeButton.setBackgroundResource(R.drawable.app_thumb_icon_white_drawable);
 
-                        thumbsUpRef.child(uid).child(current.rid).setValue(true);
+                        thumbsUpRef.child(uid).child(current.rid).removeValue();
+
+                        Log.i("ThumbsUp","Added");
 
 
 
                         //setBackground(R.drawable.app_thumb_icon_white_drawable);
-                        holder.userLiked = false;
+                        current.userLiked = false;
 
                     } else {
                         UserInfo.viewloaded = true;
@@ -135,9 +144,11 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
                         holder.reviewLikeCount.setText(String.valueOf(current.totalLikedCount));
                         holder.reviewLikeCountNextToButton.setText("いいね" + String.valueOf(current.likedCount)+ "件");
                         holder.reviewLikeButton.setBackgroundResource(R.drawable.app_thumb_icon_colored_24);
-                        thumbsUpRef.child(uid).child(current.rid).removeValue();
 
-                        holder.userLiked = true;
+                        thumbsUpRef.child(uid).child(current.rid).setValue(true);
+                        Log.i("ThumbsUp","Deleted");
+
+                        current.userLiked = true;
 
                     }
 
@@ -211,7 +222,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
         TextView reviewDate;
         TextView reviewLikeCountNextToButton;
         Button reviewLikeButton;
-        Boolean userLiked = false;
+        //Boolean userLiked = false;
 
 //            TextView name;
 //            //        TextView type;

@@ -51,7 +51,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.CalculationByDistance;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.round;
@@ -68,6 +70,15 @@ public class DetailViewActivity extends AppCompatActivity {
     private DatabaseReference toiletRef;
     private DatabaseReference reviewsRef;
     private DatabaseReference userRef;
+
+
+
+    private DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference thumbsUpRef = firebaseRef.child("ThumbsUpList");
+    private DatabaseReference reviewInfoRef = firebaseRef.child("ReviewInfo");
+    private DatabaseReference favoriteRef = firebaseRef.child("FavoriteList");
+
+    private DatabaseReference toiletReviewsRef;
     private GoogleApiClient client;
 
     TextView toiletNameLabel;
@@ -84,6 +95,12 @@ public class DetailViewActivity extends AppCompatActivity {
     Button buttonFavorite;
     Button buttonGetDirection;
     Button buttonGoToReviewList;
+
+    final List<Review> reviewList = new ArrayList<>();
+
+    Set<String> thumbsUpSet = new HashSet();
+    Set<String> favoriteSet = new HashSet();
+
     //DrawerLayout drawer;
 
     private ListView mDrawerList;
@@ -131,11 +148,12 @@ public class DetailViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_view);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-       // mActivityTitle = getTitle().toString();
+        // mActivityTitle = getTitle().toString();
         mDrawerList = (ListView)findViewById(R.id.navList);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar3);
         toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbarTitle3);
+
 
 
 
@@ -166,6 +184,8 @@ public class DetailViewActivity extends AppCompatActivity {
                     }
                 }
         );
+
+
         //toolbar.setNavigationIcon(R.drawable.earth);
         //toolbar.setNavigationContentDescription("戻る");
 
@@ -173,7 +193,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
 
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //It may cause a crash....
 
 
@@ -184,10 +204,12 @@ public class DetailViewActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         String key = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        toilet.key = key;
         final Double toiletLat = getIntent().getDoubleExtra("toiletLatitude",0);
         final Double toiletLon = getIntent().getDoubleExtra("toiletLongitude",0);
         Log.i("OnCreateTOiletLati",String.valueOf(toiletLat));
         Log.i("OnCreateTOiletLong",String.valueOf(toiletLon));
+
 
 
         Log.i("Current.key",key );
@@ -196,6 +218,7 @@ public class DetailViewActivity extends AppCompatActivity {
         toileGetInfo(key);
 
         settingReady();
+        favoriteQuery();
         mapFragment.getMapAsync(new OnMapReadyCallback(){
             @Override public void onMapReady(GoogleMap googleMap) {
                 if (googleMap != null) {
@@ -229,7 +252,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
         }
 
-            return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
 
     }
 
@@ -247,6 +270,12 @@ public class DetailViewActivity extends AppCompatActivity {
 //
 //    }
 
+
+    @Override
+    protected void onDestroy() {
+        UserInfo.viewloaded = false;
+        super.onDestroy();
+    }
 
     private void addDrawerItems() {
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, booleanArray);
@@ -276,7 +305,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
         mDrawerToggle.setDrawerIndicatorEnabled(false);
-       // mDrawerLayout.addDrawerListener(mDrawerToggle);
+        // mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         //Commented for adding an back button 6:30pm 19th March
     }
@@ -332,7 +361,7 @@ public class DetailViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(GravityCompat.END);
-              
+
 
 
             }
@@ -376,13 +405,21 @@ public class DetailViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
                 if (!userLikePushed) {
-                    Toast.makeText(DetailViewActivity.this, "Favorite", Toast.LENGTH_SHORT).show();
                     buttonFavorite.setBackgroundResource(R.drawable.like);
                     userLikePushed = true;
+
+                    favoriteRef.child(uid).child(toilet.key).setValue(true);
+
+
                 } else {
                     buttonFavorite.setBackgroundResource(R.drawable.likebefore);
                     userLikePushed = false;
+                    favoriteRef.child(uid).child(toilet.key).removeValue();
                 }
 
 
@@ -457,7 +494,9 @@ public class DetailViewActivity extends AppCompatActivity {
     }
 
 
-//    @Override
+
+
+    //    @Override
 //    public void onConfigurationChanged(Configuration newConfig) {
 //        super.onConfigurationChanged(newConfig);
 //        mDrawerToggle.onConfigurationChanged(newConfig);
@@ -470,7 +509,35 @@ public class DetailViewActivity extends AppCompatActivity {
 //        return true;
 //    }
 
+    private void favoriteQuery(){
 
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        favoriteRef.child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final DataSnapshot child : dataSnapshot.getChildren()) {
+
+                      String favoriteKey = child.getKey();
+
+                      if (favoriteKey.equals(toilet.key)){
+                          buttonFavorite.setBackgroundResource(R.drawable.like);
+                          userLikePushed = true;
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }
 
     private void toileGetInfo(final String queryKey){
 
@@ -487,13 +554,6 @@ public class DetailViewActivity extends AppCompatActivity {
                     Log.i("getValueString333",String.valueOf(dataSnapshot.getValue().toString()));
 
 
-
-
-
-
-
-//                    //Experiment April 3 1pm...
-
                     Log.i("getChildren333",String.valueOf(dataSnapshot.getChildren()));
 
                     dataSnapshot.getChildren();
@@ -501,23 +561,6 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
                     dataSnapshot.toString();
-
-
-//                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-////                        Toilet university = postSnapshot.getValue(Toilet.class);
-////                        universityList.add(university);
-////
-////                        Log.i("getUniversityList333", String.valueOf(universityList));
-//
-//                        postSnapshot.
-//
-//
-//                    }
-
-
-
-
-                        //Experiment April 3 1pm...
 
 
                     Boolean removedToilet = false;
@@ -604,6 +647,8 @@ public class DetailViewActivity extends AppCompatActivity {
                     toilet.howtoaccess = (String) dataSnapshot.child("howtoaccess").getValue();
 
                     Log.i("BOOOL???","3");
+
+
 
                     Long openh = (Long) dataSnapshot.child("openHours").getValue();
                     toilet.openHours = openh.intValue();
@@ -725,9 +770,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     booleanArray.add("トイレの設備");
 
-                    if (toilet.japanesetoilet){
-                        booleanArray.add("和式トイレ");
-                    }
+                    if (toilet.japanesetoilet){  booleanArray.add("和式トイレ");  }
 
                     if (toilet.westerntoilet){
                         booleanArray.add("洋式トイレ");
@@ -1014,20 +1057,226 @@ public class DetailViewActivity extends AppCompatActivity {
 
                     firstPosterGetInfo(toilet.addedBy);
                     lastEditerGetInfo(toilet.editedBy);
+
+                    Log.i("thumbsUp","908");
+                    thumbsUpQuery(toilet.reviewOne, toilet.reviewTwo);
                     //reviewQuery(toilet.key);
 
 
 
                 }}
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    String TAG = "Error";
-                    Log.w(TAG, "DatabaseError",databaseError.toException());
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                String TAG = "Error";
+                Log.w(TAG, "DatabaseError",databaseError.toException());
 
-                }
-            });
+            }
+        });
+
 
     }
+
+
+    private void createRecyclerView(List reviewList) {
+        Log.i("reviewRecycle", "Called");
+        recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
+        adapter = new ReviewListAdapter(reviewList);
+        //adapter = new ToiletListAdapter(reviewData);
+        layoutManager = new LinearLayoutManager(this);
+        recyclertView.setLayoutManager(layoutManager);
+        recyclertView.setHasFixedSize(true);
+        recyclertView.setAdapter(adapter);
+        Log.i("reviewRecycle", "Ended");
+
+
+    }
+
+    private void thumbsUpQuery(String ridOne, String ridTwo){
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        thumbsUpRef = FirebaseDatabase.getInstance().getReference().child("ThumbsUpList");
+
+
+        thumbsUpRef.child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (final DataSnapshot child : dataSnapshot.getChildren()) {
+
+                    final String ridkey = child.getKey();
+
+
+                    thumbsUpSet.add(ridkey);
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        Log.i(" toiletreviewItself","908");
+
+        if (!ridOne.equals("")) {
+            getReviewInfoAndUserInfo(ridOne);
+            //toiletReviewQuery(ridOne);
+            Log.i(" toiletreviewOne);","908");
+        }
+
+        if (!ridTwo.equals("")) {
+            getReviewInfoAndUserInfo(ridTwo);
+            //toiletReviewQuery(ridTwo);
+            Log.i(" toiletReviereviewTwo);","908");
+        }
+//        if (!toilet.reviewOne.equals("")) {
+//            toiletReviewQuery(toilet.reviewOne);
+//            Log.i(" toiletreviewOne);","");
+//        }
+//
+//        if (!toilet.reviewTwo.equals("")) {
+//            toiletReviewQuery(toilet.reviewTwo);
+//            Log.i(" toiletReviereviewTwo);","");
+//        }
+
+
+    }
+
+
+//    private void toiletReviewQuery(String queryKey){
+//        // final List<Review> reviewList = new ArrayList<>();
+//
+//        toiletReviewsRef = FirebaseDatabase.getInstance().getReference().child("ToiletReviews");
+//
+//        toiletReviewsRef.child(queryKey).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                if (!UserInfo.viewloaded){
+//
+//                    Log.i("DataSnap112233", String.valueOf(dataSnapshot));
+//
+//                    for (final DataSnapshot child : dataSnapshot.getChildren()) {
+//
+//                        Log.i("DataChild112233", String.valueOf(child.getKey()));
+//
+//
+//                        //final String ridKey = child.getValue().toString();
+//
+//                        final String ridKey = child.getKey();
+//
+//                        getReviewInfoAndUserInfo(ridKey);
+//
+//
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//    }
+
+    private void getReviewInfoAndUserInfo(final String ridKey) {
+
+
+//        final List<Review> reviewList = new ArrayList<>();
+
+        reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
+
+
+        reviewsRef.child(ridKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (!UserInfo.viewloaded) {
+                    final Review review = new Review();
+
+
+                    review.rid = ridKey;
+
+                    if (thumbsUpSet.contains(review.rid)) {
+                        review.userLiked = true;
+                    }
+
+
+                    review.uid = (String) dataSnapshot.child("uid").getValue();
+                    review.feedback = (String) dataSnapshot.child("feedback").getValue();
+                    review.time = (String) dataSnapshot.child("time").getValue();
+                    review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
+
+
+                    Long likedCount = (Long) dataSnapshot.child("likedCount").getValue();
+                    review.likedCount = likedCount.intValue();
+//                Long star = (Long) dataSnapshot.child("star").getValue();
+//                review.star = star.doubleValue();
+
+
+                    review.star = (String) dataSnapshot.child("star").getValue();
+
+
+                    userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+                    userRef.child(review.uid).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (!UserInfo.viewloaded) {
+                                Log.i("userInfoQuery", "Called");
+
+
+                                review.userName = (String) dataSnapshot.child("userName").getValue();
+                                Log.i("userInfoQuery1", "Called");
+                                review.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
+                                Log.i("userInfoQuery2", "Called");
+//                        review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
+//                        Log.i("review.waitingTime",review.waitingtime);
+
+
+                                Long totalLikedCount = (Long) dataSnapshot.child("totalLikedCount").getValue();
+                                Long totalFavoriteCount = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
+                                Long totalHelpedCount = (Long) dataSnapshot.child("totalHelpedCount").getValue();
+                                review.totalLikedCount = totalLikedCount.intValue();
+                                review.totalFavoriteCount = totalFavoriteCount.intValue();
+                                review.totalHelpedCount = totalHelpedCount.intValue();
+
+
+                                reviewList.add(review);
+                                createRecyclerView(reviewList);
+
+                                Log.i("reviewQueryCalled", "End");
+
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
 
 //    private void reviewQuery(String queryKey) {
 //
@@ -1141,7 +1390,7 @@ public class DetailViewActivity extends AppCompatActivity {
 //        });
 
 
-        //reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener)
+    //reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener)
     //}
 
     private void firstPosterGetInfo(String firstPosterID){
