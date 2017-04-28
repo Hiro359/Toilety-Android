@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:minHeight="?attr/actionBarSize"
-    android:background="@color/colorForBackground"
+    android:background="@color/colorAppBar"
     android:id="@+id/edit_pin_location_bar_layout"
     app:titleTextColor="@color/colorText"
     app:subtitleTextColor="@color/colorPrimary"

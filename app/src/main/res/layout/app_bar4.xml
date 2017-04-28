@@ -7,8 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:minHeight="?attr/actionBarSize"
-    android:background="@color/colorForBackground"
     android:id="@+id/app_bar4"
+    android:background="@color/colorAppBar"
     app:titleTextColor="@color/colorText"
     app:subtitleTextColor="@color/colorPrimary"
 

@@ -3,12 +3,14 @@
     <color name="colorPrimary">#51ABF1</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#51ABF1</color>
-    <color name="colorForBackground">#F1EEF6</color>
+    <color name="colorForBackground">#F3F3F3</color>
     <color name="colorLabel">#FFFFFF</color>
     <color name="colorText">#000103</color>
     <color name="colorSubText">#808A9F</color>
     <color name="colorStar">#FFE851</color>
     <color name="colorWhiteText">#FFFFFF</color>
+    <color name="colorAppBar">#FFFFFF</color>
+
 
 
 
