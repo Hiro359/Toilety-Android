@@ -191,17 +191,6 @@ public class DetailViewActivity extends AppCompatActivity {
         );
 
 
-        //toolbar.setNavigationIcon(R.drawable.earth);
-        //toolbar.setNavigationContentDescription("戻る");
-
-        //Trial....
-
-
-
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //It may cause a crash....
-
-
         //getSupportActionBar().setHomeButtonEnabled(true);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -465,14 +454,19 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
                 if (!userLikePushed) {
-                    buttonFavorite.setBackgroundResource(R.drawable.like);
+                    //buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+                    buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_non_colored_drawable);
+
+                    // buttonFavorite.setBackgroundResource(R.drawable.android:background="@drawable/app_love_icon_non_colored_drawable");
                     userLikePushed = true;
 
                     favoriteRef.child(uid).child(toilet.key).setValue(true);
 
 
                 } else {
-                    buttonFavorite.setBackgroundResource(R.drawable.likebefore);
+                    buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+
+                    //buttonFavorite.setBackgroundResource(R.drawable.likebefore);
                     userLikePushed = false;
                     favoriteRef.child(uid).child(toilet.key).removeValue();
                 }
@@ -576,7 +570,7 @@ public class DetailViewActivity extends AppCompatActivity {
                       String favoriteKey = child.getKey();
 
                       if (favoriteKey.equals(toilet.key)){
-                          buttonFavorite.setBackgroundResource(R.drawable.like);
+                          buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
                           userLikePushed = true;
                     }
 

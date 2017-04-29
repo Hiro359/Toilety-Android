@@ -41,6 +41,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/basicInfoLayout"
+                    android:background="@color/colorLabel">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
@@ -103,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:numStars="5"
                         android:theme="@style/RatingBar"
-                        android:isIndicator="false"
+                        android:isIndicator="true"
                         android:id="@+id/ratingDisplay"
                         />
 
@@ -134,11 +140,13 @@
                 </LinearLayout>
 
 
+                </LinearLayout>
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorLabel"
 
                     >
 
@@ -148,7 +156,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="start"
                         android:layout_margin="20dp"
-                        android:background="@drawable/likebefore"
+                        android:background="@drawable/app_love_icon_non_colored_drawable"
                         android:id="@+id/detailFavoriteButton"
 
                         style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
@@ -416,7 +424,8 @@
                                     android:id="@+id/firstPosterLikeImage"
                                     android:layout_margin="3sp"
                                     android:contentDescription="@string/image"
-                                    android:src="@drawable/thumb"/>
+                                    android:background="@drawable/app_thumb_icon_colored_24"
+                                    />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -438,7 +447,8 @@
                                     android:id="@+id/firstPosterFavoriteImage"
                                     android:layout_margin="3sp"
                                     android:contentDescription="@string/image"
-                                    android:src="@drawable/like"/>
+                                    android:background="@drawable/app_love_icon_24_drawable"
+                                    />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -455,7 +465,7 @@
                                 <ImageView
                                     android:layout_width="30sp"
                                     android:layout_height="30sp"
-                                    android:src="@drawable/standing"
+                                    android:background="@drawable/app_help_count_icon_drawable"
                                     android:id="@+id/firstPosterHelpImage"
                                     android:layout_margin="3sp"
                                     android:contentDescription="@string/image"
@@ -537,7 +547,8 @@
                                     android:id="@+id/lastEditerLikeImage"
                                     android:layout_margin="3sp"
                                     android:contentDescription="@string/image"
-                                    android:src="@drawable/thumb"/>
+                                    android:background="@drawable/app_thumb_icon_colored_24"
+                                    />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -560,7 +571,8 @@
                                     android:id="@+id/lastEditerFavoriteImage"
                                     android:layout_margin="3sp"
                                     android:contentDescription="@string/image"
-                                    android:src="@drawable/like"/>
+                                    android:background="@drawable/app_love_icon_24_drawable"
+                                    />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -580,7 +592,7 @@
                                     android:id="@+id/lastEditerHelpImage"
                                     android:layout_margin="3sp"
                                     android:contentDescription="@string/image"
-                                    android:src="@drawable/standing"
+                                    android:background="@drawable/app_help_count_icon_drawable"
 
                                     />
 

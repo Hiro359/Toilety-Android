@@ -509,12 +509,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         // double roundedAlpha = round(alpha, 1);
 
                         String avStar = marker.getTag().toString();
+                        Float ratingValue = Float.parseFloat(avStar);
 
 
 
                         marketName.setText(marker.getTitle());
                         markerDetail.setText("平均"+ String.valueOf(marker.getRotation()) +"分待ち/" + distanceSting);
-                        markerRatingBar.setRating(marker.getRotation());
+                        markerRatingBar.setRating(ratingValue);
                         marketRatingString.setText(avStar);
 
 

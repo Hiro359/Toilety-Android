@@ -45,12 +45,16 @@
 
 
 
+
        <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:rating="3"
-        android:id="@+id/markerRatingBar"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:numStars="5"
+           android:theme="@style/RatingBar"
+           android:isIndicator="true"
+           android:id="@+id/markerRatingBar"
            />
+
 
        <TextView
            android:layout_width="wrap_content"
