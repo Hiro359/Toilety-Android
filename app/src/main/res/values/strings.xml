@@ -89,6 +89,10 @@
     <string name="userKansou">ユーザーの感想</string>
     <string name="defaultCount">1</string>
     <string name="superCount">100000</string>
+    <string name="postKansouButton">感想</string>
+    <string name="startEditButton">編集</string>
+    <string name="showAllReviewsButton">全ての感想</string>
+
 
     <string name="image">イメージ</string>
 

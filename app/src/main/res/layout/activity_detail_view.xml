@@ -168,10 +168,10 @@
                         android:layout_height="60dp"
                         android:text="@string/look_detail"
                         android:textColor="@color/colorText"
-                        android:textSize="26sp"
+                        android:textSize="25sp"
                         android:layout_gravity="center"
                         android:layout_centerHorizontal="true"
-                        android:background="@drawable/buttonborder"
+                        android:background="@drawable/shape"
                         android:id="@+id/buttonMoreDetail"
                         style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
 
@@ -205,11 +205,13 @@
                         <Button
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
-                            android:text="@string/kansou"
+                            android:text="@string/postKansouButton"
                             android:textColor="@color/colorText"
-                            android:textSize="26sp"
-                            android:background="@drawable/buttonborder"
+                            android:textSize="25sp"
+                            android:background="@drawable/shape"
                             android:id="@+id/buttonKansou"
+
+
 
                             />
 
@@ -234,10 +236,10 @@
                         <Button
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
-                            android:text="@string/edit_detail"
+                            android:text="@string/startEditButton"
                             android:textColor="@color/colorText"
-                            android:textSize="26sp"
-                            android:background="@drawable/buttonborder"
+                            android:textSize="25sp"
+                            android:background="@drawable/shape"
                             android:id="@+id/buttonEdit"
                             />
 
@@ -251,7 +253,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="5dp">
+                    android:paddingBottom="5dp"
+                    android:background="@color/colorLabel">
 
 
 
@@ -305,7 +308,7 @@
                         android:textColor="@color/colorText"
                         android:textSize="26sp"
                         android:layout_gravity="center"
-                        android:background="@drawable/buttonborder"
+                        android:background="@drawable/shape"
                         android:id="@+id/buttonGoToThisPlace"
                         style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
 
@@ -319,7 +322,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:paddingBottom="10dp"
+                    android:padding="10dp"
+
                     >
 
                     <ImageView
@@ -379,12 +383,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:background="@color/colorLabel"
                         >
 
 
                         <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:contentDescription="@string/firstPosterPlace"
                             android:id="@+id/firstPosterImage"
                             android:layout_margin="3dp"/>
@@ -392,7 +397,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
+                            android:layout_height="75dp"
                             android:orientation="vertical"
                             android:layout_toRightOf="@+id/firstPosterImage"
                             android:layout_toEndOf="@+id/firstPosterImage"
@@ -501,21 +506,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:background="@color/colorLabel"
                         >
 
 
                         <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:contentDescription="@string/lastEditerPlace"
                             android:id="@+id/lastEditerImage"
                             android:layout_margin="3dp"
+
                             />
 
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
+                            android:layout_height="75dp"
                             android:orientation="vertical"
                             android:layout_toRightOf="@+id/lastEditerImage"
                             android:layout_toEndOf="@+id/lastEditerImage"
@@ -625,10 +632,16 @@
                     android:layout_margin="3dp"
                     />
 
+
                 <Button
+
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/searchStart"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:text="@string/showAllReviewsButton"
+                    android:textColor="@color/colorText"
+                    android:textSize="25sp"
+                    android:background="@drawable/shape"
                     android:id="@+id/buttonGoToReviewList"/>
 
 

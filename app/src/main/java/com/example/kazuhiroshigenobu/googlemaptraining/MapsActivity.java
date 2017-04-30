@@ -18,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -62,6 +63,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.View.GONE;
+import static android.widget.LinearLayout.VERTICAL;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
     //extends FramgementActivity to AppCompatActivity
@@ -336,6 +338,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         recyclertView.setLayoutManager(layoutManager);
         recyclertView.setHasFixedSize(true);
         recyclertView.setAdapter(adapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclertView.getContext(),VERTICAL);
+        recyclertView.addItemDecoration(dividerItemDecoration);
         Log.i("createReclerView()Ended", "");
 
         if (recyclertView != null) {

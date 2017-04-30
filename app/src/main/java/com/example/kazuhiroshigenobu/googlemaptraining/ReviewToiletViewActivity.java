@@ -3,6 +3,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static android.widget.LinearLayout.VERTICAL;
 
 public class ReviewToiletViewActivity extends AppCompatActivity {
 
@@ -122,6 +125,9 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
         recyclertView.setHasFixedSize(true);
         recyclertView.setAdapter(adapter);
         Log.i("reviewRecycle", "Ended");
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclertView.getContext(),VERTICAL);
+        recyclertView.addItemDecoration(dividerItemDecoration);
 
 
     }

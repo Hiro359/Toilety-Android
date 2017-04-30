@@ -20,6 +20,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -60,6 +61,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static android.widget.LinearLayout.VERTICAL;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.CalculationByDistance;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.round;
 
@@ -1136,6 +1138,17 @@ public class DetailViewActivity extends AppCompatActivity {
         recyclertView.setHasFixedSize(true);
         recyclertView.setAdapter(adapter);
         Log.i("reviewRecycle", "Ended");
+
+
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclertView.getContext(),VERTICAL);
+        recyclertView.addItemDecoration(dividerItemDecoration);
+
+        //Added for devider April 30
+
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclertView.getContext(),
+//                layoutManager.getOrientation());
+//        recyclertView.addItemDecoration(dividerItemDecoration);
 
 
     }
