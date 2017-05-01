@@ -50,35 +50,60 @@ public class Toilet {
     Boolean paperTowel = false;
     Boolean handDrier = false;
 
-    Boolean otohime = false;
-    Boolean napkinSelling = false;
-    Boolean makeuproom = false;
-    Boolean clothes = false;
-    Boolean baggageSpace = false;
-
-
-    Boolean wheelchair = false;
-    Boolean wheelchairAccess = false;
-    Boolean handrail = false;
-    Boolean callHelp = false;
-    Boolean ostomate = false;
-    Boolean english = false;
-    Boolean braille = false;
-    Boolean voiceGuide = false;
-
 
     Boolean fancy = false;
     Boolean smell = false;
     Boolean conforatableWide= false;
+    Boolean clothes = false;
+    Boolean baggageSpace = false;
+
+
     Boolean noNeedAsk = false;
+    Boolean english = false;
     Boolean parking = false;
     Boolean airCondition = false;
     Boolean wifi = false;
 
+
+
+
+
+
+    //For ladys
+    Boolean otohime = false;
+    Boolean napkinSelling = false;
+    Boolean makeuproom = false;
+    Boolean ladyOmutu = false;
+    Boolean ladyBabyChair = false;
+    Boolean ladyBabyChairGood = false;
+    Boolean ladyBabyChairAccess = false;
+
+    //For mens
+    Boolean maleOmutu = false;
+    Boolean maleBabyChair = false;
+    Boolean maleBabyChairGood = false;
+    Boolean maleBabyChairAccess = false;
+
+
+
+
+    Boolean wheelchair = false;
+    Boolean wheelchairAccess = false;
+    Boolean autoDoor = false;
+    Boolean callHelp = false;
+    Boolean ostomate = false;
+    Boolean braille = false;
+    Boolean voiceGuide = false;
+    Boolean familyOmutu = false;
+    Boolean familyBabyChair = false;
+
+
+
+
+
+
+
     Boolean milkspace = false;
-
-
-
     Boolean babyroomOnlyFemale = false;
     Boolean babyroomManCanEnter = false;
     Boolean babyPersonalSpace = false;

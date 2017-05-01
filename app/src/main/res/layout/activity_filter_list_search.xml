@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_filter_list_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.FilterListSearchActivity">
+
+
+    <include
+        android:id="@+id/app_bar_toilet_review_list_view"
+        layout="@layout/app_bar_toilet_review_list_view"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/toiletReviewList"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        >
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

@@ -377,7 +377,7 @@ public class FilterSearchActivity extends AppCompatActivity {
 
         wheelChairSwitch.setChecked(Filter.wheelchairFilter);
         wheelChairAccessSwitch.setChecked(Filter.wheelchairAccessFilter);
-        handrailSwitch.setChecked(Filter.handrailFilter);
+        handrailSwitch.setChecked(Filter.autoDoorFilter);
         callHelpSwitch.setChecked(Filter.callHelpFilter);
         ostomateSwitch.setChecked(Filter.ostomateFilter);
         englishSwitch.setChecked(Filter.writtenEnglish);
@@ -743,9 +743,9 @@ public class FilterSearchActivity extends AppCompatActivity {
 
 //                return Filter.japaneseFilter();
                 if (isChecked){
-                    Filter.handrailFilter = true;
+                    Filter.autoDoorFilter = true;
                 } else{
-                    Filter.handrailFilter = false;
+                    Filter.autoDoorFilter = false;
                 }
             }
         });

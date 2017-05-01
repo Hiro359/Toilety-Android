@@ -61,28 +61,48 @@ public class EditViewActivity extends AppCompatActivity {
     Switch toiletHandDrier;
 
 
+    //From Add Toilet Detail Acitiviy
+    //others one
+    Switch toiletClothes;
+    Switch toiletBaggage;
+    Switch toiletFancy;
+    Switch toiletSmell;
+    Switch toiletConfortable;
+    //others two
+    Switch toiletNoNeedAsk;
+    Switch toiletParking;
+    Switch toiletAirCondition;
+    Switch toiletWifi;
+    Switch toiletWrittenEnglish;
+
+    //ladys
     Switch toiletOtohime;
     Switch toiletNapkinSelling;
     Switch toiletMakeroom;
-    Switch toiletClothes;
-    Switch toiletBaggage;
+    Switch ladysOmutuSwitch;
+    Switch ladysBabyChairSwitch;
+    Switch ladysBabyChairGoodSwitch;
+    Switch ladysBabyCarAccessSwitch;
 
+    //mens
+    Switch maleOmutuSwitch;
+    Switch maleBabyChairSwitch;
+    Switch maleBabyChairGoodSwitch;
+    Switch maleBabyCarAccessSwitch;
+
+    //family room
     Switch toiletWheelchair;
     Switch toiletWheelchairAccess;
     Switch toiletHandrail;
     Switch toiletCallHelp;
     Switch toiletOstomate;
-    Switch toiletWrittenEnglish;
     Switch toiletBraille;
     Switch toiletVoiceGuide;
+    Switch familyOmutu;
+    Switch familyBabyChair;
+    //From Add Toilet Detail Acitiviy
 
-    Switch toiletFancy;
-    Switch toiletSmell;
-    Switch toiletConfortable;
-    Switch toiletNoNeedAsk;
-    Switch toiletParking;
-    Switch toiletAirCondition;
-    Switch toiletWifi;
+
 
     Switch toiletMilk;
     Switch toiletBabyRoomOnlyFemale;
@@ -824,30 +844,54 @@ public class EditViewActivity extends AppCompatActivity {
                     toilet.handDrier = (Boolean) dataSnapshot.child("handDrier").getValue();
 
 
-                    toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
-                    toilet.napkinSelling = (Boolean) dataSnapshot.child("napkinSelling").getValue();
-                    toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
-                    toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
-                    toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
-
-
-                    toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
-                    toilet.wheelchairAccess = (Boolean) dataSnapshot.child("wheelchairAccess").getValue();
-                    toilet.handrail = (Boolean) dataSnapshot.child("handrail").getValue();
-                    toilet.callHelp = (Boolean) dataSnapshot.child("callHelp").getValue();
-                    toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
-                    toilet.english = (Boolean) dataSnapshot.child("english").getValue();
-                    toilet.braille = (Boolean) dataSnapshot.child("braille").getValue();
-                    toilet.voiceGuide = (Boolean) dataSnapshot.child("voiceGuide").getValue();
-
+                    //From Maps Activity
+                    //others one
 
                     toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
                     toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
                     toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
+                    toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
+                    toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+
+
+
+                    //others two
                     toilet.noNeedAsk = (Boolean) dataSnapshot.child("noNeedAsk").getValue();
+                    toilet.english = (Boolean) dataSnapshot.child("english").getValue();
                     toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
                     toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
                     toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
+
+
+                    //for ladys
+
+                    toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
+                    toilet.napkinSelling = (Boolean) dataSnapshot.child("napkinSelling").getValue();
+                    toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
+                    toilet.ladyOmutu = (Boolean) dataSnapshot.child("ladyOmutu").getValue();
+                    toilet.ladyBabyChair = (Boolean) dataSnapshot.child("ladyBabyChair").getValue();
+                    toilet.ladyBabyChairGood = (Boolean) dataSnapshot.child("ladyBabyChairGood").getValue();
+                    toilet.ladyBabyChairAccess = (Boolean) dataSnapshot.child("ladyBabyChairAccess").getValue();
+
+                    //for Mans
+                    toilet.maleOmutu = (Boolean) dataSnapshot.child("maleOmutu").getValue();
+                    toilet.maleBabyChair = (Boolean) dataSnapshot.child("maleBabyChair").getValue();
+                    toilet.maleBabyChairGood = (Boolean) dataSnapshot.child("maleBabyChairGood").getValue();
+                    toilet.maleBabyChairAccess = (Boolean) dataSnapshot.child("maleBabyChairAccess").getValue();
+
+                    //for Family Restroom
+
+                    toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
+                    toilet.wheelchairAccess = (Boolean) dataSnapshot.child("wheelchairAccess").getValue();
+                    toilet.autoDoor = (Boolean) dataSnapshot.child("handrail").getValue();
+                    toilet.callHelp = (Boolean) dataSnapshot.child("callHelp").getValue();
+                    toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
+                    toilet.braille = (Boolean) dataSnapshot.child("braille").getValue();
+                    toilet.voiceGuide = (Boolean) dataSnapshot.child("voiceGuide").getValue();
+                    toilet.familyOmutu = (Boolean) dataSnapshot.child("familyOmutu").getValue();
+                    toilet.familyBabyChair = (Boolean) dataSnapshot.child("familyBabyChair").getValue();
+                    //From Maps Activity
+                    ///
 
                     toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
                     toilet.babyroomOnlyFemale = (Boolean) dataSnapshot.child("babyRoomOnlyFemale").getValue();
@@ -921,7 +965,7 @@ public class EditViewActivity extends AppCompatActivity {
 
                     toiletWheelchair.setChecked(toilet.wheelchair);
                     toiletWheelchairAccess.setChecked(toilet.wheelchairAccess);
-                    toiletHandrail.setChecked(toilet.handrail);
+                    toiletHandrail.setChecked(toilet.autoDoor);
                     toiletCallHelp.setChecked(toilet.callHelp);
                     toiletOstomate.setChecked(toilet.ostomate);
                     toiletWrittenEnglish.setChecked(toilet.english);

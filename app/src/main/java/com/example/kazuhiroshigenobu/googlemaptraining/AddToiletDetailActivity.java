@@ -99,28 +99,53 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     Switch toiletHandDrier;
 
 
+    //From Add Toilet Detail Acitiviy
+    //others one
+    Switch toiletClothes;
+    Switch toiletBaggage;
+    Switch toiletFancy;
+    Switch toiletSmell;
+    Switch toiletConfortable;
+    //others two
+    Switch toiletNoNeedAsk;
+    Switch toiletParking;
+    Switch toiletAirCondition;
+    Switch toiletWifi;
+    Switch toiletWrittenEnglish;
+
+    //ladys
     Switch toiletOtohime;
     Switch toiletNapkinSelling;
     Switch toiletMakeroom;
-    Switch toiletClothes;
-    Switch toiletBaggage;
+    Switch ladysOmutuSwitch;
+    Switch ladysBabyChairSwitch;
+    Switch ladysBabyChairGoodSwitch;
+    Switch ladysBabyCarAccessSwitch;
 
+    //mens
+    Switch maleOmutuSwitch;
+    Switch maleBabyChairSwitch;
+    Switch maleBabyChairGoodSwitch;
+    Switch maleBabyCarAccessSwitch;
+
+    //family room
     Switch toiletWheelchair;
     Switch toiletWheelchairAccess;
     Switch toiletHandrail;
     Switch toiletCallHelp;
     Switch toiletOstomate;
-    Switch toiletWrittenEnglish;
     Switch toiletBraille;
     Switch toiletVoiceGuide;
+    Switch familyOmutu;
+    Switch familyBabyChair;
+    //From Add Toilet Detail Acitiviy
 
-    Switch toiletFancy;
-    Switch toiletSmell;
-    Switch toiletConfortable;
-    Switch toiletNoNeedAsk;
-    Switch toiletParking;
-    Switch toiletAirCondition;
-    Switch toiletWifi;
+
+
+
+
+
+
 
 
 

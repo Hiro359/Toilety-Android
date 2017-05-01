@@ -42,15 +42,13 @@
     <string name="searchStart">検索</string>
 
 
-     <!--Review Cutsom Row-->
+    <!--Review Cutsom Row-->
     <string name="userName">user name</string>
     <string name="reviewLikeCount">いいね３件</string>
     <string name="waitingTime">分待ちました</string>
     <string name="one">1</string>
     <string name="dateString">2017/4/21</string>
     <string name="reviewListTitle">全ての感想</string>
-
-
 
 
     <!--FavoriteListActivity -->
@@ -104,6 +102,7 @@
     <string name="category">分類</string>
     <string name="searchWithFilter">条件検索</string>
     <string name="detailToilet">トイレの詳細</string>
+    <string name="name_booleanValues">スイッチ</string>
 
 
     <!--Strings related to boolean values-->
@@ -128,28 +127,45 @@
     <string name="name_paperTowel">ペーパータオル</string>
     <string name="name_handDrier">ハンドドライヤー</string>
 
+    <!--others 1-->
+
+    <string name="name_clothes">洋服掛け</string>
+    <string name="name_baggageSpace">荷物置き</string>
+
+    <!--others two -->
+
+    <string name="name_englishWritten">英語表記</string>
+    <string name="name_noNeedAsk">声かけ不要</string>
+    <string name="name_parking">駐車場</string>
+    <string name="name_airCondition">冷暖房</string>
+    <string name="name_wifi">無料Wi-Fi</string>
+
+
+    <!--//For ladys-->
     <string name="name_otohime">音姫</string>
     <string name="name_napkinSelling">ナプキン販売機</string>
     <string name="name_makeroom">メイクルーム</string>
-    <string name="name_clothes">洋服掛け</string>
-    <string name="name_baggageSpace">荷物置き</string>
+    <string name="omutu">おむつ交換台</string>
+    <string name="babyChairGoodPlace">安全なベビーチェア</string>
+
+
+    <!--For mans-->
+
+
+    <!--for family-->
 
     <string name="name_wheelChair">車イス対応</string>
     <string name="name_wheelChairAccess">車イスでアクセス可能</string>
     <string name="name_handrail">手すり</string>
     <string name="name_callHelp">呼び出しボタン</string>
     <string name="name_ostomate">オストメイト対応</string>
-    <string name="name_englishWritten">英語表記</string>
     <string name="braille">点字案内</string>
     <string name="name_voiceGuide">音声案内</string>
+
 
     <string name="name_fancy">おしゃれ</string>
     <string name="name_smell">良い香り</string>
     <string name="name_confortableWide">快適な広さ</string>
-    <string name="name_noNeedAsk">声かけ不要</string>
-    <string name="name_parking">駐車場</string>
-    <string name="name_airCondition">冷暖房</string>
-    <string name="name_wifi">無料Wi-Fi</string>
 
 
     <string name="name_milk">授乳スペース</string>

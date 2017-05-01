@@ -38,29 +38,58 @@ public class Filter {
     static Boolean paperTowelFilter = false;
     static Boolean handDrierFilter = false;
 
-    static Boolean otohime = false;
-    static Boolean napkinSelling = false;
-    static Boolean makeroomFilter = false;
-    static Boolean clothes = false;
-    static Boolean baggageSpaceFilter = false;
 
-    static Boolean wheelchairFilter = false;
-    static Boolean wheelchairAccessFilter = false;
-    static Boolean handrailFilter = false;
-    static Boolean callHelpFilter = false;
-    static Boolean ostomateFilter = false;
-    static Boolean writtenEnglish = false;
-    static Boolean braille = false;
-    static Boolean voiceGuideFilter = false;
-
-
+    //others 1
     static Boolean fancy = false;
     static Boolean smell = false;
     static Boolean confortableWise = false;
+    static Boolean clothes = false;
+    static Boolean baggageSpaceFilter = false;
+
+
+    //others 2
     static Boolean noNeedAsk = false;
+    static Boolean writtenEnglish = false;
     static Boolean parking = false;
     static Boolean airConditionFilter = false;
     static Boolean wifiFilter = false;
+
+
+
+
+
+
+    //For ladys
+    static Boolean otohime = false;
+    static Boolean napkinSelling = false;
+    static Boolean makeroomFilter = false;
+    static Boolean ladyOmutuFilter= false;
+    static Boolean ladyBabyChair = false;
+    static Boolean ladyBabyChairGood = false;
+    static Boolean ladyBabyChairAccess = false;
+
+    //For men
+    static Boolean maleOmutuFilter= false;
+    static Boolean maleBabyChair = false;
+    static Boolean maleBabyChairGood = false;
+    static Boolean maleBabyChairAccess = false;
+
+
+
+    //For unisex
+    static Boolean wheelchairFilter = false;
+    static Boolean wheelchairAccessFilter = false;
+    static Boolean autoDoorFilter = false;
+    static Boolean callHelpFilter = false;
+    static Boolean ostomateFilter = false;
+    static Boolean braille = false;
+    static Boolean voiceGuideFilter = false;
+    static Boolean unisexOmutuFilter= false;
+    static Boolean unisexBabyChair = false;
+
+
+
+
 
     static Boolean milkspaceFilter = false;
     static Boolean babyRoomOnlyFemaleFilter = false;
