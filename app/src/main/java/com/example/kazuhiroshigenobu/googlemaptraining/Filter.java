@@ -66,13 +66,13 @@ public class Filter {
     static Boolean ladyOmutuFilter= false;
     static Boolean ladyBabyChair = false;
     static Boolean ladyBabyChairGood = false;
-    static Boolean ladyBabyChairAccess = false;
+    static Boolean ladyBabyCarAccess = false;
 
     //For men
     static Boolean maleOmutuFilter= false;
     static Boolean maleBabyChair = false;
     static Boolean maleBabyChairGood = false;
-    static Boolean maleBabyChairAccess = false;
+    static Boolean maleBabyCarAccess = false;
 
 
 
