@@ -780,32 +780,32 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
     }
 
 
-    private void pictureUpload() {
-
-
-        Log.i("pictureUpload()", "called");
-        // Get the data from an ImageView as bytes
-        mainImage.setDrawingCacheEnabled(true);
-        mainImage.buildDrawingCache();
-        Bitmap bitmap = mainImage.getDrawingCache();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-
-        UploadTask uploadTask = storageRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-            }
-        });
-    }
+//    private void pictureUpload() {
+//
+//
+//        Log.i("pictureUpload()", "called");
+//        // Get the data from an ImageView as bytes
+//        mainImage.setDrawingCacheEnabled(true);
+//        mainImage.buildDrawingCache();
+//        Bitmap bitmap = mainImage.getDrawingCache();
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//        byte[] data = baos.toByteArray();
+//
+//        UploadTask uploadTask = storageRef.putBytes(data);
+//        uploadTask.addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                // Handle unsuccessful uploads
+//            }
+//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+//                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+//            }
+//        });
+//    }
 
 
     private void firebaseUpdate(){
@@ -863,6 +863,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
         DatabaseReference newRef = toiletRef.child(newTid);
 
         //String firekey = newRef.getKey();
+
 
 
 

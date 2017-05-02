@@ -100,6 +100,8 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     }
 
 
+
+
                     if (pos == 6) {
                         AddDetailBooleans.washlet = buttonView.isChecked();
                     }
@@ -124,6 +126,7 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 
 
+
                     if (pos == 14) {
                         AddDetailBooleans.sensorHandWash = buttonView.isChecked();
 
@@ -136,11 +139,13 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     }
 
                     if (pos == 17) {
-                        AddDetailBooleans.paperForBenki = buttonView.isChecked();
+                        AddDetailBooleans.paperTowel = buttonView.isChecked();
                     }
+
                     if (pos == 18) {
                         AddDetailBooleans.handDrier = buttonView.isChecked();
                     }
+
 
 
                     if (pos == 20) {
@@ -158,6 +163,7 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     if (pos == 24) {
                         AddDetailBooleans.baggageSpace = buttonView.isChecked();
                     }
+
 
 
                     if (pos == 26) {
@@ -199,6 +205,8 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     if (pos == 38) {
                         AddDetailBooleans.ladyBabyCarAccess = buttonView.isChecked();
                     }
+
+
 
 
                     if (pos == 40) {

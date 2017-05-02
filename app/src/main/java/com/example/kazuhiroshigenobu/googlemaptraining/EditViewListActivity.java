@@ -1,10 +1,17 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,15 +38,26 @@ import android.widget.Toast;
 import com.firebase.geofire.GeoFire;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnPausedListener;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static android.widget.LinearLayout.VERTICAL;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.CalculationByDistance;
@@ -99,10 +117,17 @@ public class EditViewListActivity extends AppCompatActivity {
     ArrayAdapter<CharSequence> adapterEndHours;
     ArrayAdapter<CharSequence> adapterEndMinutes;
 
+    private String urlOne = "";
+    private String urlTwo = "";
+    private String urlThree = "";
+
     SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
     private RecyclerView recyclertView;
     private RecyclerView.LayoutManager layoutManager;
     private AddBooleansListAdapter adapter;
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference().child("images");
 
 
 
@@ -116,6 +141,7 @@ public class EditViewListActivity extends AppCompatActivity {
         toolbarTitle = (TextView) toolbar.findViewById(R.id.editAppBarTitle);
 
         //switchesReady();
+        layoutReady();
         othersReady();
 
 
@@ -153,6 +179,13 @@ public class EditViewListActivity extends AppCompatActivity {
         );
     }
 
+    private void layoutReady(){
+
+
+        mainImage = (ImageView) findViewById(R.id.picture1);
+        subImage1 = (ImageView) findViewById(R.id.picture2);
+        subImage2 = (ImageView) findViewById(R.id.picture3);
+    }
 
 
     @Override
@@ -214,16 +247,7 @@ public class EditViewListActivity extends AppCompatActivity {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-
-
-                    requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},2);
-                } else {
-
-
-                    imageSetPlaceChoose();
-
-                }
+                checkPermissionAndAddPhoto();
             }
         });
 
@@ -254,6 +278,74 @@ public class EditViewListActivity extends AppCompatActivity {
 
     }
 
+    public void checkPermissionAndAddPhoto() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                //request permission...
+                requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
+
+            } else {
+                //Have a permission
+                imageSetPlaceChoose();
+            }
+        } else {
+            //Build.VERSION.SDK_INT < Build.VERSION_CODES.M(23)
+
+            imageSetPlaceChoose();
+
+        }
+
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+
+            Uri selectedImage = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+
+//                mainImage = (ImageView) findViewById(R.id.picture1);
+//                subImage1 = (ImageView) findViewById(R.id.picture2);
+//                subImage2 = (ImageView) findViewById(R.id.picture3);
+
+                //I wrote this one twice
+                ImageView targetView = mainImage;
+
+
+                if (photoSelected == 0) {
+                    targetView = mainImage;
+                    uploadImageToDatabase(0, selectedImage);
+
+                } else if (photoSelected == 1) {
+                    targetView = subImage1;
+                    uploadImageToDatabase(1, selectedImage);
+                    //subOnefilePath = selectedImage;
+
+                } else if (photoSelected == 2) {
+                    targetView = subImage2;
+                    uploadImageToDatabase(3, selectedImage);
+                    //subTwofilePath = selectedImage;
+
+                }
+
+                targetView.setImageBitmap(bitmap);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
+
     private void toiletNameCheck(){
         String tName = textToiletName.getText().toString();
 
@@ -268,6 +360,8 @@ public class EditViewListActivity extends AppCompatActivity {
             //firebaseUpdate();
         }
     }
+
+
     private void imageSetPlaceChoose(){
         final Integer imageNum = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -590,6 +684,10 @@ public class EditViewListActivity extends AppCompatActivity {
                     toilet.urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
                     toilet.urlThree = (String) dataSnapshot.child("urlThree").getValue();
 
+                    urlOne = toilet.urlOne;
+                    urlTwo = toilet.urlTwo;
+                    urlThree = toilet.urlThree;
+
                     Log.i("BOOOL???", "2");
 
                     toilet.addedBy = (String) dataSnapshot.child("addedBy").getValue();
@@ -831,10 +929,14 @@ public class EditViewListActivity extends AppCompatActivity {
                     AddDetailBooleans.babySmellGood = toilet.babySmellGood;
 
 
+                    textToiletName.setText(toilet.name);
+
                     Float averaegeStarFloat = Float.parseFloat(toilet.averageStar);
                     Log.i("Type@@@",toilet.type);
                     sppinnerReady();
                     sparseArrayReady();
+                    setIntialImage();
+
 
 
                 }
@@ -849,6 +951,48 @@ public class EditViewListActivity extends AppCompatActivity {
         });
 
     }
+
+
+    private void setIntialImage(){
+
+
+        Log.i("Set!!!","1");
+
+        if (!toilet.urlOne.equals("")){
+            Uri uri = Uri.parse(toilet.urlOne);
+            Picasso.with(getApplicationContext()).load(uri).into(mainImage);
+
+        } else {
+
+            Log.i("SetMainImage","1");
+            mainImage.setImageResource(R.drawable.default_photo_white_drawable);
+            Log.i("SetMainImage","2");
+
+        }
+
+        if (!toilet.urlTwo.equals("")){
+            Uri uri = Uri.parse(toilet.urlTwo);
+            Picasso.with(getApplicationContext()).load(uri).into(subImage1);
+        } else {
+            Log.i("SetSubOneImage","1");
+            subImage1.setImageResource(R.drawable.default_photo_white_drawable);
+            Log.i("SetSubOnenImage","2");
+        }
+
+        if (!toilet.urlThree.equals("")){
+            Uri uri = Uri.parse(toilet.urlThree);
+            Picasso.with(getApplicationContext()).load(uri).into(subImage2);
+
+        } else {
+            Log.i("SetSubTwoImage","1");
+            subImage2.setImageResource(R.drawable.default_photo_white_drawable);
+            Log.i("SetSubTwoImage","2");
+        }
+
+
+    }
+
+
 
     private void sparseArrayReady() {
 
@@ -1067,16 +1211,16 @@ public class EditViewListActivity extends AppCompatActivity {
         //I could not get tName
         //Maybe I could not get other values either
 
-        
+
 
 
         childUpdates.put("name",tName);
         childUpdates.put("openAndCloseHours",openingString);
         childUpdates.put("type",typeSpinner.getSelectedItem().toString());
 
-        childUpdates.put("urlOne","");
-        childUpdates.put("urlTwo","");
-        childUpdates.put("urlThree","");
+        childUpdates.put("urlOne",urlOne);
+        childUpdates.put("urlTwo",urlTwo);
+        childUpdates.put("urlThree",urlThree);
         childUpdates.put("editedBy",uid);
         childUpdates.put("howtoaccess","");
         childUpdates.put("openHours",openData);
@@ -1215,6 +1359,86 @@ public class EditViewListActivity extends AppCompatActivity {
 
         startActivity(intent);
         finish();
+
+    }
+
+    private void uploadImageToDatabase(final int placeNumber, Uri file) {
+
+
+        String photoId = UUID.randomUUID().toString();
+
+
+// Create the file metadata
+        StorageMetadata metadata = new StorageMetadata.Builder()
+                .setContentType("image/jpeg")
+                .build();
+
+// Upload file and metadata to the path 'images/mountains.jpg'
+        UploadTask uploadTask = storageRef.child(photoId).putFile(file, metadata);
+
+// Listen for state changes, errors, and completion of the upload.
+        uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                System.out.println("Upload is " + progress + "% done");
+            }
+        }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+                System.out.println("Upload is paused");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // Handle successful uploads on complete
+
+                if (taskSnapshot.getMetadata() != null) {
+
+                    Uri downloadUrl = taskSnapshot.getMetadata().getDownloadUrl();
+
+                    if (downloadUrl != null) {
+
+                        if (placeNumber == 0) {
+                            Log.i("urlOne found", downloadUrl.toString());
+                            urlOne = downloadUrl.toString();
+                        }
+                        if (placeNumber == 1) {
+                            Log.i("urlTwo found", downloadUrl.toString());
+                            urlTwo = downloadUrl.toString();
+                        }
+                        if (placeNumber == 2) {
+                            Log.i("urlThree found", downloadUrl.toString());
+                            urlThree = downloadUrl.toString();
+                        }
+
+                        //changed urlOne to this downloadUrl...
+                    }
+
+                }
+
+            }
+        });
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 2) {
+            //Photo Permission
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                imageSetPlaceChoose();
+
+
+            }
+        }
 
     }
 
