@@ -1,10 +1,8 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.*;
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,10 +15,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,7 +40,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +47,6 @@ import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.drive.Metadata;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -73,85 +67,13 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.UUID;
 
-import static android.R.attr.targetSdkVersion;
 import static android.widget.LinearLayout.VERTICAL;
 
-public class AddToiletDetailActivity extends AppCompatActivity {
-
-
-    Switch toiletJapanese;
-    Switch toiletWestern;
-    Switch toiletOnlyFemale;
-    Switch toiletUnisex;
-
-    Switch toiletWashlet;
-    Switch toiletWarmseat;
-    Switch toiletAutoopen;
-    Switch toiletNoVirusBenki;
-    Switch toiletPaperForBenki;
-    Switch toiletCleanerForBenki;
-    Switch toiletNonTouchWash;
-
-    Switch toiletSensor;
-    Switch toiletHandSoap;
-    Switch toiletNonHandSoap;
-    Switch toiletPaperTowel;
-    Switch toiletHandDrier;
-
-
-    //From Add Toilet Detail Acitiviy
-    //others one
-    Switch toiletClothes;
-    Switch toiletBaggage;
-    Switch toiletFancy;
-    Switch toiletSmell;
-    Switch toiletConfortable;
-    //others two
-    Switch toiletNoNeedAsk;
-    Switch toiletParking;
-    Switch toiletAirCondition;
-    Switch toiletWifi;
-    Switch toiletWrittenEnglish;
-
-    //ladys
-    Switch toiletOtohime;
-    Switch toiletNapkinSelling;
-    Switch toiletMakeroom;
-    Switch ladysOmutuSwitch;
-    Switch ladysBabyChairSwitch;
-    Switch ladysBabyChairGoodSwitch;
-    Switch ladysBabyCarAccessSwitch;
-
-    //mens
-    Switch maleOmutuSwitch;
-    Switch maleBabyChairSwitch;
-    Switch maleBabyChairGoodSwitch;
-    Switch maleBabyCarAccessSwitch;
-
-    //family room
-    Switch toiletWheelchair;
-    Switch toiletWheelchairAccess;
-    Switch toiletHandrail;
-    Switch toiletCallHelp;
-    Switch toiletOstomate;
-    Switch toiletBraille;
-    Switch toiletVoiceGuide;
-    Switch familyOmutu;
-    Switch familyBabyChair;
-    //From Add Toilet Detail Acitiviy
-
-
-
-
-
-
-
-
+public class AddToiletDetailListActivity extends AppCompatActivity {
 
 
     Spinner typeSpinner;
@@ -162,56 +84,10 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     Spinner endHoursSpinner;
     Spinner endMinutesSpinner;
 
-    Switch toiletMilk;
-    Switch toiletBabyRoomOnlyFemale;
-    Switch toiletBabyRoomMaleEnter;
-    Switch toiletBabyPersonalRoom;
-    Switch toiletBabyPersonalRoomWithLock;
-    Switch toiletBabyRoomWide;
-
-    Switch toiletBabyCarRental;
-    Switch toiletBabyCarAccess;
-    Switch toiletOmutu;
-    Switch toiletHipCleaningStuff;
-    Switch toiletOmutuTrashCan;
-    Switch toiletOmutuSelling;
-
-    Switch toiletBabySink;
-    Switch toiletBabyWashstand;
-    Switch toiletBabyHotWater;
-    Switch toiletBabyMicrowave;
-    Switch toiletBabyWaterSelling;
-    Switch toiletBabyFoodSelling;
-    Switch toiletBabyEatingSpace;
-
-    Switch toiletBabyChair;
-    Switch toiletBabySoffa;
-    Switch toiletKidsToilet;
-    Switch toiletKidsSpace;
-    Switch toiletHeight;
-    Switch toiletWeight;
-    Switch toiletToy;
-    Switch toiletBabyFancy;
-    Switch toiletBabySmellGood;
-
-
-
-    // Switch toilet;
-
-
-
-
-
-
-
-
     EditText textToiletName;
     EditText textHowToAccess;
     EditText textFeedback;
 
-    // EditText added is not a TextInputEditText. Please switch to using that class instead.
-
-    //
     RatingBar ratingBar;
 
     LocationManager locationManager;
@@ -229,35 +105,21 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     private GoogleMap mMap;
     private FirebaseAuth firebaseAuth;
 
-
-
     Boolean spinnerLoaded = false;
     Integer photoSelected = 0;
     private String urlOne = "";
     private String urlTwo = "";
     private String urlThree = "";
 
-    //private GeoFire geoFire;
-
-//    File file;
-//    Metadata metadata;
-
     ImageView mainImage;
     ImageView subImage1;
     ImageView subImage2;
-
-    ///
 
     private Uri filePath;
 
     Uri mainImageUri;
     Uri subImageOneUri;
     Uri subImageTwoUri;
-
-
-    //private FirebaseStorage storageReference = FirebaseStorage.getInstance();
-    //Added for uploading files to database
-
 
 
     ArrayAdapter<CharSequence> adapterType;
@@ -269,11 +131,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     ArrayAdapter<CharSequence> adapterEndMinutes;
 
 
-
     FirebaseDatabase fireDatabase = FirebaseDatabase.getInstance();
-    //DatabaseReference ref = database.getReference();
 
-    //    private DatabaseReference toiletRef;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference().child("images");
 
@@ -293,7 +152,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     java.util.Calendar c = java.util.Calendar.getInstance();
     int year = c.get(Calendar.YEAR);
-    int month = c.get(Calendar.MONTH) + 1 ;
+    int month = c.get(Calendar.MONTH) + 1;
     int day = c.get(Calendar.DATE);
     int hour = c.get(java.util.Calendar.HOUR_OF_DAY);
     int minute = c.get(java.util.Calendar.MINUTE);
@@ -301,27 +160,29 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
     private RecyclerView recyclertView;
     private RecyclerView.LayoutManager layoutManager;
-    private FilterListAdapter adapter;
-
+    private AddBooleansListAdapter adapter;
+    //private FilterListAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_toilet_detail);
+        setContentView(R.layout.activity_add_toilet_detail_list);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.addCheckMap);
 
-        mapFragment.getMapAsync(new OnMapReadyCallback(){
-            @Override public void onMapReady(GoogleMap googleMap) {
-                if (googleMap != null) {
-                    // your additional codes goes here
-                    onMapReadyCalled(googleMap);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+                                    @Override
+                                    public void onMapReady(GoogleMap googleMap) {
+                                        if (googleMap != null) {
+                                            // your additional codes goes here
+                                            onMapReadyCalled(googleMap);
 
 
-                }
-            }}
+                                        }
+                                    }
+                                }
         );
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -329,7 +190,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         //firebaseAuth.getCurrentUser().getUid();
 
-        Log.i("getUIDddd",String.valueOf(firebaseAuth.getCurrentUser().getUid()));
+        Log.i("getUIDddd", String.valueOf(firebaseAuth.getCurrentUser().getUid()));
 
         //firebaseAuth.getCurrentUser();
 
@@ -338,7 +199,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(
-                new View.OnClickListener(){
+                new View.OnClickListener() {
 
 
                     @Override
@@ -349,21 +210,21 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         );
 
 
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         }
 
+        sparseArrayReady();
         sppinnerReady();
         textReady();
-        switchReady();
         othersReady();
 
         //final java.util.Calendar c = java.util.Calendar.getInstance();
 
 
-        if (hour == 0){
+        if (hour == 0) {
             Log.i("Time12321", String.valueOf(minute));
 
         } else {
@@ -372,13 +233,13 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         }
 
 
-
         setupUI(findViewById(R.id.activity_add_toilet_detail));
 
 
+        //THis is Wrong!!!!!!!
     }
 
-    private void backToAccountActivity(){
+    private void backToAccountActivity() {
 
         Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
         startActivity(intent);
@@ -396,13 +257,12 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
 
-        if (id == R.id.buttonChangePin){
+        if (id == R.id.buttonChangePin) {
             valueCheck();
             //backToAccountActivity();
         }
@@ -424,7 +284,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         if (!(view instanceof EditText)) {
             view.setOnTouchListener(new View.OnTouchListener() {
                 public boolean onTouch(View v, MotionEvent event) {
-                    hideSoftKeyboard(AddToiletDetailActivity.this);
+                    hideSoftKeyboard(AddToiletDetailListActivity.this);
                     return false;
                 }
             });
@@ -439,10 +299,146 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         }
     }
 
+    private void sparseArrayReady() {
 
 
+        filterSparseArray.append(0, new FilterBooleans("設備", false));
+        filterSparseArray.append(1, new FilterBooleans("和式トイレ", false));
+        filterSparseArray.append(2, new FilterBooleans("洋式トイレ", false));
+        filterSparseArray.append(3, new FilterBooleans("女性専用トイレ", false));
+        filterSparseArray.append(4, new FilterBooleans("男女兼用トイレ", false));
 
-    private void sppinnerReady(){
+
+        filterSparseArray.append(5, new FilterBooleans("機能", false));
+        filterSparseArray.append(6, new FilterBooleans("ウォシュレット", false));
+        filterSparseArray.append(7, new FilterBooleans("暖房便座", false));
+        filterSparseArray.append(8, new FilterBooleans("自動開閉便座", false));
+        filterSparseArray.append(9, new FilterBooleans("抗菌便座", false));
+        filterSparseArray.append(10, new FilterBooleans("便座用シート", false));
+        filterSparseArray.append(11, new FilterBooleans("便座クリーナー", false));
+        filterSparseArray.append(12, new FilterBooleans("自動洗浄", false));
+
+
+        filterSparseArray.append(13, new FilterBooleans("洗面台設備", false));
+        filterSparseArray.append(14, new FilterBooleans("センサー式お手洗い", false));
+        filterSparseArray.append(15, new FilterBooleans("ハンドソープ", false));
+        filterSparseArray.append(16, new FilterBooleans("自動ハンドソープ", false));
+        filterSparseArray.append(17, new FilterBooleans("ペーパータオル", false));
+        filterSparseArray.append(18, new FilterBooleans("ハンドドライヤー", false));
+
+
+        filterSparseArray.append(19, new FilterBooleans("1,その他", false));
+        filterSparseArray.append(20, new FilterBooleans("おしゃれ", false));
+        filterSparseArray.append(21, new FilterBooleans("いい香り", false));
+        filterSparseArray.append(22, new FilterBooleans("快適な広さ", false));
+        filterSparseArray.append(23, new FilterBooleans("洋服掛け", false));
+        filterSparseArray.append(24, new FilterBooleans("荷物置き", false));
+
+        filterSparseArray.append(25, new FilterBooleans("2,その他", false));
+        filterSparseArray.append(26, new FilterBooleans("利用の際の声かけ不要", false));
+        filterSparseArray.append(27, new FilterBooleans("英語表記", false));
+        filterSparseArray.append(28, new FilterBooleans("駐車場", false));
+        filterSparseArray.append(29, new FilterBooleans("冷暖房", false));
+        filterSparseArray.append(30, new FilterBooleans("無料Wi-Fi", false));
+
+
+        filterSparseArray.append(31, new FilterBooleans("女性トイレ", false));
+        filterSparseArray.append(32, new FilterBooleans("音姫", false));
+        filterSparseArray.append(33, new FilterBooleans("ナプキン販売機", false));
+        filterSparseArray.append(34, new FilterBooleans("パウダールーム", false));
+        filterSparseArray.append(35, new FilterBooleans("おむつ交換台", false));
+        filterSparseArray.append(36, new FilterBooleans("ベビーキープ", false));
+        filterSparseArray.append(37, new FilterBooleans("安全なベビーキープ", false));
+        filterSparseArray.append(38, new FilterBooleans("ベビーカーでのアクセス", false));
+
+
+        filterSparseArray.append(39, new FilterBooleans("男性トイレ", false));
+        filterSparseArray.append(40, new FilterBooleans("おむつ交換台", false));
+        filterSparseArray.append(41, new FilterBooleans("ベビーキープ", false));
+        filterSparseArray.append(42, new FilterBooleans("安全なベビーキープ", false));
+        filterSparseArray.append(43, new FilterBooleans("ベビーカーでのアクセス", false));
+
+
+        filterSparseArray.append(44, new FilterBooleans("多目的トイレ", false));
+
+        filterSparseArray.append(45, new FilterBooleans("車イス対応", false));
+        filterSparseArray.append(46, new FilterBooleans("車イスでアクセス可能", false));
+        filterSparseArray.append(47, new FilterBooleans("自動ドア", false));
+        filterSparseArray.append(48, new FilterBooleans("呼び出しボタン", false));
+        filterSparseArray.append(49, new FilterBooleans("オストメイト",false));
+        filterSparseArray.append(50, new FilterBooleans("点字案内", false));
+        filterSparseArray.append(51, new FilterBooleans("音声案内", false));
+        filterSparseArray.append(52, new FilterBooleans("おむつ交換台", false));
+        filterSparseArray.append(53, new FilterBooleans("ベビーチェア", false));
+
+
+        filterSparseArray.append(54, new FilterBooleans("1,ベビールームについて", false));
+        filterSparseArray.append(55, new FilterBooleans("授乳スペース", false));
+        filterSparseArray.append(56, new FilterBooleans("女性限定", false));
+        filterSparseArray.append(57, new FilterBooleans("男性入室可能", false));
+        filterSparseArray.append(58, new FilterBooleans("個室あり", false));
+        filterSparseArray.append(59, new FilterBooleans("鍵付き個室あり", false));
+        filterSparseArray.append(60, new FilterBooleans("広いスペース", false));
+
+
+        filterSparseArray.append(61, new FilterBooleans("2,ベビールームについて", false));
+        filterSparseArray.append(62, new FilterBooleans("ベビーカー貸出し", false));
+        filterSparseArray.append(63, new FilterBooleans("ベビーカーでアクセス可能", false));
+        filterSparseArray.append(64, new FilterBooleans("おむつ交換台", false));
+        filterSparseArray.append(65, new FilterBooleans("おしりふき", false));
+        filterSparseArray.append(66, new FilterBooleans("おむつ用ゴミ箱", false));
+        filterSparseArray.append(67, new FilterBooleans("おむつ販売機", false));
+
+
+        filterSparseArray.append(68, new FilterBooleans("3,ベビールームについて", false));
+        filterSparseArray.append(69, new FilterBooleans("シンク", false));
+        filterSparseArray.append(70, new FilterBooleans("洗面台", false));
+        filterSparseArray.append(71, new FilterBooleans("給湯器", false));
+        filterSparseArray.append(72, new FilterBooleans("電子レンジ", false));
+        filterSparseArray.append(73, new FilterBooleans("飲料自販機", false));
+        filterSparseArray.append(74, new FilterBooleans("離乳食販売機", false));
+        filterSparseArray.append(75, new FilterBooleans("飲食スペース", false));
+
+
+        filterSparseArray.append(76, new FilterBooleans("4,ベビールームについて", false));
+        filterSparseArray.append(77, new FilterBooleans("ベビーチェア", false));
+        filterSparseArray.append(78, new FilterBooleans("ソファ", false));
+        filterSparseArray.append(79, new FilterBooleans("キッズトイレ", false));
+        filterSparseArray.append(80, new FilterBooleans("キッズスペース", false));
+        filterSparseArray.append(81, new FilterBooleans("身長計", false));
+        filterSparseArray.append(82, new FilterBooleans("体重計", false));
+        filterSparseArray.append(83, new FilterBooleans("おもちゃ", false));
+        filterSparseArray.append(84, new FilterBooleans("おしゃれ", false));
+        filterSparseArray.append(85, new FilterBooleans("いい香り", false));
+
+
+        createRecyclerView(filterSparseArray);
+
+
+    }
+
+
+    private void createRecyclerView(SparseArray array) {
+        Log.i("reviewRecycle", "Called");
+        recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
+        adapter = new AddBooleansListAdapter(array);
+        //adapter = new FilterListAdapter(array);
+        layoutManager = new LinearLayoutManager(this);
+        recyclertView.setLayoutManager(layoutManager);
+        recyclertView.setHasFixedSize(true);
+        recyclertView.setAdapter(adapter);
+        Log.i("reviewRecycle", "Ended");
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclertView.getContext(), VERTICAL);
+        recyclertView.addItemDecoration(dividerItemDecoration);
+
+        recyclertView.setHasFixedSize(true);
+        recyclertView.setNestedScrollingEnabled(false);
+
+
+    }
+
+    private void sppinnerReady() {
 
         typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
         waitingTimeSpinner = (Spinner) findViewById(R.id.spinnerWaitingTime);
@@ -452,13 +448,13 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         endHoursSpinner = (Spinner) findViewById(R.id.endHoursSpinner);
         endMinutesSpinner = (Spinner) findViewById(R.id.endMinutesSpinner);
 
-        adapterType = ArrayAdapter.createFromResource(this,R.array.places_names,android.R.layout.simple_spinner_item);
-        adapterWaitingtime = ArrayAdapter.createFromResource(this,R.array.waitingTimeArray,android.R.layout.simple_spinner_item);
-        adapterFloor = ArrayAdapter.createFromResource(this,R.array.floorCount,android.R.layout.simple_spinner_item);
-        adapterStartHours = ArrayAdapter.createFromResource(this,R.array.hoursOption,android.R.layout.simple_spinner_item);
-        adapterStartMinutes = ArrayAdapter.createFromResource(this,R.array.minutesOption,android.R.layout.simple_spinner_item);
-        adapterEndHours = ArrayAdapter.createFromResource(this,R.array.hoursOption,android.R.layout.simple_spinner_item);
-        adapterEndMinutes = ArrayAdapter.createFromResource(this,R.array.minutesOption,android.R.layout.simple_spinner_item);
+        adapterType = ArrayAdapter.createFromResource(this, R.array.places_names, android.R.layout.simple_spinner_item);
+        adapterWaitingtime = ArrayAdapter.createFromResource(this, R.array.waitingTimeArray, android.R.layout.simple_spinner_item);
+        adapterFloor = ArrayAdapter.createFromResource(this, R.array.floorCount, android.R.layout.simple_spinner_item);
+        adapterStartHours = ArrayAdapter.createFromResource(this, R.array.hoursOption, android.R.layout.simple_spinner_item);
+        adapterStartMinutes = ArrayAdapter.createFromResource(this, R.array.minutesOption, android.R.layout.simple_spinner_item);
+        adapterEndHours = ArrayAdapter.createFromResource(this, R.array.hoursOption, android.R.layout.simple_spinner_item);
+        adapterEndMinutes = ArrayAdapter.createFromResource(this, R.array.minutesOption, android.R.layout.simple_spinner_item);
 
 
         adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -468,7 +464,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         adapterStartMinutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterEndHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterEndMinutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
 
 
         typeSpinner.setAdapter(adapterType);
@@ -488,6 +483,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                                                       ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                                                       ((TextView) parent.getChildAt(0)).setTextSize(16);
                                                   }
+
                                                   @Override
                                                   public void onNothingSelected(AdapterView<?> parent) {
                                                   }
@@ -504,8 +500,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                                                              ((TextView) parent.getChildAt(0)).setText("待ち時間  " + parent.getItemAtPosition(position) + "分");
 
 
-
                                                          }
+
                                                          @Override
                                                          public void onNothingSelected(AdapterView<?> parent) {
                                                          }
@@ -520,7 +516,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                                                        ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                                                        ((TextView) parent.getChildAt(0)).setTextSize(16);
 //                                                            ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(position) + "以上を検索");
-                                                       if (!spinnerLoaded){
+                                                       if (!spinnerLoaded) {
 
                                                            // ((TextView) parent.getChildAt(0)).setText(parent.getSelectedItem()));
                                                            ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(3) + "");
@@ -528,8 +524,8 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                                                        }
 
 
-
                                                    }
+
                                                    @Override
                                                    public void onNothingSelected(AdapterView<?> parent) {
                                                    }
@@ -544,6 +540,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                                                             ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                                                             ((TextView) parent.getChildAt(0)).setTextSize(16);
                                                         }
+
                                                         @Override
                                                         public void onNothingSelected(AdapterView<?> parent) {
                                                         }
@@ -556,6 +553,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                                                               ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                                                               ((TextView) parent.getChildAt(0)).setTextSize(16);
                                                           }
+
                                                           @Override
                                                           public void onNothingSelected(AdapterView<?> parent) {
                                                           }
@@ -570,6 +568,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                                                           ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                                                           ((TextView) parent.getChildAt(0)).setTextSize(16);
                                                       }
+
                                                       @Override
                                                       public void onNothingSelected(AdapterView<?> parent) {
                                                       }
@@ -585,6 +584,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                                                             ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                                                             ((TextView) parent.getChildAt(0)).setTextSize(16);
                                                         }
+
                                                         @Override
                                                         public void onNothingSelected(AdapterView<?> parent) {
                                                         }
@@ -593,7 +593,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     }
 
 
-    private void textReady(){
+    private void textReady() {
         textToiletName = (EditText) findViewById(R.id.writeToiletName);
         textHowToAccess = (EditText) findViewById(R.id.inputHowToAccess);
         textFeedback = (EditText) findViewById(R.id.kansou);
@@ -609,99 +609,9 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         textFeedback.setMaxLines(Integer.MAX_VALUE);
 
 
-
     }
 
-    private void switchReady(){
-
-
-        toiletJapanese = (Switch) findViewById(R.id.addJapaneseSwitch);
-        toiletWestern = (Switch) findViewById(R.id.addWesternSwitch);
-        toiletOnlyFemale = (Switch) findViewById(R.id.addOnlyFemaleSwitch);
-        toiletUnisex  = (Switch) findViewById(R.id.addUnisexSwitch);
-
-        toiletWashlet  = (Switch) findViewById(R.id.addWashletSwitch);
-        toiletWarmseat = (Switch) findViewById(R.id.addWarmSeatSwitch);
-        toiletAutoopen = (Switch) findViewById(R.id.addAutoOpenSwitch);
-        toiletNoVirusBenki = (Switch) findViewById(R.id.addnoVirusBenkiSwitch);
-        toiletPaperForBenki = (Switch) findViewById(R.id.addPaperForBenkiSwitch);
-        toiletCleanerForBenki = (Switch) findViewById(R.id.addCleanerForBenkiSwitch);
-        toiletNonTouchWash = (Switch) findViewById(R.id.addNonTouchWashSwitch);
-
-
-        toiletSensor = (Switch) findViewById(R.id.addSenserWashSwitch);
-        toiletHandSoap = (Switch) findViewById(R.id.addSoapSwitch);
-        toiletNonHandSoap = (Switch) findViewById(R.id.addNonTouchSoapSwitch);
-        toiletPaperTowel = (Switch) findViewById(R.id.addPaperTowelSwitch);
-        toiletHandDrier = (Switch) findViewById(R.id.addHandDrierSwitch);
-
-
-        toiletOtohime = (Switch) findViewById(R.id.addOtohimeSwitch);
-        toiletNapkinSelling = (Switch) findViewById(R.id.addNapkinSellingSwitch);
-        toiletMakeroom = (Switch) findViewById(R.id.addMakeSwitch);
-        toiletClothes = (Switch) findViewById(R.id.addClothesSwitch);
-        toiletBaggage = (Switch) findViewById(R.id.addBaggageSwitch);
-
-
-
-        toiletWheelchair = (Switch) findViewById(R.id.addWheelchairSwitch);
-        toiletWheelchairAccess = (Switch) findViewById(R.id.addWheelchairAccessSwitch);
-        toiletHandrail = (Switch) findViewById(R.id.addHandrailSwitch);
-        toiletCallHelp = (Switch)findViewById(R.id.addCallHelpSwitch);
-        toiletOstomate = (Switch) findViewById(R.id.addOstomateSwitch);
-        toiletWrittenEnglish = (Switch) findViewById(R.id.addWrittenEnglishSwitch);
-        toiletBraille = (Switch) findViewById(R.id.addBraille);
-        toiletVoiceGuide = (Switch) findViewById(R.id.addVoiceGuideSwitch);
-
-
-        toiletFancy = (Switch) findViewById(R.id.addFancySwitch);
-        toiletSmell = (Switch) findViewById(R.id.addSmellSwitch);
-        toiletConfortable = (Switch) findViewById(R.id.addConforableSwitch);
-        toiletNoNeedAsk = (Switch) findViewById(R.id.addNoNeedAskSwitch);
-        toiletParking = (Switch) findViewById(R.id.addParkingSwitch);
-        toiletAirCondition = (Switch) findViewById(R.id.addAirConditionSwitch);
-        toiletWifi = (Switch) findViewById(R.id.addWifiSwitch);
-
-        toiletMilk = (Switch) findViewById(R.id.addMilkSwitch);
-        toiletBabyRoomOnlyFemale = (Switch)findViewById(R.id.addMilkOnlyFemaleSwitch);
-        toiletBabyRoomMaleEnter = (Switch)findViewById(R.id.addMilkMaleOkaySwitch);
-        toiletBabyPersonalRoom = (Switch)findViewById(R.id.addBabyPersonalSpaceSwitch);
-        toiletBabyPersonalRoomWithLock = (Switch)findViewById(R.id.addBabyPersonalSpaceWithLockSwitch);
-        toiletBabyRoomWide = (Switch)findViewById(R.id.addWideBabySpaceSwitch);
-
-
-        toiletBabyCarRental = (Switch)findViewById(R.id.addRentalBabyCarSwitch);
-        toiletBabyCarAccess = (Switch)findViewById(R.id.addBabyCarAccessSwitch);
-        toiletOmutu = (Switch) findViewById(R.id.addOmutuSwitch);
-        toiletHipCleaningStuff = (Switch)findViewById(R.id.addHipCleanStuffSwitch);
-        toiletOmutuTrashCan = (Switch)findViewById(R.id.addOmutuTrashCanSwitch);
-        toiletOmutuSelling = (Switch) findViewById(R.id.addOmutuSellingSwitch);
-
-
-        toiletBabySink = (Switch)findViewById(R.id.addBabySinkSwitch);
-        toiletBabyWashstand = (Switch)findViewById(R.id.addBabyWashstandSwitch);
-        toiletBabyHotWater = (Switch)findViewById(R.id.addBabyHotWaterSwitch);
-        toiletBabyMicrowave = (Switch)findViewById(R.id.addBabyMicrowaveSwitch);
-        toiletBabyWaterSelling = (Switch)findViewById(R.id.addBabySellingWaterSwitch);
-        toiletBabyFoodSelling = (Switch)findViewById(R.id.addfoodForBabySellingSwitch);
-        toiletBabyEatingSpace = (Switch)findViewById(R.id.addBabyEatingSpaceSwitch);
-
-
-        toiletBabyChair = (Switch)findViewById(R.id.addBabyChairSwitch);
-        toiletBabySoffa = (Switch)findViewById(R.id.addBabySoffaSwitch);
-        toiletKidsToilet = (Switch)findViewById(R.id.addkidsToiletSwitch);
-        toiletKidsSpace = (Switch)findViewById(R.id.addkidsSpaceSwitch);
-        toiletHeight = (Switch)findViewById(R.id.addheightMeasureSwitch);
-        toiletWeight = (Switch)findViewById(R.id.addweightMeasureSwitch);
-        toiletToy = (Switch)findViewById(R.id.addBabyToySwitch);
-        toiletBabyFancy = (Switch)findViewById(R.id.addBabyFancySwitch);
-        toiletBabySmellGood = (Switch)findViewById(R.id.addBabySmellGoodSwitch);
-
-
-
-    }
-
-    private void othersReady(){
+    private void othersReady() {
 
         ratingBar = (RatingBar) findViewById(R.id.addRating);
         ratingBar.setRating(3);
@@ -739,14 +649,13 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     }
 
 
-
     public void checkPermissionAndAddPhoto() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 //request permission...
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
+                requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
 
             } else {
                 //Have a permission
@@ -762,9 +671,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     }
 
 
-
-
-    private void imageSetPlaceChoose(){
+    private void imageSetPlaceChoose() {
         final Integer imageNum = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("どこに写真を追加しますか");
@@ -801,7 +708,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     }
 
-    private void showPhoto(){
+    private void showPhoto() {
 
 //        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
 //
@@ -809,7 +716,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 //            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
 //        }
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent,2);
+        startActivityForResult(intent, 2);
 
 
     }
@@ -817,7 +724,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2 && resultCode == RESULT_OK && data != null){
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
 
             Uri selectedImage = data.getData();
 
@@ -832,16 +739,16 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 ImageView targetView = mainImage;
 
 
-                if (photoSelected == 0){
+                if (photoSelected == 0) {
                     targetView = mainImage;
                     uploadImageToDatabase(0, selectedImage);
 
-                } else if (photoSelected == 1){
+                } else if (photoSelected == 1) {
                     targetView = subImage1;
                     uploadImageToDatabase(1, selectedImage);
                     //subOnefilePath = selectedImage;
 
-                } else if  (photoSelected == 2){
+                } else if (photoSelected == 2) {
                     targetView = subImage2;
                     uploadImageToDatabase(3, selectedImage);
                     //subTwofilePath = selectedImage;
@@ -849,8 +756,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 }
 
                 targetView.setImageBitmap(bitmap);
-
-
 
 
             } catch (IOException e) {
@@ -861,28 +766,46 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         }
     }
 
-//    public void showTimePickerDialog(View v) {
-//        DialogFragment newFragment = new TimePickerFragment();
-//        newFragment.show(getFragmentManager(), "timePicker");
-//
-//
-//
-//    }
-
-    private void valueCheck(){
+    private void valueCheck() {
         String tName = textToiletName.getText().toString();
 
-        if(TextUtils.isEmpty(tName)) {
+        if (TextUtils.isEmpty(tName)) {
 
             textToiletName.setError("Your message");
             Log.i("HEy", "00");
-        }
-        else {
+        } else {
             //there is a valid name
-            firebaseUpdate();
+            // firebaseUpdate();
         }
     }
 
+
+    private void pictureUpload() {
+
+
+        Log.i("pictureUpload()", "called");
+        // Get the data from an ImageView as bytes
+        mainImage.setDrawingCacheEnabled(true);
+        mainImage.buildDrawingCache();
+        Bitmap bitmap = mainImage.getDrawingCache();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = storageRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            }
+        });
+    }
 
 
     private void firebaseUpdate(){
@@ -943,94 +866,135 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
 
 
-//        newRef.setValue(new Post(
-//                tName,
-//                openingString,
-//                typeSpinner.getSelectedItem().toString(),
-//                urlOne,//String urlOne,
-//                urlTwo,//String urlTwo,
-//                urlThree,//String urlThree,
-//                uid,//String addedBy,
-//                uid,//String editedBy,
-//                newRid,
-//                "",
-//                avStar,
-//                AddLocations.address,
-//                "",//String howtoaccess,
-//                openData,
-//                endData,
-//                1,//Integer reviewCount,
-//                waitingValue,//Integer averageWait,
-//                3,//Integer toiletFloor,
-//                AddLocations.latitude,
-//                AddLocations.longitude,
-//                true,
-//                toiletJapanese.isChecked(),
-//                toiletWestern.isChecked(),
-//                toiletOnlyFemale.isChecked(),
-//                toiletUnisex.isChecked(),
-//                toiletWashlet.isChecked(),//i dont need two washlet values
-//                toiletWashlet.isChecked(),
-//                toiletAutoopen.isChecked(),
-//                toiletNoVirusBenki.isChecked(),
-//                toiletPaperForBenki.isChecked(),
-//                toiletCleanerForBenki.isChecked(),
-//                toiletNonTouchWash.isChecked(),
-//                toiletSensor.isChecked(),
-//                toiletHandSoap.isChecked(),
-//                toiletNonHandSoap.isChecked(),
-//                toiletPaperTowel.isChecked(),
-//                toiletHandDrier.isChecked(),
-//                toiletOtohime.isChecked(),
-//                toiletNapkinSelling.isChecked(),
-//                toiletMakeroom.isChecked(),
-//                toiletClothes.isChecked(),
-//                toiletBaggage.isChecked(),
-//                toiletWheelchair.isChecked(),
-//                toiletWheelchairAccess.isChecked(),
-//                toiletHandrail.isChecked(),
-//                toiletCallHelp.isChecked(),
-//                toiletOstomate.isChecked(),
-//                toiletWrittenEnglish.isChecked(),
-//                toiletBraille.isChecked(),
-//                toiletVoiceGuide.isChecked(),
-//                toiletFancy.isChecked(),
-//                toiletSmell.isChecked(),
-//                toiletConfortable.isChecked(),
-//                toiletNoNeedAsk.isChecked(),
-//                toiletParking.isChecked(),
-//                toiletAirCondition.isChecked(),
-//                toiletWifi.isChecked(),
-//                toiletMilk.isChecked(),
-//                toiletBabyRoomOnlyFemale.isChecked(),
-//                toiletBabyRoomMaleEnter.isChecked(),
-//                toiletBabyPersonalRoom.isChecked(),
-//                toiletBabyPersonalRoomWithLock.isChecked(),
-//                toiletBabyPersonalRoomWithLock.isChecked(),
-//                toiletBabyCarRental.isChecked(),
-//                toiletBabyCarAccess.isChecked(),
-//                toiletOmutu.isChecked(),
-//                toiletHipCleaningStuff.isChecked(),
-//                toiletOmutuTrashCan.isChecked(),
-//                toiletOmutuSelling.isChecked(),
-//                toiletBabySink.isChecked(),
-//                toiletBabyWashstand.isChecked(),
-//                toiletBabyHotWater.isChecked(),
-//                toiletBabyMicrowave.isChecked(),
-//                toiletBabyWaterSelling.isChecked(),
-//                toiletBabyFoodSelling.isChecked(),
-//                toiletBabyEatingSpace.isChecked(),
-//                toiletBabyChair.isChecked(),
-//                toiletBabySoffa.isChecked(),
-//                toiletKidsToilet.isChecked(),
-//                toiletKidsSpace.isChecked(),
-//                toiletHeight.isChecked(),
-//                toiletWeight.isChecked(),
-//                toiletToy.isChecked(),
-//                toiletBabyFancy.isChecked(),
-//                toiletBabySmellGood.isChecked()
+
+        newRef.setValue(new Post(
+                tName,
+                openingString,
+                typeSpinner.getSelectedItem().toString(),
+                urlOne,//String urlOne,
+                urlTwo,//String urlTwo,
+                urlThree,//String urlThree,
+                uid,//String addedBy,
+                uid,//String editedBy,
+                newRid,
+                "",
+                avStar,
+                AddLocations.address,
+                "",//String howtoaccess,
+                openData,
+                endData,
+                1,//Integer reviewCount,
+                waitingValue,//Integer averageWait,
+                3,//Integer toiletFloor,
+                AddLocations.latitude,
+                AddLocations.longitude,
+                true,
+                AddDetailBooleans.japanesetoilet,
+                AddDetailBooleans.westerntoilet,
+                AddDetailBooleans.onlyFemale,
+                AddDetailBooleans.unisex,
+
+
+                AddDetailBooleans.washlet,
+                AddDetailBooleans.warmSeat,
+                AddDetailBooleans.autoOpen,
+                AddDetailBooleans.noVirus,
+                AddDetailBooleans.paperForBenki,
+                AddDetailBooleans.cleanerForBenki,
+                AddDetailBooleans.autoToiletWash,
+
+
+                AddDetailBooleans.sensorHandWash,
+                AddDetailBooleans.handSoap,
+                AddDetailBooleans.autoHandSoap,
+                AddDetailBooleans.paperTowel,
+                AddDetailBooleans.handDrier,
+
+
+                AddDetailBooleans.fancy,
+                AddDetailBooleans.smell,
+                AddDetailBooleans.conforatableWide,
+                AddDetailBooleans.clothes ,
+                AddDetailBooleans.baggageSpace,
+
+
+
+
+                AddDetailBooleans.noNeedAsk,
+                AddDetailBooleans.english,
+                AddDetailBooleans.parking ,
+                AddDetailBooleans.airCondition,
+                AddDetailBooleans.wifi,
+
 //
-//        ));
+
+                AddDetailBooleans.otohime ,
+                AddDetailBooleans.napkinSelling,
+                AddDetailBooleans.makeuproom ,
+                AddDetailBooleans.ladyOmutu,
+                AddDetailBooleans.ladyBabyChair,
+                AddDetailBooleans.ladyBabyChairGood,
+                AddDetailBooleans.ladyBabyChairAccess,
+
+
+
+
+                AddDetailBooleans.maleOmutu,
+                AddDetailBooleans.maleBabyChair,
+                AddDetailBooleans.maleBabyChairGood,
+                AddDetailBooleans.babyCarAccess,
+
+
+
+                AddDetailBooleans.wheelchair,
+                AddDetailBooleans.wheelchairAccess,
+                AddDetailBooleans.autoDoor,
+                AddDetailBooleans.callHelp ,
+                AddDetailBooleans.ostomate,
+                AddDetailBooleans.braille ,
+                AddDetailBooleans.voiceGuide,
+                AddDetailBooleans.familyOmutu,
+                AddDetailBooleans.familyBabyChair,
+
+
+                AddDetailBooleans.milkspace,
+                AddDetailBooleans.babyroomOnlyFemale,
+                AddDetailBooleans.babyroomManCanEnter ,
+                AddDetailBooleans.babyPersonalSpace,
+                AddDetailBooleans.babyPersonalSpaceWithLock,
+                AddDetailBooleans.babyRoomWideSpace,
+
+
+
+                AddDetailBooleans.babyCarRental,
+                AddDetailBooleans.babyCarAccess,
+                AddDetailBooleans.omutu,
+                AddDetailBooleans.hipWashingStuff,
+                AddDetailBooleans.babyTrashCan,
+                AddDetailBooleans.omutuSelling,
+
+
+                AddDetailBooleans.babyRoomSink,
+                AddDetailBooleans.babyWashStand,
+                AddDetailBooleans.babyHotWater,
+                AddDetailBooleans.babyMicroWave,
+                AddDetailBooleans.babyWaterSelling,
+                AddDetailBooleans.babyFoddSelling,
+                AddDetailBooleans.babyEatingSpace,
+
+
+                AddDetailBooleans.babyChair,
+                AddDetailBooleans.babySoffa,
+                AddDetailBooleans.babyKidsToilet,
+                AddDetailBooleans.babyKidsSpace,
+                AddDetailBooleans.babyHeightMeasure,
+                AddDetailBooleans.babyWeightMeasure,
+                AddDetailBooleans.babyToy,
+                AddDetailBooleans.babyFancy,
+                AddDetailBooleans.babySmellGood
+
+
+        ));
 
 
         Log.i("please", "...");
@@ -1040,44 +1004,13 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         backToAccountActivity();
 
     }
-
-
-    private void pictureUpload(){
-
-
-
-        Log.i("pictureUpload()", "called");
-        // Get the data from an ImageView as bytes
-        mainImage.setDrawingCacheEnabled(true);
-        mainImage.buildDrawingCache();
-        Bitmap bitmap = mainImage.getDrawingCache();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-
-        UploadTask uploadTask = storageRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Toast.makeText(AddToiletDetailActivity.this, String.valueOf(downloadUrl), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void geolocationUpload(){
+    private void geolocationUpload() {
 
 //        String newRef = ref.child("Toilets");
 //
 //        String newID = newRef
 
-        geoFire.setLocation(newTid, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
+        geoFire.setLocation(newTid, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener() {
             @Override
             public void onComplete(String key, DatabaseError error) {
                 if (error != null) {
@@ -1137,8 +1070,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     }
 
-
-    private void uploadImageToDatabase(final int placeNumber, Uri file){
+    private void uploadImageToDatabase(final int placeNumber, Uri file) {
 
 
         String photoId = UUID.randomUUID().toString();
@@ -1203,9 +1135,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
     }
 
 
-
-
-
     public void onMapReadyCalled(GoogleMap googleMap) {
         mMap = googleMap;
 
@@ -1215,7 +1144,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
             @Override
             public void onLocationChanged(Location location) {
 
-                Log.i("onLocationChanged","Called");
+                Log.i("onLocationChanged", "Called");
             }
 
             @Override
@@ -1237,22 +1166,20 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT < 23) {
 
-            Log.i("Build.VERSION.SDK_INT ","Build.VERSION.SDK_INT ");
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+            Log.i("Build.VERSION.SDK_INT ", "Build.VERSION.SDK_INT ");
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
 
-        }
-        else{
+        } else {
 //            Log.i("Build.VERSION.SDK_INT>23 ","Build.VERSION.SDK_INT ");
 
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
 
-
-            }else {
+            } else {
                 //When the permission is granted....
                 Log.i("HeyHey333", "locationManager.requestLocationUpdates");
 
@@ -1264,9 +1191,7 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                 Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
 
 
-
-
-                if (lastKnownLocation != null){
+                if (lastKnownLocation != null) {
                     Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
 
 
@@ -1281,8 +1206,6 @@ public class AddToiletDetailActivity extends AppCompatActivity {
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
 
 
-
-
                 } else {
                     //When you could not get the last known location...
 
@@ -1291,21 +1214,20 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Log.i("Permission","Permission111");
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.i("Permission", "Permission111");
                 if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    Log.i("Permission","Permission222");
+                    Log.i("Permission", "Permission222");
                     mMap.setMyLocationEnabled(true);
 
                     //mapUserCenterZoon();
 
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                    Log.i("Permission","Permission333");
+                    Log.i("Permission", "Permission333");
                 }
 
             }
@@ -1314,10 +1236,10 @@ public class AddToiletDetailActivity extends AppCompatActivity {
         }
 
 
-        if (requestCode == 2){
+        if (requestCode == 2) {
             //Photo Permission
 
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 imageSetPlaceChoose();
 
 
@@ -1326,5 +1248,5 @@ public class AddToiletDetailActivity extends AppCompatActivity {
 
     }
 
-}
 
+}

@@ -84,8 +84,8 @@ public class Filter {
     static Boolean ostomateFilter = false;
     static Boolean braille = false;
     static Boolean voiceGuideFilter = false;
-    static Boolean unisexOmutuFilter= false;
-    static Boolean unisexBabyChair = false;
+    static Boolean familyOmutuFilter= false;
+    static Boolean familyBabyChair = false;
 
 
 

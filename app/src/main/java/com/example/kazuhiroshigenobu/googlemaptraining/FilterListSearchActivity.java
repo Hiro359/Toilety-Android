@@ -435,46 +435,49 @@ public class FilterListSearchActivity extends AppCompatActivity {
         filterSparseArray.append(50, new FilterBooleans("オストメイト",Filter.ostomateFilter));
         filterSparseArray.append(51, new FilterBooleans("点字案内",Filter.braille));
         filterSparseArray.append(52, new FilterBooleans("音声案内",Filter.voiceGuideFilter));
+        filterSparseArray.append(53, new FilterBooleans("おむつ交換台",Filter.familyOmutuFilter));
+        filterSparseArray.append(54, new FilterBooleans("ベビーチェア",Filter.familyBabyChair));
 
 
-        filterSparseArray.append(53, new FilterBooleans("1,ベビールームについて",false));
-        filterSparseArray.append(54, new FilterBooleans("授乳スペース",Filter.milkspaceFilter));
-        filterSparseArray.append(55, new FilterBooleans("女性限定",Filter.babyRoomOnlyFemaleFilter));
-        filterSparseArray.append(56, new FilterBooleans("男性入室可能",Filter.babyRoomMaleCanEnterFilter));
-        filterSparseArray.append(57, new FilterBooleans("個室あり",Filter.babyRoomPersonalSpaceFilter));
-        filterSparseArray.append(58, new FilterBooleans("鍵付き個室あり",Filter.babyRoomPersonalWithLockFilter));
-        filterSparseArray.append(59, new FilterBooleans("広いスペース",Filter.babyRoomWideSpaceFilter));
+
+        filterSparseArray.append(55, new FilterBooleans("1,ベビールームについて",false));
+        filterSparseArray.append(56, new FilterBooleans("授乳スペース",Filter.milkspaceFilter));
+        filterSparseArray.append(57, new FilterBooleans("女性限定",Filter.babyRoomOnlyFemaleFilter));
+        filterSparseArray.append(58, new FilterBooleans("男性入室可能",Filter.babyRoomMaleCanEnterFilter));
+        filterSparseArray.append(59, new FilterBooleans("個室あり",Filter.babyRoomPersonalSpaceFilter));
+        filterSparseArray.append(60, new FilterBooleans("鍵付き個室あり",Filter.babyRoomPersonalWithLockFilter));
+        filterSparseArray.append(61, new FilterBooleans("広いスペース",Filter.babyRoomWideSpaceFilter));
 
 
-        filterSparseArray.append(60, new FilterBooleans("2,ベビールームについて",false));
-        filterSparseArray.append(61, new FilterBooleans("ベビーカー貸出し",Filter.babyCarRentalFilter));
-        filterSparseArray.append(62, new FilterBooleans("ベビーカーでアクセス可能",Filter.babyCarAccessFilter));
-        filterSparseArray.append(63, new FilterBooleans("おむつ交換台",Filter.omutuFilter));
-        filterSparseArray.append(64, new FilterBooleans("おしりふき",Filter.babyHipWashingStuffFilter));
-        filterSparseArray.append(65, new FilterBooleans("おむつ用ゴミ箱",Filter.omutuTrashCanFilter));
-        filterSparseArray.append(66, new FilterBooleans("おむつ販売機",Filter.omutuSelling));
+        filterSparseArray.append(62, new FilterBooleans("2,ベビールームについて",false));
+        filterSparseArray.append(63, new FilterBooleans("ベビーカー貸出し",Filter.babyCarRentalFilter));
+        filterSparseArray.append(64, new FilterBooleans("ベビーカーでアクセス可能",Filter.babyCarAccessFilter));
+        filterSparseArray.append(65, new FilterBooleans("おむつ交換台",Filter.omutuFilter));
+        filterSparseArray.append(66, new FilterBooleans("おしりふき",Filter.babyHipWashingStuffFilter));
+        filterSparseArray.append(67, new FilterBooleans("おむつ用ゴミ箱",Filter.omutuTrashCanFilter));
+        filterSparseArray.append(68, new FilterBooleans("おむつ販売機",Filter.omutuSelling));
 
 
-        filterSparseArray.append(67, new FilterBooleans("3,ベビールームについて",false));
-        filterSparseArray.append(68, new FilterBooleans("シンク",Filter.babySinkFilter));
-        filterSparseArray.append(69, new FilterBooleans("洗面台",Filter.babyWashstandFilter));
-        filterSparseArray.append(70, new FilterBooleans("給湯器",Filter.babyHotWaterFilter));
-        filterSparseArray.append(71, new FilterBooleans("電子レンジ",Filter.babyMicrowaveFilter));
-        filterSparseArray.append(72, new FilterBooleans("飲料自販機",Filter.babySellingWaterFilter));
-        filterSparseArray.append(73, new FilterBooleans("離乳食販売機",Filter.babyFoodSellingFilter));
-        filterSparseArray.append(74, new FilterBooleans("飲食スペース",Filter.babyEatingSpaceFilter));
+        filterSparseArray.append(69, new FilterBooleans("3,ベビールームについて",false));
+        filterSparseArray.append(70, new FilterBooleans("シンク",Filter.babySinkFilter));
+        filterSparseArray.append(71, new FilterBooleans("洗面台",Filter.babyWashstandFilter));
+        filterSparseArray.append(72, new FilterBooleans("給湯器",Filter.babyHotWaterFilter));
+        filterSparseArray.append(73, new FilterBooleans("電子レンジ",Filter.babyMicrowaveFilter));
+        filterSparseArray.append(74, new FilterBooleans("飲料自販機",Filter.babySellingWaterFilter));
+        filterSparseArray.append(75, new FilterBooleans("離乳食販売機",Filter.babyFoodSellingFilter));
+        filterSparseArray.append(76, new FilterBooleans("飲食スペース",Filter.babyEatingSpaceFilter));
 
 
-        filterSparseArray.append(75, new FilterBooleans("4,ベビールームについて",false));
-        filterSparseArray.append(76, new FilterBooleans("ベビーチェア",Filter.babyChairFilter));
-        filterSparseArray.append(77, new FilterBooleans("ソファ",Filter.babySoffaFilter));
-        filterSparseArray.append(78, new FilterBooleans("キッズトイレ",Filter.babyToiletFilter));
-        filterSparseArray.append(79, new FilterBooleans("キッズスペース",Filter.babyKidsSpaceFilter));
-        filterSparseArray.append(80, new FilterBooleans("身長計",Filter.babyHeightMeasureFilter));
-        filterSparseArray.append(81, new FilterBooleans("体重計",Filter.babyWeightMeasureFilter));
-        filterSparseArray.append(82, new FilterBooleans("おもちゃ",Filter.babyToyFilter));
-        filterSparseArray.append(83, new FilterBooleans("おしゃれ",Filter.babyRoomFancyFilter));
-        filterSparseArray.append(84, new FilterBooleans("いい香り",Filter.babyRoomSmellGoodFilter));
+        filterSparseArray.append(77, new FilterBooleans("4,ベビールームについて",false));
+        filterSparseArray.append(78, new FilterBooleans("ベビーチェア",Filter.babyChairFilter));
+        filterSparseArray.append(79, new FilterBooleans("ソファ",Filter.babySoffaFilter));
+        filterSparseArray.append(80, new FilterBooleans("キッズトイレ",Filter.babyToiletFilter));
+        filterSparseArray.append(81, new FilterBooleans("キッズスペース",Filter.babyKidsSpaceFilter));
+        filterSparseArray.append(82, new FilterBooleans("身長計",Filter.babyHeightMeasureFilter));
+        filterSparseArray.append(83, new FilterBooleans("体重計",Filter.babyWeightMeasureFilter));
+        filterSparseArray.append(84, new FilterBooleans("おもちゃ",Filter.babyToyFilter));
+        filterSparseArray.append(85, new FilterBooleans("おしゃれ",Filter.babyRoomFancyFilter));
+        filterSparseArray.append(86, new FilterBooleans("いい香り",Filter.babyRoomSmellGoodFilter));
 
 
 

@@ -137,27 +137,40 @@
         <activity
             android:name=".FirstTimeActivity"
             android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".StartLoginActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".StartSignUpActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".SettingViewActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".EditPinLocationActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".SearchLocationActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".FavotiteListActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".UserWentActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".CommentListView"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ReviewToiletViewActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".FilterListSearchActivity"
+                  android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".StartLoginActivity">
-        </activity>
-        <activity android:name=".StartSignUpActivity">
-        </activity>
-        <activity android:name=".SettingViewActivity">
-        </activity>
-        <activity android:name=".EditPinLocationActivity">
-        </activity>
-        <activity android:name=".SearchLocationActivity">
-        </activity>
-        <activity android:name=".FavotiteListActivity">
-        </activity>
-        <activity android:name=".UserWentActivity">
-        </activity>
-        <activity android:name=".CommentListView">
-        </activity>
-        <activity android:name=".ReviewToiletViewActivity">
-        </activity>
-        <activity android:name=".FilterListSearchActivity">
+        <activity android:name=".AddToiletDetailListActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

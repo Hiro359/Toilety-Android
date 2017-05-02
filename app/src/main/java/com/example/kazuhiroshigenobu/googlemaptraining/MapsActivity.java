@@ -169,7 +169,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                  @Override
                                                  public void onClick(View v) {
 
-                                                     Intent intent = new Intent(v.getContext(), FilterSearchActivity.class);
+                                                    // Intent intent = new Intent(v.getContext(), FilterSearchActivity.class);
+
+                                                     Intent intent = new Intent(v.getContext(), FilterListSearchActivity.class);
                                                      startActivity(intent);
                                                      finish();
                                                  }
