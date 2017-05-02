@@ -763,13 +763,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.ladyOmutu = (Boolean) dataSnapshot.child("ladyOmutu").getValue();
                             toilet.ladyBabyChair = (Boolean) dataSnapshot.child("ladyBabyChair").getValue();
                             toilet.ladyBabyChairGood = (Boolean) dataSnapshot.child("ladyBabyChairGood").getValue();
-                            toilet.ladyBabyChairAccess = (Boolean) dataSnapshot.child("ladyBabyChairAccess").getValue();
+                            toilet.ladyBabyCarAccess = (Boolean) dataSnapshot.child("ladyBabyCarAccess").getValue();
 
                             //for Mans
                             toilet.maleOmutu = (Boolean) dataSnapshot.child("maleOmutu").getValue();
                             toilet.maleBabyChair = (Boolean) dataSnapshot.child("maleBabyChair").getValue();
                             toilet.maleBabyChairGood = (Boolean) dataSnapshot.child("maleBabyChairGood").getValue();
-                            toilet.maleBabyChairAccess = (Boolean) dataSnapshot.child("maleBabyChairAccess").getValue();
+                            toilet.maleBabyCarAccess = (Boolean) dataSnapshot.child("maleBabyCarAccess").getValue();
 
                             //for Family Restroom
 

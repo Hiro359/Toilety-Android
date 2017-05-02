@@ -775,7 +775,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             Log.i("HEy", "00");
         } else {
             //there is a valid name
-            // firebaseUpdate();
+             firebaseUpdate();
         }
     }
 
@@ -934,7 +934,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
                 AddDetailBooleans.ladyOmutu,
                 AddDetailBooleans.ladyBabyChair,
                 AddDetailBooleans.ladyBabyChairGood,
-                AddDetailBooleans.ladyBabyChairAccess,
+                AddDetailBooleans.ladyBabyCarAccess,
 
 
 

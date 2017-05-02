@@ -61,14 +61,20 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             //((AddBooleansListAdapter.AddBooleansViewHolder) holder).bindString(filterSparseArray.get(position).booleanName);
             //((AddBooleansViewHolder) holder).booleanSwitch.setChecked(booleansSparseArray.get(pos).booleanValue);
 
-            Log.i(String.valueOf(position) + "78",filterSparseArray.get(position).booleanName);
 
 
 
             Log.i("OKAY","1");
 
 
+            Log.i(String.valueOf(position) + "785",String.valueOf(filterSparseArray.get(position).booleanName));
+
+            Log.i(String.valueOf(position) + "786",String.valueOf(filterSparseArray.get(position).booleanValue));
+
             ((AddBooleansListAdapter.AddBooleansViewHolder)holder).bindString(filterSparseArray.get(position).booleanName);
+
+
+            ((AddBooleansViewHolder) holder).booleanSwitch.setChecked(filterSparseArray.get(position).booleanValue);
 
             Log.i("OKAY","2");
 
@@ -191,7 +197,7 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         AddDetailBooleans.ladyBabyChairGood = buttonView.isChecked();
                     }
                     if (pos == 38) {
-                        AddDetailBooleans.ladyBabyChairAccess = buttonView.isChecked();
+                        AddDetailBooleans.ladyBabyCarAccess = buttonView.isChecked();
                     }
 
 
@@ -205,7 +211,7 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         AddDetailBooleans.maleBabyChairGood = buttonView.isChecked();
                     }
                     if (pos == 43) {
-                        AddDetailBooleans.maleBabyChairAccess = buttonView.isChecked();
+                        AddDetailBooleans.maleBabyCarAccess = buttonView.isChecked();
                     }
 
 

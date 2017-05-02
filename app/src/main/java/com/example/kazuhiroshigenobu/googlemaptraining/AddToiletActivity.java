@@ -186,7 +186,9 @@ public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCa
             //Location is null
             alertCall();
         } else {
-            Intent intent = new Intent(getApplicationContext(), AddToiletDetailActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AddToiletDetailListActivity.class);
+
+            //Intent intent = new Intent(getApplicationContext(), AddToiletDetailActivity.class);
             startActivity(intent);
             finish();
         }

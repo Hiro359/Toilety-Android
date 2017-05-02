@@ -42,6 +42,24 @@
         <activity
             android:name=".MapsActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <!--
+                  ATTENTION: This data URL was auto-generated. We recommend that you use the HTTP scheme.
+                  TODO: Change the host or pathPrefix as necessary.
+                -->
+                <data
+                    android:host="[ENTER-YOUR-HTTP-HOST-HERE]"
+                    android:pathPrefix="/login"
+                    android:scheme="http"/>
+            </intent-filter>
 
             <!--
   ATTENTION: This intent was auto-generated. Follow instructions at
@@ -138,57 +156,51 @@
             android:name=".FirstTimeActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".StartLoginActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".StartLoginActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".StartSignUpActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".StartSignUpActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".SettingViewActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".SettingViewActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".EditPinLocationActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".EditPinLocationActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".SearchLocationActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".SearchLocationActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".FavotiteListActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".FavotiteListActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".UserWentActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".UserWentActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".CommentListView"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".CommentListView"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ReviewToiletViewActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".ReviewToiletViewActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".FilterListSearchActivity"
-                  android:screenOrientation="portrait">
-
+        <activity
+            android:name=".FilterListSearchActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".AddToiletDetailListActivity"
-                  android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-
-                <action android:name="android.intent.action.VIEW"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <!--
-                  ATTENTION: This data URL was auto-generated. We recommend that you use the HTTP scheme.
-                  TODO: Change the host or pathPrefix as necessary.
-                -->
-                <data
-                    android:host="[ENTER-YOUR-HTTP-HOST-HERE]"
-                    android:pathPrefix="/login"
-                    android:scheme="http"/>
-            </intent-filter>
+        <activity
+            android:name=".AddToiletDetailListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".EditViewListActivity">
         </activity>
     </application>
 

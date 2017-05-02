@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_edit_view_list"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@color/colorForBackground"
+tools:context="com.example.kazuhiroshigenobu.googlemaptraining.EditViewListActivity">
+
+ <include
+    android:id="@+id/edit_app_bar"
+    layout="@layout/edit_app_bar"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"/>
+
+<android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/basicInfo"
+                android:textColor="@color/colorSubText"
+                android:layout_marginBottom="3dp"
+
+
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/border"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/inputName"
+                android:hint="@string/writeToiletName">
+
+
+                <EditText
+                    android:id="@+id/writeToiletName"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:textAlignment="center"
+                    android:textColorHint="@color/colorSubText"
+                    android:textColor="@color/colorText"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/typeSpinner"
+                android:textColor="@color/colorText"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/border"
+                android:layout_marginBottom="5dp"
+
+                />
+
+
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/pick_time"
+                android:textColor="@color/colorSubText"
+                android:layout_marginBottom="3dp"
+
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/openAllDay"
+                android:textColor="@color/colorSubText"
+                android:layout_marginBottom="3dp"
+
+
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/avaiableLayout">
+
+
+                <Spinner
+                    android:id="@+id/startHoursSpinner"
+                    android:textColor="@color/colorText"
+                    android:textAlignment="center"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toLeftOf="@+id/startTimeDot"
+                    android:layout_toStartOf="@+id/startTimeDot"
+
+                    />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/startTimeDot"
+                    android:gravity="center"
+                    android:text="@string/timeDot"
+                    android:textColor="@color/colorText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toLeftOf="@+id/startMinutesSpinner"
+                    android:layout_toStartOf="@+id/startMinutesSpinner"/>
+
+                <Spinner
+                    android:id="@+id/startMinutesSpinner"
+                    android:textColor="@color/colorText"
+                    android:textAlignment="center"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toLeftOf="@+id/andAvailable"
+                    android:layout_toStartOf="@+id/andAvailable"
+
+                    />
+
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/andAvailable"
+
+                    android:gravity="center"
+                    android:text="@string/between"
+                    android:textColor="@color/colorText"
+                    android:layout_centerHorizontal="true"/>
+
+
+                <Spinner
+                    android:id="@+id/endHoursSpinner"
+                    android:textColor="@color/colorText"
+                    android:textAlignment="center"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/andAvailable"
+                    android:layout_toEndOf="@+id/andAvailable"
+
+                    />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/endTimeDot"
+                    android:gravity="center"
+                    android:text="@string/timeDot"
+                    android:textColor="@color/colorText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toRightOf="@+id/endHoursSpinner"
+                    android:layout_toEndOf="@+id/endHoursSpinner"/>
+
+                <Spinner
+                    android:id="@+id/endMinutesSpinner"
+                    android:textColor="@color/colorText"
+                    android:textAlignment="center"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/border"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/endTimeDot"
+                    android:layout_toEndOf="@+id/endTimeDot"
+
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/howToAccess"
+                android:textColor="@color/colorSubText"
+                android:layout_marginBottom="3dp"
+
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorLabel"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/writeFloor"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorText"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:padding="10dp"/>
+
+
+
+                <Spinner
+                    android:layout_width="180dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/locationFloorSpinner"
+                    android:background="@drawable/border"
+                    android:padding="10dp"
+
+                    >
+
+                </Spinner>
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/border"
+
+                >
+
+                <EditText
+                    android:id="@+id/inputHowToAccess"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:hint="@string/accessGo"
+                    android:textColorHint="@color/colorSubText"
+                    android:textColor="@color/colorText"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
+
+                    />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+
+        </LinearLayout>
+
+
+
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_marginTop="10dp">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:text="@string/evaluation"-->
+                <!--android:textColor="@color/colorSubText"-->
+                <!--android:layout_marginBottom="3dp"-->
+
+                <!--/>-->
+
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/border"-->
+                <!--&gt;-->
+
+                <!--<android.support.v7.widget.AppCompatRatingBar-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:id="@+id/editRating"-->
+
+
+                    <!--/>-->
+
+
+            <!--</RelativeLayout>-->
+
+            <!--<Spinner-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:textSize="24sp"-->
+                <!--android:textColor="@color/colorSubText"-->
+                <!--android:textAlignment="center"-->
+                <!--android:background="@drawable/border"-->
+                <!--android:layout_marginBottom="2dp"-->
+                <!--android:id="@+id/spinnerWaitingTime"-->
+                <!--android:paddingStart="20dp"-->
+                <!--android:paddingLeft="20dp"-->
+                <!--android:paddingEnd="10dp"-->
+                <!--android:paddingRight="10dp">-->
+
+
+
+            <!--</Spinner>-->
+
+        <!--</LinearLayout>-->
+
+
+
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_marginTop="10dp">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:text="@string/kansou"-->
+                <!--android:textColor="@color/colorSubText"-->
+                <!--android:layout_marginBottom="3dp"-->
+                <!--/>-->
+
+            <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="150sp"-->
+                <!--android:background="@drawable/border"-->
+                <!--android:id="@+id/addFeedback"-->
+                <!--&gt;-->
+
+
+
+
+
+                <!--<EditText-->
+                    <!--android:id="@+id/kansou"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="150dp"-->
+                    <!--android:textColorHint="@color/colorSubText"-->
+                    <!--android:textColor="@color/colorText"-->
+                    <!--android:inputType="text"-->
+                    <!--android:imeOptions="actionDone"-->
+                    <!--android:gravity="top"-->
+                    <!--/>-->
+
+
+            <!--</android.support.design.widget.TextInputLayout>-->
+
+        <!--</LinearLayout>-->
+
+
+
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_marginTop="10dp">-->
+
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:text="@string/layoutMap"-->
+        <!--android:textColor="@color/colorSubText"-->
+        <!--android:layout_marginBottom="3dp"-->
+        <!--android:padding="10dp"-->
+        <!--/>-->
+
+
+        <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60sp"-->
+        <!--android:text="@string/changePin"-->
+        <!--android:textColor="@color/colorText"-->
+        <!--android:background="@drawable/buttonborder"-->
+        <!--android:id="@+id/buttonEditPinMap"-->
+        <!--android:layout_marginBottom="5dp"/>-->
+
+
+        <!--<fragment-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--xmlns:map="http://schemas.android.com/apk/res-auto"-->
+        <!--xmlns:tools="http://schemas.android.com/tools"-->
+        <!--android:id="@+id/editCheckMap"-->
+        <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="180sp"-->
+        <!--android:background="@drawable/border"-->
+        <!--tools:context="com.example.kazuhiroshigenobu.googlemaptraining.AddToiletDetailActivity"-->
+        <!--/>-->
+
+
+
+        <!--</LinearLayout>-->
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/picture"
+                android:textColor="@color/colorSubText"
+                android:layout_marginBottom="3dp"
+                />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:text="@string/addPicture"
+                android:textColor="@color/colorText"
+                android:background="@drawable/border"
+                android:id="@+id/buttonEditPicture"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:id="@+id/picture1"
+                android:background="@drawable/border"
+                android:contentDescription="@string/common_google_play_services_enable_button"
+                android:layout_gravity="start"
+                android:layout_toLeftOf="@+id/picture2"
+                android:layout_toStartOf="@+id/picture2"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:id="@+id/picture2"
+                android:background="@drawable/border"
+                android:contentDescription="@string/common_google_play_services_enable_button"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:id="@+id/picture3"
+                android:background="@drawable/border"
+                android:contentDescription="@string/common_google_play_services_enable_button"
+                android:layout_toRightOf="@+id/picture2"
+                android:layout_toEndOf="@+id/picture2"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                />
+
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/toiletReviewList"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/feedback"
+                android:textColor="@color/colorSubText"
+                android:layout_marginBottom="3dp"
+                android:background="@color/colorForBackground"
+                />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:text="@string/sendFeedback"
+                android:textColor="@color/colorText"
+                android:background="@drawable/buttonborder"
+                android:id="@+id/buttonEditInfo"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+</LinearLayout>
+
+
+
+
+
+    <!--End-->
+
+

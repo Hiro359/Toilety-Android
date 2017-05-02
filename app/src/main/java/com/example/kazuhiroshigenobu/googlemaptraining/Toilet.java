@@ -76,13 +76,13 @@ public class Toilet {
     Boolean ladyOmutu = false;
     Boolean ladyBabyChair = false;
     Boolean ladyBabyChairGood = false;
-    Boolean ladyBabyChairAccess = false;
+    Boolean ladyBabyCarAccess = false;
 
     //For mens
     Boolean maleOmutu = false;
     Boolean maleBabyChair = false;
     Boolean maleBabyChairGood = false;
-    Boolean maleBabyChairAccess = false;
+    Boolean maleBabyCarAccess = false;
 
 
 
