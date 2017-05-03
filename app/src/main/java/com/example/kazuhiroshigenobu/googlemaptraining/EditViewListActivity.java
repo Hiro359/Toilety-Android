@@ -75,6 +75,9 @@ public class EditViewListActivity extends AppCompatActivity {
     Spinner endHoursSpinner;
     Spinner endMinutesSpinner;
 
+    Integer openData = 0;
+    Integer endData = 2400;
+
 
 
     EditText textToiletName;
@@ -92,11 +95,21 @@ public class EditViewListActivity extends AppCompatActivity {
     private GoogleApiClient client;
 
     Boolean typeSpinnerLoaded = false;
-    Boolean openHourSpinnerLoaded = false;
-    Boolean openMinutesSpinnerLoaded = false;
+    Boolean startHourSpinnerLoaded = false;
+    Boolean startMinutesSpinnerLoaded = false;
     Boolean closeHourSpinnerLoaded = false;
     Boolean closeMinutesSpinnerLoaded = false;
     Boolean floorSpinnerLoaded = false;
+
+
+    Boolean typeSpinnerSelected = false;
+    Boolean startHourSpinnerSelected = false;
+    Boolean startMinutesSpinnerSelected = false;
+    Boolean closeHourSpinnerSelected = false;
+    Boolean closeMinutesSpinnerSelected = false;
+    Boolean floorSpinnerSelected = false;
+
+
 
     Integer photoSelected = 0;
 
@@ -505,13 +518,20 @@ public class EditViewListActivity extends AppCompatActivity {
 
                                                            ((TextView) parent.getChildAt(0)).setText(String.valueOf(toilet.floor));
                                                            floorSpinnerLoaded = true;
+                                                       } else {
+                                                           floorSpinnerSelected = true;
+
                                                        }
+
+
 
 
 
                                                    }
                                                    @Override
                                                    public void onNothingSelected(AdapterView<?> parent) {
+
+
                                                    }
                                                }
 
@@ -524,15 +544,30 @@ public class EditViewListActivity extends AppCompatActivity {
                                                             ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                                                             ((TextView) parent.getChildAt(0)).setTextSize(16);
                                                             Integer startHours = toilet.openHours/100;
-                                                            if (!openHourSpinnerLoaded) {
+                                                            if (!startHourSpinnerLoaded) {
+                                                                //This part is loaded only for the first time
+
+                                                                String selected = parent.getItemAtPosition(position).toString();
+
                                                                 ((TextView) parent.getChildAt(0)).setText(String.valueOf(startHours));
-                                                                openHourSpinnerLoaded = true;
+                                                                startHourSpinnerLoaded = true;
+                                                                Log.i("User", "Initial NOT Selected88888");
+                                                                Log.i("User", "Initial NOT Selected88888" + String.valueOf(selected));
+                                                            } else {
+                                                                startHourSpinnerSelected = true;
+                                                                String selected = parent.getItemAtPosition(position).toString();
+                                                                Log.i("User", "Selected88888");
+                                                                Log.i("User", "Selected88888" + String.valueOf(selected));
+
                                                             }
                                                         }
 
 
                                                         @Override
                                                         public void onNothingSelected(AdapterView<?> parent) {
+
+
+
                                                         }
                                                     }
         );
@@ -544,12 +579,24 @@ public class EditViewListActivity extends AppCompatActivity {
                                                               ((TextView) parent.getChildAt(0)).setTextSize(16);
                                                               Integer startMinutes = toilet.openHours % 100;
 
-                                                              if (!openMinutesSpinnerLoaded) {
+                                                              Log.i("StartMiNutes 88888", "FUCK");
+
+                                                              if (!startMinutesSpinnerLoaded) {
+
+                                                                  startMinutesSpinnerLoaded = true;
 
                                                                   if (startMinutes != 0) {
                                                                       ((TextView) parent.getChildAt(0)).setText(String.valueOf(startMinutes));
-                                                                      openMinutesSpinnerLoaded = true;
+                                                                  } else {
+                                                                      
+                                                                      String selected = parent.getItemAtPosition(0).toString();
+                                                                      ((TextView) parent.getChildAt(0)).setText(selected);
                                                                   }
+                                                                  //}
+                                                              } else {
+
+
+                                                                  startMinutesSpinnerSelected = true;
                                                               }
 
                                                           }
@@ -571,6 +618,9 @@ public class EditViewListActivity extends AppCompatActivity {
 
                                                               ((TextView) parent.getChildAt(0)).setText(String.valueOf(endHours));
                                                               closeHourSpinnerLoaded = true;
+                                                          } else {
+                                                              closeHourSpinnerSelected = true;
+
                                                           }
 
                                                       }
@@ -592,11 +642,16 @@ public class EditViewListActivity extends AppCompatActivity {
                                                             if (!closeMinutesSpinnerLoaded) {
 
                                                                 if (endMinutes != 0) {
+
                                                                     ((TextView) parent.getChildAt(0)).setText(String.valueOf(endMinutes));
                                                                     closeMinutesSpinnerLoaded= true;
-
                                                                 }
+                                                            } else {
+                                                                closeMinutesSpinnerSelected = true;
+
                                                             }
+
+
                                                         }
                                                         @Override
                                                         public void onNothingSelected(AdapterView<?> parent) {
@@ -700,8 +755,12 @@ public class EditViewListActivity extends AppCompatActivity {
 
                     Long openh = (Long) dataSnapshot.child("openHours").getValue();
                     toilet.openHours = openh.intValue();
+                    openData = toilet.openHours;
                     Long closeh = (Long) dataSnapshot.child("closeHours").getValue();
                     toilet.closeHours = closeh.intValue();
+                    endData = toilet.closeHours;
+
+
                     Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
                     toilet.reviewCount = reviewCount.intValue();
                     Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
@@ -1137,32 +1196,86 @@ public class EditViewListActivity extends AppCompatActivity {
 
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
-        Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
-        Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
-        Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
-        Integer openTime = stHour * 100 + stMinu;
-        Integer endTime = enHour * 100 + enMinu;
 
-        Integer openData = 5000;
-        Integer endData = 5000;
+        Integer updateStHour;
+        Integer updateStMinute;
+        Integer updateEndHour;
+        Integer updateEndMinute;
+
+        if (startHourSpinnerSelected){
+            updateStHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
+        } else {
+            updateStHour = toilet.openHours/100;
+        }
+
+        if (startMinutesSpinnerSelected){
+            updateStMinute = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
+        } else {
+            updateStMinute = toilet.openHours % 100;
+        }
+
+        if (closeHourSpinnerSelected){
+            updateEndHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
+        } else {
+            updateEndHour = toilet.closeHours/100;
+        }
+
+        if (closeMinutesSpinnerSelected){
+            updateEndMinute = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
+        } else {
+            updateEndMinute = toilet.closeHours % 100;
+        }
+
+
+
+        Integer openTime = updateStHour * 100 + updateStMinute;
+        Integer endTime = updateEndHour * 100 + updateEndMinute;
+
+        String updateStMinuteString;
+        String updateEndMinuteString;
+
+        if (updateStMinute == 0) {
+            updateStMinuteString = "00";
+        } else {
+            updateStMinuteString = String.valueOf(updateStMinute);
+        }
+
+        if (updateEndMinute == 0) {
+            updateEndMinuteString = "00";
+        } else {
+            updateEndMinuteString = String.valueOf(updateStMinute);
+        }
+
+
+        String openingString = String.valueOf(updateStHour) + ":" + updateStMinuteString + "〜" + String.valueOf(updateEndHour) + ":" + updateEndMinuteString;
+
+
         String tName = textToiletName.getText().toString();
 
-        if (openTime < endTime){
-            openData = openTime;
-            endData = endTime;
-            Log.i(String.valueOf(openData),String.valueOf(endData));
 
-        }else if (openTime == endTime){
-            openData = 5000;
-            endData = 5000;
-            Log.i(String.valueOf(openData),String.valueOf(endData));
-        } else if (openTime > endTime){
-            openData = openTime;
-            endData = endTime + 2400;
-            Log.i(String.valueOf(openData),String.valueOf(endData));
 
-        }
+
+
+//        if (!closeHourSpinnerLoaded && !closeMinutesSpinnerLoaded && !openHourSpinnerLoaded && !openMinutesSpinnerLoaded){
+//            //User did not touch the spinner
+//            Log.i("User", "DidNtTOUCH SPINNER");
+//        }
+
+//        if (openTime < endTime){
+//            openData = openTime;
+//            endData = endTime;
+//            Log.i(String.valueOf(openData),String.valueOf(endData));
+//
+//        }else if (openTime == endTime){
+//            openData = 5000;
+//            endData = 5000;
+//            Log.i(String.valueOf(openData),String.valueOf(endData));
+//        } else if (openTime > endTime){
+//            openData = openTime;
+//            endData = endTime + 2400;
+//            Log.i(String.valueOf(openData),String.valueOf(endData));
+//
+//        }
 
 //       Log.i(String.valueOf(openData),String.valueOf(endData));
 
@@ -1175,7 +1288,6 @@ public class EditViewListActivity extends AppCompatActivity {
         //float to Int
         //Integer waitingValue = Integer.parseInt(waitingV);
 
-        String openingString = startHoursSpinner.getSelectedItem().toString() + ":" + startMinutesSpinner.getSelectedItem().toString() + "〜" + endHoursSpinner.getSelectedItem().toString() + ":" + endMinutesSpinner.getSelectedItem().toString();
 
        // String avStar = String.valueOf(ratingValue);
         Log.i("datbase", "called121");
@@ -1223,8 +1335,8 @@ public class EditViewListActivity extends AppCompatActivity {
         childUpdates.put("urlThree",urlThree);
         childUpdates.put("editedBy",uid);
         childUpdates.put("howtoaccess","");
-        childUpdates.put("openHours",openData);
-        childUpdates.put("closeHours",endData);
+        childUpdates.put("openHours",openTime);
+        childUpdates.put("closeHours",endTime);
         childUpdates.put("toiletFloor",3);
 
 
