@@ -367,7 +367,7 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemCount() {
-        return 85;
+        return 86;
     }
     @Override
     public int getItemViewType(int position) {

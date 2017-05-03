@@ -46,6 +46,14 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+
+        Log.i("Account Loaded", "Start");
+
+
+
+       // Log.i("UserId 88888",String.valueOf(firebaseAuth.getCurrentUser()));
+
+
 //        toolbar = (Toolbar) findViewById(R.id.app_bar3);
 //        toolbar.setTitle("マイページ");
 //
@@ -59,10 +67,15 @@ public class AccountActivity extends AppCompatActivity {
 
 
 
-            Log.i("Already Loged in", "");
+
+            Log.i("Login 88888", "Start");
             userAlreadyLogin = true;
             String userID = firebaseAuth.getCurrentUser().getUid();
             getUserInfo(userID);
+
+        } else  {
+
+            Log.i("Login Null 88888", "Start");
 
         }
 
@@ -233,6 +246,8 @@ public class AccountActivity extends AppCompatActivity {
 
 
     }
+
+
     private void getUserInfo(String userID){
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         //addValueEventListener(new ValueEventListener() {

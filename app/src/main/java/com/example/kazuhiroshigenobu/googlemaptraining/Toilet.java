@@ -12,7 +12,7 @@ public class Toilet {
 
 
     String key;
-    String type;
+    Integer type;
     String name;
     String urlOne;
     String urlTwo;

@@ -149,7 +149,7 @@ public class FilterListSearchActivity extends AppCompatActivity {
         spinner4 = (Spinner) findViewById(R.id.spinner4);
         adapter1 = ArrayAdapter.createFromResource(this,R.array.distance_names,android.R.layout.simple_spinner_item);
         adapter2 = ArrayAdapter.createFromResource(this,R.array.order_names,android.R.layout.simple_spinner_item);
-        adapter3 = ArrayAdapter.createFromResource(this,R.array.places_names,android.R.layout.simple_spinner_item);
+        adapter3 = ArrayAdapter.createFromResource(this,R.array.places_filters,android.R.layout.simple_spinner_item);
         adapter4 = ArrayAdapter.createFromResource(this,R.array.star_numbers,android.R.layout.simple_spinner_item);
 
 
@@ -283,17 +283,30 @@ public class FilterListSearchActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
+
+                Log.i("TypeFIlter","Selected");
 //                ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(position)));
 
+
                 if (position == 0) {
-                    ((TextView) parent.getChildAt(0)).setText(Filter.typeFilter);
+                    if( Filter.typeFilter == 0){
+
+                        ((TextView) parent.getChildAt(0)).setText("AA");
+                        .
+                        Log.i("Type00 SelectedItem","88888");
+                    }
+                    ((TextView) parent.getChildAt(0)).setText(String.valueOf(Filter.typeFilter));
+                    Log.i("TypeFIlter00","88888");
                 }else if (position == 1) {
                     //全てのトイレ
                     Filter.typeFilterOn = false;
-                    Filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
+                    Log.i("TypeFIlter11","88888");
+
+                   // Filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
                 } else {
                     Filter.typeFilterOn = true;
-                    Filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
+                    Log.i("TypeFIlter22","88888");
+                   // Filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
 
                 }
 

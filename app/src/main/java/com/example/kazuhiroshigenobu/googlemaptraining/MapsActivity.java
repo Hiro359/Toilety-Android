@@ -699,7 +699,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             toilet.longitude = location.longitude;
 
                             toilet.name = (String) dataSnapshot.child("name").getValue();
-                            toilet.type = (String) dataSnapshot.child("type").getValue();
+                            Long typeLong = (Long) dataSnapshot.child("type").getValue();
+                            toilet.type = typeLong.intValue();
                             toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
                             toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();
 

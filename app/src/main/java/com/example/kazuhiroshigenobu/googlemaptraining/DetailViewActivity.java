@@ -684,7 +684,10 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
                     toilet.openAndCloseHours = (String) dataSnapshot.child("openAndCloseHours").getValue();
-                    toilet.type = (String) dataSnapshot.child("type").getValue();
+                    Long typeLong = (Long) dataSnapshot.child("type").getValue();
+                    toilet.type = typeLong.intValue();
+
+
                     toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
                     toilet.urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
                     toilet.urlThree = (String) dataSnapshot.child("urlThree").getValue();

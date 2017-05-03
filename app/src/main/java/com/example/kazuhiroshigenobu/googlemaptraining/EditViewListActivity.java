@@ -471,13 +471,12 @@ public class EditViewListActivity extends AppCompatActivity {
                                                       ((TextView) parent.getChildAt(0)).setTextSize(16);
 
                                                       if (!typeSpinnerLoaded){
-                                                          ((TextView) parent.getChildAt(0)).setText(toilet.type);
+                                                          ((TextView) parent.getChildAt(0)).setText(String.valueOf(toilet.type));
                                                           Log.i("TypeCalled","111");
                                                           typeSpinnerLoaded = true;
+                                                      } else {
+                                                          typeSpinnerSelected = true;
                                                       }
-
-
-
 
                                                   }
                                                   @Override
@@ -513,20 +512,12 @@ public class EditViewListActivity extends AppCompatActivity {
                                                        ((TextView) parent.getChildAt(0)).setTextSize(16);
 //                                                            ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(position) + "以上を検索");
                                                        if (!floorSpinnerLoaded){
-
-                                                           // ((TextView) parent.getChildAt(0)).setText(parent.getSelectedItem()));
-
                                                            ((TextView) parent.getChildAt(0)).setText(String.valueOf(toilet.floor));
                                                            floorSpinnerLoaded = true;
                                                        } else {
                                                            floorSpinnerSelected = true;
 
                                                        }
-
-
-
-
-
                                                    }
                                                    @Override
                                                    public void onNothingSelected(AdapterView<?> parent) {
@@ -582,20 +573,14 @@ public class EditViewListActivity extends AppCompatActivity {
                                                               Log.i("StartMiNutes 88888", "FUCK");
 
                                                               if (!startMinutesSpinnerLoaded) {
-
                                                                   startMinutesSpinnerLoaded = true;
-
                                                                   if (startMinutes != 0) {
                                                                       ((TextView) parent.getChildAt(0)).setText(String.valueOf(startMinutes));
                                                                   } else {
-                                                                      
                                                                       String selected = parent.getItemAtPosition(0).toString();
                                                                       ((TextView) parent.getChildAt(0)).setText(selected);
                                                                   }
-                                                                  //}
                                                               } else {
-
-
                                                                   startMinutesSpinnerSelected = true;
                                                               }
 
@@ -619,6 +604,7 @@ public class EditViewListActivity extends AppCompatActivity {
                                                               ((TextView) parent.getChildAt(0)).setText(String.valueOf(endHours));
                                                               closeHourSpinnerLoaded = true;
                                                           } else {
+
                                                               closeHourSpinnerSelected = true;
 
                                                           }
@@ -640,17 +626,19 @@ public class EditViewListActivity extends AppCompatActivity {
                                                             ((TextView) parent.getChildAt(0)).setTextSize(16);
                                                             Integer endMinutes = toilet.closeHours % 100;
                                                             if (!closeMinutesSpinnerLoaded) {
-
+                                                                closeMinutesSpinnerLoaded = true;
                                                                 if (endMinutes != 0) {
 
                                                                     ((TextView) parent.getChildAt(0)).setText(String.valueOf(endMinutes));
-                                                                    closeMinutesSpinnerLoaded= true;
+                                                                } else {
+                                                                    String selected = parent.getItemAtPosition(0).toString();
+                                                                    ((TextView) parent.getChildAt(0)).setText(selected);
+
                                                                 }
                                                             } else {
                                                                 closeMinutesSpinnerSelected = true;
 
                                                             }
-
 
                                                         }
                                                         @Override
@@ -734,7 +722,9 @@ public class EditViewListActivity extends AppCompatActivity {
 
                     toilet.name = (String) dataSnapshot.child("name").getValue();
                     toilet.openAndCloseHours = (String) dataSnapshot.child("openAndCloseHours").getValue();
-                    toilet.type = (String) dataSnapshot.child("type").getValue();
+                    Long typeLong = (Long) dataSnapshot.child("type").getValue();
+                    toilet.type = typeLong.intValue();
+
                     toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
                     toilet.urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
                     toilet.urlThree = (String) dataSnapshot.child("urlThree").getValue();
@@ -991,7 +981,6 @@ public class EditViewListActivity extends AppCompatActivity {
                     textToiletName.setText(toilet.name);
 
                     Float averaegeStarFloat = Float.parseFloat(toilet.averageStar);
-                    Log.i("Type@@@",toilet.type);
                     sppinnerReady();
                     sparseArrayReady();
                     setIntialImage();
@@ -1201,6 +1190,9 @@ public class EditViewListActivity extends AppCompatActivity {
         Integer updateStMinute;
         Integer updateEndHour;
         Integer updateEndMinute;
+        Integer updateFloor;
+        Integer updateType;
+
 
         if (startHourSpinnerSelected){
             updateStHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
@@ -1225,6 +1217,32 @@ public class EditViewListActivity extends AppCompatActivity {
         } else {
             updateEndMinute = toilet.closeHours % 100;
         }
+
+        if (floorSpinnerSelected){
+            Log.i("SelectedPosition88888", String.valueOf(floorSpinner.getSelectedItemPosition()));
+
+
+            //Log.i("SelectedPosition88888", floorSpinner.getSelectedItem().toString());
+           // updateFloor = Integer.parseInt(floorSpinner.getSelectedItem().toString());
+
+
+            //It cannot be integet because it is like "一階"　
+
+
+        } else {
+            Log.i("SelectedPosition88888", String.valueOf(floorSpinner.getSelectedItemPosition()));
+
+           // Log.i("SelectedPosition88888", floorSpinner.getSelectedItem().toString());
+            //updateFloor = toilet.floor;
+        }
+
+
+        if (typeSpinnerSelected){
+           updateType = typeSpinner.getSelectedItemPosition();
+        } else {
+            updateType = toilet.type;
+        }
+
 
 
 
@@ -1252,45 +1270,6 @@ public class EditViewListActivity extends AppCompatActivity {
 
         String tName = textToiletName.getText().toString();
 
-
-
-
-
-//        if (!closeHourSpinnerLoaded && !closeMinutesSpinnerLoaded && !openHourSpinnerLoaded && !openMinutesSpinnerLoaded){
-//            //User did not touch the spinner
-//            Log.i("User", "DidNtTOUCH SPINNER");
-//        }
-
-//        if (openTime < endTime){
-//            openData = openTime;
-//            endData = endTime;
-//            Log.i(String.valueOf(openData),String.valueOf(endData));
-//
-//        }else if (openTime == endTime){
-//            openData = 5000;
-//            endData = 5000;
-//            Log.i(String.valueOf(openData),String.valueOf(endData));
-//        } else if (openTime > endTime){
-//            openData = openTime;
-//            endData = endTime + 2400;
-//            Log.i(String.valueOf(openData),String.valueOf(endData));
-//
-//        }
-
-//       Log.i(String.valueOf(openData),String.valueOf(endData));
-
-
-       // double ratingValue = ratingBar.getRating();
-        //float to double
-        //Integer star1Value = ratingBar.getNumStars();
-
-      //  String waitingV = waitingTimeSpinner.getSelectedItem().toString();
-        //float to Int
-        //Integer waitingValue = Integer.parseInt(waitingV);
-
-
-       // String avStar = String.valueOf(ratingValue);
-        Log.i("datbase", "called121");
 
 
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
@@ -1328,7 +1307,7 @@ public class EditViewListActivity extends AppCompatActivity {
 
         childUpdates.put("name",tName);
         childUpdates.put("openAndCloseHours",openingString);
-        childUpdates.put("type",typeSpinner.getSelectedItem().toString());
+        childUpdates.put("type",updateType);
 
         childUpdates.put("urlOne",urlOne);
         childUpdates.put("urlTwo",urlTwo);
@@ -1439,13 +1418,6 @@ public class EditViewListActivity extends AppCompatActivity {
         childUpdates.put("babyToy",AddDetailBooleans.babyToy );
         childUpdates.put("babyFancy",AddDetailBooleans.babyFancy);
         childUpdates.put("babySmellGood",AddDetailBooleans.babySmellGood);
-
-
-
-//        childUpdates.put("averageStar",newAvStarString);
-//        childUpdates.put("averageWait",newWaitingTime);
-//        childUpdates.put("reviewOne", newRid);
-//        childUpdates.put("reviewTwo", originalReviewOne);
 
 
 

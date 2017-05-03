@@ -15,7 +15,8 @@ public class Filter {
     static Boolean orderStarFilter = false;
     static Boolean orderReviewFilter = false;
     static Boolean typeFilterOn = false;
-    static String typeFilter = "全てのトイレ";
+    static Integer typeFilter = 0;
+    //Changed string to integet
 
     static Boolean availableFilter = false;
     static Boolean japaneseFilter = false;

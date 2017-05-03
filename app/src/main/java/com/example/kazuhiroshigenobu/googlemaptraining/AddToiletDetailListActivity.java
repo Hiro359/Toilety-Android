@@ -871,7 +871,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
         newRef.setValue(new Post(
                 tName,
                 openingString,
-                typeSpinner.getSelectedItem().toString(),
+                typeSpinner.getSelectedItemPosition(),
                 urlOne,//String urlOne,
                 urlTwo,//String urlTwo,
                 urlThree,//String urlThree,
