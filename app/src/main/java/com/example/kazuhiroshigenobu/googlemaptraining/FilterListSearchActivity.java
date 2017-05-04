@@ -49,6 +49,8 @@ public class FilterListSearchActivity extends AppCompatActivity {
     ArrayAdapter<CharSequence> adapter3;
     ArrayAdapter<CharSequence> adapter4;
 
+    Boolean spinner3LoadFirstTime = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -284,39 +286,71 @@ public class FilterListSearchActivity extends AppCompatActivity {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
 
-                Log.i("TypeFIlter","Selected");
-//                ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(position)));
+                Log.i("TypeFilterNumber", String.valueOf(Filter.typeFilter));
+
+                if (!spinner3LoadFirstTime){
+                    spinner3LoadFirstTime = true;
+                    if (Filter.typeFilter ==  0){
+                        ((TextView) parent.getChildAt(0)).setText(R.string.typeDefalutZero);
+
+                    } else if (Filter.typeFilter ==  1){
+                        ((TextView) parent.getChildAt(0)).setText(R.string.typeDefalutOne);
+
+                    } else if (Filter.typeFilter ==  2){
+                        ((TextView) parent.getChildAt(0)).setText(R.string.typeDefalutTwo);
+
+                    } else if (Filter.typeFilter ==  3){
+                        ((TextView) parent.getChildAt(0)).setText(R.string.typeDefalutThree);
+
+                    } else if (Filter.typeFilter ==  4){
+                        ((TextView) parent.getChildAt(0)).setText(R.string.typeDefalutFour);
+
+                    } else if (Filter.typeFilter ==  5){
+                        ((TextView) parent.getChildAt(0)).setText(R.string.typeDefalutFive);
+
+                    } else if (Filter.typeFilter ==  6){
+                        ((TextView) parent.getChildAt(0)).setText(R.string.typeDefalutSix);
 
 
-                if (position == 0) {
-                    if( Filter.typeFilter == 0){
+                    } else if (Filter.typeFilter ==  7){
+                        ((TextView) parent.getChildAt(0)).setText(R.string.typeDefalutSeven);
 
-                        ((TextView) parent.getChildAt(0)).setText("AA");
-                        .
-                        Log.i("Type00 SelectedItem","88888");
+
+                    } else if (Filter.typeFilter ==  8){
+                        ((TextView) parent.getChildAt(0)).setText(R.string.typeDefalutEight);
+
                     }
-                    ((TextView) parent.getChildAt(0)).setText(String.valueOf(Filter.typeFilter));
-                    Log.i("TypeFIlter00","88888");
-                }else if (position == 1) {
-                    //全てのトイレ
-                    Filter.typeFilterOn = false;
-                    Log.i("TypeFIlter11","88888");
-
-                   // Filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
-                } else {
-                    Filter.typeFilterOn = true;
-                    Log.i("TypeFIlter22","88888");
-                   // Filter.typeFilter = String.valueOf(parent.getItemAtPosition(position));
-
                 }
 
-//                if (filter.typeFilterOn == false) {
-//
-//                    ((TextView) parent.getChildAt(0)).setText("全てのトイレ");
-//                }else{
-//                    ((TextView) parent.getChildAt(0)).setText(filter.typeFilter);
-//                }
+                if (position == 0){
 
+                    Filter.typeFilter = 0;
+
+                } else if (position == 1){
+                    Filter.typeFilter = 1;
+
+                } else if (position == 2){
+                    Filter.typeFilter = 2;
+
+                } else if (position == 3){
+                    Filter.typeFilter = 3;
+
+                } else if (position == 4){
+                    Filter.typeFilter = 4;
+
+                } else if (position == 5){
+                    Filter.typeFilter = 5;
+
+                } else if (position == 6){
+                    Filter.typeFilter = 6;
+
+                } else if (position == 7){
+                    Filter.typeFilter = 7;
+
+                } else if (position == 8){
+                    Filter.typeFilter = 8;
+
+                }
             }
 
             @Override

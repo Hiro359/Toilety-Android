@@ -105,6 +105,26 @@
     <string name="name_booleanValues">スイッチ</string>
 
 
+    <!--FilterSearchActivity-->
+    <!--Type Sppiner Value-->
+    <string name="typeDefalutZero">全てのトイレ</string>
+    <string name="typeDefalutOne">公衆トイレ</string>
+    <string name="typeDefalutTwo">コンビニ</string>
+    <string name="typeDefalutThree">カフェ</string>
+    <string name="typeDefalutFour">レストラン</string>
+    <string name="typeDefalutFive">商業施設</string>
+    <string name="typeDefalutSix">観光地・スタジアム</string>
+    <string name="typeDefalutSeven">仮設トイレ</string>
+    <string name="typeDefalutEight">一般家庭(断水時のみ)</string>
+
+
+    <string name="typeDefalutZeroEdit">分類を選択してください</string>
+
+
+
+
+
+
     <!--Strings related to boolean values-->
     <string name="name_available">現在利用可能</string>
     <string name="name_japaneseToilet">和式トイレ</string>
