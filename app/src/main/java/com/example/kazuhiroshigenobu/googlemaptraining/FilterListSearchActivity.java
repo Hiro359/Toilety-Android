@@ -411,9 +411,9 @@ public class FilterListSearchActivity extends AppCompatActivity {
     private void sparseArrayReady(){
 
 
-        filterSparseArray.append(0, new FilterBooleans("設備",false));
+        filterSparseArray.append(0, new FilterBooleans("設定",false));
         filterSparseArray.append(1, new FilterBooleans("現在利用可能",Filter.availableFilter));
-        filterSparseArray.append(2, new FilterBooleans("和式トイレ",Filter.japaneseFilter));
+        filterSparseArray.append(2, new FilterBooleans(getResources().getString(R.string.name_japaneseToilet),Filter.japaneseFilter));
         filterSparseArray.append(3, new FilterBooleans("洋式トイレ",Filter.westernFilter));
         filterSparseArray.append(4, new FilterBooleans("女性専用トイレ",Filter.onlyFemaleFilter));
         filterSparseArray.append(5, new FilterBooleans("男女兼用トイレ",Filter.unisexFilter));

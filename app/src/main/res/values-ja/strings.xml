@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Toilet Data</string>
     <string name="title_activity_maps">Map</string>
@@ -126,8 +127,8 @@
 
 
     <!--Strings related to boolean values-->
-    <string name="name_available">Available</string>
-    <string name="name_japaneseToilet">和式トイレ</string>
+    <string name="name_available">現在利用可能</string>
+    <string name="name_japaneseToilet">和式トイレ テヘヘ</string>
     <string name="name_westernToilet">洋式トイレ</string>
     <string name="name_onlyFemale">女性専用トイレ</string>
     <string name="name_unisex">男女兼用トイレ</string>
@@ -149,7 +150,7 @@
 
     <!--others 1-->
 
-    <string name="name_clothes">洋服掛け</string>
+    <string name="name_clothes">洋服掛けだよ！</string>
     <string name="name_baggageSpace">荷物置き</string>
 
     <!--others two -->
