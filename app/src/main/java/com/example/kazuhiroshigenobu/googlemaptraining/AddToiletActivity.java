@@ -46,6 +46,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 //import android.os.StrictMode;
 
 
@@ -90,7 +92,8 @@ public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCa
 
                     //mapUserCenterZoon();
 
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 300, locationListener);
                     Log.i("Permission","Permission333");
                 }
 
@@ -295,7 +298,7 @@ public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCa
         if (Build.VERSION.SDK_INT < 23) {
 
             Log.i("Build.VERSION.SDK_INT ", "Build.VERSION.SDK_INT ");
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 300, locationListener);
 
         } else {
 
@@ -309,10 +312,12 @@ public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCa
                 //When the permission is granted....
                 Log.i("HeyHey333", "locationManager.requestLocationUpdates");
 
-
 //
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 300, locationListener);
+                Location lastKnownLocation;
+                //= locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+                lastKnownLocation = getLastKnownLocation();
+
                 mMap.setMyLocationEnabled(true);
                 Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
                 Log.i("Location12", "12");
@@ -346,6 +351,39 @@ public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCa
                 }
             }
         }
+    }
+    private Location getLastKnownLocation() {
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 300, locationListener);
+
+
+
+        List<String> providers = locationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            } else {
+
+                //permission granted .....
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (bestLocation == null
+                        || l.getAccuracy() < bestLocation.getAccuracy()) {
+//                ALog.d("found best last known location: %s", l);
+                    bestLocation = l;
+                }
+                //////
+            }
+        }
+        if (bestLocation == null) {
+            return null;
+        }
+        return bestLocation;
+
     }
 
     public Action getIndexApiAction() {

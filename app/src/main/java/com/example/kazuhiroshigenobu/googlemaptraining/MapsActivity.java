@@ -392,6 +392,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationListener = new android.location.LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+
                 Log.i("onLocationChanged0088", String.valueOf(location));
             }
 
@@ -576,6 +577,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     //get last location funtions
     private Location getLastKnownLocation() {
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 300, locationListener);
 
 
         List<String> providers = locationManager.getProviders(true);
