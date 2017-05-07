@@ -2,6 +2,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 /**
  * Created by KazuhiroShigenobu on 1/4/17.
+ *
  */
 
 
@@ -14,7 +15,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
     import org.json.JSONException;
     import org.json.JSONObject;
 
-    public class PlaceJSONParser {
+    class PlaceJSONParser {
 
         /** Receives a JSONObject and returns a list */
         public List<HashMap<String,String>> parse(JSONObject jObject){
@@ -34,8 +35,8 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
         private List<HashMap<String, String>> getPlaces(JSONArray jPlaces){
             int placesCount = jPlaces.length();
-            List<HashMap<String, String>> placesList = new ArrayList<HashMap<String,String>>();
-            HashMap<String, String> place = null;
+            List<HashMap<String, String>> placesList = new ArrayList<>();
+            HashMap<String, String> place;
 
             /** Taking each place, parses and adds to list object */
             for(int i=0; i<placesCount;i++){
@@ -55,11 +56,11 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
         /** Parsing the Place JSON object */
         private HashMap<String, String> getPlace(JSONObject jPlace){
 
-            HashMap<String, String> place = new HashMap<String, String>();
+            HashMap<String, String> place = new HashMap<>();
 
-            String id="";
-            String reference="";
-            String description="";
+            String id;
+            String reference;
+            String description;
 
             try {
 

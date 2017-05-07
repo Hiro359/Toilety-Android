@@ -9,22 +9,22 @@ import java.util.Map;
  * Created by KazuhiroShigenobu on 1/3/17.
  */
 
-public class Post {
-    public String name;
-    public String openAndCloseHours;
-    public Integer type;
-    public String urlOne;
-    public String urlTwo;
-    public String urlThree;
-    public String addedBy;
-    public String editedBy;
-    public String reviewOne;
-    public String reviewTwo;
-    public String averageStar;
-    public String address;
-    public String howtoaccess;
+class Post {
 
-    public Integer openHours;
+    String name;
+    Integer type;
+    String urlOne;
+    String urlTwo;
+    String urlThree;
+    String addedBy;
+    String editedBy;
+    String reviewOne;
+    String reviewTwo;
+    String averageStar;
+    String address;
+    String howtoaccess;
+
+    Integer openHours;
     public Integer closeHours;
     public Integer reviewCount;
     public Integer averageWait;
@@ -177,9 +177,9 @@ public class Post {
 //
 //    }
 
-    public Post(String name, String openAndCloseHours, Integer type, String urlOne, String urlTwo, String urlThree, String addedBy, String editedBy, String reviewOne, String reviewTwo, String averageStar, String address, String howtoaccess, Integer openHours, Integer closeHours, Integer reviewCount, Integer averageWait, Integer toiletFloor, Double latitude, Double longitude, Boolean available, Boolean japanesetoilet, Boolean westerntoilet, Boolean onlyFemale, Boolean unisex, Boolean washlet, Boolean warmSeat, Boolean autoOpen, Boolean noVirus, Boolean paperForBenki, Boolean cleanerForBenki, Boolean nonTouchWash, Boolean sensorHandWash, Boolean handSoap, Boolean nonTouchHandSoap, Boolean paperTowel, Boolean handDrier, Boolean fancy, Boolean smell, Boolean confortable, Boolean clothes, Boolean baggageSpace, Boolean noNeedAsk, Boolean english, Boolean parking, Boolean airCondition, Boolean wifi, Boolean otohime, Boolean napkinSelling, Boolean makeuproom, Boolean ladyOmutu, Boolean ladyBabyChair, Boolean ladyBabyChairGood, Boolean ladyBabyCarAccess, Boolean maleOmutu, Boolean maleBabyChair, Boolean maleBabyChairGood, Boolean maleBabyCarAccess, Boolean wheelchair, Boolean wheelchairAccess, Boolean autoDoor, Boolean callHelp, Boolean ostomate, Boolean braille, Boolean voiceGuide, Boolean familyOmutu, Boolean familyBabyChair, Boolean milkspace, Boolean babyRoomOnlyFemale, Boolean babyRoomMaleEnter, Boolean babyRoomPersonalSpace, Boolean babyRoomPersonalSpaceWithLock, Boolean babyRoomWideSpace, Boolean babyCarRental, Boolean babyCarAccess, Boolean omutu, Boolean hipCleaningStuff, Boolean omutuTrashCan, Boolean omutuSelling, Boolean babySink, Boolean babyWashstand, Boolean babyHotwater, Boolean babyMicrowave, Boolean babyWaterSelling, Boolean babyFoodSelling, Boolean babyEatingSpace, Boolean babyChair, Boolean babySoffa, Boolean kidsToilet, Boolean kidsSpace, Boolean babyHeight, Boolean babyWeight, Boolean babyToy, Boolean babyFancy, Boolean babySmellGood) {
+    Post(String name, String openAndCloseHours, Integer type, String urlOne, String urlTwo, String urlThree, String addedBy, String editedBy, String reviewOne, String reviewTwo, String averageStar, String address, String howtoaccess, Integer openHours, Integer closeHours, Integer reviewCount, Integer averageWait, Integer toiletFloor, Double latitude, Double longitude, Boolean available, Boolean japanesetoilet, Boolean westerntoilet, Boolean onlyFemale, Boolean unisex, Boolean washlet, Boolean warmSeat, Boolean autoOpen, Boolean noVirus, Boolean paperForBenki, Boolean cleanerForBenki, Boolean nonTouchWash, Boolean sensorHandWash, Boolean handSoap, Boolean nonTouchHandSoap, Boolean paperTowel, Boolean handDrier, Boolean fancy, Boolean smell, Boolean confortable, Boolean clothes, Boolean baggageSpace, Boolean noNeedAsk, Boolean english, Boolean parking, Boolean airCondition, Boolean wifi, Boolean otohime, Boolean napkinSelling, Boolean makeuproom, Boolean ladyOmutu, Boolean ladyBabyChair, Boolean ladyBabyChairGood, Boolean ladyBabyCarAccess, Boolean maleOmutu, Boolean maleBabyChair, Boolean maleBabyChairGood, Boolean maleBabyCarAccess, Boolean wheelchair, Boolean wheelchairAccess, Boolean autoDoor, Boolean callHelp, Boolean ostomate, Boolean braille, Boolean voiceGuide, Boolean familyOmutu, Boolean familyBabyChair, Boolean milkspace, Boolean babyRoomOnlyFemale, Boolean babyRoomMaleEnter, Boolean babyRoomPersonalSpace, Boolean babyRoomPersonalSpaceWithLock, Boolean babyRoomWideSpace, Boolean babyCarRental, Boolean babyCarAccess, Boolean omutu, Boolean hipCleaningStuff, Boolean omutuTrashCan, Boolean omutuSelling, Boolean babySink, Boolean babyWashstand, Boolean babyHotwater, Boolean babyMicrowave, Boolean babyWaterSelling, Boolean babyFoodSelling, Boolean babyEatingSpace, Boolean babyChair, Boolean babySoffa, Boolean kidsToilet, Boolean kidsSpace, Boolean babyHeight, Boolean babyWeight, Boolean babyToy, Boolean babyFancy, Boolean babySmellGood) {
         this.name = name;
-        this.openAndCloseHours = openAndCloseHours;
+        String openAndCloseHours1 = openAndCloseHours;
         this.type = type;
         this.urlOne = urlOne;
         this.urlTwo = urlTwo;

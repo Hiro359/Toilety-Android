@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 /**
  * Created by KazuhiroShigenobu on 1/3/17.
+ *
  */
 
 public class MultipleText extends EditText {
