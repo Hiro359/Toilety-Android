@@ -13,15 +13,14 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -29,16 +28,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.vision.barcode.Barcode;
 
 public class SearchLocationActivity extends AppCompatActivity {
     //changed AppCompatActivity to Activity
@@ -157,27 +153,27 @@ public class SearchLocationActivity extends AppCompatActivity {
     /**
      * A method to download json data from url
      */
+
+    //I am not sure about this target API  .........................................................
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private String downloadUrl(String strUrl) throws IOException {
         String data = "";
-        InputStream iStream = null;
-        HttpURLConnection urlConnection = null;
-        try {
-            URL url = new URL(strUrl);
+        HttpURLConnection urlConnection;
+        URL url = new URL(strUrl);
 
-            // Creating an http connection to communicate with url
-            urlConnection = (HttpURLConnection) url.openConnection();
+        // Creating an http connection to communicate with url
+        urlConnection = (HttpURLConnection) url.openConnection();
 
-            // Connecting to url
-            urlConnection.connect();
+        // Connecting to url
+        urlConnection.connect();
 
-            // Reading data from url
-            iStream = urlConnection.getInputStream();
-
+        // Reading data from url
+        try (InputStream iStream = urlConnection.getInputStream()) {
             BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
 
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
 
-            String line = "";
+            String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
@@ -189,11 +185,51 @@ public class SearchLocationActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.d("Exwhile downloading url", e.toString());
         } finally {
-            iStream.close();
             urlConnection.disconnect();
         }
         return data;
     }
+
+    //Copied from above function May 8
+//    private String downloadUrl(String strUrl) throws IOException {
+//        String data = "";
+//        InputStream iStream = null;
+//        HttpURLConnection urlConnection = null;
+//        try {
+//            URL url = new URL(strUrl);
+//
+//            // Creating an http connection to communicate with url
+//            urlConnection = (HttpURLConnection) url.openConnection();
+//
+//            // Connecting to url
+//            urlConnection.connect();
+//
+//            // Reading data from url
+//            iStream = urlConnection.getInputStream();
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+//
+//            StringBuffer sb = new StringBuffer();
+//
+//            String line = "";
+//            while ((line = br.readLine()) != null) {
+//                sb.append(line);
+//            }
+//
+//            data = sb.toString();
+//
+//            br.close();
+//
+//        } catch (Exception e) {
+//            Log.d("Exwhile downloading url", e.toString());
+//        } finally {
+//            iStream.close();
+//            urlConnection.disconnect();
+//        }
+//        return data;
+//    }
+
+
 
     // Fetches all places from GooglePlaces AutoComplete Web Service
     private class PlacesTask extends AsyncTask<String, Void, String> {

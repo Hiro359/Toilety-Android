@@ -1,9 +1,9 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
-import android.location.Location;
 
 /**
  * Created by KazuhiroShigenobu on 14/2/17.
+ *
  */
 
 public class Toilet {

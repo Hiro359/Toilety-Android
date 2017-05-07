@@ -2,9 +2,10 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 /**
  * Created by KazuhiroShigenobu on 13/2/17.
+ *
  */
 
-public class User {
+class User {
 
         public String userName;
         public String password;
@@ -20,7 +21,7 @@ public class User {
 
     }
 
-    public User(String userName, String password, String userPhoto, String userEmail, int totalLikedCount, int totalHelpedCount, int totalFavoriteCount) {
+    User(String userName, String password, String userPhoto, String userEmail, int totalLikedCount, int totalHelpedCount, int totalFavoriteCount) {
         this.userName = userName;
         this.password = password;
         this.userPhoto = userPhoto;

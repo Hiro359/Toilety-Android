@@ -4,6 +4,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by KazuhiroShigenobu on 7/3/17.
+ *
  */
 
 public class UserInfo {

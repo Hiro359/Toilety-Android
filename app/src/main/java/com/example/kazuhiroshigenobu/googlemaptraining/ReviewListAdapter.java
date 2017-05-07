@@ -1,8 +1,6 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,9 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -26,25 +23,26 @@ import java.util.Map;
 
 /**
  * Created by KazuhiroShigenobu on 8/3/17.
+ *
  */
 //
-public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewViewHolder> {
+class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewViewHolder> {
 
-    private LayoutInflater inflator;
+    //private LayoutInflater inflator;
     //List<Toilet> toiletData;
 
-    List<Review> reviewList;
+    private List<Review> reviewList;
 
     private DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference thumbsUpRef = firebaseRef.child("ThumbsUpList");
     private DatabaseReference reviewInfoRef = firebaseRef.child("ReviewInfo");
     private DatabaseReference userRef = firebaseRef.child("Users");
-    private String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    //private
 
     //String [] toiletNames;
 
 
-    public ReviewListAdapter(List<Review> reviewList){
+    ReviewListAdapter(List<Review> reviewList){
         this.reviewList = reviewList;
         // this.toiletData = toiletData;
 
@@ -110,62 +108,62 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
 
             }
 
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                final String uid = user.getUid();
 
 
-            //final Boolean buttonTapped = false;
+                //final Boolean buttonTapped = false;
 
-            holder.reviewLikeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                holder.reviewLikeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                    if (current.userLiked){
+                        if (current.userLiked) {
 
-                        UserInfo.viewloaded = true;
-                        current.totalLikedCount = current.totalLikedCount - 1;
-                        current.likedCount = current.likedCount - 1;
+                            UserInfo.viewloaded = true;
+                            current.totalLikedCount = current.totalLikedCount - 1;
+                            current.likedCount = current.likedCount - 1;
 
-                        holder.reviewLikeCount.setText(String.valueOf(current.totalLikedCount));
-                        holder.reviewLikeCountNextToButton.setText("いいね" + String.valueOf(current.likedCount)+ "件");
-                        holder.reviewLikeButton.setBackgroundResource(R.drawable.app_thumb_icon_white_drawable);
+                            holder.reviewLikeCount.setText(String.valueOf(current.totalLikedCount));
+                            holder.reviewLikeCountNextToButton.setText("いいね" + String.valueOf(current.likedCount) + "件");
+                            holder.reviewLikeButton.setBackgroundResource(R.drawable.app_thumb_icon_white_drawable);
 
-                        thumbsUpRef.child(uid).child(current.rid).removeValue();
+                            thumbsUpRef.child(uid).child(current.rid).removeValue();
 
-                        Log.i("ThumbsUp","Added");
+                            Log.i("ThumbsUp", "Added");
 
 
+                            //setBackground(R.drawable.app_thumb_icon_white_drawable);
+                            current.userLiked = false;
 
-                        //setBackground(R.drawable.app_thumb_icon_white_drawable);
-                        current.userLiked = false;
+                        } else {
+                            UserInfo.viewloaded = true;
+                            current.totalLikedCount = current.totalLikedCount + 1;
+                            current.likedCount = current.likedCount + 1;
+                            holder.reviewLikeCount.setText(String.valueOf(current.totalLikedCount));
+                            holder.reviewLikeCountNextToButton.setText("いいね" + String.valueOf(current.likedCount) + "件");
+                            holder.reviewLikeButton.setBackgroundResource(R.drawable.app_thumb_icon_colored_24);
 
-                    } else {
-                        UserInfo.viewloaded = true;
-                        current.totalLikedCount = current.totalLikedCount + 1;
-                        current.likedCount = current.likedCount + 1;
-                        holder.reviewLikeCount.setText(String.valueOf(current.totalLikedCount));
-                        holder.reviewLikeCountNextToButton.setText("いいね" + String.valueOf(current.likedCount)+ "件");
-                        holder.reviewLikeButton.setBackgroundResource(R.drawable.app_thumb_icon_colored_24);
+                            thumbsUpRef.child(uid).child(current.rid).setValue(true);
+                            Log.i("ThumbsUp", "Deleted");
 
-                        thumbsUpRef.child(uid).child(current.rid).setValue(true);
-                        Log.i("ThumbsUp","Deleted");
+                            current.userLiked = true;
 
-                        current.userLiked = true;
+                        }
+
+
+                        Map<String, Object> usersChildUpdates = new HashMap<>();
+                        usersChildUpdates.put("totalLikedCount", current.totalLikedCount);
+                        userRef.child(current.uid).updateChildren(usersChildUpdates);
+
+                        Map<String, Object> reviewInfoChildUpdates = new HashMap<>();
+                        reviewInfoChildUpdates.put("likedCount", current.likedCount);
+                        reviewInfoRef.child(current.rid).updateChildren(reviewInfoChildUpdates);
+
 
                     }
-
-
-                    Map<String, Object> usersChildUpdates = new HashMap<>();
-                    usersChildUpdates.put("totalLikedCount",current.totalLikedCount);
-                    userRef.child(current.uid).updateChildren(usersChildUpdates);
-
-                    Map<String, Object> reviewInfoChildUpdates = new HashMap<>();
-                    reviewInfoChildUpdates.put("likedCount",current.likedCount);
-                    reviewInfoRef.child(current.rid).updateChildren(reviewInfoChildUpdates);
-
-
-
-
-                }
-            });
+                });
 
 
 //
@@ -193,7 +191,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
 //                }
 //            });
 
-
+            }
 
         }
     }
@@ -209,7 +207,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
     }
 
 
-    public class ReviewViewHolder extends RecyclerView.ViewHolder {
+    class ReviewViewHolder extends RecyclerView.ViewHolder {
 
         ImageView reviewUserImage;
         TextView reviewUserName;
@@ -233,7 +231,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Re
 //            ImageView image;
 
 
-        public ReviewViewHolder(View itemView) {
+        ReviewViewHolder(View itemView) {
             super(itemView);
 
 

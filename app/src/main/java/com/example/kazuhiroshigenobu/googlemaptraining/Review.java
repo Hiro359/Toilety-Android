@@ -1,10 +1,12 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 /**
+ *
  * Created by KazuhiroShigenobu on 14/2/17.
  */
 
-public class Review {
+
+class Review {
 
     Boolean available;
     String feedback;

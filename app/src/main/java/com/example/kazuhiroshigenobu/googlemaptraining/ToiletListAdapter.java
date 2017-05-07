@@ -1,39 +1,18 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.DecimalFormat;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -41,16 +20,17 @@ import java.util.List;
 
 /**
  * Created by KazuhiroShigenobu on 15/2/17.
+ *
  */
 
-public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.MyViewHolder> {
+class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.MyViewHolder> {
 
-    private LayoutInflater inflator;
+    //private LayoutInflater inflator;
     List<Toilet> toiletData;
     //String [] toiletNames;
 
 
-    public ToiletListAdapter( List<Toilet> toiletData){
+    ToiletListAdapter(List<Toilet> toiletData){
 
         this.toiletData = toiletData;
 
@@ -161,7 +141,7 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
 //        TextView type;
@@ -175,7 +155,7 @@ public class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.My
 
 
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.tv_name);
 //            type = (TextView) itemView.findViewById(R.id.);

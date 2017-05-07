@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,13 +31,12 @@ public class UserWentActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView toolbarTitle;
 
-    private DatabaseReference favRef;
+//    private DatabaseReference favRef;
     private DatabaseReference toiletRef;
 
-    private ToiletListAdapter adapter;
-
-    private RecyclerView recyclertView;
-    private RecyclerView.LayoutManager layoutManager;
+//    private ToiletListAdapter adapter;
+//    private RecyclerView recyclertView;
+//    private RecyclerView.LayoutManager layoutManager;
 
 
 
@@ -78,117 +78,108 @@ public class UserWentActivity extends AppCompatActivity {
     private void favoriteListQuery()
     {
 
+        DatabaseReference favRef;
         final List<Toilet> toiletData = new ArrayList<>();
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
         favRef = FirebaseDatabase.getInstance().getReference().child("UserWentList");
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        final LatLng centerLocation = new LatLng(centerLatitude,centerLongitude);
-//        UserInfo.latitude = centerLatitude;
-//        UserInfo.longitude = centerLongitude;
-        //Gotta need to check null...??
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
 
 
-        favRef.child(uid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //Get tid lists
-                for (final DataSnapshot child : dataSnapshot.getChildren()) {
+            favRef.child(uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //Get tid lists
+                    for (final DataSnapshot child : dataSnapshot.getChildren()) {
 
-                    final String queryKey = child.getKey();
-                    toiletRef.child(queryKey).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Toilet toilet =  new Toilet();
-
-
-                            toilet.name = (String) dataSnapshot.child("name").getValue();
-
-                            toilet.latitude = (Double) dataSnapshot.child("latitude").getValue();
-                            toilet.longitude = (Double) dataSnapshot.child("longitude").getValue();
+                        final String queryKey = child.getKey();
+                        toiletRef.child(queryKey).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Toilet toilet = new Toilet();
 
 
-                            LatLng centerLocation = new LatLng(UserInfo.latitude, UserInfo.longitude);
-                            LatLng toiletLocation = new LatLng(toilet.latitude,toilet.longitude);
+                                toilet.name = (String) dataSnapshot.child("name").getValue();
 
-                            Log.i("centerLocationFAV", String.valueOf(centerLocation));
-
-                            double distance = CalculationByDistance(centerLocation,toiletLocation);
-                            toilet.distanceNumberString = String.valueOf(distance);
+                                toilet.latitude = (Double) dataSnapshot.child("latitude").getValue();
+                                toilet.longitude = (Double) dataSnapshot.child("longitude").getValue();
 
 
+                                LatLng centerLocation = new LatLng(UserInfo.latitude, UserInfo.longitude);
+                                LatLng toiletLocation = new LatLng(toilet.latitude, toilet.longitude);
+
+                                Log.i("centerLocationFAV", String.valueOf(centerLocation));
+
+                                double distance = CalculationByDistance(centerLocation, toiletLocation);
+                                toilet.distanceNumberString = String.valueOf(distance);
 
 
-                            if (distance > 1){
-                                toilet.distance = String.valueOf(round(distance, 1)) + "km";
-                                Log.i("toilet.distance", String.valueOf(toilet.distance));
-                                //Km
+                                if (distance > 1) {
+                                    toilet.distance = String.valueOf(round(distance, 1)) + "km";
+                                    Log.i("toilet.distance", String.valueOf(toilet.distance));
+                                    //Km
 
-                            }else{
-                                Double meterDistance = distance * 100;
-                                Integer meterA = meterDistance.intValue();
-                                Integer meterB = meterA * 10;
+                                } else {
+                                    Double meterDistance = distance * 100;
+                                    Integer meterA = meterDistance.intValue();
+                                    Integer meterB = meterA * 10;
 
 
-                                toilet.distance = String.valueOf(meterB) + "m";
+                                    toilet.distance = String.valueOf(meterB) + "m";
 
-                                Log.i("toilet.distance", String.valueOf(toilet.distance));
+                                    Log.i("toilet.distance", String.valueOf(toilet.distance));
+
+                                }
+
+                                toilet.key = queryKey;
+                                toilet.name = (String) dataSnapshot.child("name").getValue();
+                                toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
+                                toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();
+                                Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
+                                toilet.reviewCount = reviewCount.intValue();
+                                Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
+                                toilet.averageWait = averageWait.intValue();
+
+
+                                toiletData.add(toilet);
+                                createRecyclerView(toiletData);
+
 
                             }
 
-                            toilet.key = queryKey;
-                            toilet.name = (String) dataSnapshot.child("name").getValue();
-                            toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
-                            toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();
-                            Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
-                            toilet.reviewCount = reviewCount.intValue();
-                            Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
-                            toilet.averageWait = averageWait.intValue();
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
 
 
-                            toiletData.add(toilet);
-                            createRecyclerView(toiletData);
+                        // child == tid
 
 
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-
-
-                    // child == tid
-
-
-
+                    }
 
 
                 }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
+                }
+            });
+            //Child uid .. get UID
 
-
-
-
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        //Child uid .. get UID
-
+        }
     }
 
+    @SuppressWarnings("unchecked")
     public void createRecyclerView(List toiletData) {
         Log.i("createReclerView()Caled", "");
+        ToiletListAdapter adapter;
+        RecyclerView recyclertView;
+        RecyclerView.LayoutManager layoutManager;
         recyclertView = (RecyclerView) findViewById(R.id.toiletWentList);
         adapter = new ToiletListAdapter(toiletData);
         layoutManager = new LinearLayoutManager(this);

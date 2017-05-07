@@ -9,11 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,13 +29,13 @@ import static android.widget.LinearLayout.VERTICAL;
 public class ReviewToiletViewActivity extends AppCompatActivity {
 
 
-    private RecyclerView recyclertView;
-    private RecyclerView.LayoutManager layoutManager;
-    private ReviewListAdapter adapter;
+//    private RecyclerView recyclertView;
+//    private RecyclerView.LayoutManager layoutManager;
+//    private ReviewListAdapter adapter;
 
-    private DatabaseReference toiletReviewsRef;
-    private DatabaseReference reviewsRef;
-    private DatabaseReference thumbsUpRef;
+//    private DatabaseReference toiletReviewsRef;
+//    private DatabaseReference reviewsRef;
+//    private DatabaseReference thumbsUpRef;
 
     private DatabaseReference userRef;
 
@@ -115,7 +114,11 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @SuppressWarnings("unchecked")
     private void createRecyclerView(List reviewList) {
+        RecyclerView recyclertView;
+        RecyclerView.LayoutManager layoutManager;
+        ReviewListAdapter adapter;
         Log.i("reviewRecycle", "Called");
         recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
         adapter = new ReviewListAdapter(reviewList);
@@ -134,37 +137,44 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
 
     private void thumbsUpQuery(){
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        thumbsUpRef = FirebaseDatabase.getInstance().getReference().child("ThumbsUpList");
+        DatabaseReference thumbsUpRef;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
 
-
-        thumbsUpRef.child(uid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (final DataSnapshot child : dataSnapshot.getChildren()) {
-
-                    final String ridkey = child.getKey();
+            thumbsUpRef = FirebaseDatabase.getInstance().getReference().child("ThumbsUpList");
 
 
-                    thumbsUpSet.add(ridkey);
+            thumbsUpRef.child(uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
+                    for (final DataSnapshot child : dataSnapshot.getChildren()) {
+
+                        final String ridkey = child.getKey();
+
+
+                        thumbsUpSet.add(ridkey);
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
-            }
+            });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        toiletReviewQuery(toilet.key);
+            toiletReviewQuery(toilet.key);
+        }
     }
 
     private void toiletReviewQuery(String queryKey){
         // final List<Review> reviewList = new ArrayList<>();
+        DatabaseReference toiletReviewsRef;
+
 
         toiletReviewsRef = FirebaseDatabase.getInstance().getReference().child("ToiletReviews");
 
@@ -206,6 +216,7 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
     private void getReviewInfoAndUserInfo(final String ridKey){
 
 
+        DatabaseReference reviewsRef;
 //        final List<Review> reviewList = new ArrayList<>();
 
         reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");

@@ -2,9 +2,10 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 /**
  * Created by KazuhiroShigenobu on 3/4/17.
+ *
  */
 
-public class UserReviewComment {
+class UserReviewComment {
 
     String key;
     String name;

@@ -19,16 +19,17 @@ import java.util.List;
 
 /**
  * Created by KazuhiroShigenobu on 3/4/17.
+ *
  */
 
-public class UserCommentListAdapter extends RecyclerView.Adapter<UserCommentListAdapter.UserCommentViewHolder> {
+class UserCommentListAdapter extends RecyclerView.Adapter<UserCommentListAdapter.UserCommentViewHolder> {
 
-        private LayoutInflater inflator;
-        List<UserReviewComment> commentData;
+        //private LayoutInflater inflator;
+        private List<UserReviewComment> commentData;
         //String [] toiletNames;
 
 
-    public UserCommentListAdapter(List<UserReviewComment> commentData) {
+    UserCommentListAdapter(List<UserReviewComment> commentData) {
 
             this.commentData = commentData;
 
@@ -132,7 +133,7 @@ public class UserCommentListAdapter extends RecyclerView.Adapter<UserCommentList
         }
 
 
-        public class UserCommentViewHolder extends RecyclerView.ViewHolder {
+        class UserCommentViewHolder extends RecyclerView.ViewHolder {
 
             TextView toiletName;
             TextView waitingTime;
@@ -146,7 +147,7 @@ public class UserCommentListAdapter extends RecyclerView.Adapter<UserCommentList
             TextView userWaitedTime;
 
 
-            public UserCommentViewHolder(View itemView) {
+            UserCommentViewHolder(View itemView) {
                 super(itemView);
                 toiletName = (TextView) itemView.findViewById(R.id.uc_name);
                 waitingTime = (TextView) itemView.findViewById(R.id.uc_waitingTime);
