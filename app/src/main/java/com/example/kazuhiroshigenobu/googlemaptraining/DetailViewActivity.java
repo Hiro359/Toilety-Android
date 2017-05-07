@@ -103,6 +103,7 @@ public class DetailViewActivity extends AppCompatActivity {
     Button buttonGetDirection;
     Button buttonGoToReviewList;
 
+    Boolean userAlreadyLogin = false;
     final List<Review> reviewList = new ArrayList<>();
 
     Set<String> thumbsUpSet = new HashSet();
@@ -192,6 +193,20 @@ public class DetailViewActivity extends AppCompatActivity {
                 }
         );
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() != null) {
+
+            Log.i("Login 88888", "Start");
+            String userID = firebaseAuth.getCurrentUser().getUid();
+            userDataCheck(userID);
+
+
+        } else  {
+
+            Log.i("Login Null 88888", "Start");
+
+        }
+
 
         //getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -251,6 +266,65 @@ public class DetailViewActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
+    private void userDataCheck(final String userID){
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null){
+                    Toast.makeText(DetailViewActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Log.i("User", "Found");
+                    userAlreadyLogin = true;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+
+    private void loginPlease(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //Changed Color May 7
+
+        builder.setTitle("この機能を利用するにはログインが必要です");
+        builder.setItems(new CharSequence[]
+                        {"ログインをする", "ログインをしない"},
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                Intent intent = new Intent(getApplicationContext(), FirstTimeActivity.class);
+                                startActivity(intent);
+                                finish();
+                                break;
+                            case 1:
+                                break;
+                        }
+                    }
+                });
+        builder.create().show();
+
+
+
+    }
+
+
 
 //    public void createRecyclerView(List reviewList) {
 //        Log.i("reviewRecycle", "Called");
@@ -416,63 +490,71 @@ public class DetailViewActivity extends AppCompatActivity {
         buttonKansou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!userAlreadyLogin) {
+                    loginPlease();
 
-                Intent intent = new Intent(v.getContext(), KansouActivity.class);
-                intent.putExtra("EXTRA_SESSION_ID", toilet.key);
-                intent.putExtra("toiletLatitude",toilet.latitude);
-                intent.putExtra("toiletLongitude",toilet.longitude);
-                intent.putExtra("reviewCount",toilet.reviewCount);
-                intent.putExtra("averageWait", toilet.averageWait);
-                intent.putExtra("averageStar", toilet.averageStar);
-                intent.putExtra("reviewOne", toilet.reviewOne);
-                startActivity(intent);
-                finish();
+                } else {
+
+                    Intent intent = new Intent(v.getContext(), KansouActivity.class);
+                    intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+                    intent.putExtra("toiletLatitude", toilet.latitude);
+                    intent.putExtra("toiletLongitude", toilet.longitude);
+                    intent.putExtra("reviewCount", toilet.reviewCount);
+                    intent.putExtra("averageWait", toilet.averageWait);
+                    intent.putExtra("averageStar", toilet.averageStar);
+                    intent.putExtra("reviewOne", toilet.reviewOne);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!userAlreadyLogin) {
+                    loginPlease();
+
+                } else {
 
 
-                nextAvtivityChoose();
-//                Intent intent = new Intent(v.getContext(), EditViewActivity.class);
-//                Toast.makeText(DetailViewActivity.this, String.valueOf(toilet.key), Toast.LENGTH_SHORT).show();
-//                intent.putExtra("EXTRA_SESSION_ID", toilet.key);
-//                intent.putExtra("toiletLatitude",toilet.latitude);
-//                intent.putExtra("toiletLongitude",toilet.longitude);
+                    nextAvtivityChoose();
+                }
 //
-//                startActivity(intent);
-//                finish();
             }
         });
 
         buttonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
-                if (!userLikePushed) {
-                    //buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
-                    buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_non_colored_drawable);
-
-                    // buttonFavorite.setBackgroundResource(R.drawable.android:background="@drawable/app_love_icon_non_colored_drawable");
-                    userLikePushed = true;
-
-                    favoriteRef.child(uid).child(toilet.key).setValue(true);
-
+                if (!userAlreadyLogin) {
+                    loginPlease();
 
                 } else {
-                    buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
 
-                    //buttonFavorite.setBackgroundResource(R.drawable.likebefore);
-                    userLikePushed = false;
-                    favoriteRef.child(uid).child(toilet.key).removeValue();
+
+                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+                    if (!userLikePushed) {
+                        //buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+                        buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_non_colored_drawable);
+
+                        // buttonFavorite.setBackgroundResource(R.drawable.android:background="@drawable/app_love_icon_non_colored_drawable");
+                        userLikePushed = true;
+
+                        favoriteRef.child(uid).child(toilet.key).setValue(true);
+
+
+                    } else {
+                        buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+
+                        //buttonFavorite.setBackgroundResource(R.drawable.likebefore);
+                        userLikePushed = false;
+                        favoriteRef.child(uid).child(toilet.key).removeValue();
+                    }
+
                 }
-
 
 
             }
@@ -481,12 +563,17 @@ public class DetailViewActivity extends AppCompatActivity {
         buttonGoToReviewList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ReviewToiletViewActivity.class);
-                intent.putExtra("EXTRA_SESSION_ID", toilet.key);
-                intent.putExtra("toiletLatitude",toilet.latitude);
-                intent.putExtra("toiletLongitude",toilet.longitude);
-                startActivity(intent);
-                finish();
+                if (!userAlreadyLogin) {
+                    loginPlease();
+
+                } else {
+                    Intent intent = new Intent(v.getContext(), ReviewToiletViewActivity.class);
+                    intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+                    intent.putExtra("toiletLatitude", toilet.latitude);
+                    intent.putExtra("toiletLongitude", toilet.longitude);
+                    startActivity(intent);
+                    finish();
+                }
 
             }
         });

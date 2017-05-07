@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -65,13 +66,10 @@ public class AccountActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
 
-
-
-
             Log.i("Login 88888", "Start");
-            userAlreadyLogin = true;
             String userID = firebaseAuth.getCurrentUser().getUid();
-            getUserInfo(userID);
+            userDataCheck(userID);
+
 
         } else  {
 
@@ -181,12 +179,7 @@ public class AccountActivity extends AppCompatActivity {
 
 
         getMenuInflater().inflate(R.menu.accountbuttonmenu, menu);
-        //Commented for adding below code at 5pm
-        //getMenuInflater().inflate(R.menu.filter,amvMenu.getMenu());
 
-
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menufile);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -222,10 +215,15 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void loginPlease(){
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("ログインをしますか？");
+
+        //AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //Changed Color May 7
+
+        builder.setTitle("この機能を利用するにはログインが必要です");
         builder.setItems(new CharSequence[]
-                        {"はい", "いいえ"},
+                        {"ログインをする", "ログインをしない"},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // The 'which' argument contains the index position
@@ -243,6 +241,33 @@ public class AccountActivity extends AppCompatActivity {
                 });
         builder.create().show();
 
+
+
+    }
+
+    private void userDataCheck(final String userID){
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null){
+                    Toast.makeText(AccountActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Log.i("User", "Found");
+                    userAlreadyLogin = true;
+                    getUserInfo(userID);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
     }
