@@ -2,9 +2,10 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 /**
  * Created by KazuhiroShigenobu on 1/5/17.
+ * //Default
  */
 
-public class AddDetailBooleans {
+class AddDetailBooleans {
 
 //    static String key;
 //    static String type;

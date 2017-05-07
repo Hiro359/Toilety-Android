@@ -1,6 +1,6 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
-import android.*;
+//import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -41,7 +41,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
@@ -66,7 +66,7 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
+//import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.UUID;
@@ -97,11 +97,11 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
     Button addPhoto;
     Button buttonAddInfo;
 
-    Boolean mainImageAdded;
-    Boolean subImageOneAdded;
-    Boolean subImageTwoAdded;
+//    Boolean mainImageAdded;
+//    Boolean subImageOneAdded;
+//    Boolean subImageTwoAdded;
 
-    private GoogleApiClient client;
+    //private GoogleApiClient client;
     private GoogleMap mMap;
     private FirebaseAuth firebaseAuth;
 
@@ -115,11 +115,11 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
     ImageView subImage1;
     ImageView subImage2;
 
-    private Uri filePath;
+    //private Uri filePath;
 
-    Uri mainImageUri;
-    Uri subImageOneUri;
-    Uri subImageTwoUri;
+//    Uri mainImageUri;
+//    Uri subImageOneUri;
+//    Uri subImageTwoUri;
 
 
     ArrayAdapter<CharSequence> adapterType;
@@ -158,9 +158,13 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
     int minute = c.get(java.util.Calendar.MINUTE);
 
     SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
-    private RecyclerView recyclertView;
-    private RecyclerView.LayoutManager layoutManager;
     private AddBooleansListAdapter adapter;
+    //I dont know how to deal with this warning May 7
+
+
+//    private RecyclerView recyclertView;
+//    private RecyclerView.LayoutManager layoutManager;
+//    private AddBooleansListAdapter adapter;
     //private FilterListAdapter adapter;
 
 
@@ -185,6 +189,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
                                 }
         );
 
+        GoogleApiClient client;
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -250,8 +255,6 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-
         getMenuInflater().inflate(R.menu.edit_pin_location_activity_bar, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -260,22 +263,23 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-
         if (id == R.id.buttonChangePin) {
             valueCheck();
-            //backToAccountActivity();
         }
         return super.onOptionsItemSelected(item);
     }
 
 
     public static void hideSoftKeyboard(Activity activity) {
+
+
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
                         Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(
-                activity.getCurrentFocus().getWindowToken(), 0);
+        if (activity.getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     public void setupUI(View view) {
@@ -420,6 +424,11 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
     private void createRecyclerView(SparseArray array) {
         Log.i("reviewRecycle", "Called");
+
+        RecyclerView recyclertView;
+        RecyclerView.LayoutManager layoutManager;
+
+
         recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
         adapter = new AddBooleansListAdapter(array);
         //adapter = new FilterListAdapter(array);
@@ -520,6 +529,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
                                                            // ((TextView) parent.getChildAt(0)).setText(parent.getSelectedItem()));
                                                            ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(3) + "");
+                                                           //Set localize string...
+
                                                            spinnerLoaded = true;
                                                        }
 
@@ -672,7 +683,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
 
     private void imageSetPlaceChoose() {
-        final Integer imageNum = 0;
+       // final Integer imageNum = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("どこに写真を追加しますか");
         builder.setItems(new CharSequence[]
@@ -810,199 +821,193 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
     private void firebaseUpdate(){
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() != null) {
 
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+            Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
+            Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
+            Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
+            Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
+            Integer openTime = stHour * 100 + stMinu;
+            Integer endTime = enHour * 100 + enMinu;
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
-        Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
-        Integer enHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
-        Integer enMinu = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
-        Integer openTime = stHour * 100 + stMinu;
-        Integer endTime = enHour * 100 + enMinu;
+            Integer openData = 5000;
+            Integer endData = 5000;
+            String tName = textToiletName.getText().toString();
 
-        Integer openData = 5000;
-        Integer endData = 5000;
-        String tName = textToiletName.getText().toString();
+            if (openTime < endTime) {
 
-        if (openTime < endTime){
-            openData = openTime;
-            endData = endTime;
-            Log.i(String.valueOf(openData),String.valueOf(endData));
+                openData = openTime;
+                endData = endTime;
+                Log.i(String.valueOf(openData), String.valueOf(endData));
 
-        }else if (openTime == endTime){
-            openData = 5000;
-            endData = 5000;
-            Log.i(String.valueOf(openData),String.valueOf(endData));
-        } else if (openTime > endTime){
-            openData = openTime;
-            endData = endTime + 2400;
-            Log.i(String.valueOf(openData),String.valueOf(endData));
+            } else if (openTime == endTime) {
+                openData = 5000;
+                endData = 5000;
+                Log.i(String.valueOf(openData), String.valueOf(endData));
+            } else if (openTime > endTime) {
+                openData = openTime;
+                endData = endTime + 2400;
+                Log.i(String.valueOf(openData), String.valueOf(endData));
 
-        }
+            }
 
 //       Log.i(String.valueOf(openData),String.valueOf(endData));
 
 
-        double ratingValue = ratingBar.getRating();
-        //float to double
-        Integer star1Value = ratingBar.getNumStars();
+            double ratingValue = ratingBar.getRating();
+            //float to double
+           // Integer star1Value = ratingBar.getNumStars();
 
-        String waitingV = waitingTimeSpinner.getSelectedItem().toString();
-        //float to Int
-        Integer waitingValue = Integer.parseInt(waitingV);
+            String waitingV = waitingTimeSpinner.getSelectedItem().toString();
+            //float to Int
+            Integer waitingValue = Integer.parseInt(waitingV);
 
-        String openingString = startHoursSpinner.getSelectedItem().toString() + ":" + startMinutesSpinner.getSelectedItem().toString() + "〜" + endHoursSpinner.getSelectedItem().toString() + ":" + endMinutesSpinner.getSelectedItem().toString();
+            String openingString = startHoursSpinner.getSelectedItem().toString() + ":" + startMinutesSpinner.getSelectedItem().toString() + "〜" + endHoursSpinner.getSelectedItem().toString() + ":" + endMinutesSpinner.getSelectedItem().toString();
 
-        String avStar = String.valueOf(ratingValue);
-        Log.i("datbase", "called121");
+            String avStar = String.valueOf(ratingValue);
+            Log.i("datbase", "called121");
 
 
 //        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
 
-        DatabaseReference newRef = toiletRef.child(newTid);
+            DatabaseReference newRef = toiletRef.child(newTid);
 
-        //String firekey = newRef.getKey();
-
-
+            //String firekey = newRef.getKey();
 
 
-
-        newRef.setValue(new Post(
-                tName,
-                openingString,
-                typeSpinner.getSelectedItemPosition(),
-                urlOne,//String urlOne,
-                urlTwo,//String urlTwo,
-                urlThree,//String urlThree,
-                uid,//String addedBy,
-                uid,//String editedBy,
-                newRid,
-                "",
-                avStar,
-                AddLocations.address,
-                "",//String howtoaccess,
-                openData,
-                endData,
-                1,//Integer reviewCount,
-                waitingValue,//Integer averageWait,
-                3,//Integer toiletFloor,
-                AddLocations.latitude,
-                AddLocations.longitude,
-                true,
-                AddDetailBooleans.japanesetoilet,
-                AddDetailBooleans.westerntoilet,
-                AddDetailBooleans.onlyFemale,
-                AddDetailBooleans.unisex,
-
-
-                AddDetailBooleans.washlet,
-                AddDetailBooleans.warmSeat,
-                AddDetailBooleans.autoOpen,
-                AddDetailBooleans.noVirus,
-                AddDetailBooleans.paperForBenki,
-                AddDetailBooleans.cleanerForBenki,
-                AddDetailBooleans.autoToiletWash,
+            newRef.setValue(new Post(
+                    tName,
+                    openingString,
+                    typeSpinner.getSelectedItemPosition(),
+                    urlOne,//String urlOne,
+                    urlTwo,//String urlTwo,
+                    urlThree,//String urlThree,
+                    uid,//String addedBy,
+                    uid,//String editedBy,
+                    newRid,
+                    "",
+                    avStar,
+                    AddLocations.address,
+                    "",//String howtoaccess,
+                    openData,
+                    endData,
+                    1,//Integer reviewCount,
+                    waitingValue,//Integer averageWait,
+                    3,//Integer toiletFloor,
+                    AddLocations.latitude,
+                    AddLocations.longitude,
+                    true,
+                    AddDetailBooleans.japanesetoilet,
+                    AddDetailBooleans.westerntoilet,
+                    AddDetailBooleans.onlyFemale,
+                    AddDetailBooleans.unisex,
 
 
-                AddDetailBooleans.sensorHandWash,
-                AddDetailBooleans.handSoap,
-                AddDetailBooleans.autoHandSoap,
-                AddDetailBooleans.paperTowel,
-                AddDetailBooleans.handDrier,
+                    AddDetailBooleans.washlet,
+                    AddDetailBooleans.warmSeat,
+                    AddDetailBooleans.autoOpen,
+                    AddDetailBooleans.noVirus,
+                    AddDetailBooleans.paperForBenki,
+                    AddDetailBooleans.cleanerForBenki,
+                    AddDetailBooleans.autoToiletWash,
 
 
-                AddDetailBooleans.fancy,
-                AddDetailBooleans.smell,
-                AddDetailBooleans.conforatableWide,
-                AddDetailBooleans.clothes ,
-                AddDetailBooleans.baggageSpace,
+                    AddDetailBooleans.sensorHandWash,
+                    AddDetailBooleans.handSoap,
+                    AddDetailBooleans.autoHandSoap,
+                    AddDetailBooleans.paperTowel,
+                    AddDetailBooleans.handDrier,
 
 
+                    AddDetailBooleans.fancy,
+                    AddDetailBooleans.smell,
+                    AddDetailBooleans.conforatableWide,
+                    AddDetailBooleans.clothes,
+                    AddDetailBooleans.baggageSpace,
 
 
-                AddDetailBooleans.noNeedAsk,
-                AddDetailBooleans.english,
-                AddDetailBooleans.parking ,
-                AddDetailBooleans.airCondition,
-                AddDetailBooleans.wifi,
+                    AddDetailBooleans.noNeedAsk,
+                    AddDetailBooleans.english,
+                    AddDetailBooleans.parking,
+                    AddDetailBooleans.airCondition,
+                    AddDetailBooleans.wifi,
 
 //
 
-                AddDetailBooleans.otohime ,
-                AddDetailBooleans.napkinSelling,
-                AddDetailBooleans.makeuproom ,
-                AddDetailBooleans.ladyOmutu,
-                AddDetailBooleans.ladyBabyChair,
-                AddDetailBooleans.ladyBabyChairGood,
-                AddDetailBooleans.ladyBabyCarAccess,
+                    AddDetailBooleans.otohime,
+                    AddDetailBooleans.napkinSelling,
+                    AddDetailBooleans.makeuproom,
+                    AddDetailBooleans.ladyOmutu,
+                    AddDetailBooleans.ladyBabyChair,
+                    AddDetailBooleans.ladyBabyChairGood,
+                    AddDetailBooleans.ladyBabyCarAccess,
 
 
+                    AddDetailBooleans.maleOmutu,
+                    AddDetailBooleans.maleBabyChair,
+                    AddDetailBooleans.maleBabyChairGood,
+                    AddDetailBooleans.babyCarAccess,
 
 
-                AddDetailBooleans.maleOmutu,
-                AddDetailBooleans.maleBabyChair,
-                AddDetailBooleans.maleBabyChairGood,
-                AddDetailBooleans.babyCarAccess,
+                    AddDetailBooleans.wheelchair,
+                    AddDetailBooleans.wheelchairAccess,
+                    AddDetailBooleans.autoDoor,
+                    AddDetailBooleans.callHelp,
+                    AddDetailBooleans.ostomate,
+                    AddDetailBooleans.braille,
+                    AddDetailBooleans.voiceGuide,
+                    AddDetailBooleans.familyOmutu,
+                    AddDetailBooleans.familyBabyChair,
 
 
-
-                AddDetailBooleans.wheelchair,
-                AddDetailBooleans.wheelchairAccess,
-                AddDetailBooleans.autoDoor,
-                AddDetailBooleans.callHelp ,
-                AddDetailBooleans.ostomate,
-                AddDetailBooleans.braille ,
-                AddDetailBooleans.voiceGuide,
-                AddDetailBooleans.familyOmutu,
-                AddDetailBooleans.familyBabyChair,
+                    AddDetailBooleans.milkspace,
+                    AddDetailBooleans.babyroomOnlyFemale,
+                    AddDetailBooleans.babyroomManCanEnter,
+                    AddDetailBooleans.babyPersonalSpace,
+                    AddDetailBooleans.babyPersonalSpaceWithLock,
+                    AddDetailBooleans.babyRoomWideSpace,
 
 
-                AddDetailBooleans.milkspace,
-                AddDetailBooleans.babyroomOnlyFemale,
-                AddDetailBooleans.babyroomManCanEnter ,
-                AddDetailBooleans.babyPersonalSpace,
-                AddDetailBooleans.babyPersonalSpaceWithLock,
-                AddDetailBooleans.babyRoomWideSpace,
+                    AddDetailBooleans.babyCarRental,
+                    AddDetailBooleans.babyCarAccess,
+                    AddDetailBooleans.omutu,
+                    AddDetailBooleans.hipWashingStuff,
+                    AddDetailBooleans.babyTrashCan,
+                    AddDetailBooleans.omutuSelling,
 
 
-
-                AddDetailBooleans.babyCarRental,
-                AddDetailBooleans.babyCarAccess,
-                AddDetailBooleans.omutu,
-                AddDetailBooleans.hipWashingStuff,
-                AddDetailBooleans.babyTrashCan,
-                AddDetailBooleans.omutuSelling,
-
-
-                AddDetailBooleans.babyRoomSink,
-                AddDetailBooleans.babyWashStand,
-                AddDetailBooleans.babyHotWater,
-                AddDetailBooleans.babyMicroWave,
-                AddDetailBooleans.babyWaterSelling,
-                AddDetailBooleans.babyFoddSelling,
-                AddDetailBooleans.babyEatingSpace,
+                    AddDetailBooleans.babyRoomSink,
+                    AddDetailBooleans.babyWashStand,
+                    AddDetailBooleans.babyHotWater,
+                    AddDetailBooleans.babyMicroWave,
+                    AddDetailBooleans.babyWaterSelling,
+                    AddDetailBooleans.babyFoddSelling,
+                    AddDetailBooleans.babyEatingSpace,
 
 
-                AddDetailBooleans.babyChair,
-                AddDetailBooleans.babySoffa,
-                AddDetailBooleans.babyKidsToilet,
-                AddDetailBooleans.babyKidsSpace,
-                AddDetailBooleans.babyHeightMeasure,
-                AddDetailBooleans.babyWeightMeasure,
-                AddDetailBooleans.babyToy,
-                AddDetailBooleans.babyFancy,
-                AddDetailBooleans.babySmellGood
+                    AddDetailBooleans.babyChair,
+                    AddDetailBooleans.babySoffa,
+                    AddDetailBooleans.babyKidsToilet,
+                    AddDetailBooleans.babyKidsSpace,
+                    AddDetailBooleans.babyHeightMeasure,
+                    AddDetailBooleans.babyWeightMeasure,
+                    AddDetailBooleans.babyToy,
+                    AddDetailBooleans.babyFancy,
+                    AddDetailBooleans.babySmellGood
 
 
-        ));
+            ));
 
 
-        Log.i("please", "...");
-        geolocationUpload();
-        reviewUpload();
+            Log.i("please", "...");
+            geolocationUpload();
+            reviewUpload();
 
-        backToAccountActivity();
+            backToAccountActivity();
+        }
 
     }
     private void geolocationUpload() {
@@ -1232,22 +1237,16 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
                 }
 
             }
-
-
         }
-
-
         if (requestCode == 2) {
             //Photo Permission
 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 imageSetPlaceChoose();
 
-
             }
         }
 
     }
-
 
 }

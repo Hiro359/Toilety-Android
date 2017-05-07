@@ -2,6 +2,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 /**
  * Created by KazuhiroShigenobu on 1/4/17.
+ * //
  */
 
 

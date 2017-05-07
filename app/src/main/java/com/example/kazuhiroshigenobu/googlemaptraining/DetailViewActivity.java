@@ -1,6 +1,6 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
-import android.*;
+//import android.*;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.support.design.widget.NavigationView;
+//import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -45,7 +45,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.*;
-import com.google.firebase.database.ChildEventListener;
+//import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -77,7 +77,6 @@ public class DetailViewActivity extends AppCompatActivity {
     private DatabaseReference toiletRef;
     private DatabaseReference reviewsRef;
     private DatabaseReference userRef;
-
 
 
     private DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();

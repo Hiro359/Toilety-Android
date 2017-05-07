@@ -12,21 +12,24 @@ import android.widget.TextView;
 
 /**
  * Created by KazuhiroShigenobu on 1/5/17.
+ * //Default
  */
 
-public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
-    private LayoutInflater inflator;
-    public static final int ITEM_TYPE_NORMAL = 0;
-    public static final int ITEM_TYPE_HEADER = 1;
+    //private LayoutInflater inflator;
+    private static final int ITEM_TYPE_NORMAL = 0;
+    private static final int ITEM_TYPE_HEADER = 1;
 
     //private List<FilterBooleans> filterList;
 
-    SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
+    private SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
 
     public AddBooleansListAdapter(SparseArray<FilterBooleans> filterSparseArray){
         this.filterSparseArray = filterSparseArray;
     }
+
+
 
 
 
@@ -385,18 +388,18 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
 
-    public class AddBooleansViewHolder extends RecyclerView.ViewHolder {
+    private class AddBooleansViewHolder extends RecyclerView.ViewHolder {
 
         Switch booleanSwitch;
 
-        public AddBooleansViewHolder(View itemView) {
+        private AddBooleansViewHolder(View itemView) {
             super(itemView);
 
             booleanSwitch = (Switch) itemView.findViewById(R.id.filterBooleanSwitch);
 
         }
 
-        public void bindString(String text) {
+        private void bindString(String text) {
 
             booleanSwitch.setText(text);
 //            titleLabel.setText(model.getTitle());
@@ -405,17 +408,17 @@ public class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
 
-    public class AddHeaderViewHolder extends RecyclerView.ViewHolder {
+    private class AddHeaderViewHolder extends RecyclerView.ViewHolder {
 
         TextView headerText;
 
-        public AddHeaderViewHolder(View itemView) {
+        private AddHeaderViewHolder(View itemView) {
             super(itemView);
 
             headerText = (TextView) itemView.findViewById(R.id.headerTextView);
         }
 
-        public void setHeaderText(String text) {
+        private void setHeaderText(String text) {
             headerText.setText(text);
         }
     }

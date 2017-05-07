@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -37,7 +36,7 @@ public class AccountActivity extends AppCompatActivity {
     TextView favoriteCountText;
     TextView helpedCountText;
     private DatabaseReference userRef;
-    private FirebaseAuth firebaseAuth;
+
     Boolean userAlreadyLogin = false;
 
 
@@ -47,21 +46,9 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        FirebaseAuth firebaseAuth;
 
         Log.i("Account Loaded", "Start");
-
-
-
-       // Log.i("UserId 88888",String.valueOf(firebaseAuth.getCurrentUser()));
-
-
-//        toolbar = (Toolbar) findViewById(R.id.app_bar3);
-//        toolbar.setTitle("マイページ");
-//
-//        toolbar.setNavigationContentDescription("戻る");
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
@@ -107,7 +94,6 @@ public class AccountActivity extends AppCompatActivity {
         }
         );
 
-        //SetOnClick
 
         buttonAddToielt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,9 +173,6 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-
-
         if (id == R.id.settingButton) {
 
             if (!userAlreadyLogin){
@@ -217,10 +200,6 @@ public class AccountActivity extends AppCompatActivity {
     private void loginPlease(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        //AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //Changed Color May 7
-
         builder.setTitle("この機能を利用するにはログインが必要です");
         builder.setItems(new CharSequence[]
                         {"ログインをする", "ログインをしない"},
@@ -240,9 +219,6 @@ public class AccountActivity extends AppCompatActivity {
                     }
                 });
         builder.create().show();
-
-
-
     }
 
     private void userDataCheck(final String userID){
@@ -258,14 +234,11 @@ public class AccountActivity extends AppCompatActivity {
                     Log.i("User", "Found");
                     userAlreadyLogin = true;
                     getUserInfo(userID);
-
                 }
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
@@ -285,25 +258,9 @@ public class AccountActivity extends AppCompatActivity {
                 Long favoriteNumber = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
                 Long helpedNumber = (Long) dataSnapshot.child("totalHelpedCount").getValue();
 
-
-//                String likeString = Long.toString(likeNumber);
-//                String favoString = Long.toString(favoriteNumber);
-//                String helpString = Long.toString(helpedNumber);
-//
-//                //String likeString = likeNumber.toString();
-////                String favoString = favoriteNumber.toString();
-////                String helpString = helpedNumber.toString();
-
                 String likeString = String.valueOf(likeNumber);
                 String favoString = String.valueOf(favoriteNumber);
                 String helpString = String.valueOf(helpedNumber);
-
-                Log.i("likeString", likeString);
-                Log.i("favoString", favoString);
-                Log.i("helpString", helpString);
-
-
-
 
 
                 accountNameText.setText(userName);
@@ -311,11 +268,7 @@ public class AccountActivity extends AppCompatActivity {
                 favoriteCountText.setText(favoString);
                 helpedCountText.setText(helpString);
 
-
-
-
                  Toast.makeText(AccountActivity.this, userName, Toast.LENGTH_SHORT).show();
-                 Log.i("USERNAME", userName);
             }
 
             @Override

@@ -32,9 +32,9 @@ public class CommentListView extends AppCompatActivity {
     final List<UserReviewComment> commentData = new ArrayList<>();
 
 
-    private UserCommentListAdapter adapter;
-    private RecyclerView recyclertView;
-    private RecyclerView.LayoutManager layoutManager;
+//    private UserCommentListAdapter adapter;
+//    private RecyclerView recyclertView;
+//    private RecyclerView.LayoutManager layoutManager;
 
 
     @Override
@@ -44,8 +44,14 @@ public class CommentListView extends AppCompatActivity {
 
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
         reviewRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        reviewListRef = FirebaseDatabase.getInstance().getReference().child("ReviewList").child(uid);
+
+        FirebaseAuth firebaseAuth;
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() != null) {
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            reviewListRef = FirebaseDatabase.getInstance().getReference().child("ReviewList").child(uid);
+        }
 
         reviewRidQuery();
     }
@@ -86,7 +92,7 @@ public class CommentListView extends AppCompatActivity {
                 userReviewComment.uid = (String) dataSnapshot.child("uid").getValue();
                 userReviewComment.feedback = (String) dataSnapshot.child("feedback").getValue();
                 userReviewComment.time = (String) dataSnapshot.child("time").getValue();
-                userReviewComment.userWaitingtime = (String) dataSnapshot.child("waitingtime").getValue() + "分待ちました";
+                userReviewComment.userWaitingtime = dataSnapshot.child("waitingtime").getValue() + "分待ちました";
 
                 userReviewComment.userRatedStar = (String) dataSnapshot.child("star").getValue();
 
@@ -176,8 +182,13 @@ public class CommentListView extends AppCompatActivity {
 
     public void createRecyclerView(List commentData) {
         Log.i("createReclerView()Caled", "");
+        UserCommentListAdapter adapter;
+        RecyclerView recyclertView;
+        RecyclerView.LayoutManager layoutManager;
         recyclertView = (RecyclerView) findViewById(R.id.commentListRecyclerView);
         adapter = new UserCommentListAdapter(commentData);
+        //I dont know how to deal with this warning
+
         layoutManager = new LinearLayoutManager(this);
         recyclertView.setLayoutManager(layoutManager);
         recyclertView.setHasFixedSize(true);
