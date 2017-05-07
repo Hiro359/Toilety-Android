@@ -25,7 +25,7 @@ class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
 
-    public AddBooleansListAdapter(SparseArray<FilterBooleans> filterSparseArray){
+    AddBooleansListAdapter(SparseArray<FilterBooleans> filterSparseArray){
         this.filterSparseArray = filterSparseArray;
     }
 

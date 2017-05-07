@@ -11,7 +11,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
-//import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -36,8 +35,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -45,7 +42,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.*;
-//import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -69,23 +65,20 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
 
-    private GoogleMap mMap;
+//    private GoogleMap mMap;
     LocationManager locationManager;
 
     android.location.LocationListener locationListener;
 
-    private DatabaseReference toiletRef;
-    private DatabaseReference reviewsRef;
+//    private DatabaseReference toiletRef;
+//    private DatabaseReference reviewsRef;
     private DatabaseReference userRef;
 
 
     private DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference thumbsUpRef = firebaseRef.child("ThumbsUpList");
-    private DatabaseReference reviewInfoRef = firebaseRef.child("ReviewInfo");
     private DatabaseReference favoriteRef = firebaseRef.child("FavoriteList");
 
-    private DatabaseReference toiletReviewsRef;
-    private GoogleApiClient client;
+    //private DatabaseReference toiletReviewsRef;
 
     TextView toiletNameLabel;
     TextView typeAndDistance;
@@ -106,26 +99,25 @@ public class DetailViewActivity extends AppCompatActivity {
     final List<Review> reviewList = new ArrayList<>();
 
     Set<String> thumbsUpSet = new HashSet();
-    Set<String> favoriteSet = new HashSet();
-
+    //Set<String> favoriteSet = new HashSet();
     //DrawerLayout drawer;
 
     private ListView mDrawerList;
-    private ArrayAdapter<String> mAdapter;
+//    private ArrayAdapter<String> mAdapter;
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
 
-    private RecyclerView recyclertView;
-    private RecyclerView.LayoutManager layoutManager;
-    private ReviewListAdapter adapter;
+//    private RecyclerView recyclertView;
+//    private RecyclerView.LayoutManager layoutManager;
+//    private ReviewListAdapter adapter;
 
 
-    private Toolbar toolbar;
-    private TextView toolbarTitle;
+//    private Toolbar toolbar;
+//    private TextView toolbarTitle;
     private Boolean userLikePushed = false;
-    private FirebaseAuth firebaseAuth;
+//    private FirebaseAuth firebaseAuth;
 
     private ImageView firstPosterImage;
     private TextView firstPosterName;
@@ -141,13 +133,13 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
     //Experiment April 3 1pm...
-    List<Toilet> universityList = new ArrayList<>();
+    //List<Toilet> universityList = new ArrayList<>();
     //Experiment April 3 1pm...
 
     Toilet toilet =  new Toilet();
     User user = new User();
 
-    public ArrayList<String> booleanArray = new ArrayList<String>();
+    public ArrayList<String> booleanArray = new ArrayList<>();
     //public String[] booleanArray = {"設備"};
 
     @Override
@@ -158,8 +150,10 @@ public class DetailViewActivity extends AppCompatActivity {
         // mActivityTitle = getTitle().toString();
         mDrawerList = (ListView)findViewById(R.id.navList);
 
+        Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.app_bar3);
-        toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbarTitle3);
+//        TextView toolbarTitle;
+//        toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbarTitle3);
 
 
 
@@ -192,6 +186,7 @@ public class DetailViewActivity extends AppCompatActivity {
                 }
         );
 
+        FirebaseAuth firebaseAuth;
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
 
@@ -211,7 +206,8 @@ public class DetailViewActivity extends AppCompatActivity {
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.detailViewMap);
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+//        GoogleApiClient client;
+//        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         String key = getIntent().getStringExtra("EXTRA_SESSION_ID");
         toilet.key = key;
@@ -274,31 +270,22 @@ public class DetailViewActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null){
                     Toast.makeText(DetailViewActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
-
                 } else {
                     Log.i("User", "Found");
                     userAlreadyLogin = true;
                 }
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
-
     }
 
 
     private void loginPlease(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        //AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //Changed Color May 7
-
         builder.setTitle("この機能を利用するにはログインが必要です");
         builder.setItems(new CharSequence[]
                         {"ログインをする", "ログインをしない"},
@@ -318,9 +305,6 @@ public class DetailViewActivity extends AppCompatActivity {
                     }
                 });
         builder.create().show();
-
-
-
     }
 
 
@@ -397,7 +381,8 @@ public class DetailViewActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, booleanArray);
+        ArrayAdapter<String> mAdapter;
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, booleanArray);
         mDrawerList.setAdapter(mAdapter);
 
     }
@@ -420,13 +405,7 @@ public class DetailViewActivity extends AppCompatActivity {
             }
         };
 
-        //Commented for adding a back button March 19th 18:30
-
-
         mDrawerToggle.setDrawerIndicatorEnabled(false);
-        // mDrawerLayout.addDrawerListener(mDrawerToggle);
-
-        //Commented for adding an back button 6:30pm 19th March
     }
 
 
@@ -513,13 +492,9 @@ public class DetailViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!userAlreadyLogin) {
                     loginPlease();
-
                 } else {
-
-
                     nextAvtivityChoose();
                 }
-//
             }
         });
 
@@ -528,34 +503,26 @@ public class DetailViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!userAlreadyLogin) {
                     loginPlease();
-
                 } else {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        String uid = user.getUid();
 
+                        //String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        if (!userLikePushed) {
+                            //buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+                            buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_non_colored_drawable);
+                            userLikePushed = true;
 
-                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            favoriteRef.child(uid).child(toilet.key).setValue(true);
+                        } else {
+                            buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
 
-
-                    if (!userLikePushed) {
-                        //buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
-                        buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_non_colored_drawable);
-
-                        // buttonFavorite.setBackgroundResource(R.drawable.android:background="@drawable/app_love_icon_non_colored_drawable");
-                        userLikePushed = true;
-
-                        favoriteRef.child(uid).child(toilet.key).setValue(true);
-
-
-                    } else {
-                        buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
-
-                        //buttonFavorite.setBackgroundResource(R.drawable.likebefore);
-                        userLikePushed = false;
-                        favoriteRef.child(uid).child(toilet.key).removeValue();
+                            userLikePushed = false;
+                            favoriteRef.child(uid).child(toilet.key).removeValue();
+                        }
                     }
-
                 }
-
-
             }
         });
 
@@ -650,35 +617,38 @@ public class DetailViewActivity extends AppCompatActivity {
 
     private void favoriteQuery(){
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
 
-        favoriteRef.child(uid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (final DataSnapshot child : dataSnapshot.getChildren()) {
+            favoriteRef.child(uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (final DataSnapshot child : dataSnapshot.getChildren()) {
 
-                      String favoriteKey = child.getKey();
+                        String favoriteKey = child.getKey();
 
-                      if (favoriteKey.equals(toilet.key)){
-                          buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
-                          userLikePushed = true;
+                        if (favoriteKey.equals(toilet.key)) {
+                            buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+                            userLikePushed = true;
+                        }
+
                     }
 
                 }
 
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+                }
+            });
 
 
-
+        }
     }
 
     private void toileGetInfo(final String queryKey){
+        DatabaseReference toiletRef;
 
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
 
@@ -689,20 +659,9 @@ public class DetailViewActivity extends AppCompatActivity {
                 // for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
                 {
 
-                    Log.i("getKey333",String.valueOf(dataSnapshot.getKey()));
-                    Log.i("getValueString333",String.valueOf(dataSnapshot.getValue().toString()));
-
-
-                    Log.i("getChildren333",String.valueOf(dataSnapshot.getChildren()));
-
                     dataSnapshot.getChildren();
-                    Log.i("getChildren2222333",dataSnapshot.getChildren().toString());
 
-
-                    dataSnapshot.toString();
-
-
-                    Boolean removedToilet = false;
+                    //Boolean removedToilet = false;
 
 //                    Toilet toilet =  new Toilet();
                     // List<String> toiletData = new ArrayList<>();
@@ -1334,7 +1293,11 @@ public class DetailViewActivity extends AppCompatActivity {
     }
 
 
+    @SuppressWarnings("unchecked")
     private void createRecyclerView(List reviewList) {
+        RecyclerView recyclertView;
+        RecyclerView.LayoutManager layoutManager;
+        ReviewListAdapter adapter;
         Log.i("reviewRecycle", "Called");
         recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
         adapter = new ReviewListAdapter(reviewList);
@@ -1361,45 +1324,48 @@ public class DetailViewActivity extends AppCompatActivity {
 
     private void thumbsUpQuery(String ridOne, String ridTwo){
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        thumbsUpRef = FirebaseDatabase.getInstance().getReference().child("ThumbsUpList");
-
-
-        thumbsUpRef.child(uid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (final DataSnapshot child : dataSnapshot.getChildren()) {
-
-                    final String ridkey = child.getKey();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
 
 
-                    thumbsUpSet.add(ridkey);
+            DatabaseReference thumbsUpRef;
 
+            thumbsUpRef = FirebaseDatabase.getInstance().getReference().child("ThumbsUpList");
+
+
+            thumbsUpRef.child(uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for (final DataSnapshot child : dataSnapshot.getChildren()) {
+
+                        final String ridKey = child.getKey();
+                        thumbsUpSet.add(ridKey);
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
+            });
+
+            Log.i(" toiletreviewItself", "908");
+
+            if (!ridOne.equals("")) {
+                getReviewInfoAndUserInfo(ridOne);
+                //toiletReviewQuery(ridOne);
+                Log.i(" toiletreviewOne);", "908");
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            if (!ridTwo.equals("")) {
+                getReviewInfoAndUserInfo(ridTwo);
+                //toiletReviewQuery(ridTwo);
+                Log.i(" toiletReviereviewTwo);", "908");
             }
-        });
-
-        Log.i(" toiletreviewItself","908");
-
-        if (!ridOne.equals("")) {
-            getReviewInfoAndUserInfo(ridOne);
-            //toiletReviewQuery(ridOne);
-            Log.i(" toiletreviewOne);","908");
-        }
-
-        if (!ridTwo.equals("")) {
-            getReviewInfoAndUserInfo(ridTwo);
-            //toiletReviewQuery(ridTwo);
-            Log.i(" toiletReviereviewTwo);","908");
-        }
 //        if (!toilet.reviewOne.equals("")) {
 //            toiletReviewQuery(toilet.reviewOne);
 //            Log.i(" toiletreviewOne);","");
@@ -1410,6 +1376,7 @@ public class DetailViewActivity extends AppCompatActivity {
 //            Log.i(" toiletReviereviewTwo);","");
 //        }
 
+        }
 
     }
 
@@ -1456,6 +1423,7 @@ public class DetailViewActivity extends AppCompatActivity {
 
 
 //        final List<Review> reviewList = new ArrayList<>();
+        DatabaseReference reviewsRef;
 
         reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
 
@@ -1720,166 +1688,112 @@ public class DetailViewActivity extends AppCompatActivity {
         });
     }
 
-    private void reviewOneGetInfo(String ridOne){
-
-        final Review reviewOne = new Review();
-
-        reviewsRef.child(ridOne).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                reviewOne.uid = (String) dataSnapshot.child("uid").getValue();
-                reviewOne.feedback = (String) dataSnapshot.child("feedback").getValue();
-                reviewOne.time = (String) dataSnapshot.child("time").getValue();
-                reviewOne.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
-
-
-                Long likedCount = (Long) dataSnapshot.child("likedCount").getValue();
-                reviewOne.likedCount = likedCount.intValue();
-//                Long star = (Long) dataSnapshot.child("star").getValue();
-//                review.star = star.doubleValue();
-
-                reviewOne.star = (String) dataSnapshot.child("star").getValue();
-
-
-                userRef.child(reviewOne.uid).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-
-                        reviewOne.userName = (String) dataSnapshot.child("userName").getValue();
-                        reviewOne.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
-
-
-                        Long totalLikedCount = (Long) dataSnapshot.child("totalLikedCount").getValue();
-                        Long totalFavoriteCount = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
-                        Long totalHelpedCount = (Long) dataSnapshot.child("totalHelpedCount").getValue();
-                        reviewOne.totalLikedCount = totalLikedCount.intValue();
-                        reviewOne.totalFavoriteCount = totalFavoriteCount.intValue();
-                        reviewOne.totalHelpedCount = totalHelpedCount.intValue();
-
-
-
-                        //display layout
-
-
-
-//                        reviewList.add(review);
-//                        createRecyclerView(reviewList);
-
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        //newt reviewInfo
-
-        //next userInfo
-
-
-
-    }
+//    private void reviewOneGetInfo(String ridOne){
+//
+//        final Review reviewOne = new Review();
+//
+//        reviewsRef.child(ridOne).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                reviewOne.uid = (String) dataSnapshot.child("uid").getValue();
+//                reviewOne.feedback = (String) dataSnapshot.child("feedback").getValue();
+//                reviewOne.time = (String) dataSnapshot.child("time").getValue();
+//                reviewOne.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
+//
+//                Long likedCount = (Long) dataSnapshot.child("likedCount").getValue();
+//                reviewOne.likedCount = likedCount.intValue();
+////                Long star = (Long) dataSnapshot.child("star").getValue();
+////                review.star = star.doubleValue();
+//
+//                reviewOne.star = (String) dataSnapshot.child("star").getValue();
+//
+//
+//                userRef.child(reviewOne.uid).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//
+//
+//                        reviewOne.userName = (String) dataSnapshot.child("userName").getValue();
+//                        reviewOne.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
+//
+//
+//                        Long totalLikedCount = (Long) dataSnapshot.child("totalLikedCount").getValue();
+//                        Long totalFavoriteCount = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
+//                        Long totalHelpedCount = (Long) dataSnapshot.child("totalHelpedCount").getValue();
+//                        reviewOne.totalLikedCount = totalLikedCount.intValue();
+//                        reviewOne.totalFavoriteCount = totalFavoriteCount.intValue();
+//                        reviewOne.totalHelpedCount = totalHelpedCount.intValue();
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//    }
 
 
     public void onMapReadyCalled(GoogleMap googleMap,Double toiletLat, Double toiletLon) {
-        mMap = googleMap;
+         GoogleMap mMap;
+         mMap = googleMap;
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         locationListener = new android.location.LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
                 Log.i("onLocationChanged","Called");
             }
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-
             }
         };
 
 
         if (Build.VERSION.SDK_INT < 23) {
-
-            Log.i("Build.VERSION.SDK_INT ","Build.VERSION.SDK_INT ");
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
-
-
-        }
-        else{
-//            Log.i("Build.VERSION.SDK_INT>23 ","Build.VERSION.SDK_INT ");
+        } else{
 
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
 
-
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
-
-
 
             }else {
                 //When the permission is granted....
-                Log.i("HeyHey333", "locationManager.requestLocationUpdates");
-
-
-//
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 mMap.setMyLocationEnabled(true);
-                Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
-
-
-
 
                 if (lastKnownLocation != null){
-                    Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
-
-
-//                    mMap.clear();
-//
-//                    LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-//
-//
-//                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
-//
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
-
                     LatLng toiletLocation = new LatLng(toiletLat,toiletLon);
                     mMap.addMarker(new MarkerOptions().position(toiletLocation).title("施設の位置"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletLocation));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletLocation, 14.0f));
-
-
-
-
                 } else {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                     //When you could not get the last known location...
+                    //I am not sure how to handle this
 
                 }
             }

@@ -5,21 +5,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.CalculationByDistance;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.round;
 
@@ -46,13 +41,15 @@ public class CommentListView extends AppCompatActivity {
         reviewRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
 
         FirebaseAuth firebaseAuth;
-
         firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() != null) {
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            reviewListRef = FirebaseDatabase.getInstance().getReference().child("ReviewList").child(uid);
-        }
 
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if (user != null){
+            String uid = user.getUid();
+            reviewListRef = FirebaseDatabase.getInstance().getReference().child("ReviewList").child(uid);
+
+        }
         reviewRidQuery();
     }
 
@@ -179,16 +176,14 @@ public class CommentListView extends AppCompatActivity {
 
     }
 
-
-    public void createRecyclerView(List commentData) {
+    @SuppressWarnings("unchecked")
+    private void createRecyclerView(List commentData) {
         Log.i("createReclerView()Caled", "");
         UserCommentListAdapter adapter;
         RecyclerView recyclertView;
         RecyclerView.LayoutManager layoutManager;
         recyclertView = (RecyclerView) findViewById(R.id.commentListRecyclerView);
         adapter = new UserCommentListAdapter(commentData);
-        //I dont know how to deal with this warning
-
         layoutManager = new LinearLayoutManager(this);
         recyclertView.setLayoutManager(layoutManager);
         recyclertView.setHasFixedSize(true);

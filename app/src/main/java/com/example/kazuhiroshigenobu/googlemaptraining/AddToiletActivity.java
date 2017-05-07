@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -26,11 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -41,8 +36,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,12 +54,12 @@ public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCa
 
     LocationListener locationListener;
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private Button buttonLocationSend;
-    private Toolbar toolbar;
-    private TextView toolbarTitle;
-    private RequestQueue requestQueue;
+    //private FirebaseAuth mAuth;
+    //private FirebaseAuth.AuthStateListener mAuthListener;
+    //private Button buttonLocationSend;
+    //private Toolbar toolbar;
+    //private TextView toolbarTitle;
+    //private RequestQueue requestQueue;
 
     private Boolean markerSetted = false;
     private ProgressDialog pDialog;
@@ -108,9 +101,16 @@ public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCa
         setContentView(R.layout.activity_add_toilet);
 
 
+        Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.app_bar_add_toilet);
-        toolbarTitle = (TextView) toolbar.findViewById(R.id.addToiletTitleText);
+//        TextView toolbarTitle;
+//        toolbarTitle = (TextView) toolbar.findViewById(R.id.addToiletTitleText);
+
+        //Comment May 7 toolbar title
+
+
         setSupportActionBar(toolbar);
+
 
         toolbar.setNavigationOnClickListener(
                 new View.OnClickListener(){
@@ -134,10 +134,11 @@ public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCa
                 .findFragmentById(R.id.addToiletMap);
         mapFragment.getMapAsync(this);
 
-        requestQueue = Volley.newRequestQueue(this);
+//        RequestQueue requestQueue;
+//        requestQueue = Volley.newRequestQueue(this);
 
 
-
+        Button buttonLocationSend;
         buttonLocationSend = (Button) findViewById(R.id.buttonLocationSend);
         buttonLocationSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,25 +152,24 @@ public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCa
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-
-        mAuth = FirebaseAuth.getInstance();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.i("FireAuth","onAuthStateChanged:signed_in:" + user.getUid());
-                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.i("FireAuth","onAuthStateChanged:signed_out");
-                    //Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
+//        FirebaseAuth.AuthStateListener mAuthListener;
+//
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if (user != null) {
+//                    // User is signed in
+//                    Log.i("FireAuth","onAuthStateChanged:signed_in:" + user.getUid());
+//                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+//                } else {
+//                    // User is signed out
+//                    Log.i("FireAuth","onAuthStateChanged:signed_out");
+//                    //Log.d(TAG, "onAuthStateChanged:signed_out");
+//                }
+//                // ...
+//            }
+//        };
     }
 
 
@@ -454,9 +454,9 @@ public class AddToiletActivity extends AppCompatActivity implements OnMapReadyCa
 
             JSONParser jParser = new JSONParser();
 
-            JSONObject json = jParser.getLocationInfo(AddLocations.latitude,AddLocations.longitude);
-            return  json;
+            return jParser.getLocationInfo(AddLocations.latitude,AddLocations.longitude);
         }
+
         @Override
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();

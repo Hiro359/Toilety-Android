@@ -1,17 +1,14 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,17 +27,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.geofire.GeoFire;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -92,7 +87,7 @@ public class EditViewListActivity extends AppCompatActivity {
     Button addPhoto;
     Button buttonRenewInfo;
 
-    private GoogleApiClient client;
+    //private GoogleApiClient client;
 
     Boolean typeSpinnerLoaded = false;
     Boolean startHourSpinnerLoaded = false;
@@ -113,13 +108,13 @@ public class EditViewListActivity extends AppCompatActivity {
 
     Integer photoSelected = 0;
 
-    private Toolbar toolbar;
-    private TextView toolbarTitle;
+//    private Toolbar toolbar;
+    //private TextView toolbarTitle;
     private DatabaseReference toiletRef;
-    private DatabaseReference toiletLocationRef;
+//    private DatabaseReference toiletLocationRef;
 
     Toilet toilet =  new Toilet();
-    DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("ToiletLocations");
+//    DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("ToiletLocations");
     //GeoFire geoFire = new GeoFire(locationRef);
 
     ArrayAdapter<CharSequence> adapterType;
@@ -135,9 +130,9 @@ public class EditViewListActivity extends AppCompatActivity {
     private String urlThree = "";
 
     SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
-    private RecyclerView recyclertView;
-    private RecyclerView.LayoutManager layoutManager;
-    private AddBooleansListAdapter adapter;
+//    private RecyclerView recyclertView;
+//    private RecyclerView.LayoutManager layoutManager;
+//    private AddBooleansListAdapter adapter;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference().child("images");
@@ -150,8 +145,9 @@ public class EditViewListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_view_list);
 
+        Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.edit_app_bar);
-        toolbarTitle = (TextView) toolbar.findViewById(R.id.editAppBarTitle);
+        //toolbarTitle = (TextView) toolbar.findViewById(R.id.editAppBarTitle);
 
         //switchesReady();
         layoutReady();
@@ -366,8 +362,8 @@ public class EditViewListActivity extends AppCompatActivity {
 
             textToiletName.setError("Your message");
             Log.i("HEy", "00");
-        }
-        else {
+        } else {
+            Log.i("Valid", "00");
             //there is a valid name
 
             //firebaseUpdate();
@@ -376,7 +372,7 @@ public class EditViewListActivity extends AppCompatActivity {
 
 
     private void imageSetPlaceChoose(){
-        final Integer imageNum = 0;
+        //final Integer imageNum = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("どこに写真を追加しますか");
         builder.setItems(new CharSequence[]
@@ -664,7 +660,7 @@ public class EditViewListActivity extends AppCompatActivity {
                 {
 
                     Log.i("OnDataChangeCalled", "777888");
-                    Boolean removedToilet = false;
+                    //Boolean removedToilet = false;
 
                     Log.i("OnDataChangeCalled", "777888999");
 //                    Toilet toilet =  new Toilet();
@@ -980,7 +976,7 @@ public class EditViewListActivity extends AppCompatActivity {
 
                     textToiletName.setText(toilet.name);
 
-                    Float averaegeStarFloat = Float.parseFloat(toilet.averageStar);
+                    //Float averaegeStarFloat = Float.parseFloat(toilet.averageStar);
                     sppinnerReady();
                     sparseArrayReady();
                     setIntialImage();
@@ -1161,7 +1157,12 @@ public class EditViewListActivity extends AppCompatActivity {
 
     }
 
+
+    @SuppressWarnings("unchecked")
     private void createRecyclerView(SparseArray array) {
+        RecyclerView recyclertView;
+        RecyclerView.LayoutManager layoutManager;
+        AddBooleansListAdapter adapter;
         Log.i("reviewRecycle", "Called");
         recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
         adapter = new AddBooleansListAdapter(array);
@@ -1184,265 +1185,250 @@ public class EditViewListActivity extends AppCompatActivity {
     private void firebaseRenewdata(){
 
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
 
-        Integer updateStHour;
-        Integer updateStMinute;
-        Integer updateEndHour;
-        Integer updateEndMinute;
-        Integer updateFloor;
-        Integer updateType;
+            Integer updateStHour;
+            Integer updateStMinute;
+            Integer updateEndHour;
+            Integer updateEndMinute;
+            Integer updateFloor;
+            Integer updateType;
 
 
-        if (startHourSpinnerSelected){
-            updateStHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
-        } else {
-            updateStHour = toilet.openHours/100;
+            if (startHourSpinnerSelected) {
+                updateStHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
+            } else {
+                updateStHour = toilet.openHours / 100;
+            }
+
+            if (startMinutesSpinnerSelected) {
+                updateStMinute = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
+            } else {
+                updateStMinute = toilet.openHours % 100;
+            }
+
+            if (closeHourSpinnerSelected) {
+                updateEndHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
+            } else {
+                updateEndHour = toilet.closeHours / 100;
+            }
+
+            if (closeMinutesSpinnerSelected) {
+                updateEndMinute = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
+            } else {
+                updateEndMinute = toilet.closeHours % 100;
+            }
+
+            if (floorSpinnerSelected) {
+                Log.i("SelectedPosition88888", String.valueOf(floorSpinner.getSelectedItemPosition()));
+
+
+                //Log.i("SelectedPosition88888", floorSpinner.getSelectedItem().toString());
+                // updateFloor = Integer.parseInt(floorSpinner.getSelectedItem().toString());
+
+
+                //It cannot be integet because it is like "一階"　
+
+
+            } else {
+                Log.i("SelectedPosition88888", String.valueOf(floorSpinner.getSelectedItemPosition()));
+
+                // Log.i("SelectedPosition88888", floorSpinner.getSelectedItem().toString());
+                //updateFloor = toilet.floor;
+            }
+
+
+            if (typeSpinnerSelected) {
+                updateType = typeSpinner.getSelectedItemPosition();
+            } else {
+                updateType = toilet.type;
+            }
+
+
+            Integer openTime = updateStHour * 100 + updateStMinute;
+            Integer endTime = updateEndHour * 100 + updateEndMinute;
+
+            String updateStMinuteString;
+            String updateEndMinuteString;
+
+            if (updateStMinute == 0) {
+                updateStMinuteString = "00";
+            } else {
+                updateStMinuteString = String.valueOf(updateStMinute);
+            }
+
+            if (updateEndMinute == 0) {
+                updateEndMinuteString = "00";
+            } else {
+                updateEndMinuteString = String.valueOf(updateStMinute);
+            }
+
+
+            String openingString = String.valueOf(updateStHour) + ":" + updateStMinuteString + "〜" + String.valueOf(updateEndHour) + ":" + updateEndMinuteString;
+
+
+            String tName = textToiletName.getText().toString();
+
+
+            toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+//            DatabaseReference toiletLocationRef;
+//            toiletLocationRef = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
+
+
+            // geolocationUpdate(toilet.key);
+
+
+            DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
+
+
+            //String firekey = updateRef.getKey();
+
+            //delete original data in toilets brunch
+            //delete original data in toiletLocations brunch
+
+            Log.i("datbaseUpdateLat", String.valueOf(toilet));
+            Log.i("datbaseUpdateLon", String.valueOf(toilet.longitude));
+            //Log.i("datbaseUpdateAVSTAR", String.valueOf(avStar));
+
+
+            Map<String, Object> childUpdates = new HashMap<>();
+
+
+            //I could not get tName
+            //Maybe I could not get other values either
+
+
+            childUpdates.put("name", tName);
+            childUpdates.put("openAndCloseHours", openingString);
+            childUpdates.put("type", updateType);
+
+            childUpdates.put("urlOne", urlOne);
+            childUpdates.put("urlTwo", urlTwo);
+            childUpdates.put("urlThree", urlThree);
+            childUpdates.put("editedBy", uid);
+            childUpdates.put("howtoaccess", "");
+            childUpdates.put("openHours", openTime);
+            childUpdates.put("closeHours", endTime);
+            childUpdates.put("toiletFloor", 3);
+
+
+            childUpdates.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
+            childUpdates.put("westerntoilet", AddDetailBooleans.westerntoilet);
+            childUpdates.put("onlyFemale", AddDetailBooleans.onlyFemale);
+            childUpdates.put("unisex", AddDetailBooleans.unisex);
+
+            childUpdates.put("washlet", AddDetailBooleans.washlet);
+            childUpdates.put("warmSeat", AddDetailBooleans.warmSeat);
+            childUpdates.put("autoOpen", AddDetailBooleans.autoOpen);
+            childUpdates.put("noVirus", AddDetailBooleans.noVirus);
+            childUpdates.put("paperForBenki", AddDetailBooleans.paperForBenki);
+            childUpdates.put("cleanerForBenki", AddDetailBooleans.cleanerForBenki);
+            childUpdates.put("nonTouchWash", AddDetailBooleans.autoToiletWash);
+
+
+            childUpdates.put("sensorHandWash", AddDetailBooleans.sensorHandWash);
+            childUpdates.put("handSoap", AddDetailBooleans.handSoap);
+            childUpdates.put("nonTouchHandSoap", AddDetailBooleans.autoHandSoap);
+            childUpdates.put("paperTowel", AddDetailBooleans.paperTowel);
+            childUpdates.put("handDrier", AddDetailBooleans.handDrier);
+
+
+            childUpdates.put("fancy", AddDetailBooleans.fancy);
+            childUpdates.put("smell", AddDetailBooleans.smell);
+            childUpdates.put("confortable", AddDetailBooleans.conforatableWide);
+            childUpdates.put("clothes", AddDetailBooleans.clothes);
+            childUpdates.put("baggageSpace", AddDetailBooleans.baggageSpace);
+
+            childUpdates.put("noNeedAsk", AddDetailBooleans.noNeedAsk);
+            childUpdates.put("english", AddDetailBooleans.english);
+            childUpdates.put("parking", AddDetailBooleans.parking);
+            childUpdates.put("airCondition", AddDetailBooleans.airCondition);
+            childUpdates.put("wifi", AddDetailBooleans.wifi);
+
+            childUpdates.put("otohime", AddDetailBooleans.otohime);
+            childUpdates.put("napkinSelling", AddDetailBooleans.napkinSelling);
+            childUpdates.put("makeuproom", AddDetailBooleans.makeuproom);
+            childUpdates.put("ladyOmutu", AddDetailBooleans.ladyOmutu);
+            childUpdates.put("ladyBabyChair", AddDetailBooleans.ladyBabyChair);
+            childUpdates.put("ladyBabyChairGood", AddDetailBooleans.ladyBabyChairGood);
+            childUpdates.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
+
+            childUpdates.put("maleOmutu", AddDetailBooleans.maleOmutu);
+            childUpdates.put("maleBabyChair", AddDetailBooleans.maleBabyChair);
+            childUpdates.put("maleBabyChairGood", AddDetailBooleans.maleBabyChairGood);
+            childUpdates.put("maleBabyCarAccess", AddDetailBooleans.maleBabyCarAccess);
+
+            //for Family Restroom
+            Log.i("Passed Boolean", "6");
+
+            childUpdates.put("wheelchair", AddDetailBooleans.wheelchair);
+            childUpdates.put("wheelchairAccess", AddDetailBooleans.wheelchairAccess);
+            childUpdates.put("autoDoor", AddDetailBooleans.autoDoor);
+            childUpdates.put("callHelp", AddDetailBooleans.callHelp);
+            childUpdates.put("ostomate", AddDetailBooleans.ostomate);
+            childUpdates.put("braille", AddDetailBooleans.braille);
+            childUpdates.put("voiceGuide", AddDetailBooleans.voiceGuide);
+            childUpdates.put("familyOmutu", AddDetailBooleans.familyOmutu);
+            childUpdates.put("familyBabyChair", AddDetailBooleans.familyBabyChair);
+
+
+            childUpdates.put("milkspace", AddDetailBooleans.milkspace);
+            childUpdates.put("babyRoomOnlyFemale", AddDetailBooleans.babyroomOnlyFemale);
+            childUpdates.put("babyRoomMaleEnter", AddDetailBooleans.babyroomManCanEnter);
+            childUpdates.put("babyRoomPersonalSpace", AddDetailBooleans.babyPersonalSpace);
+            childUpdates.put("babyRoomPersonalSpaceWithLock", AddDetailBooleans.babyPersonalSpaceWithLock);
+            childUpdates.put("babyRoomWideSpace", AddDetailBooleans.babyRoomWideSpace);
+
+
+            childUpdates.put("babyCarRental", AddDetailBooleans.babyCarRental);
+            childUpdates.put("babyCarAccess", AddDetailBooleans.babyCarAccess);
+            childUpdates.put("omutu", AddDetailBooleans.omutu);
+            childUpdates.put("hipCleaningStuff", AddDetailBooleans.hipWashingStuff);
+            childUpdates.put("omutuTrashCan", AddDetailBooleans.babyTrashCan);
+            childUpdates.put("omutuSelling", AddDetailBooleans.omutuSelling);
+
+
+            childUpdates.put("babySink", AddDetailBooleans.babyRoomSink);
+            childUpdates.put("babyWashstand", AddDetailBooleans.babyWashStand);
+            childUpdates.put("babyHotwater", AddDetailBooleans.babyHotWater);
+            childUpdates.put("babyMicrowave", AddDetailBooleans.babyMicroWave);
+            childUpdates.put("babyWaterSelling", AddDetailBooleans.babyWaterSelling);
+            childUpdates.put("babyFoodSelling", AddDetailBooleans.babyFoddSelling);
+            childUpdates.put("babyEatingSpace", AddDetailBooleans.babyEatingSpace);
+
+
+            childUpdates.put("babyChair", AddDetailBooleans.babyChair);
+            childUpdates.put("babySoffa", AddDetailBooleans.babySoffa);
+            childUpdates.put("kidsToilet", AddDetailBooleans.babyKidsToilet);
+            childUpdates.put("kidsSpace", AddDetailBooleans.babyKidsSpace);
+            childUpdates.put("babyHeight", AddDetailBooleans.babyHeightMeasure);
+            childUpdates.put("babyWeight", AddDetailBooleans.babyWeightMeasure);
+            childUpdates.put("babyToy", AddDetailBooleans.babyToy);
+            childUpdates.put("babyFancy", AddDetailBooleans.babyFancy);
+            childUpdates.put("babySmellGood", AddDetailBooleans.babySmellGood);
+
+
+            //childUpdates.put("editedBy",uid);
+
+            //We dont need to updata editedBy uid....
+
+
+            updateToiletRef.updateChildren(childUpdates);
+
+
+            Log.i("please", "...");
+            // geolocationUpdate(firekey);
+
+            Intent intent = new Intent(getApplicationContext(), DetailViewActivity.class);
+            intent.putExtra("EXTRA_SESSION_ID", toilet.key);
+            intent.putExtra("toiletLatitude", toilet.latitude);
+            intent.putExtra("toiletLongitude", toilet.longitude);
+
+            startActivity(intent);
+            finish();
         }
-
-        if (startMinutesSpinnerSelected){
-            updateStMinute = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
-        } else {
-            updateStMinute = toilet.openHours % 100;
-        }
-
-        if (closeHourSpinnerSelected){
-            updateEndHour = Integer.parseInt(String.valueOf(endHoursSpinner.getSelectedItem()));
-        } else {
-            updateEndHour = toilet.closeHours/100;
-        }
-
-        if (closeMinutesSpinnerSelected){
-            updateEndMinute = Integer.parseInt(String.valueOf(endMinutesSpinner.getSelectedItem()));
-        } else {
-            updateEndMinute = toilet.closeHours % 100;
-        }
-
-        if (floorSpinnerSelected){
-            Log.i("SelectedPosition88888", String.valueOf(floorSpinner.getSelectedItemPosition()));
-
-
-            //Log.i("SelectedPosition88888", floorSpinner.getSelectedItem().toString());
-           // updateFloor = Integer.parseInt(floorSpinner.getSelectedItem().toString());
-
-
-            //It cannot be integet because it is like "一階"　
-
-
-        } else {
-            Log.i("SelectedPosition88888", String.valueOf(floorSpinner.getSelectedItemPosition()));
-
-           // Log.i("SelectedPosition88888", floorSpinner.getSelectedItem().toString());
-            //updateFloor = toilet.floor;
-        }
-
-
-        if (typeSpinnerSelected){
-           updateType = typeSpinner.getSelectedItemPosition();
-        } else {
-            updateType = toilet.type;
-        }
-
-
-
-
-        Integer openTime = updateStHour * 100 + updateStMinute;
-        Integer endTime = updateEndHour * 100 + updateEndMinute;
-
-        String updateStMinuteString;
-        String updateEndMinuteString;
-
-        if (updateStMinute == 0) {
-            updateStMinuteString = "00";
-        } else {
-            updateStMinuteString = String.valueOf(updateStMinute);
-        }
-
-        if (updateEndMinute == 0) {
-            updateEndMinuteString = "00";
-        } else {
-            updateEndMinuteString = String.valueOf(updateStMinute);
-        }
-
-
-        String openingString = String.valueOf(updateStHour) + ":" + updateStMinuteString + "〜" + String.valueOf(updateEndHour) + ":" + updateEndMinuteString;
-
-
-        String tName = textToiletName.getText().toString();
-
-
-
-        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
-        toiletLocationRef = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
-
-
-        // geolocationUpdate(toilet.key);
-
-
-        DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
-
-
-
-
-        //String firekey = updateRef.getKey();
-
-        //delete original data in toilets brunch
-        //delete original data in toiletLocations brunch
-
-        Log.i("datbaseUpdateLat", String.valueOf(toilet));
-        Log.i("datbaseUpdateLon", String.valueOf(toilet.longitude));
-        //Log.i("datbaseUpdateAVSTAR", String.valueOf(avStar));
-
-
-
-        Map<String, Object> childUpdates = new HashMap<>();
-
-
-
-        //I could not get tName
-        //Maybe I could not get other values either
-
-
-
-
-        childUpdates.put("name",tName);
-        childUpdates.put("openAndCloseHours",openingString);
-        childUpdates.put("type",updateType);
-
-        childUpdates.put("urlOne",urlOne);
-        childUpdates.put("urlTwo",urlTwo);
-        childUpdates.put("urlThree",urlThree);
-        childUpdates.put("editedBy",uid);
-        childUpdates.put("howtoaccess","");
-        childUpdates.put("openHours",openTime);
-        childUpdates.put("closeHours",endTime);
-        childUpdates.put("toiletFloor",3);
-
-
-
-        childUpdates.put("japanesetoilet",AddDetailBooleans.japanesetoilet);
-        childUpdates.put("westerntoilet",AddDetailBooleans.westerntoilet);
-        childUpdates.put("onlyFemale", AddDetailBooleans.onlyFemale);
-        childUpdates.put("unisex",AddDetailBooleans.unisex);
-
-        childUpdates.put("washlet", AddDetailBooleans.washlet);
-        childUpdates.put("warmSeat",AddDetailBooleans.warmSeat);
-        childUpdates.put("autoOpen",AddDetailBooleans.autoOpen);
-        childUpdates.put("noVirus", AddDetailBooleans.noVirus);
-        childUpdates.put("paperForBenki",AddDetailBooleans.paperForBenki);
-        childUpdates.put("cleanerForBenki", AddDetailBooleans.cleanerForBenki);
-        childUpdates.put("nonTouchWash", AddDetailBooleans.autoToiletWash);
-
-
-        childUpdates.put("sensorHandWash",AddDetailBooleans.sensorHandWash);
-        childUpdates.put("handSoap",AddDetailBooleans.handSoap);
-        childUpdates.put("nonTouchHandSoap",AddDetailBooleans.autoHandSoap);
-        childUpdates.put("paperTowel",AddDetailBooleans.paperTowel);
-        childUpdates.put("handDrier",AddDetailBooleans.handDrier);
-
-
-
-        childUpdates.put("fancy", AddDetailBooleans.fancy);
-        childUpdates.put("smell", AddDetailBooleans.smell);
-        childUpdates.put("confortable",AddDetailBooleans.conforatableWide);
-        childUpdates.put("clothes", AddDetailBooleans.clothes);
-        childUpdates.put("baggageSpace",AddDetailBooleans.baggageSpace);
-
-        childUpdates.put("noNeedAsk",AddDetailBooleans.noNeedAsk);
-        childUpdates.put("english",AddDetailBooleans.english);
-        childUpdates.put("parking",AddDetailBooleans.parking);
-        childUpdates.put("airCondition",AddDetailBooleans.airCondition);
-        childUpdates.put("wifi",AddDetailBooleans.wifi);
-
-        childUpdates.put("otohime",AddDetailBooleans.otohime);
-        childUpdates.put("napkinSelling",AddDetailBooleans.napkinSelling);
-        childUpdates.put("makeuproom",AddDetailBooleans.makeuproom);
-        childUpdates.put("ladyOmutu",AddDetailBooleans.ladyOmutu);
-        childUpdates.put("ladyBabyChair",AddDetailBooleans.ladyBabyChair);
-        childUpdates.put("ladyBabyChairGood",AddDetailBooleans.ladyBabyChairGood);
-        childUpdates.put("ladyBabyCarAccess",AddDetailBooleans.ladyBabyCarAccess);
-
-        childUpdates.put("maleOmutu",AddDetailBooleans.maleOmutu);
-        childUpdates.put("maleBabyChair",AddDetailBooleans.maleBabyChair);
-        childUpdates.put("maleBabyChairGood",AddDetailBooleans.maleBabyChairGood);
-        childUpdates.put("maleBabyCarAccess",AddDetailBooleans.maleBabyCarAccess);
-
-        //for Family Restroom
-        Log.i("Passed Boolean","6");
-
-        childUpdates.put("wheelchair",AddDetailBooleans.wheelchair);
-        childUpdates.put("wheelchairAccess",AddDetailBooleans.wheelchairAccess);
-        childUpdates.put("autoDoor",AddDetailBooleans.autoDoor);
-        childUpdates.put("callHelp",AddDetailBooleans.callHelp);
-        childUpdates.put("ostomate",AddDetailBooleans.ostomate);
-        childUpdates.put("braille",AddDetailBooleans.braille);
-        childUpdates.put("voiceGuide",AddDetailBooleans.voiceGuide);
-        childUpdates.put("familyOmutu",AddDetailBooleans.familyOmutu);
-        childUpdates.put("familyBabyChair",AddDetailBooleans.familyBabyChair);
-
-
-        childUpdates.put("milkspace",AddDetailBooleans.milkspace);
-        childUpdates.put("babyRoomOnlyFemale",AddDetailBooleans.babyroomOnlyFemale);
-        childUpdates.put("babyRoomMaleEnter",AddDetailBooleans.babyroomManCanEnter);
-        childUpdates.put("babyRoomPersonalSpace",AddDetailBooleans.babyPersonalSpace);
-        childUpdates.put("babyRoomPersonalSpaceWithLock",AddDetailBooleans.babyPersonalSpaceWithLock);
-        childUpdates.put("babyRoomWideSpace",AddDetailBooleans.babyRoomWideSpace);
-
-
-
-        childUpdates.put("babyCarRental",AddDetailBooleans.babyCarRental);
-        childUpdates.put("babyCarAccess",AddDetailBooleans.babyCarAccess);
-        childUpdates.put("omutu",AddDetailBooleans.omutu);
-        childUpdates.put("hipCleaningStuff",AddDetailBooleans.hipWashingStuff);
-        childUpdates.put("omutuTrashCan",AddDetailBooleans.babyTrashCan);
-        childUpdates.put("omutuSelling", AddDetailBooleans.omutuSelling);
-
-
-
-        childUpdates.put("babySink",AddDetailBooleans.babyRoomSink );
-        childUpdates.put("babyWashstand",AddDetailBooleans.babyWashStand);
-        childUpdates.put("babyHotwater",AddDetailBooleans.babyHotWater);
-        childUpdates.put("babyMicrowave",AddDetailBooleans.babyMicroWave);
-        childUpdates.put("babyWaterSelling",AddDetailBooleans.babyWaterSelling);
-        childUpdates.put("babyFoodSelling",AddDetailBooleans.babyFoddSelling);
-        childUpdates.put("babyEatingSpace",AddDetailBooleans.babyEatingSpace);
-
-
-
-        childUpdates.put("babyChair",AddDetailBooleans.babyChair);
-        childUpdates.put("babySoffa",AddDetailBooleans.babySoffa);
-        childUpdates.put("kidsToilet",AddDetailBooleans.babyKidsToilet);
-        childUpdates.put("kidsSpace",AddDetailBooleans.babyKidsSpace);
-        childUpdates.put("babyHeight",AddDetailBooleans.babyHeightMeasure);
-        childUpdates.put("babyWeight",AddDetailBooleans.babyWeightMeasure);
-        childUpdates.put("babyToy",AddDetailBooleans.babyToy );
-        childUpdates.put("babyFancy",AddDetailBooleans.babyFancy);
-        childUpdates.put("babySmellGood",AddDetailBooleans.babySmellGood);
-
-
-
-        //childUpdates.put("editedBy",uid);
-
-        //We dont need to updata editedBy uid....
-
-
-        updateToiletRef.updateChildren(childUpdates);
-
-
-
-
-
-
-        Log.i("please", "...");
-        // geolocationUpdate(firekey);
-
-        Intent intent = new Intent(getApplicationContext(),DetailViewActivity.class);
-        intent.putExtra("EXTRA_SESSION_ID", toilet.key);
-        intent.putExtra("toiletLatitude",toilet.latitude);
-        intent.putExtra("toiletLongitude",toilet.longitude);
-
-        startActivity(intent);
-        finish();
 
     }
 

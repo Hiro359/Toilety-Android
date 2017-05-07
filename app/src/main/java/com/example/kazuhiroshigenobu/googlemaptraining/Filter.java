@@ -2,15 +2,16 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 /**
  * Created by KazuhiroShigenobu on 14/2/17.
+ *
  */
 
-public class Filter {
+class Filter {
 
     static Boolean distanceSetted = false;
     static Double distanceFilter = 3.0;
-    static Boolean starFilterSetted = false;
+    //static Boolean starFilterSetted = false;
     static Double starFilter = 1.0;
-    static Boolean myOrderSetted = false;
+    //static Boolean myOrderSetted = false;
     static Boolean orderDistanceFilter = false;
     static Boolean orderStarFilter = false;
     static Boolean orderReviewFilter = false;

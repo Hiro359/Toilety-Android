@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 /**
  * Created by KazuhiroShigenobu on 22/2/17.
+ * //
  */
 
 class CustomAdapter{

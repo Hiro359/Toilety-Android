@@ -41,12 +41,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-//import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -56,6 +53,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -66,7 +64,6 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-//import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.UUID;
@@ -158,7 +155,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
     int minute = c.get(java.util.Calendar.MINUTE);
 
     SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
-    private AddBooleansListAdapter adapter;
+    //private AddBooleansListAdapter adapter;
     //I dont know how to deal with this warning May 7
 
 
@@ -189,13 +186,13 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
                                 }
         );
 
-        GoogleApiClient client;
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+//        GoogleApiClient client;
+//        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         //firebaseAuth.getCurrentUser().getUid();
 
-        Log.i("getUIDddd", String.valueOf(firebaseAuth.getCurrentUser().getUid()));
 
         //firebaseAuth.getCurrentUser();
 
@@ -422,11 +419,13 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
     }
 
 
+    @SuppressWarnings("unchecked")
     private void createRecyclerView(SparseArray array) {
         Log.i("reviewRecycle", "Called");
 
         RecyclerView recyclertView;
         RecyclerView.LayoutManager layoutManager;
+        AddBooleansListAdapter adapter;
 
 
         recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
@@ -528,7 +527,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
                                                        if (!spinnerLoaded) {
 
                                                            // ((TextView) parent.getChildAt(0)).setText(parent.getSelectedItem()));
-                                                           ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(3) + "");
+                                                           ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(3)));
                                                            //Set localize string...
 
                                                            spinnerLoaded = true;
@@ -822,9 +821,10 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
     private void firebaseUpdate(){
 
         firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() != null) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
 
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String uid = user.getUid();
 
             Integer stHour = Integer.parseInt(String.valueOf(startHoursSpinner.getSelectedItem()));
             Integer stMinu = Integer.parseInt(String.valueOf(startMinutesSpinner.getSelectedItem()));
@@ -843,16 +843,19 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
                 endData = endTime;
                 Log.i(String.valueOf(openData), String.valueOf(endData));
 
-            } else if (openTime == endTime) {
+            } else if (openTime.equals(endTime)) {
                 openData = 5000;
                 endData = 5000;
                 Log.i(String.valueOf(openData), String.valueOf(endData));
-            } else if (openTime > endTime) {
-                openData = openTime;
-                endData = endTime + 2400;
-                Log.i(String.valueOf(openData), String.valueOf(endData));
-
             }
+
+            //This needs to be changed !!!!!!!!!!!!!!!!!!!!!!
+//            else if (openTime > endTime) {
+//                openData = openTime;
+//                endData = endTime + 2400;
+//                Log.i(String.valueOf(openData), String.valueOf(endData));
+//
+//            }
 
 //       Log.i(String.valueOf(openData),String.valueOf(endData));
 
@@ -1033,46 +1036,52 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
     private void reviewUpload() {
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //I need to do somthing.. inv
-
-        double ratingValue = ratingBar.getRating();
-        String avStar = String.valueOf(ratingValue);
-        String dateString = year + "-" + month + "-" + day;
-
-        String waitingTime = waitingTimeSpinner.getSelectedItem().toString();
-        //float to Int
-        //Integer waitingValue = Integer.parseInt(waitingV);
+            String uid = user.getUid();
 
 
-        Long timeLong = System.currentTimeMillis() / 1000l;
-        //Long timeLong = System.currentTimeMillis() / 1000l;
-        double timeNumbers = timeLong.doubleValue();
+            //I need to do somthing.. inv
+
+            double ratingValue = ratingBar.getRating();
+            String avStar = String.valueOf(ratingValue);
+            String dateString = year + "-" + month + "-" + day;
+
+            String waitingTime = waitingTimeSpinner.getSelectedItem().toString();
+            //float to Int
+            //Integer waitingValue = Integer.parseInt(waitingV);
 
 
-        DatabaseReference reviewInfoRef = fireDatabase.getReference("ReviewInfo");
-        DatabaseReference toiletReviewsRef = fireDatabase.getReference("ToiletReviews");
-        DatabaseReference reviewListRef = fireDatabase.getReference("ReviewList");
-
-        ReviewPost newPost = new ReviewPost(
-                true,
-                textFeedback.getText().toString(),//String feedback,
-                0,//Integer likedCount,
-                avStar,//String star,
-                newTid,
-                dateString,//String time,
-                timeNumbers,
-                uid,
-                waitingTime);
+            Long timeLong = System.currentTimeMillis() / 1000;
+            //Long timeLong = System.currentTimeMillis() / 1000l;
+            double timeNumbers = timeLong.doubleValue();
 
 
-        reviewInfoRef.child(newRid).setValue(newPost);
+            DatabaseReference reviewInfoRef = fireDatabase.getReference("ReviewInfo");
+            DatabaseReference toiletReviewsRef = fireDatabase.getReference("ToiletReviews");
+            DatabaseReference reviewListRef = fireDatabase.getReference("ReviewList");
 
-        reviewListRef.child(uid).child(newRid).setValue(true);
+            ReviewPost newPost = new ReviewPost(
+                    true,
+                    textFeedback.getText().toString(),//String feedback,
+                    0,//Integer likedCount,
+                    avStar,//String star,
+                    newTid,
+                    dateString,//String time,
+                    timeNumbers,
+                    uid,
+                    waitingTime);
 
-        toiletReviewsRef.child(newTid).child(newRid).setValue(true);
 
+            reviewInfoRef.child(newRid).setValue(newPost);
+
+            reviewListRef.child(uid).child(newRid).setValue(true);
+
+            toiletReviewsRef.child(newTid).child(newRid).setValue(true);
+
+        }
 
     }
 
@@ -1192,7 +1201,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
 //
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 mMap.setMyLocationEnabled(true);
                 Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
 
@@ -1213,6 +1222,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
 
                 } else {
+                    Log.i("No lastLocation","");
                     //When you could not get the last known location...
 
                 }

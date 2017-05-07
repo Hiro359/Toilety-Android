@@ -1,37 +1,32 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by KazuhiroShigenobu on 30/4/17.
+ *
  */
 
-public class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private LayoutInflater inflator;
-    public static final int ITEM_TYPE_NORMAL = 0;
-    public static final int ITEM_TYPE_HEADER = 1;
+    //private LayoutInflater inflator;
+    private static final int ITEM_TYPE_NORMAL = 0;
+    private static final int ITEM_TYPE_HEADER = 1;
 
         //private List<FilterBooleans> filterList;
 
-    SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
+    private SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
 
 
 
-    public FilterListAdapter(SparseArray<FilterBooleans> filterSparseArray){
+    FilterListAdapter(SparseArray<FilterBooleans> filterSparseArray){
         this.filterSparseArray = filterSparseArray;
     }
 
@@ -403,18 +398,18 @@ public class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-    public class FilterViewHolder extends RecyclerView.ViewHolder {
+    private class FilterViewHolder extends RecyclerView.ViewHolder {
 
              Switch booleanSwitch;
 
-            public FilterViewHolder(View itemView) {
+            FilterViewHolder(View itemView) {
                 super(itemView);
 
                 booleanSwitch = (Switch) itemView.findViewById(R.id.filterBooleanSwitch);
 
             }
 
-            public void bindData(String text) {
+            void bindData(String text) {
 
                 booleanSwitch.setText(text);
 //            titleLabel.setText(model.getTitle());
@@ -423,17 +418,17 @@ public class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-    public class HeaderFilterViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderFilterViewHolder extends RecyclerView.ViewHolder {
 
         TextView headerText;
 
-        public HeaderFilterViewHolder(View itemView) {
+        HeaderFilterViewHolder(View itemView) {
             super(itemView);
 
             headerText = (TextView) itemView.findViewById(R.id.headerTextView);
         }
 
-        public void setHeaderText(String text) {
+        void setHeaderText(String text) {
             headerText.setText(text);
         }
     }

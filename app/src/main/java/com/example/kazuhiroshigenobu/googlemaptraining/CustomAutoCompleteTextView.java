@@ -26,7 +26,11 @@ public class CustomAutoCompleteTextView extends AutoCompleteTextView {
     protected CharSequence convertSelectionToString(Object selectedItem) {
         /** Each item in the autocompetetextview suggestion list is a hashmap object */
         HashMap<String, String> hm = (HashMap<String, String>) selectedItem;
+
+        //Should i ckeck it this time??
+
         return hm.get("description");
+
     }
 }
 

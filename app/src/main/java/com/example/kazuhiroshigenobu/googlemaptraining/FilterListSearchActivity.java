@@ -20,20 +20,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static android.widget.LinearLayout.VERTICAL;
 
 public class FilterListSearchActivity extends AppCompatActivity {
 
 
-    private RecyclerView recyclertView;
-    private RecyclerView.LayoutManager layoutManager;
-    private FilterListAdapter adapter;
+//    private RecyclerView recyclertView;
+//    private RecyclerView.LayoutManager layoutManager;
+//    private FilterListAdapter adapter;
 
     SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
 
@@ -227,7 +222,7 @@ public class FilterListSearchActivity extends AppCompatActivity {
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String filterName;
+                //String filterName;
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
 //                ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(position)));
@@ -257,11 +252,11 @@ public class FilterListSearchActivity extends AppCompatActivity {
                     Filter.orderStarFilter = false;
                 }
 
-                if (Filter.orderDistanceFilter == true){
+                if (Filter.orderDistanceFilter){
                     ((TextView) parent.getChildAt(0)).setText("現在地から近い順");
-                } else if (Filter.orderStarFilter == true){
+                } else if (Filter.orderStarFilter){
                     ((TextView) parent.getChildAt(0)).setText("評価が高い順");
-                } else if (Filter.orderReviewFilter == true){
+                } else if (Filter.orderReviewFilter){
                     ((TextView) parent.getChildAt(0)).setText("感想が多い順");
                 } else {
 
@@ -368,6 +363,7 @@ public class FilterListSearchActivity extends AppCompatActivity {
 
 
                 if (position == 0){
+                    Log.i("SHoud not be ","star zero");
 //                    filter.starFilter = 1.0;
                 }
 
@@ -534,8 +530,12 @@ public class FilterListSearchActivity extends AppCompatActivity {
     }
 
 
+    @SuppressWarnings("unchecked")
     private void createRecyclerView(SparseArray array) {
         Log.i("reviewRecycle", "Called");
+        RecyclerView recyclertView;
+        RecyclerView.LayoutManager layoutManager;
+        FilterListAdapter adapter;
         recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
         adapter = new FilterListAdapter(array);
         layoutManager = new LinearLayoutManager(this);

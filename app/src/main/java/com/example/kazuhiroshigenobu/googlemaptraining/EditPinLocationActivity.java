@@ -24,11 +24,8 @@ import android.view.Menu;
 import android.view.MenuItem;
         import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-        import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.firebase.geofire.GeoFire;
         import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.appindexing.Action;
@@ -41,8 +38,6 @@ import com.google.android.gms.appindexing.Action;
         import com.google.android.gms.maps.SupportMapFragment;
         import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-        import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
         import com.google.firebase.database.DatabaseReference;
         import com.google.firebase.database.FirebaseDatabase;
@@ -68,18 +63,18 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
     LocationListener locationListener;
 
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+//    private FirebaseAuth mAuth;
+//    private FirebaseAuth.AuthStateListener mAuthListener;
 
-    private Button buttonLocationSend;
+//    private Button buttonLocationSend;
 
-    private RequestQueue requestQueue;
+//    private RequestQueue requestQueue;
 
     private Boolean markerSetted = false;
-    private Toolbar toolbar;
-    private TextView toolbarTitle;
+//    private Toolbar toolbar;
+//    private TextView toolbarTitle;
 
-    private DatabaseReference toiletRef;
+//    private DatabaseReference toiletRef;
     private DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("ToiletLocations");
     GeoFire geoFire = new GeoFire(locationRef);
 
@@ -115,14 +110,15 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Context context;
+        //final Context context;
         setContentView(R.layout.activity_edit_pin_location);
         toilet.key = getIntent().getStringExtra("EXTRA_SESSION_ID");
         toilet.latitude = getIntent().getDoubleExtra("toiletLatitude",0);
         toilet.longitude = getIntent().getDoubleExtra("toiletLongitude",0);
 
+        Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.edit_pin_location_bar_layout);
-        toolbarTitle = (TextView) toolbar.findViewById(R.id.editPinLocationLayoutAppBarTitle);
+        //toolbarTitle = (TextView) toolbar.findViewById(R.id.editPinLocationLayoutAppBarTitle);
 
 
         setSupportActionBar(toolbar);
@@ -162,15 +158,15 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 
         Toast.makeText(this, "is this working", Toast.LENGTH_SHORT).show();
 
-        requestQueue = Volley.newRequestQueue(this);
 
 
 
+        Button buttonLocationSend;
         buttonLocationSend = (Button) findViewById(R.id.buttonLocationSend);
         buttonLocationSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (markerSetted == false){
+                if (!markerSetted){
                     //Location is null
                     alertCall();
 
@@ -195,24 +191,24 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
 
-        mAuth = FirebaseAuth.getInstance();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.i("FireAuth","onAuthStateChanged:signed_in:" + user.getUid());
-                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.i("FireAuth","onAuthStateChanged:signed_out");
-                    //Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
+//        mAuth = FirebaseAuth.getInstance();
+//
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if (user != null) {
+//                    // User is signed in
+//                    Log.i("FireAuth","onAuthStateChanged:signed_in:" + user.getUid());
+//                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+//                } else {
+//                    // User is signed out
+//                    Log.i("FireAuth","onAuthStateChanged:signed_out");
+//                    //Log.d(TAG, "onAuthStateChanged:signed_out");
+//                }
+//                // ...
+//            }
+//        };
     }
 
     private void alertCall(){
@@ -291,6 +287,7 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 
     private void firebaseToiletsChildLatLonAddressUpdate(){
 
+        DatabaseReference toiletRef;
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
         DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
 
@@ -419,7 +416,7 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 
 //
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 mMap.setMyLocationEnabled(true);
                 Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
 
@@ -430,7 +427,7 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 
                     mMap.clear();
 
-                    LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                    //LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
 
 
                     if (toilet.latitude != null && toilet.longitude != null){
@@ -448,6 +445,7 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 
 
                 } else {
+                    Log.i("Last Known","Cannot FInd");
                     //When you could not get the last known location...
 
                 }
@@ -518,8 +516,7 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 
             JSONParser jParser = new JSONParser();
 
-            JSONObject json = jParser.getLocationInfo(AddLocations.latitude,AddLocations.longitude);
-            return  json;
+            return jParser.getLocationInfo(AddLocations.latitude,AddLocations.longitude);
         }
         @Override
         protected void onPostExecute(JSONObject json) {

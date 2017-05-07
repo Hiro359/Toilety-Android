@@ -22,12 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -43,16 +42,16 @@ public class KansouActivity extends AppCompatActivity {
     Button buttonKansouAdd;
     ArrayAdapter<CharSequence> adapter1;
 
-    private DatabaseReference toiletRef;
-    private DatabaseReference reviewsRef;
-    private DatabaseReference toiletReviewRef;
-    private DatabaseReference reviewListRef;
+//    private DatabaseReference toiletRef;
+//    private DatabaseReference reviewsRef;
+//    private DatabaseReference toiletReviewRef;
+//    private DatabaseReference reviewListRef;
     long originalReviewCount;
     long originalAverageWait;
     String originalAverageStar;
     String originalReviewOne;
-    private Toolbar toolbar;
-    private TextView toolbarTitle;
+    //private Toolbar toolbar;
+    //private TextView toolbarTitle;
     Toilet toilet =  new Toilet();
     String newRid = UUID.randomUUID().toString();
 
@@ -75,8 +74,9 @@ public class KansouActivity extends AppCompatActivity {
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         waitingSpinner.setAdapter(adapter1);
 
+        Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.kansou_app_bar);
-        toolbarTitle = (TextView) toolbar.findViewById(R.id.kansouAppBarTitle);
+        //toolbarTitle = (TextView) toolbar.findViewById(R.id.kansouAppBarTitle);
 
         toilet.key = getIntent().getStringExtra("EXTRA_SESSION_ID");
         toilet.latitude = getIntent().getDoubleExtra("toiletLatitude",0);
@@ -161,9 +161,11 @@ public class KansouActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                  if (isChecked){
+                     Log.i("Do Something","");
                      //true
 
                 } else{
+                     Log.i("Do Something","");
                    //false
                 }
             }
@@ -214,8 +216,8 @@ public class KansouActivity extends AppCompatActivity {
         double ratingValue = kansouRaitng.getRating();
         int waitingUserInputValue = Integer.parseInt(waitingSpinner.getSelectedItem().toString());
 
-        double newAvStarDouble = 3.0;
-        long newWaitingTime = 3;
+        double newAvStarDouble;
+        long newWaitingTime;
 
         long newReviewCount = originalReviewCount + 1;
 
@@ -259,29 +261,33 @@ public class KansouActivity extends AppCompatActivity {
         // I used long instead of int but i am not sure its right...
         // it should convert double to int
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
-        DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+            //String uid = user.getUid();
+
+            DatabaseReference toiletRef;
+            toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+            DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
 
 
-        String newAvStarString = String.valueOf(roundedAverageStar);
+            String newAvStarString = String.valueOf(roundedAverageStar);
 
-        Map<String, Object> childUpdates = new HashMap<>();
+            Map<String, Object> childUpdates = new HashMap<>();
 
-        childUpdates.put("reviewCount",newReviewCount);
-        childUpdates.put("averageStar",newAvStarString);
-        childUpdates.put("averageWait",newWaitingTime);
-        childUpdates.put("reviewOne", newRid);
-        childUpdates.put("reviewTwo", originalReviewOne);
-
-
-
-        //childUpdates.put("editedBy",uid);
-
-        //We dont need to updata editedBy uid....
+            childUpdates.put("reviewCount", newReviewCount);
+            childUpdates.put("averageStar", newAvStarString);
+            childUpdates.put("averageWait", newWaitingTime);
+            childUpdates.put("reviewOne", newRid);
+            childUpdates.put("reviewTwo", originalReviewOne);
 
 
-        updateToiletRef.updateChildren(childUpdates);
+            //childUpdates.put("editedBy",uid);
+
+            //We dont need to updata editedBy uid....
+
+
+            updateToiletRef.updateChildren(childUpdates);
+
     }
 
     private void reviewDataUpload(){
@@ -292,49 +298,54 @@ public class KansouActivity extends AppCompatActivity {
 //        else{
 //            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //        }
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
 
-        Log.i("This is the UID", uid);
-
-
-        long timeStamp = System.currentTimeMillis();
-        Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
-
-        String ratingValue = String.valueOf(kansouRaitng.getRating());
-
-        String dateString = getDate(timeStamp);
-        //String dateString = toDate(timeStamp);
-        Log.i("This is the dateString",dateString);
+            Log.i("This is the UID", uid);
 
 
-        reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
-        toiletReviewRef = FirebaseDatabase.getInstance().getReference().child("ToiletReviews");
-        reviewListRef = FirebaseDatabase.getInstance().getReference().child("ReviewList");
+            long timeStamp = System.currentTimeMillis();
+            Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
 
-        reviewsRef.child(newRid).setValue(new ReviewPost(
-                availableSwitch.isChecked(),
-                String.valueOf(kansouText.getText()),
-                0,
-                ratingValue,
-                toilet.key,
-                dateString,
-                timeStampDouble,
-                uid,
-                waitingSpinner.getSelectedItem().toString()
-        ));
+            String ratingValue = String.valueOf(kansouRaitng.getRating());
+
+            String dateString = getDate(timeStamp);
+            //String dateString = toDate(timeStamp);
+            Log.i("This is the dateString", dateString);
 
 
-        Log.i("before", "toiletReviewRef");
-        Log.i("toilet.key", toilet.key);
-        Log.i("newRid", newRid);
-        toiletReviewRef.child(toilet.key).child(newRid).setValue(true);
+            DatabaseReference reviewsRef;
+            reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
+            DatabaseReference toiletReviewRef;
+            toiletReviewRef = FirebaseDatabase.getInstance().getReference().child("ToiletReviews");
+            DatabaseReference reviewListRef;
+            reviewListRef = FirebaseDatabase.getInstance().getReference().child("ReviewList");
+
+            reviewsRef.child(newRid).setValue(new ReviewPost(
+                    availableSwitch.isChecked(),
+                    String.valueOf(kansouText.getText()),
+                    0,
+                    ratingValue,
+                    toilet.key,
+                    dateString,
+                    timeStampDouble,
+                    uid,
+                    waitingSpinner.getSelectedItem().toString()
+            ));
 
 
-        Log.i("before", "reviewListRef");
-        reviewListRef.child(uid).child(newRid).setValue(true);
+            Log.i("before", "toiletReviewRef");
+            Log.i("toilet.key", toilet.key);
+            Log.i("newRid", newRid);
+            toiletReviewRef.child(toilet.key).child(newRid).setValue(true);
 
 
+            Log.i("before", "reviewListRef");
+            reviewListRef.child(uid).child(newRid).setValue(true);
 
+
+        }
     }
 
     private String getDate(long time) {
