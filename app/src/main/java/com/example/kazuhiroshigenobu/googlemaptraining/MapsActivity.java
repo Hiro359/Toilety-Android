@@ -60,7 +60,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.view.View.GONE;
 import static android.widget.LinearLayout.VERTICAL;
@@ -96,6 +98,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button buttonForOriginalLocation;
 
     private Integer recycleViewHeight = 900;
+
+    final List<Toilet> toiletData = new ArrayList<>();
+
+   // private Map<Marker, Toilet> allMarkersMap = new HashMap<>();
+
+
+
+
 
 
 
@@ -360,6 +370,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 recycleViewHeight = 900;
                 listViewAdjustAnimation();
+
+                //Commented May 12
+
             }
 
         }
@@ -524,10 +537,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         String avStar = marker.getTag().toString();
                         Float ratingValue = Float.parseFloat(avStar);
 
+//                        toilet.averageWait/10000;
+
+                        Log.i("miniAvWait Get 99999", String.valueOf(marker.getRotation()));
+
+                        Float avWaitFloat = marker.getRotation() * 100;
+                        Integer avWait = Math.round(avWaitFloat);
+
+                        Log.i("Final avWait Get 99999", String.valueOf(avWait));
+
+
+
 
 
                         marketName.setText(marker.getTitle());
-                        markerDetail.setText("平均"+ String.valueOf(marker.getRotation()) +"分待ち/" + distanceSting);
+                        markerDetail.setText("平均"+ String.valueOf(avWait) +"分待ち/" + distanceSting);
                         markerRatingBar.setRating(ratingValue);
                         marketRatingString.setText(avStar);
 
@@ -1231,7 +1255,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Boolean removedToilet = false;
 
         Toilet toilet = new Toilet();
-        final List<Toilet> toiletData = new ArrayList<>();
+//        final List<Toilet> toiletData = new ArrayList<>();
+
+        //Commented May 12
 
 
         //Filter filter = new Filter();
@@ -1705,7 +1731,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
             float distanceFloat = Float.parseFloat(toilet.distanceNumberString);
-            float averageWaitFloat = toilet.averageWait;
+            //float averageWaitFloat = toilet.averageWait;
+
+            float miniAvWaitFloat = toilet.averageWait/100f;
+
+            Log.i("miniAvWait99999", String.valueOf(miniAvWaitFloat));
+
+
 
 
             Double avStar = Double.parseDouble(toilet.averageStar);
@@ -1733,6 +1765,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
 
+//             markerA = new google.maps.Marker({
+//                    map: map,
+//                    position: new google.maps.LatLng(0, 0),
+//                    customInfo: "Marker A"
+//            });
+
+
 
             BitmapDescriptor markerIcon = getMarkerIconFromDrawable(dImage);
 
@@ -1740,7 +1779,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Marker marker = mMap.addMarker(new MarkerOptions().position(toiletLocation)
                     .title(toilet.name)
                     .snippet(toilet.key)
-                    .rotation(averageWaitFloat)
+                    .rotation(miniAvWaitFloat)
                     .zIndex(distanceFloat)
                     .flat(toilet.available)
                     .icon(markerIcon)
