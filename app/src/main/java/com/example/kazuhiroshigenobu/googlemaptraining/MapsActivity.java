@@ -355,8 +355,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         recyclertView.setHasFixedSize(true);
         recyclertView.setAdapter(adapter);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclertView.getContext(),VERTICAL);
-        recyclertView.addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclertView.getContext(),VERTICAL);
+//        recyclertView.addItemDecoration(dividerItemDecoration);
+
+        //Commented May 12 for removing the divider because i felt its too big
+
+
+
         Log.i("createReclerView()Ended", "");
 
         if (recyclertView != null) {

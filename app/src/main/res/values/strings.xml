@@ -42,6 +42,11 @@
     <string name="searchStart">検索</string>
 
 
+    <!--Marker Window-->
+
+    <string name="moreInfo">詳細を見る</string>
+
+
     <!--Review Cutsom Row-->
     <string name="userName">user name</string>
     <string name="reviewLikeCount">いいね３件</string>

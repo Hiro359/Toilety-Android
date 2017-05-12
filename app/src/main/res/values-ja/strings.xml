@@ -51,6 +51,10 @@
     <string name="dateString">2017/4/21</string>
     <string name="reviewListTitle">全ての感想</string>
 
+    <!--Marker Window-->
+
+    <string name="moreInfo">詳細を見る</string>
+
 
     <!--FavoriteListActivity -->
     <string name="favListTitle">お気に入りリスト</string>

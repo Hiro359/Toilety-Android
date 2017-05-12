@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="291sp"
-              android:layout_height="180sp"
-    android:background="@color/colorForBackground">
+              android:layout_width="259sp"
+              android:layout_height="160sp"
+    android:background="@color/colorLabel">
 
 
     <TextView
@@ -52,6 +52,7 @@
            android:numStars="5"
            android:theme="@style/RatingBar"
            android:isIndicator="true"
+           android:layout_gravity="center_vertical"
            android:id="@+id/markerRatingBar"
            />
 
@@ -60,7 +61,7 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="@string/defaultCount"
-           android:textColor="@color/colorPrimary"
+           android:textColor="@color/colorStar"
            android:textSize="20sp"
            android:layout_gravity="center_vertical"
            android:id="@+id/markerRatingString"/>
@@ -82,9 +83,17 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:layout_margin="6dp"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="8dp"
         android:id="@+id/markerDetailButton"
+        android:text="@string/moreInfo"
+        android:textColor="@color/colorWhiteText"
+        android:textSize="25sp"
         />
 
 
