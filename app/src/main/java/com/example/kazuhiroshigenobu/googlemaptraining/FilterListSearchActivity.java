@@ -1,13 +1,17 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.util.SortedListAdapterCallback;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Menu;
@@ -23,7 +27,7 @@ import android.widget.Toast;
 
 import static android.widget.LinearLayout.VERTICAL;
 
-public class FilterListSearchActivity extends AppCompatActivity {
+public class FilterListSearchActivity extends AppCompatActivity implements FilterListAdapter.AdapterCallback {
 
 
 //    private RecyclerView recyclertView;
@@ -55,6 +59,7 @@ public class FilterListSearchActivity extends AppCompatActivity {
         toolbarReady();
         sparseArrayReady();
         spinnersReady();
+
 
     }
 
@@ -537,7 +542,7 @@ public class FilterListSearchActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager;
         FilterListAdapter adapter;
         recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
-        adapter = new FilterListAdapter(array);
+        adapter = new FilterListAdapter(array, this);
         layoutManager = new LinearLayoutManager(this);
         recyclertView.setLayoutManager(layoutManager);
         recyclertView.setHasFixedSize(true);
@@ -552,6 +557,43 @@ public class FilterListSearchActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onMethodCallback() {
+
+
+        Log.i("CallBack","Called 99999");
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //AlertDialog.Builder builder = new AlertDialog.Builder();
+        builder.setTitle("Safe Toilet");
+        //Set title localization
+        builder.setItems(new CharSequence[]
+                        {"ログインをする", "ログインをしない"},
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                break;
+                            case 1:
+                                break;
+                        }
+                    }
+                });
+        builder.create().show();
+
+
+
+        // do something
+    }
+
+
+
+
+
+    //Trying to access from filter list adapter
 
 
 }

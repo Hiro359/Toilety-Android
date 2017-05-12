@@ -55,6 +55,7 @@ public class AccountActivity extends AppCompatActivity {
 
             Log.i("Login 88888", "Start");
             String userID = firebaseAuth.getCurrentUser().getUid();
+
             userDataCheck(userID);
 
 

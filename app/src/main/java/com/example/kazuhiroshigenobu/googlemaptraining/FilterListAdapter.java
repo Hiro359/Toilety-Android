@@ -1,6 +1,11 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by KazuhiroShigenobu on 30/4/17.
@@ -19,15 +25,38 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     //private LayoutInflater inflator;
     private static final int ITEM_TYPE_NORMAL = 0;
     private static final int ITEM_TYPE_HEADER = 1;
+    private static final int ITEM_TYPE_SAFEBABYCHAIR = 2;
+
+    //private Context mContext;
+
+    private AdapterCallback mAdapterCallback;
+
 
         //private List<FilterBooleans> filterList;
 
     private SparseArray<FilterBooleans> filterSparseArray = new SparseArray<>();
 
 
+//    FilterListAdapter(SparseArray<FilterBooleans> filterSparseArray){
+//        this.filterSparseArray = filterSparseArray;
+//    }
+    //Original....May 12
 
-    FilterListAdapter(SparseArray<FilterBooleans> filterSparseArray){
+
+
+//    FilterListAdapter(SparseArray<FilterBooleans> filterSparseArray, Context context){
+//        this.filterSparseArray = filterSparseArray;
+//        this.mContext=context;
+//    }
+
+    FilterListAdapter(SparseArray<FilterBooleans> filterSparseArray, Context context){
         this.filterSparseArray = filterSparseArray;
+        try {
+
+            this.mAdapterCallback = ((AdapterCallback) context);
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Activity must implement AdapterCallback.");
+        }
     }
 
 
@@ -73,7 +102,9 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                    Log.i("Click Called","99999");
                     if (pos == 1) {
+                        Log.i("Click Av","99999");
                         Filter.availableFilter = buttonView.isChecked();
                     }
                     if (pos == 2) {
@@ -92,6 +123,7 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                     if (pos == 7) {
                         Filter.washletFilter = buttonView.isChecked();
+                        Log.i("Click Wash","99999");
                     }
                     if (pos == 8) {
                         Filter.warmSearFilter = buttonView.isChecked();
@@ -104,7 +136,8 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                     if (pos == 11) {
                         Filter.paperForBenkiFilter = buttonView.isChecked();
-                    } if (pos == 12) {
+                    }
+                    if (pos == 12) {
                         Filter.cleanerForBenkiFilter = buttonView.isChecked();
                     }
                     if (pos == 13) {
@@ -170,7 +203,8 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                     if (pos == 34) {
                         Filter.napkinSelling = buttonView.isChecked();
-                    } if (pos == 35) {
+                    }
+                    if (pos == 35) {
                         Filter.makeroomFilter = buttonView.isChecked();
                     }
                     if (pos == 36) {
@@ -180,6 +214,14 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         Filter.ladyBabyChair = buttonView.isChecked();
                     }
                     if (pos == 38) {
+
+                        try {
+                            mAdapterCallback.onMethodCallback();
+                        } catch (ClassCastException exception) {
+                            // do something
+                        }
+
+                        //Baby Safe
                         Filter.ladyBabyChairGood = buttonView.isChecked();
                     }
                     if (pos == 39) {
@@ -191,6 +233,14 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         Filter.maleBabyChair = buttonView.isChecked();
                     }
                     if (pos == 43) {
+                        //Baby Safe
+
+                        try {
+                            mAdapterCallback.onMethodCallback();
+                        } catch (ClassCastException exception) {
+                            // do something
+                        }
+
                         Filter.maleBabyChairGood = buttonView.isChecked();
                     }
                     if (pos == 44) {
@@ -335,34 +385,12 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-
-//    @Override
-//    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//
-//        final int itemType = getItemViewType(position);
-//
-//        if (itemType == ITEM_TYPE_NORMAL) {
-//            ((FilterViewHolder)holder).bindData(filterList.get(position).booleanName);
-//            //((FilterViewHolder) holder).booleanSwitch.setChecked();
-//        } else if (itemType == ITEM_TYPE_HEADER) {
-//            ((HeaderFilterViewHolder)holder).setHeaderText(filterList.get(position).booleanName);
-//        }
-//
-//    }
+    interface AdapterCallback {
+        void onMethodCallback();
+    }
 
 
-//    @Override
-//        public void onBindViewHolder(final FilterViewHolder holder, int position) {
-//
-//
-//            if (filterList.isEmpty()) {
-//                Log.i("Reviewcurrent.key", "Its empty");
-//
-//            } else {
-//
-//
-//            }
-//        }
+
 
     @Override
     public int getItemCount() {
@@ -373,14 +401,6 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-//        @Override
-//        public int getItemCount() {
-//
-//            Log.i("ReviewtoiletData.size()",String.valueOf(filterList.size()));
-//            return filterList.size();
-//
-//
-//        }
 
     @Override
     public int getItemViewType(int position) {
@@ -390,7 +410,13 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                || position == 40|| position == 45|| position == 55|| position == 62|| position == 69 || position == 77) {
            return ITEM_TYPE_HEADER;
 
-       } else {
+//       } else if (position == 38 || position == 43) {
+//
+//           return ITEM_TYPE_SAFEBABYCHAIR;
+//       }
+//
+       }else{
+
            return ITEM_TYPE_NORMAL;
        }
 
