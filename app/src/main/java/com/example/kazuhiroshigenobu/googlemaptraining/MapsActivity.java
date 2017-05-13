@@ -1,6 +1,7 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -144,9 +145,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         //final Context context;
+
         setContentView(R.layout.activity_maps);
+
+
+        Log.i("ScreenLoading", "Start");
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -223,6 +230,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     }
+
+//    private void loadingScreenDisplay(){
+//        ProgressDialog dialog=new ProgressDialog(this);
+//        dialog.setMessage("message");
+//        dialog.setCancelable(false);
+//        dialog.setInverseBackgroundForced(false);
+//        dialog.show();
+//    }
 
     private void buttonSetClick(){
         buttonMapCenter.setVisibility(View.INVISIBLE);
