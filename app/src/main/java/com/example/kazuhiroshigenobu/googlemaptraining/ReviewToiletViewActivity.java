@@ -1,12 +1,15 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -19,14 +22,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import java.util.UUID;
 
 import static android.widget.LinearLayout.VERTICAL;
 
-public class ReviewToiletViewActivity extends AppCompatActivity {
+public class ReviewToiletViewActivity extends AppCompatActivity implements ReviewListAdapter.ReviewAdapterCallback {
 
 
 //    private RecyclerView recyclertView;
@@ -38,6 +47,7 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
 //    private DatabaseReference thumbsUpRef;
 
     private DatabaseReference userRef;
+
 
     final List<Review> reviewList = new ArrayList<>();
 
@@ -121,7 +131,7 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
         ReviewListAdapter adapter;
         Log.i("reviewRecycle", "Called");
         recyclertView = (RecyclerView) findViewById(R.id.toiletReviewList);
-        adapter = new ReviewListAdapter(reviewList);
+        adapter = new ReviewListAdapter(reviewList,this);
         //adapter = new ToiletListAdapter(reviewData);
         layoutManager = new LinearLayoutManager(this);
         recyclertView.setLayoutManager(layoutManager);
@@ -312,25 +322,124 @@ public class ReviewToiletViewActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onReviewMethodCallback(final String rid) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //AlertDialog.Builder builder = new AlertDialog.Builder();
+        builder.setTitle(rid);
+        //Set title localization
+        builder.setItems(new CharSequence[]
+                        {"報告する", "報告しない"},
+
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                whatIsTheProblem(rid);
+                                break;
+                            case 1:
+                                break;
+                        }
+                    }
+                });
+        builder.create().show();
+    }
+
+
+    private void whatIsTheProblem(final String rid){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //AlertDialog.Builder builder = new AlertDialog.Builder();
+        builder.setTitle("問題だと思う点を教えてください");
+        //Set title localization
+        builder.setItems(new CharSequence[]
+                        {"感想の内容に誤りがある", "感想の内容が不適切である","ユーザーの写真が不適切である"
+                                ,"ユーザーの名前が不適切である","いいえ、問題はありません"},
+
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                reviewReportUploadToDatabase("The content of the review is not correct",rid);
+                                break;
+                            case 1:
+                                reviewReportUploadToDatabase("The content of the review is not relevent",rid);
+                                break;
+                            case 2:
+                                reviewReportUploadToDatabase("The picture of the user is not appropriate",rid);
+                                break;
+                            case 3:
+                                reviewReportUploadToDatabase("The name of the user is not appropriate",rid);
+                                break;
+                            case 4:
+                                break;
+
+
+                        }
+                    }
+                });
+        builder.create().show();
+
+    }
+
+    private void reviewReportUploadToDatabase(String problemString, String rid){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null){
+            String uid = user.getUid();
+            long timeStamp = System.currentTimeMillis();
+            Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
+            String timeString = getDate(timeStamp) + getHour();
+
+            String postId = UUID.randomUUID().toString();
+
+
+
+            DatabaseReference reviewProblemRef = FirebaseDatabase.getInstance().getReference().child("ReviewProblems");
+
+            reviewProblemRef.child(postId).setValue(new ReviewReport(
+                  rid,uid, timeString, timeStampDouble, problemString)
+
+            );
+
+            Log.i("Post Done", "222222");
 
 
 
 
+        }
+
+
+    }
+
+    private String getDate(long time) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+
+        cal.setTimeInMillis(time);
+
+        // String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+        Log.i("TIME121", DateFormat.format("yyyy-MM-dd", cal).toString());
+        return DateFormat.format("yyyy-MM-dd", cal).toString();
+    }
+
+
+    private String getHour() {
+        java.util.Calendar c = java.util.Calendar.getInstance();
+        int hour = c.get(java.util.Calendar.HOUR_OF_DAY);
+        int minute = c.get(java.util.Calendar.MINUTE);
+
+        return "-" + String.valueOf(hour) + ":" + String.valueOf(minute);
+//        SimpleDateFormat simpleDateFormatArrivals = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+//        return  simpleDateFormatArrivals;
+    }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-//
+    //
 //
 //
 //

@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/detailSettingsButton"
-        android:icon="@drawable/app_settings_icon_drawable"
+        android:icon="@drawable/question_mark_20_drawable"
         app:showAsAction="ifRoom"
         android:orderInCategory="200"
         android:title="@string/settingsButton">

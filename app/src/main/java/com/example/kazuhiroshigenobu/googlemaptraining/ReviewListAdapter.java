@@ -1,7 +1,9 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,11 +41,19 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
     private DatabaseReference userRef = firebaseRef.child("Users");
     //private
 
+    private ReviewAdapterCallback mAdapterCallback;
     //String [] toiletNames;
 
 
-    ReviewListAdapter(List<Review> reviewList){
+    ReviewListAdapter(List<Review> reviewList, Context context){
+
         this.reviewList = reviewList;
+        try {
+
+            this.mAdapterCallback = ((ReviewAdapterCallback) context);
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Activity must implement ReviewAdapterCallback.");
+        }
         // this.toiletData = toiletData;
 
     }
@@ -108,10 +118,26 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
 
             }
 
+
+
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
                 final String uid = user.getUid();
 
+                holder.reviewReportButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Show Dialog
+
+                        try {
+                            mAdapterCallback.onReviewMethodCallback(current.rid);
+                        } catch (ClassCastException exception) {
+                            // do something
+                        }
+
+
+                    }
+                });
 
                 //final Boolean buttonTapped = false;
 
@@ -197,6 +223,12 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
     }
 
 
+
+    interface ReviewAdapterCallback {
+        void onReviewMethodCallback(String rid);
+    }
+
+
     @Override
     public int getItemCount() {
 
@@ -220,6 +252,8 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
         TextView reviewDate;
         TextView reviewLikeCountNextToButton;
         Button reviewLikeButton;
+        Button reviewReportButton;
+
         //Boolean userLiked = false;
 
 //            TextView name;
@@ -247,6 +281,7 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
             reviewDate = (TextView) itemView.findViewById(R.id.reviewDate);
             reviewLikeCountNextToButton = (TextView) itemView.findViewById(R.id.reviewLikeCountNextToButton);
             reviewLikeButton = (Button) itemView.findViewById(R.id.reviewLikeButton);
+            reviewReportButton = (Button) itemView.findViewById(R.id.reviewReportButton);
 
 
 //                name = (TextView) itemView.findViewById(R.id.tv_name);

@@ -1,7 +1,9 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -166,6 +168,7 @@ public class KansouActivity extends AppCompatActivity {
 
                 } else{
                      Log.i("Do Something","");
+                     isThereProblem();
                    //false
                 }
             }
@@ -348,14 +351,141 @@ public class KansouActivity extends AppCompatActivity {
         }
     }
 
+//    private String getDate(long time) {
+//        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+//
+//        cal.setTimeInMillis(time);
+//
+//       // String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+//        Log.i("TIME121",DateFormat.format("yyyy-MM-dd", cal).toString());
+//        return DateFormat.format("yyyy-MM-dd", cal).toString();
+//    }
+
+    private void isThereProblem(){
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //AlertDialog.Builder builder = new AlertDialog.Builder();
+        builder.setTitle("この施設を利用できましたか");
+        //Set title localization
+        builder.setItems(new CharSequence[]
+                        {"利用できた", "利用できなかった"},
+
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                availableSwitch.setChecked(true);
+                                break;
+                            case 1:
+                                whatIsTheProblem();
+                                break;
+                        }
+                    }
+                });
+        builder.create().show();
+
+
+
+    }
+
+    private void whatIsTheProblem(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //AlertDialog.Builder builder = new AlertDialog.Builder();
+        builder.setTitle("利用できなかった理由を教えてください");
+        //Set title localization
+        builder.setItems(new CharSequence[]
+                        {"施設が見つからなかったから","漏水していたから","断水していたから", "トイレが詰まっていたから", "トイレットペーパーがなかったから","いいえ、利用することができた"},
+
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                problemUploadToDatabase("Could not find the Toilet");
+                                //reviewReportUploadToDatabase("The content of the review is not correct",rid);
+                                break;
+                            case 1:
+                                problemUploadToDatabase("Water Leakage");
+                                //reviewReportUploadToDatabase("The content of the review is not relevent",rid);
+                                break;
+                            case 2:
+                                problemUploadToDatabase("Water Outage");
+                                //reviewReportUploadToDatabase("The picture of the user is not appropriate",rid);
+                                break;
+                            case 3:
+                                problemUploadToDatabase("No Flush");
+                                //reviewReportUploadToDatabase("The name of the user is not appropriate",rid);
+                                break;
+                            case 4:
+                                problemUploadToDatabase("No Toilet Paper");
+
+                            case 5:
+                                availableSwitch.setChecked(true);
+                                break;
+
+
+                        }
+                    }
+                });
+        builder.create().show();
+
+    }
+
+
+
+    private void problemUploadToDatabase(String problemString){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null){
+            String uid = user.getUid();
+            long timeStamp = System.currentTimeMillis();
+            Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
+            String timeString = getDate(timeStamp) + getHour();
+
+            String postId = UUID.randomUUID().toString();
+
+
+
+            DatabaseReference toiletProblemRef = FirebaseDatabase.getInstance().getReference().child("ToiletProblems");
+
+            toiletProblemRef.child(postId).setValue(new ToiletProblem(
+                    toilet.key,uid, timeString, timeStampDouble, problemString)
+
+            );
+
+            Log.i("Post Done", "222222");
+
+        }
+
+
+    }
+
+
+
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
 
         cal.setTimeInMillis(time);
 
-       // String date = DateFormat.format("dd-MM-yyyy", cal).toString();
-        Log.i("TIME121",DateFormat.format("yyyy-MM-dd", cal).toString());
+        // String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+        Log.i("TIME121", DateFormat.format("yyyy-MM-dd", cal).toString());
         return DateFormat.format("yyyy-MM-dd", cal).toString();
+    }
+
+
+    private String getHour() {
+        java.util.Calendar c = java.util.Calendar.getInstance();
+        int hour = c.get(java.util.Calendar.HOUR_OF_DAY);
+        int minute = c.get(java.util.Calendar.MINUTE);
+
+        return "-" + String.valueOf(hour) + ":" + String.valueOf(minute);
+//        SimpleDateFormat simpleDateFormatArrivals = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+//        return  simpleDateFormatArrivals;
     }
 }
 

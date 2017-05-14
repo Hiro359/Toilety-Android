@@ -201,6 +201,18 @@
 
                 />
 
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_toEndOf="@+id/reviewDate"
+                android:layout_toRightOf="@+id/reviewDate"
+                android:layout_centerVertical="true"
+                android:id="@+id/reviewReportButton"
+                android:background="@drawable/question_mark_20_drawable"
+
+
+                />
+
         </RelativeLayout>
 
     </LinearLayout>

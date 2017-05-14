@@ -57,8 +57,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -163,14 +166,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setNavigationIcon(R.drawable.app_filter_icon_drawable);
 
+        Log.i("Find Error 1","99999");
 
-        if (!isNetworkAvailable()){
-            Toast.makeText(this, "NO INTERNET", Toast.LENGTH_SHORT).show();
-            Log.i("NO INTERNET","NO INTERNET");
-        } else {
-            Toast.makeText(this, "INTERNET OKAY", Toast.LENGTH_SHORT).show();
+//        if (!hasInternetAccess(getApplicationContext())){
+//            Toast.makeText(this, "NO INTERNET", Toast.LENGTH_SHORT).show();
+//            Log.i("Find Error 2.5","99999");
+//            Log.i("NO INTERNET","NO INTERNET");
+//        } else {
+//            Toast.makeText(this, "INTERNET OKAY", Toast.LENGTH_SHORT).show();
+//            Log.i("Find Error 2.7","99999");
+//
+//        }
 
-        }
+        Log.i("Find Error 3","99999");
+//        if (!isNetworkAvailable()){
+//            Toast.makeText(this, "NO INTERNET", Toast.LENGTH_SHORT).show();
+//            Log.i("NO INTERNET","NO INTERNET");
+//        } else {
+//            Toast.makeText(this, "INTERNET OKAY", Toast.LENGTH_SHORT).show();
+//
+//        }
 
         Log.i("JAP98789000", String.valueOf(Filter.japaneseFilter));
 
@@ -1385,11 +1400,42 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
+//    private boolean isNetworkAvailable() {
+//        ConnectivityManager connectivityManager
+//                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+//        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+//    }
+
+//    private boolean isNetworkAvailable(Context context) {
+//        ConnectivityManager connectivityManager
+//                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+//        return activeNetworkInfo != null;
+//    }
+
+
+//    public boolean hasInternetAccess(Context context) {
+//        if (isNetworkAvailable(context)) {
+//            try {
+//                HttpURLConnection urlc = (HttpURLConnection)
+//                        (new URL("http://clients3.google.com/generate_204")
+//                                .openConnection());
+//                urlc.setRequestProperty("User-Agent", "Android");
+//                urlc.setRequestProperty("Connection", "close");
+//                urlc.setConnectTimeout(1500);
+//                urlc.connect();
+//                return (urlc.getResponseCode() == 204 &&
+//                        urlc.getContentLength() == 0);
+//            } catch (IOException e) {
+//                Log.i("","Error checking internet connection");
+//                //Log.e(TAG, "Error checking internet connection", e);
+//            }
+//        } else {
+//            Log.i("No network available!","");
+//            //Log.d(TAG, "No network available!");
+//        }
+//        return false;
+//    }
 
 }
