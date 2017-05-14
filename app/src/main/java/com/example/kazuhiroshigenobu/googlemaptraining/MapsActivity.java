@@ -166,6 +166,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setNavigationIcon(R.drawable.app_filter_icon_drawable);
 
+        //toolbar.setNavigationIcon(R.drawable.app_help_count_icon_drawable);
+
+
+
+
         Log.i("Find Error 1","99999");
 
 //        if (!hasInternetAccess(getApplicationContext())){

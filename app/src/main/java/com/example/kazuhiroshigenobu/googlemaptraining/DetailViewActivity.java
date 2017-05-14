@@ -256,8 +256,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         int id = item.getItemId();
 
         if (id == R.id.detailSettingsButton) {
-            Toast.makeText(this, "Hey Did you Detail Settings??", Toast.LENGTH_SHORT).show();
-            ///////////////////////// 1pm 25th Feb
+            isThereInfoProblem();
             return true;
 
         }
@@ -1804,6 +1803,100 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         }
     }
 
+    private void isThereInfoProblem(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //AlertDialog.Builder builder = new AlertDialog.Builder();
+        builder.setTitle("情報の誤りを報告しますか");
+        //Set title localization
+        builder.setItems(new CharSequence[]
+                        {"報告する", "報告しない"},
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                whatIsInfoProblem();
+                                break;
+                            case 1:
+                                break;
+                        }
+                    }
+                });
+        builder.create().show();
+
+    }
+
+    private void whatIsInfoProblem(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //AlertDialog.Builder builder = new AlertDialog.Builder();
+        builder.setTitle("問題だと思う点を教えてください");
+        //Set title localization
+        builder.setItems(new CharSequence[]
+                        {"施設の写真が不適切である", "施設の情報が正確でない","投稿者の名前または写真が適切でない"
+                                ,"編集者の名前または写真が適切でない","いいえ、問題はありません"},
+
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                toiletInfoProblemUpload("the picture of this place is not appropriate");
+                                break;
+                            case 1:
+                                toiletInfoProblemUpload("the infomation of this place is not correct");
+                                break;
+                            case 2:
+                                toiletInfoProblemUpload("Fisrt Poster Not Appropriate");
+                                break;
+                            case 3:
+                                toiletInfoProblemUpload("Last Editer Not Appropriate");
+                                break;
+                            case 4:
+                                break;
+
+
+                        }
+                    }
+                });
+        builder.create().show();
+
+    }
+
+    private void toiletInfoProblemUpload(String problemString){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null){
+            String uid = user.getUid();
+            long timeStamp = System.currentTimeMillis();
+            Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
+            String timeString = getDate(timeStamp) + getHour();
+
+            String postId = UUID.randomUUID().toString();
+
+
+
+            DatabaseReference reviewProblemRef = FirebaseDatabase.getInstance().getReference().child("ToiletInfoProblems");
+
+            reviewProblemRef.child(postId).setValue(new ToiletProblem(
+                    toilet.key ,uid, timeString, timeStampDouble, problemString)
+
+            );
+
+            Toast.makeText(this, "Report Is Done", Toast.LENGTH_SHORT).show();
+            //Should i make a dialog for this?? May 14
+
+
+            Log.i("Post Done", "222222");
+
+
+        }
+
+
+    }
+
     @Override
     public void onReviewMethodCallback(final String rid) {
         //Show Dialog
@@ -1931,14 +2024,4 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
 
 
-    //    private void userLeave(){
-//
-//
-//        String userID = firebaseAuth.getCurrentUser().getUid();
-//        userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
-//        userRef.child("favourite").setValue(toilet.tid);
-//
-//
-//
-//    }
 }
