@@ -1085,6 +1085,10 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
     }
 
+    //added "VisibleForTests" May 15
+
+
+    @SuppressWarnings("VisibleForTests")
     private void uploadImageToDatabase(final int placeNumber, Uri file) {
 
 

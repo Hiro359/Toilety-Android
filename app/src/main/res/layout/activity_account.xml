@@ -38,7 +38,7 @@
             android:layout_height="100dp"
             app:srcCompat="@color/cast_intro_overlay_button_background_color"
             android:layout_marginTop="10dp"
-            android:id="@+id/imageAccount"
+            android:id="@+id/imageViewForAccount"
             android:contentDescription="@string/accountImage"
             />
                     <TextView

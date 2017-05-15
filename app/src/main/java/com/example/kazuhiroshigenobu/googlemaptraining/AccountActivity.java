@@ -1,7 +1,9 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -28,6 +32,8 @@ public class AccountActivity extends AppCompatActivity {
     Button buttonFavorite;
     Button buttonYouWent;
     Button buttonYouAddd;
+
+    ImageView userAccountImage;
 
     Toolbar toolbar;
     TextView toolbarTitle;
@@ -64,6 +70,8 @@ public class AccountActivity extends AppCompatActivity {
             Log.i("Login Null 88888", "Start");
 
         }
+
+        userAccountImage = (ImageView) findViewById(R.id.imageViewForAccount);
 
         buttonAddToielt = (Button) findViewById(R.id.buttonAddToilet);
         buttonFavorite = (Button) findViewById(R.id.buttonFavoriteList);
@@ -247,13 +255,14 @@ public class AccountActivity extends AppCompatActivity {
     }
 
 
-    private void getUserInfo(String userID){
+    private void getUserInfo(final String userID){
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         //addValueEventListener(new ValueEventListener() {
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                String userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
                 String userName = (String) dataSnapshot.child("userName").getValue();
                 Long likeNumber = (Long) dataSnapshot.child("totalLikedCount").getValue();
                 Long favoriteNumber = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
@@ -263,11 +272,22 @@ public class AccountActivity extends AppCompatActivity {
                 String favoString = String.valueOf(favoriteNumber);
                 String helpString = String.valueOf(helpedNumber);
 
+                UserInfo.userImageURL = userPhoto;
+
+
 
                 accountNameText.setText(userName);
                 likeCountText.setText(likeString);
                 favoriteCountText.setText(favoString);
                 helpedCountText.setText(helpString);
+
+                if (!userPhoto.equals("")){
+                    Uri uri = Uri.parse(userPhoto);
+                    Picasso.with(getApplicationContext()).load(uri).into(userAccountImage);
+
+                } else {
+                    userAccountImage.setImageResource(R.drawable.app_default_user_icon);
+                }
 
                  Toast.makeText(AccountActivity.this, userName, Toast.LENGTH_SHORT).show();
             }

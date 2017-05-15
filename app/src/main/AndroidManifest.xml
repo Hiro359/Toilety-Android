@@ -41,9 +41,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:theme="@style/splashScreenTheme"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait"
+            android:theme="@style/splashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -62,7 +61,6 @@
                     android:pathPrefix="/login"
                     android:scheme="http"/>
             </intent-filter>
-
 
             <!--
   ATTENTION: This intent was auto-generated. Follow instructions at
@@ -157,9 +155,7 @@
         </activity>
         <activity
             android:name=".FirstTimeActivity"
-            android:screenOrientation="portrait"
-            >
-
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".StartLoginActivity"
@@ -206,6 +202,8 @@
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".EditViewListActivity">
+        </activity>
+        <activity android:name=".ChangeUserPhotoActivity">
         </activity>
     </application>
 
