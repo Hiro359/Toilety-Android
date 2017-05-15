@@ -3,9 +3,11 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -85,16 +87,14 @@ public class StartLoginActivity extends AppCompatActivity {
         loginPasswordText.setError(null);
 
         // Store values at the time of the login attempt.
-//        final String email = mEmailView.getText().toString();
-//
-//        final String password = mPasswordView.getText().toString();
+        final String email = loginEmailText.getText().toString();
+        final String password = loginPasswordText.getText().toString();
 
 //        final String email = "kazushige12343@gmail.com";
 //        final String password = "kazu34565";
 
-        final String email = "kazukazu133@gmail.com";
-        final String password = "change123";
-
+//        final String email = "kazukazu133@gmail.com";
+//        final String password = "change123";
 
 
         boolean cancel = false;
@@ -139,7 +139,9 @@ public class StartLoginActivity extends AppCompatActivity {
 
 
                     } else {
-                        Toast.makeText(StartLoginActivity.this, "UnSuccess", Toast.LENGTH_SHORT).show();
+                        showProgress(false);
+                        messageUnSuccessful();
+                        //Toast.makeText(StartLoginActivity.this, "UnSuccess", Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -161,7 +163,7 @@ public class StartLoginActivity extends AppCompatActivity {
         return password.length() > 4;
     }
 
-//    **
+    //    **
 //            * Shows the progress UI and hides the login form.
 //    */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
@@ -196,5 +198,32 @@ public class StartLoginActivity extends AppCompatActivity {
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
+
+    private void messageUnSuccessful()
+    {
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    //AlertDialog.Builder builder = new AlertDialog.Builder();
+        builder.setTitle("You could not login");
+    //Set title localization
+        builder.setItems(new CharSequence[]
+    {"はい"},
+            new DialogInterface.OnClickListener()
+
+    {
+        public void onClick (DialogInterface dialog,int which){
+        // The 'which' argument contains the index position
+        // of the selected item
+        switch (which) {
+            case 0:
+                break;
+
+        }
+    }
+    });
+        builder.create().show();
+
+}
+
 
 }

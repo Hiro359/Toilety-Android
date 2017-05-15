@@ -3,9 +3,11 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -228,7 +230,10 @@ public class StartSignUpActivity extends AppCompatActivity {
 
                                         firebaseUpdate(newUserName, userName, email, password);
 
-                                }
+                                } else {
+                                showProgress(false);
+                                messageUnSuccessful();
+                            }
                                 //startActivity(intent);
 
                         }
@@ -298,6 +303,31 @@ public class StartSignUpActivity extends AppCompatActivity {
         return password.length() > 4;
     }
 
+    private void messageUnSuccessful()
+    {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //AlertDialog.Builder builder = new AlertDialog.Builder();
+        builder.setTitle("You could not login");
+        //Set title localization
+        builder.setItems(new CharSequence[]
+                        {"はい"},
+                new DialogInterface.OnClickListener()
+
+                {
+                    public void onClick (DialogInterface dialog,int which){
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                break;
+
+                        }
+                    }
+                });
+        builder.create().show();
+
+    }
     /**
      * Shows the progress UI and hides the login form.
      */
