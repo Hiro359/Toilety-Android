@@ -53,6 +53,10 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
 
     Set<String> thumbsUpSet = new HashSet();
     // private Boolean viewOnceLoaded = false;
+    Boolean userWarningLoadedOnce = false;
+    Boolean reviewWarningLoadedOnce = false;
+    private String suspiciosUserId;
+    private String suspiciosReviewId;
 
 
 
@@ -323,11 +327,14 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
     }
 
     @Override
-    public void onReviewMethodCallback(final String rid) {
+    public void onReviewMethodCallback(final String rid, final String suspiciouUser) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        suspiciosReviewId = rid;
         //AlertDialog.Builder builder = new AlertDialog.Builder();
         builder.setTitle(rid);
+        suspiciosUserId = suspiciouUser;
         //Set title localization
         builder.setItems(new CharSequence[]
                         {"報告する", "報告しない"},
@@ -365,15 +372,19 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
                         switch (which) {
                             case 0:
                                 reviewReportUploadToDatabase("The content of the review is not correct",rid);
+                                userWarningsListUpload();
                                 break;
                             case 1:
                                 reviewReportUploadToDatabase("The content of the review is not relevent",rid);
+                                userWarningsListUpload();
                                 break;
                             case 2:
                                 reviewReportUploadToDatabase("The picture of the user is not appropriate",rid);
+                                userWarningsListUpload();
                                 break;
                             case 3:
                                 reviewReportUploadToDatabase("The name of the user is not appropriate",rid);
+                                userWarningsListUpload();
                                 break;
                             case 4:
                                 break;
@@ -387,6 +398,9 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
     }
 
     private void reviewReportUploadToDatabase(String problemString, String rid){
+
+        reviewWarningsListUpload();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
             String uid = user.getUid();
@@ -408,12 +422,101 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
             Log.i("Post Done", "222222");
 
 
-
-
         }
 
 
     }
+
+    private void userWarningsListUpload(){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
+        if (user != null){
+            String uid = user.getUid();
+            userWarningsListRef.child(suspiciosUserId).child(uid).setValue(true);
+            userWarningCount();
+        }
+
+    }
+
+    private void userWarningCount(){
+        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
+
+
+        userWarningsListRef.child(suspiciosUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!userWarningLoadedOnce) {
+                    //Call Once //Maybe I need boolean filter
+                    Long warningCount = dataSnapshot.getChildrenCount();
+                    userWarningCountUpload(warningCount);
+
+                    userWarningLoadedOnce = true;
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void userWarningCountUpload(Long warningCount){
+        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("UserWarningCount");
+
+        userWarningsCountRef.child(suspiciosUserId).setValue(warningCount);
+
+    }
+
+    ///
+    private void reviewWarningsListUpload(){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
+        if (user != null){
+            String uid = user.getUid();
+            userWarningsListRef.child(suspiciosReviewId).child(uid).setValue(true);
+            reviewWarningCount();
+        }
+
+    }
+
+    private void reviewWarningCount(){
+        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
+
+
+        userWarningsListRef.child(suspiciosReviewId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!reviewWarningLoadedOnce) {
+                    //Call Once //Maybe I need boolean filter
+                    Long warningCount = dataSnapshot.getChildrenCount();
+                    reviewWarningCountUpload(warningCount);
+                    reviewWarningLoadedOnce = true;
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void reviewWarningCountUpload(Long warningCount){
+        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningCount");
+
+        userWarningsCountRef.child(suspiciosReviewId).setValue(warningCount);
+
+    }
+
+
+
+    ///
+
 
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);

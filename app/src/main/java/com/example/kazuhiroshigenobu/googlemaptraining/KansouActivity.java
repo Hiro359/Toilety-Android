@@ -25,8 +25,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -56,6 +59,9 @@ public class KansouActivity extends AppCompatActivity {
     //private TextView toolbarTitle;
     Toilet toilet =  new Toilet();
     String newRid = UUID.randomUUID().toString();
+
+    Boolean toiletWarningLoadedOnce = false;
+
 
 
     //private Toilet toilet = new Toilet();
@@ -440,6 +446,9 @@ public class KansouActivity extends AppCompatActivity {
 
     private void problemUploadToDatabase(String problemString){
 
+        toiletWarningsListUpload();
+
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
             String uid = user.getUid();
@@ -464,6 +473,53 @@ public class KansouActivity extends AppCompatActivity {
 
 
     }
+
+
+    ///
+    private void toiletWarningsListUpload(){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ToiletWarningList");
+        if (user != null){
+            String uid = user.getUid();
+            userWarningsListRef.child(toilet.key).child(uid).setValue(true);
+            userWarningCount();
+        }
+
+    }
+
+    private void userWarningCount(){
+        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ToiletWarningList");
+
+
+        userWarningsListRef.child(toilet.key).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!toiletWarningLoadedOnce) {
+                    //Call Once //Maybe I need boolean filter
+                    Long warningCount = dataSnapshot.getChildrenCount();
+                    userWarningCountUpload(warningCount);
+                    toiletWarningLoadedOnce = true;
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void userWarningCountUpload(Long warningCount){
+        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("ToiletWarningCount");
+
+        userWarningsCountRef.child(toilet.key).setValue(warningCount);
+
+    }
+
+
+    ///
 
 
 

@@ -36,6 +36,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -103,6 +104,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     final List<Review> reviewList = new ArrayList<>();
 
     Set<String> thumbsUpSet = new HashSet();
+
+    private String suspiciosReviewId;
     //Set<String> favoriteSet = new HashSet();
     //DrawerLayout drawer;
 
@@ -112,6 +115,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
+
+    private String suspiciosUserId;
 
 //    private RecyclerView recyclertView;
 //    private RecyclerView.LayoutManager layoutManager;
@@ -135,11 +140,13 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     private TextView lastEditorFavoriteCount;
     private TextView lastEditorHelpCount;
 
+    private Boolean reviewWarningLoadedOnce = false;
 
     //Experiment April 3 1pm...
     //List<Toilet> universityList = new ArrayList<>();
     //Experiment April 3 1pm...
 
+    Boolean userWarningLoadedOnce = false;
     Toilet toilet =  new Toilet();
     User user = new User();
 
@@ -1843,16 +1850,24 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                         // of the selected item
                         switch (which) {
                             case 0:
+                                suspiciosUserId = toilet.editedBy;
                                 toiletInfoProblemUpload("the picture of this place is not appropriate");
+                                userWarningsListUpload();
                                 break;
                             case 1:
+                                suspiciosUserId = toilet.editedBy;
                                 toiletInfoProblemUpload("the infomation of this place is not correct");
+                                userWarningsListUpload();
                                 break;
                             case 2:
+                                suspiciosUserId = toilet.editedBy;
                                 toiletInfoProblemUpload("Fisrt Poster Not Appropriate");
+                                userWarningsListUpload();
                                 break;
                             case 3:
+                                suspiciosUserId = toilet.editedBy;
                                 toiletInfoProblemUpload("Last Editer Not Appropriate");
+                                userWarningsListUpload();
                                 break;
                             case 4:
                                 break;
@@ -1898,8 +1913,10 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     }
 
     @Override
-    public void onReviewMethodCallback(final String rid) {
+    public void onReviewMethodCallback(final String rid, final String suspiciosUser) {
         //Show Dialog
+
+        suspiciosReviewId = rid;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //AlertDialog.Builder builder = new AlertDialog.Builder();
@@ -1913,7 +1930,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                         // of the selected item
                         switch (which) {
                             case 0:
-                                whatIsTheProblem(rid);
+                                whatIsTheProblem(rid, suspiciosUser);
                                 break;
                             case 1:
                                 break;
@@ -1931,8 +1948,10 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     }
 
 
-    private void whatIsTheProblem(final String rid){
+    private void whatIsTheProblem(final String rid, final String suspiciosUser){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        suspiciosUserId = suspiciosUser;
         //AlertDialog.Builder builder = new AlertDialog.Builder();
         builder.setTitle("問題だと思う点を教えてください");
         //Set title localization
@@ -1947,15 +1966,19 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                         switch (which) {
                             case 0:
                                 reviewReportUploadToDatabase("The content of the review is not correct",rid);
+                                userWarningsListUpload();
                                 break;
                             case 1:
                                 reviewReportUploadToDatabase("The content of the review is not relevent",rid);
+                                userWarningsListUpload();
                                 break;
                             case 2:
                                 reviewReportUploadToDatabase("The picture of the user is not appropriate",rid);
+                                userWarningsListUpload();
                                 break;
                             case 3:
                                 reviewReportUploadToDatabase("The name of the user is not appropriate",rid);
+                                userWarningsListUpload();
                                 break;
                             case 4:
                                 break;
@@ -1969,6 +1992,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     }
 
     private void reviewReportUploadToDatabase(String problemString, String rid){
+        reviewWarningsListUpload();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
             String uid = user.getUid();
@@ -1977,8 +2002,6 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
             String timeString = getDate(timeStamp) + getHour();
 
             String postId = UUID.randomUUID().toString();
-
-
 
             DatabaseReference reviewProblemRef = FirebaseDatabase.getInstance().getReference().child("ReviewProblems");
 
@@ -1990,14 +2013,97 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
             Toast.makeText(this, "Report Is Done", Toast.LENGTH_SHORT).show();
             //Should i make a dialog for this?? May 14
 
-
             Log.i("Post Done", "222222");
 
 
         }
+    }
 
+    private void userWarningsListUpload(){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
+        if (user != null){
+            String uid = user.getUid();
+            userWarningsListRef.child(suspiciosUserId).child(uid).setValue(true);
+            userWarningCount();
+        }
 
     }
+
+    private void userWarningCount(){
+        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
+
+
+        userWarningsListRef.child(suspiciosUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!userWarningLoadedOnce) {
+                    //Call Once //Maybe I need boolean filter
+                    Long warningCount = dataSnapshot.getChildrenCount();
+                    userWarningCountUpload(warningCount);
+
+                    userWarningLoadedOnce = true;
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void userWarningCountUpload(Long warningCount){
+        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("UserWarningCount");
+
+        userWarningsCountRef.child(suspiciosUserId).setValue(warningCount);
+
+    }
+
+    private void reviewWarningsListUpload(){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
+        if (user != null){
+            String uid = user.getUid();
+            userWarningsListRef.child(suspiciosReviewId).child(uid).setValue(true);
+            reviewWarningCount();
+        }
+
+    }
+
+    private void reviewWarningCount(){
+        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
+
+
+        userWarningsListRef.child(suspiciosReviewId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!reviewWarningLoadedOnce) {
+                    //Call Once //Maybe I need boolean filter
+                    Long warningCount = dataSnapshot.getChildrenCount();
+                    reviewWarningCountUpload(warningCount);
+                    reviewWarningLoadedOnce = true;
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void reviewWarningCountUpload(Long warningCount){
+        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningCount");
+
+        userWarningsCountRef.child(suspiciosReviewId).setValue(warningCount);
+
+    }
+
 
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);

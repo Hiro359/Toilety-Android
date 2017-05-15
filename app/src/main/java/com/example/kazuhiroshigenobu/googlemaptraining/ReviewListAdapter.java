@@ -130,7 +130,7 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
                         //Show Dialog
 
                         try {
-                            mAdapterCallback.onReviewMethodCallback(current.rid);
+                            mAdapterCallback.onReviewMethodCallback(current.rid, current.uid);
                         } catch (ClassCastException exception) {
                             // do something
                         }
@@ -225,7 +225,7 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
 
 
     interface ReviewAdapterCallback {
-        void onReviewMethodCallback(String rid);
+        void onReviewMethodCallback(String rid, String suspiciosUser);
     }
 
 
