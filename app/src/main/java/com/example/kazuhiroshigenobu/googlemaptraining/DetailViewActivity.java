@@ -140,13 +140,11 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     private TextView lastEditorFavoriteCount;
     private TextView lastEditorHelpCount;
 
-    private Boolean reviewWarningLoadedOnce = false;
 
     //Experiment April 3 1pm...
     //List<Toilet> universityList = new ArrayList<>();
     //Experiment April 3 1pm...
 
-    Boolean userWarningLoadedOnce = false;
     Toilet toilet =  new Toilet();
     User user = new User();
 
@@ -2035,17 +2033,13 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
 
 
-        userWarningsListRef.child(suspiciosUserId).addValueEventListener(new ValueEventListener() {
+        userWarningsListRef.child(suspiciosUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!userWarningLoadedOnce) {
                     //Call Once //Maybe I need boolean filter
                     Long warningCount = dataSnapshot.getChildrenCount();
                     userWarningCountUpload(warningCount);
 
-                    userWarningLoadedOnce = true;
-
-                }
             }
 
             @Override
@@ -2078,16 +2072,14 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
 
 
-        userWarningsListRef.child(suspiciosReviewId).addValueEventListener(new ValueEventListener() {
+        userWarningsListRef.child(suspiciosReviewId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!reviewWarningLoadedOnce) {
                     //Call Once //Maybe I need boolean filter
                     Long warningCount = dataSnapshot.getChildrenCount();
                     reviewWarningCountUpload(warningCount);
-                    reviewWarningLoadedOnce = true;
 
-                }
+
             }
 
             @Override

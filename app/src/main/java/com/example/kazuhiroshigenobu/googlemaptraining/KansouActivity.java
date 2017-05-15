@@ -60,7 +60,7 @@ public class KansouActivity extends AppCompatActivity {
     Toilet toilet =  new Toilet();
     String newRid = UUID.randomUUID().toString();
 
-    Boolean toiletWarningLoadedOnce = false;
+    //Boolean toiletWarningLoadedOnce = false;
 
 
 
@@ -492,16 +492,17 @@ public class KansouActivity extends AppCompatActivity {
         DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ToiletWarningList");
 
 
-        userWarningsListRef.child(toilet.key).addValueEventListener(new ValueEventListener() {
+        userWarningsListRef.child(toilet.key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!toiletWarningLoadedOnce) {
+
+                   Log.i("DataSnap 99999", String.valueOf(dataSnapshot));
+
+
                     //Call Once //Maybe I need boolean filter
                     Long warningCount = dataSnapshot.getChildrenCount();
                     userWarningCountUpload(warningCount);
-                    toiletWarningLoadedOnce = true;
 
-                }
             }
 
             @Override

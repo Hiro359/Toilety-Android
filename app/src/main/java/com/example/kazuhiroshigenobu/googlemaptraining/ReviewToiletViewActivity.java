@@ -53,8 +53,8 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
 
     Set<String> thumbsUpSet = new HashSet();
     // private Boolean viewOnceLoaded = false;
-    Boolean userWarningLoadedOnce = false;
-    Boolean reviewWarningLoadedOnce = false;
+    //Boolean userWarningLoadedOnce = false;
+    //Boolean reviewWarningLoadedOnce = false;
     private String suspiciosUserId;
     private String suspiciosReviewId;
 
@@ -400,6 +400,7 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
     private void reviewReportUploadToDatabase(String problemString, String rid){
 
         reviewWarningsListUpload();
+        userWarningsListUpload();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
@@ -443,17 +444,14 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
         DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
 
 
-        userWarningsListRef.child(suspiciosUserId).addValueEventListener(new ValueEventListener() {
+        userWarningsListRef.child(suspiciosUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!userWarningLoadedOnce) {
                     //Call Once //Maybe I need boolean filter
                     Long warningCount = dataSnapshot.getChildrenCount();
                     userWarningCountUpload(warningCount);
 
-                    userWarningLoadedOnce = true;
 
-                }
             }
 
             @Override
@@ -487,16 +485,14 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
         DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
 
 
-        userWarningsListRef.child(suspiciosReviewId).addValueEventListener(new ValueEventListener() {
+        userWarningsListRef.child(suspiciosReviewId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!reviewWarningLoadedOnce) {
                     //Call Once //Maybe I need boolean filter
                     Long warningCount = dataSnapshot.getChildrenCount();
                     reviewWarningCountUpload(warningCount);
-                    reviewWarningLoadedOnce = true;
 
-                }
+
             }
 
             @Override
