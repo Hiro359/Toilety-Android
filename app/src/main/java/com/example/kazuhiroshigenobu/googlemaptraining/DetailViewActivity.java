@@ -379,6 +379,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     }
 
     private void addDrawerItems() {
+
+        Log.i("addDrawerCalledBoolean",String.valueOf(booleanArray));
         ArrayAdapter<String> mAdapter;
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, booleanArray);
         mDrawerList.setAdapter(mAdapter);
@@ -614,6 +616,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
 
     }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -1345,6 +1348,12 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
                     firstPosterGetInfo(toilet.addedBy);
                     lastEditerGetInfo(toilet.editedBy);
+
+                    addDrawerItems();
+                    //
+//                    setupDrawer();
+
+                    //Moved here because I could not see the content of boolean array sometimes
 
                     Log.i("thumbsUp","908");
                     thumbsUpQuery(toilet.reviewOne, toilet.reviewTwo);
