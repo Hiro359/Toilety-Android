@@ -50,6 +50,12 @@
     <string name="changePhoto">イメージを変更する</string>
 
 
+    <!--Change User Name Activity-->
+    <string name="saveString">保存する</string>
+
+    <string name="changeUserNameTitleBar">名前</string>
+
+
 
 
     <!--Marker Window-->

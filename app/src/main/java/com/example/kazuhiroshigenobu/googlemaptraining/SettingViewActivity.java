@@ -51,7 +51,24 @@ public class SettingViewActivity extends AppCompatActivity {
 
 
         changeUserNameButton = (Button)findViewById(R.id.buttonChangeUserName);
+
+        changeUserNameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ChangeUserNameActivity.class);
+                moveToNextActivity(intent);
+
+            }
+        });
         changeUserPhotoButton = (Button)findViewById(R.id.buttonChangeUserPhoto);
+
+        changeUserPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ChangeUserPhotoActivity.class);
+                moveToNextActivity(intent);
+            }
+        });
         aboutThisAppButton  = (Button)findViewById(R.id.buttonAboutThisApp);
         privacyButton = (Button)findViewById(R.id.buttonPrivacyInfo);
         helpButton = (Button)findViewById(R.id.buttonShowHelp);
@@ -62,6 +79,12 @@ public class SettingViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 signOut();
             }});
+    }
+
+
+    private void moveToNextActivity(Intent intent){
+        startActivity(intent);
+        finish();
     }
 
     private void signOut(){

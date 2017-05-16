@@ -205,6 +205,8 @@
         </activity>
         <activity android:name=".ChangeUserPhotoActivity">
         </activity>
+        <activity android:name=".ChangeUserNameActivity">
+        </activity>
     </application>
 
 </manifest>

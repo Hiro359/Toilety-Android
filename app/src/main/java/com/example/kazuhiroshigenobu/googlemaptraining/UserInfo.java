@@ -13,6 +13,7 @@ public class UserInfo {
     static Boolean userSelectedLocation = false;
     static LatLng userSelectedLatLng;
     static String userImageURL;
+    static String userName;
     static Boolean viewloaded = false;
 
 }

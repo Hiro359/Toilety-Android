@@ -273,6 +273,7 @@ public class AccountActivity extends AppCompatActivity {
                 String helpString = String.valueOf(helpedNumber);
 
                 UserInfo.userImageURL = userPhoto;
+                UserInfo.userName = userName;
 
 
 

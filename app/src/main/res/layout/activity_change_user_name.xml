@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorForBackground"
+    tools:context="com.example.kazuhiroshigenobu.googlemaptraining.ChangeUserNameActivity">
+
+
+    <include
+        android:id="@+id/app_bar_change_user_name"
+        layout="@layout/app_bar_change_user_name"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:id="@+id/userNameTextView"
+        android:background="@color/colorSubText"
+        android:textColor="@color/colorWhiteText"
+        android:textSize="20sp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/userNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhiteText"
+            android:textColorHint="@color/colorSubText"
+
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/userNameTextView"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/rounded_button"
+        android:id="@+id/userNameSaveButton"
+        android:text="@string/saveString"
+        android:textSize="20sp"
+        android:textColor="@color/colorWhiteText"
+
+        />
+
+</RelativeLayout>

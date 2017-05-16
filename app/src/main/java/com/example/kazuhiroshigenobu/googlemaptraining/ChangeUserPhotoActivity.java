@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,10 @@ import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
@@ -27,6 +32,8 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class ChangeUserPhotoActivity extends AppCompatActivity {
@@ -35,6 +42,10 @@ public class ChangeUserPhotoActivity extends AppCompatActivity {
     ImageView userImageView;
     Button buttonChooseImage;
     Button buttonSaveImage;
+
+
+
+    String newPhotoURL = "";
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference().child("images");
@@ -53,6 +64,28 @@ public class ChangeUserPhotoActivity extends AppCompatActivity {
         userImageView = (ImageView)findViewById(R.id.userChangeImageView);
         buttonChooseImage = (Button)findViewById(R.id.buttonChangeChoosePhoto);
         buttonSaveImage = (Button)findViewById(R.id.buttonChangeSavePhoto);
+
+        Toolbar toolbar;
+        toolbar = (Toolbar)findViewById(R.id.app_bar_change_user_image);
+        setSupportActionBar(toolbar);
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                                                 @Override
+                                                 public void onClick(View v) {
+                                                     goBackToAccountView();
+                                                 }
+                                             }
+        );
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        }
+
+
 
         String userPhoto = UserInfo.userImageURL;
 
@@ -78,9 +111,10 @@ public class ChangeUserPhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                saveImageAction();
+
                 //Check if user actually change the photo or not
 
-                updateDatebaseImage();
             }
         });
 
@@ -125,8 +159,9 @@ public class ChangeUserPhotoActivity extends AppCompatActivity {
 
                      Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-
-
+                     if (downloadUrl != null){
+                         newPhotoURL = downloadUrl.toString();
+                        }
 
 
             }
@@ -134,20 +169,65 @@ public class ChangeUserPhotoActivity extends AppCompatActivity {
     }
 
 
-    private void updateDatebaseImage(){
+    private void saveImageAction(){
+
+        if (newPhotoURL.equals("")){
+            pleaseChoosePhoto();
+        } else {
+            //firebase user info update
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+            if (user != null) {
+
+                String userId = user.getUid();
+
+                Map<String, Object> childUpdates = new HashMap<>();
+
+                childUpdates.put("userPhoto", newPhotoURL);
+
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
+                userRef.child(userId).updateChildren(childUpdates);
+
+                goBackToAccountView();
 
 
 
+            }
 
+        }
+    }
 
+    private void pleaseChoosePhoto(){
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //AlertDialog.Builder builder = new AlertDialog.Builder();
+        builder.setTitle("写真を選択してください");
+        //Set title localization
+        builder.setItems(new CharSequence[]
+                        {"はい"},
 
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                break;
+                        }
+                    }
+                });
+        builder.create().show();
+    }
 
+    private void goBackToAccountView(){
 
+        Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+        startActivity(intent);
+        finish();
 
 
     }
-
     public void checkPermissionAndAddPhoto() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -189,6 +269,8 @@ public class ChangeUserPhotoActivity extends AppCompatActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
 
                 userImageView.setImageBitmap(bitmap);
+
+                uploadImageToDatabase(selectedImage);
 
 
             } catch (IOException e) {
