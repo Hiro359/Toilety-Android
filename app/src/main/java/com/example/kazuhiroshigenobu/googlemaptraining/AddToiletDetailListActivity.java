@@ -104,6 +104,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
     Boolean spinnerLoaded = false;
     Integer photoSelected = 0;
+    Integer toiletFloor = 3;
     private String urlOne = "";
     private String urlTwo = "";
     private String urlThree = "";
@@ -526,8 +527,12 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 //                                                            ((TextView) parent.getChildAt(0)).setText(parent.getItemAtPosition(position) + "以上を検索");
                                                        if (!spinnerLoaded) {
 
+
+
                                                            // ((TextView) parent.getChildAt(0)).setText(parent.getSelectedItem()));
                                                            ((TextView) parent.getChildAt(0)).setText(String.valueOf(parent.getItemAtPosition(3)));
+
+                                                           toiletFloor = floorSpinner.getSelectedItemPosition();
                                                            //Set localize string...
 
                                                            spinnerLoaded = true;
@@ -899,7 +904,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
                     endData,
                     1,//Integer reviewCount,
                     waitingValue,//Integer averageWait,
-                    3,//Integer toiletFloor,
+                    toiletFloor,//Integer toiletFloor,
                     AddLocations.latitude,
                     AddLocations.longitude,
                     true,

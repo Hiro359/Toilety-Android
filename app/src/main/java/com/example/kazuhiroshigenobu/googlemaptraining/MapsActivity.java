@@ -826,11 +826,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //toilet.longitude = location.longitude;
 
-        toilet.name = (String) dataSnapshot.child("name").getValue();
+        String name = (String) dataSnapshot.child("name").getValue();
+
         Long typeLong = (Long) dataSnapshot.child("type").getValue();
         toilet.type = typeLong.intValue();
         toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
         toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();
+
+        Long floorLong = (Long) dataSnapshot.child("toiletFloor").getValue();
+        toilet.floor = floorLong.intValue();
+
+
+        toilet.name = name + stringToiletFloor(toilet.floor);
+
+
 
         Long openh = (Long) dataSnapshot.child("openHours").getValue();
         toilet.openHours = openh.intValue();
@@ -1315,6 +1324,66 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
 
+
+    }
+
+    private String stringToiletFloor(Integer tFloor){
+        String floorString = "2F";
+        if (tFloor == 0){
+            floorString = "(B3)";
+        } else if (tFloor == 1){
+            floorString = "(B2)";
+        } else if (tFloor == 2){
+            floorString = "(B1)";
+        }else if (tFloor == 3){
+            floorString = "";
+        }else if (tFloor == 4){
+            floorString = "(2F)";
+        }else if (tFloor == 5){
+            floorString = "(3F)";
+        }else if (tFloor == 6){
+            floorString = "(4F)";
+        }else if (tFloor == 7){
+            floorString = "(5F)";
+        }else if (tFloor == 8){
+            floorString = "(6F)";
+        }else if (tFloor == 9){
+            floorString = "(7F)";
+        }else if (tFloor == 10){
+            floorString = "(8F)";
+        }else if (tFloor == 11){
+            floorString = "(9F)";
+        }else if (tFloor == 12){
+            floorString = "(10F)";
+        }else if (tFloor == 13){
+            floorString = "(11F)";
+        }else if (tFloor == 14){
+            floorString = "(12F)";
+        }else if (tFloor == 15){
+            floorString = "(13F)";
+        }else if (tFloor == 16){
+            floorString = "(14F)";
+        }else if (tFloor == 17){
+            floorString = "(15F)";
+        }else if (tFloor == 18){
+            floorString = "(16F)";
+        }else if (tFloor == 19){
+            floorString = "(17F)";
+        }else if (tFloor == 20){
+            floorString = "(18F)";
+        }else if (tFloor == 21){
+            floorString = "(19F)";
+        }else if (tFloor == 22){
+            floorString = "(20F)";
+        }else if (tFloor == 23){
+            floorString = "(21F)";
+        }else if (tFloor == 24){
+            floorString = "(22F)";
+        }else if (tFloor == 25) {
+            floorString = "(23F)";
+        }
+
+        return floorString;
 
     }
 

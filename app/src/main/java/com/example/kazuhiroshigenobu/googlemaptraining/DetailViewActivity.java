@@ -56,9 +56,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -139,6 +141,11 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     private TextView lastEditorLikeCount;
     private TextView lastEditorFavoriteCount;
     private TextView lastEditorHelpCount;
+
+
+    Long firstPosterFavoriteNumber;
+    Long lastEditerFavoriteNumber;
+
 
 
     //Experiment April 3 1pm...
@@ -364,23 +371,6 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     }
 
 
-//    public static boolean hasActiveInternetConnection(Context context) {
-//        if (isNetworkAvailable(context)) {
-//            try {
-//                HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
-//                urlc.setRequestProperty("User-Agent", "Test");
-//                urlc.setRequestProperty("Connection", "close");
-//                urlc.setConnectTimeout(1500);
-//                urlc.connect();
-//                return (urlc.getResponseCode() == 200);
-//            } catch (IOException e) {
-//                Log.e(LOG_TAG, "Error checking internet connection", e);
-//            }
-//        } else {
-//            Log.d(LOG_TAG, "No network available!");
-//        }
-//        return false;
-//    }
 
     @Override
     protected void onDestroy() {
@@ -512,24 +502,27 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                 if (!userAlreadyLogin) {
                     loginPlease();
                 } else {
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    if (user != null) {
-                        String uid = user.getUid();
 
-                        //String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        if (!userLikePushed) {
-                            //buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
-                            buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_non_colored_drawable);
-                            userLikePushed = true;
-
-                            favoriteRef.child(uid).child(toilet.key).setValue(true);
-                        } else {
-                            buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
-
-                            userLikePushed = false;
-                            favoriteRef.child(uid).child(toilet.key).removeValue();
-                        }
-                    }
+                    Log.i("FavoriteButton", "Tapped 22222");
+                    favotireButtonTappedAction();
+//                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                    if (user != null) {
+//                        String uid = user.getUid();
+//
+//                        //String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//                        if (!userLikePushed) {
+//                            //buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+//                            buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_non_colored_drawable);
+//                            userLikePushed = true;
+//
+//                            favoriteRef.child(uid).child(toilet.key).setValue(true);
+//                        } else {
+//                            buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+//
+//                            userLikePushed = false;
+//                            favoriteRef.child(uid).child(toilet.key).removeValue();
+//                        }
+//                    }
                 }
             }
         });
@@ -554,6 +547,73 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
     }
 
+
+    private void favotireButtonTappedAction(){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        Log.i("FavoriteAction", "Tapped 22222");
+        if (user != null) {
+            String uid = user.getUid();
+
+            //String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            if (!userLikePushed) {
+                //buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+                //buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_non_colored_drawable);
+                userLikePushed = true;
+                buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+
+
+                //Change icon May 16
+                favoriteButtonCount();
+                favoriteRef.child(uid).child(toilet.key).setValue(true);
+
+
+            } else {
+                buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_non_colored_drawable);
+
+//                buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
+
+                userLikePushed = false;
+                favoriteRef.child(uid).child(toilet.key).removeValue();
+            }
+        }
+
+    }
+
+    private void favoriteButtonCount(){
+
+        Log.i("favoriteButtonCount", "called 22222");
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+
+        if (!toilet.addedBy.equals("")) {
+            Map<String, Object> firstPosterChildUpdate = new HashMap<>();
+
+            firstPosterChildUpdate.put("totalFavoriteCount", firstPosterFavoriteNumber + 1);
+
+            userRef.child(toilet.addedBy).updateChildren(firstPosterChildUpdate);
+
+            Log.i("favorite Added By", "called 22222");
+
+
+
+        }
+
+        if (!toilet.editedBy.equals("")) {
+            Map<String, Object> lastEditerChildUpdate = new HashMap<>();
+
+            lastEditerChildUpdate.put("totalFavoriteCount", lastEditerFavoriteNumber + 1);
+
+            userRef.child(toilet.editedBy).updateChildren(lastEditerChildUpdate);
+
+            Log.i("favorite Edited By", "called 22222");
+        }
+
+
+
+    }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -741,6 +801,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                     toilet.type = typeLong.intValue();
 
 
+
+
                     toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
                     toilet.urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
                     toilet.urlThree = (String) dataSnapshot.child("urlThree").getValue();
@@ -775,6 +837,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                     toilet.averageWait = averageWait.intValue();
                     Long toiletFloor = (Long) dataSnapshot.child("toiletFloor").getValue();
                     toilet.floor = toiletFloor.intValue();
+
+                    toilet.name = dataSnapshot.child("name").getValue() + stringToiletFloor(toilet.floor);
 
                     Log.i("BOOOL???","4");
 
@@ -1271,7 +1335,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
 
                     toiletNameLabel.setText(toilet.name);
-                    typeAndDistance.setText(toilet.type + "/" + toilet.distance);
+                    typeAndDistance.setText(stringType(toilet.type) + "/" + toilet.distance);
                     availableAndWaiting.setText("ご利用時間" + toilet.openAndCloseHours+ "/平均待ち" + String.valueOf(toilet.averageWait) + "分");
                     ratingDisplay.setRating(averaegeStarFloat);
                     ratingNumber.setText(toilet.averageStar);
@@ -1297,6 +1361,104 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
             }
         });
 
+
+    }
+
+
+    private String stringType(Integer typeInt){
+        String typeString = "All Category";
+
+        if (typeInt == 1){
+            typeString = "Public Restroom";
+
+        } else if (typeInt == 2){
+            typeString = "Convenience Store";
+
+        }else if (typeInt == 3){
+            typeString = "Caffe";
+
+        }else if (typeInt == 4){
+            typeString = "Restaurant";
+
+        }else if (typeInt == 5){
+            typeString = "Shoping Store";
+
+        }else if (typeInt == 6){
+            typeString = "Tourist Places";
+
+        }else if (typeInt == 7){
+            typeString = "Stadium";
+
+        }else if (typeInt == 8){
+            typeString = "Kasetu Toilet";
+
+        } else if (typeInt == 9){
+            typeString = "House Toilet";
+
+        }
+
+        return  typeString;
+
+    }
+
+
+    private String stringToiletFloor(Integer tFloor){
+        String floorString = "2F";
+        if (tFloor == 0){
+            floorString = "(B3)";
+        } else if (tFloor == 1){
+            floorString = "(B2)";
+        } else if (tFloor == 2){
+            floorString = "(B1)";
+        }else if (tFloor == 3){
+            floorString = "";
+        }else if (tFloor == 4){
+            floorString = "(2F)";
+        }else if (tFloor == 5){
+            floorString = "(3F)";
+        }else if (tFloor == 6){
+            floorString = "(4F)";
+        }else if (tFloor == 7){
+            floorString = "(5F)";
+        }else if (tFloor == 8){
+            floorString = "(6F)";
+        }else if (tFloor == 9){
+            floorString = "(7F)";
+        }else if (tFloor == 10){
+            floorString = "(8F)";
+        }else if (tFloor == 11){
+            floorString = "(9F)";
+        }else if (tFloor == 12){
+            floorString = "(10F)";
+        }else if (tFloor == 13){
+            floorString = "(11F)";
+        }else if (tFloor == 14){
+            floorString = "(12F)";
+        }else if (tFloor == 15){
+            floorString = "(13F)";
+        }else if (tFloor == 16){
+            floorString = "(14F)";
+        }else if (tFloor == 17){
+            floorString = "(15F)";
+        }else if (tFloor == 18){
+            floorString = "(16F)";
+        }else if (tFloor == 19){
+            floorString = "(17F)";
+        }else if (tFloor == 20){
+            floorString = "(18F)";
+        }else if (tFloor == 21){
+            floorString = "(19F)";
+        }else if (tFloor == 22){
+            floorString = "(20F)";
+        }else if (tFloor == 23){
+            floorString = "(21F)";
+        }else if (tFloor == 24){
+            floorString = "(22F)";
+        }else if (tFloor == 25) {
+            floorString = "(23F)";
+        }
+
+        return floorString;
 
     }
 
@@ -1521,126 +1683,10 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
 
 
-
-//    private void reviewQuery(String queryKey) {
-//
-//
-//        final List<Review> reviewList = new ArrayList<>();
-//
-//        reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
-//        //Not sure i get the right toilet.key
-//        reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//
-//
-//                final Review review = new Review();
-//
-//
-//
-//                Log.i("reviewQueryCalled","Start");
-//
-//                review.uid = (String) dataSnapshot.child("uid").getValue();
-//                review.feedback = (String) dataSnapshot.child("feedback").getValue();
-//                review.time = (String) dataSnapshot.child("time").getValue();
-//                review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
-//
-//
-//                Long likedCount = (Long) dataSnapshot.child("likedCount").getValue();
-//                review.likedCount = likedCount.intValue();
-////                Long star = (Long) dataSnapshot.child("star").getValue();
-////                review.star = star.doubleValue();
-//
-//
-//                review.star = (String) dataSnapshot.child("star").getValue();
-////                review.star = star.doubleValue();
-//
-//
-//
-//                Log.i("reviewQueryCalled","Middle");
-//
-//                //this may cause an error, it might be needed to be long
-//
-//                userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-//
-//                userRef.child(review.uid).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        Log.i("userInfoQuery","Called");
-//
-//
-//                        review.userName = (String) dataSnapshot.child("userName").getValue();
-//                        Log.i("userInfoQuery1","Called");
-//                        review.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
-//                        Log.i("userInfoQuery2","Called");
-////                        review.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
-////                        Log.i("review.waitingTime",review.waitingtime);
-//
-//
-//
-//
-//
-//
-//                        Long totalLikedCount = (Long) dataSnapshot.child("totalLikedCount").getValue();
-//                        Long totalFavoriteCount = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
-//                        Long totalHelpedCount = (Long) dataSnapshot.child("totalHelpedCount").getValue();
-//                        review.totalLikedCount = totalLikedCount.intValue();
-//                        review.totalFavoriteCount = totalFavoriteCount.intValue();
-//                        review.totalHelpedCount = totalHelpedCount.intValue();
-//
-//
-//                        reviewList.add(review);
-//                        createRecyclerView(reviewList);
-//
-//                        Log.i("reviewQueryCalled","End");
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-//
-//
-//
-//
-//
-//
-//
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
-    //reviewsRef.orderByChild("tid").equalTo(queryKey).addChildEventListener(new ChildEventListener)
-    //}
-
-    private void firstPosterGetInfo(String firstPosterID){
+    private void firstPosterGetInfo(final String firstPosterID){
 
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        userRef.child(firstPosterID).addValueEventListener(new ValueEventListener() {
+        userRef.child(firstPosterID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 user.userName = (String) dataSnapshot.child("userName").getValue();
@@ -1648,8 +1694,10 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
                 Long totalLikedCountLong = (Long) dataSnapshot.child("totalLikedCount").getValue();
                 Long totalFavoriteCountLong = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
-                Long totalHelpedCountLong = (Long) dataSnapshot.child("totalHelpedCount").getValue();
+                Long totalHelpedCountLong = (Long) dataSnapshot.child("totalHelpedCount").getValue() + 1;
 
+
+                firstPosterFavoriteNumber = totalFavoriteCountLong;
                 firstPosterName.setText(String.valueOf(user.userName));
                 firstPosterLikeCount.setText(String.valueOf(totalLikedCountLong));
                 firstPosterFavoriteCount.setText(String.valueOf(totalFavoriteCountLong));
@@ -1658,6 +1706,16 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
                 Uri uri = Uri.parse(user.userPhoto);
                 Picasso.with(getApplicationContext()).load(uri).into(firstPosterImage);
+
+
+                Map<String, Object> childUpdates = new HashMap<>();
+
+                childUpdates.put("totalHelpedCount",totalHelpedCountLong);
+
+                userRef.child(firstPosterID).updateChildren(childUpdates);
+
+                //Add help Count
+
             }
 
             @Override
@@ -1667,10 +1725,10 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         });
     }
 
-    private void lastEditerGetInfo(String lastEditerID){
+    private void lastEditerGetInfo(final String lastEditerID){
 
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        userRef.child(lastEditerID).addValueEventListener(new ValueEventListener() {
+        userRef.child(lastEditerID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 user.userName = (String) dataSnapshot.child("userName").getValue();
@@ -1678,8 +1736,10 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
                 Long totalLikedCountLong = (Long) dataSnapshot.child("totalLikedCount").getValue();
                 Long totalFavoriteCountLong = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
-                Long totalHelpedCountLong = (Long) dataSnapshot.child("totalHelpedCount").getValue();
+                Long totalHelpedCountLong = (Long) dataSnapshot.child("totalHelpedCount").getValue() + 1;
 
+
+                lastEditerFavoriteNumber = totalFavoriteCountLong;
                 lastPosterName.setText(user.userName);
                 lastEditorLikeCount.setText(String.valueOf(totalLikedCountLong));
                 lastEditorFavoriteCount.setText(String.valueOf(totalFavoriteCountLong));
@@ -1687,6 +1747,12 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                 //if user == "" ....
                 Uri uri = Uri.parse(user.userPhoto);
                 Picasso.with(getApplicationContext()).load(uri).into(lastEditorImage);
+
+                Map<String, Object> childUpdates = new HashMap<>();
+
+                childUpdates.put("totalHelpedCount",totalHelpedCountLong);
+
+                userRef.child(lastEditerID).updateChildren(childUpdates);
             }
 
             @Override
@@ -1696,61 +1762,13 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         });
     }
 
-//    private void reviewOneGetInfo(String ridOne){
-//
-//        final Review reviewOne = new Review();
-//
-//        reviewsRef.child(ridOne).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                reviewOne.uid = (String) dataSnapshot.child("uid").getValue();
-//                reviewOne.feedback = (String) dataSnapshot.child("feedback").getValue();
-//                reviewOne.time = (String) dataSnapshot.child("time").getValue();
-//                reviewOne.waitingtime = (String) dataSnapshot.child("waitingtime").getValue();
-//
-//                Long likedCount = (Long) dataSnapshot.child("likedCount").getValue();
-//                reviewOne.likedCount = likedCount.intValue();
-////                Long star = (Long) dataSnapshot.child("star").getValue();
-////                review.star = star.doubleValue();
-//
-//                reviewOne.star = (String) dataSnapshot.child("star").getValue();
-//
-//
-//                userRef.child(reviewOne.uid).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//
-//
-//                        reviewOne.userName = (String) dataSnapshot.child("userName").getValue();
-//                        reviewOne.userPhoto = (String) dataSnapshot.child("userPhoto").getValue();
-//
-//
-//                        Long totalLikedCount = (Long) dataSnapshot.child("totalLikedCount").getValue();
-//                        Long totalFavoriteCount = (Long) dataSnapshot.child("totalFavoriteCount").getValue();
-//                        Long totalHelpedCount = (Long) dataSnapshot.child("totalHelpedCount").getValue();
-//                        reviewOne.totalLikedCount = totalLikedCount.intValue();
-//                        reviewOne.totalFavoriteCount = totalFavoriteCount.intValue();
-//                        reviewOne.totalHelpedCount = totalHelpedCount.intValue();
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+
+//    private void helpCountActionForPosterAndEdited(String userId){
+//        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference();
+//        userRef.child("Users").child(userId).
 //
 //    }
+
 
 
     public void onMapReadyCalled(GoogleMap googleMap,Double toiletLat, Double toiletLon) {
