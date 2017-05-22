@@ -171,30 +171,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-        Log.i("Find Error 1","99999");
 
-//        if (!hasInternetAccess(getApplicationContext())){
-//            Toast.makeText(this, "NO INTERNET", Toast.LENGTH_SHORT).show();
-//            Log.i("Find Error 2.5","99999");
-//            Log.i("NO INTERNET","NO INTERNET");
-//        } else {
-//            Toast.makeText(this, "INTERNET OKAY", Toast.LENGTH_SHORT).show();
-//            Log.i("Find Error 2.7","99999");
-//
-//        }
-
-        Log.i("Find Error 3","99999");
-//        if (!isNetworkAvailable()){
-//            Toast.makeText(this, "NO INTERNET", Toast.LENGTH_SHORT).show();
-//            Log.i("NO INTERNET","NO INTERNET");
-//        } else {
-//            Toast.makeText(this, "INTERNET OKAY", Toast.LENGTH_SHORT).show();
-//
-//        }
-
-        Log.i("JAP98789000", String.valueOf(Filter.japaneseFilter));
-
-//        getActionBar().setIcon(R.drawable.earth);
 
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
@@ -703,6 +680,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         final Double centerLongitude = location.getLongitude();
 
 
+        Log.i("toiletSearch Called", "333333");
+
+
         Double centerRadius = 5.0;
 
 //        final List<Toilet> toiletData = new ArrayList<>();
@@ -721,6 +701,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onKeyEntered(final String key, final GeoLocation location) {
+
 
                 toiletRef.child(key).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -769,6 +750,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void getToiletData(DataSnapshot dataSnapshot, String key){
+
+        Log.i("getInfoData Called", "333333");
 
 
 

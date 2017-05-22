@@ -721,12 +721,14 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     private void toileGetInfo(final String queryKey){
         DatabaseReference toiletRef;
 
+        Log.i("toiletGetInfo Called", "333333");
+
         toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
 
         toiletRef.child(queryKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("OnDataChangeCalled","777");
+                Log.i("OnDataChangeCalled","333333");
                 // for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
                 {
 

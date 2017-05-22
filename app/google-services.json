@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "250788473181",
-    "firebase_url": "https://problemsolving-299e4.firebaseio.com",
-    "project_id": "problemsolving-299e4",
-    "storage_bucket": "problemsolving-299e4.appspot.com"
+    "project_number": "431158899380",
+    "firebase_url": "https://toilet-data.firebaseio.com",
+    "project_id": "toilet-data",
+    "storage_bucket": "toilet-data.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:250788473181:android:7709c8885a182301",
+        "mobilesdk_app_id": "1:431158899380:android:7709c8885a182301",
         "android_client_info": {
           "package_name": "com.example.kazuhiroshigenobu.googlemaptraining"
         }
       },
       "oauth_client": [
         {
-          "client_id": "250788473181-q1r9kqbj05983mkr99fsjr289hv4bckj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.kazuhiroshigenobu.googlemaptraining",
-            "certificate_hash": "3BAC2594ED757989B7EF20B73389F626F1E21D7F"
-          }
-        },
-        {
-          "client_id": "250788473181-o4i36nntbjb07choo3n1vmeo8v0k0qs7.apps.googleusercontent.com",
+          "client_id": "431158899380-pslo64sbueq45pg5a2nkdic8ltun2394.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAH_-R4T3NIHU6nqHnLRiUQriiIcNqEsbc"
+          "current_key": "AIzaSyA-9y9nuLP8YO3OnnOqU5Y2uFEvtpjuZ44"
         }
       ],
       "services": {
@@ -37,20 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "250788473181-p83f7el0p68fp49gr7bimi1t35e8qt6p.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "Hiro-333.Problemsolving"
-              }
-            },
-            {
-              "client_id": "250788473181-o4i36nntbjb07choo3n1vmeo8v0k0qs7.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
