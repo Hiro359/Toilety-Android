@@ -7,6 +7,7 @@ package com.example.kazuhiroshigenobu.googlemaptraining;
 
 class Filter {
 
+
     static Boolean distanceSetted = false;
     static Double distanceFilter = 3.0;
     //static Boolean starFilterSetted = false;

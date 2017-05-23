@@ -773,6 +773,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        UserInfo.longitude = lastKnownLocation.getLongitude();
 
 
+
         toilet.latitude = (Double)dataSnapshot.child("latitude").getValue();
         toilet.longitude = (Double)dataSnapshot.child("longitude").getValue();
 
@@ -837,113 +838,678 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //basic info
         toilet.available = (Boolean) dataSnapshot.child("available").getValue();
-        toilet.japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
-        toilet.westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
-        toilet.onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
-        toilet.unisex = (Boolean) dataSnapshot.child("unisex").getValue();
 
-        //benki function
-        toilet.washlet = (Boolean) dataSnapshot.child("washlet").getValue();
-        toilet.warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
-        toilet.autoOpen = (Boolean) dataSnapshot.child("autoOpen").getValue();
-        toilet.noVirus = (Boolean) dataSnapshot.child("noVirus").getValue();
-        toilet.paperForBenki = (Boolean) dataSnapshot.child("paperForBenki").getValue();
-        toilet.cleanerForBenki = (Boolean) dataSnapshot.child("cleanerForBenki").getValue();
-        toilet.autoToiletWash = (Boolean) dataSnapshot.child("nonTouchWash").getValue();
+
+        //Basic
+        if (Filter.japaneseFilter) {
+            toilet.japanesetoilet = (Boolean) dataSnapshot.child("japanesetoilet").getValue();
+            if (!toilet.japanesetoilet) {
+                return;
+            }
+        }
+
+        if (Filter.westernFilter) {
+            toilet.westerntoilet = (Boolean) dataSnapshot.child("westerntoilet").getValue();
+            if (!toilet.westerntoilet) {
+                return;
+            }
+        }
+
+        if (Filter.onlyFemaleFilter) {
+            toilet.onlyFemale = (Boolean) dataSnapshot.child("onlyFemale").getValue();
+            if (!toilet.onlyFemale) {
+                return;
+            }
+        }
+
+
+
+        if (Filter.unisexFilter) { //Example
+            toilet.unisex = (Boolean) dataSnapshot.child("unisex").getValue();
+            if (!toilet.unisex) {
+                return;
+            }
+        }
+
+
+
+        //Benki
+
+        if (Filter.washletFilter) {
+            toilet.washlet = (Boolean) dataSnapshot.child("washlet").getValue();
+            if (!toilet.washlet) {
+                return;
+            }
+        }
+
+        if (Filter.warmSearFilter) {
+            toilet.warmSeat = (Boolean) dataSnapshot.child("warmSeat").getValue();
+            if (!toilet.warmSeat) {
+                return;
+            }
+        }
+
+        if (Filter.autoOpen) {
+            toilet.autoOpen = (Boolean) dataSnapshot.child("autoOpen").getValue();
+            if (!toilet.autoOpen) {
+                return;
+            }
+        }
+
+        if (Filter.noVirusFilter) {
+            toilet.noVirus = (Boolean) dataSnapshot.child("noVirus").getValue();
+            if (!toilet.noVirus) {
+                return;
+            }
+        }
+
+
+
+        if (Filter.paperForBenkiFilter) {
+            toilet.paperForBenki = (Boolean) dataSnapshot.child("paperForBenki").getValue();
+            if (!toilet.paperForBenki) {
+                return;
+            }
+        }
+
+
+        if (Filter.cleanerForBenkiFilter) {
+            toilet.cleanerForBenki = (Boolean) dataSnapshot.child("cleanerForBenki").getValue();
+            if (!toilet.cleanerForBenki) {
+                return;
+            }
+        }
+
+        if (Filter.autoToiletWashFilter) {
+            toilet.autoToiletWash = (Boolean) dataSnapshot.child("nonTouchWash").getValue();
+            if (!toilet.autoToiletWash) {
+                return;
+            }
+        }
 
         //Washstand function
-        toilet.sensorHandWash = (Boolean) dataSnapshot.child("sensorHandWash").getValue();
-        toilet.handSoap = (Boolean) dataSnapshot.child("handSoap").getValue();
-        toilet.autoHandSoap = (Boolean) dataSnapshot.child("nonTouchHandSoap").getValue();
-        toilet.paperTowel = (Boolean) dataSnapshot.child("paperTowel").getValue();
-        toilet.handDrier = (Boolean) dataSnapshot.child("handDrier").getValue();
 
-        //From Maps Activity
-        //others one
+        if (Filter.sensorHandWashFilter) {
+            toilet.sensorHandWash = (Boolean) dataSnapshot.child("sensorHandWash").getValue();
+            if (!toilet.sensorHandWash) {
+                return;
+            }
+        }
 
-        toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
-        toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
-        toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
-        toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
-        toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+
+        if (Filter.handSoapFilter) {
+            toilet.handSoap = (Boolean) dataSnapshot.child("handSoap").getValue();
+            if (!toilet.handSoap) {
+                return;
+            }
+        }
+
+
+        if (Filter.autoHandSoapFilter) {
+            toilet.autoHandSoap = (Boolean) dataSnapshot.child("nonTouchHandSoap").getValue();
+            if (!toilet.autoHandSoap) {
+                return;
+            }
+        }
+
+
+        if (Filter.paperTowelFilter) {
+            toilet.paperTowel = (Boolean) dataSnapshot.child("paperTowel").getValue();
+            if (!toilet.paperTowel) {
+                return;
+            }
+        }
+
+        if (Filter.handDrierFilter) {
+            toilet.handDrier = (Boolean) dataSnapshot.child("handDrier").getValue();
+            if (!toilet.handDrier) {
+                return;
+            }
+        }
+
+        //Other things one
+
+       // toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
+//        toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
+//        toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
+//        toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
+       // toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+
+
+        if (Filter.fancy) { //Example
+            toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
+            if (!toilet.fancy) {
+                return;
+            }
+        }
+
+        // For ladys...
+
+//        if (Filter.otohime && !toilet.otohime) {
+//            removedToilet = true;
+//        }
+
+        if (Filter.smell) { //Example
+            toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
+            if (!toilet.smell) {
+                return;
+            }
+        }
+
+//
+//        if (Filter.napkinSelling && !toilet.napkinSelling) {
+//            removedToilet = true;
+//        }
+
+        if (Filter.confortableWise) {
+            toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
+            if (!toilet.conforatableWide) {
+                return;
+            }
+        }
+
+        if (Filter.clothes) {
+            toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
+            if (!toilet.clothes) {
+                return;
+            }
+        }
+
+        if (Filter.baggageSpaceFilter) { //Example
+            toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+            if (!toilet.baggageSpace) {
+                return;
+            }
+        }
+
+
+//        toilet.fancy = (Boolean) dataSnapshot.child("fancy").getValue();
+//        toilet.smell = (Boolean) dataSnapshot.child("smell").getValue();
+//        toilet.conforatableWide = (Boolean) dataSnapshot.child("confortable").getValue();
+//        toilet.clothes = (Boolean) dataSnapshot.child("clothes").getValue();
+//        toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+
+
 
 
 
         //others two
-        toilet.noNeedAsk = (Boolean) dataSnapshot.child("noNeedAsk").getValue();
-        toilet.english = (Boolean) dataSnapshot.child("english").getValue();
-        toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
-        toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
-        toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
+//        toilet.noNeedAsk = (Boolean) dataSnapshot.child("noNeedAsk").getValue();
+        if (Filter.noNeedAsk) { //Example
+            toilet.noNeedAsk = (Boolean) dataSnapshot.child("noNeedAsk").getValue();
+            if (!toilet.noNeedAsk) {
+                return;
+            }
+        }
+//        toilet.english = (Boolean) dataSnapshot.child("english").getValue();
+        if (Filter.writtenEnglish) { //Example
+            toilet.english = (Boolean) dataSnapshot.child("english").getValue();
+            if (!toilet.english) {
+                return;
+            }
+        }
+//        toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
+        if (Filter.parking) { //Example
+            toilet.parking = (Boolean) dataSnapshot.child("parking").getValue();
+            //toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+            if (!toilet.parking) {
+                return;
+            }
+        }
+
+
+//        toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
+        if (Filter.airConditionFilter) { //Example
+            toilet.airCondition = (Boolean) dataSnapshot.child("airCondition").getValue();
+            if (!toilet.airCondition) {
+                return;
+            }
+        }
+
+
+//        toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
+        if (Filter.wifiFilter) { //Example
+            toilet.wifi = (Boolean) dataSnapshot.child("wifi").getValue();
+            if (!toilet.wifi) {
+                return;
+            }
+        }
 
 
         //for ladys
 
-        toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
-        toilet.napkinSelling = (Boolean) dataSnapshot.child("napkinSelling").getValue();
-        toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
-        toilet.ladyOmutu = (Boolean) dataSnapshot.child("ladyOmutu").getValue();
-        toilet.ladyBabyChair = (Boolean) dataSnapshot.child("ladyBabyChair").getValue();
-        toilet.ladyBabyChairGood = (Boolean) dataSnapshot.child("ladyBabyChairGood").getValue();
-        toilet.ladyBabyCarAccess = (Boolean) dataSnapshot.child("ladyBabyCarAccess").getValue();
+        if (Filter.otohime) { //Example
+            toilet.otohime = (Boolean) dataSnapshot.child("otohime").getValue();
+            if (!toilet.otohime) {
+                return;
+            }
+        }
+
+
+        if (Filter.napkinSelling) { //Example
+            toilet.napkinSelling = (Boolean) dataSnapshot.child("napkinSelling").getValue();
+            if (!toilet.napkinSelling) {
+                return;
+            }
+        }
+
+
+        if (Filter.makeroomFilter) { //Example
+            toilet.makeuproom = (Boolean) dataSnapshot.child("makeuproom").getValue();
+            if (!toilet.makeuproom) {
+                return;
+            }
+        }
+
+
+        if (Filter.ladyOmutuFilter) { //Example
+            toilet.ladyOmutu = (Boolean) dataSnapshot.child("ladyOmutu").getValue();
+            if (!toilet.ladyOmutu) {
+                return;
+            }
+        }
+
+
+        if (Filter.ladyBabyChair) { //Example
+            toilet.ladyBabyChair = (Boolean) dataSnapshot.child("ladyBabyChair").getValue();
+            if (!toilet.ladyBabyChair) {
+                return;
+            }
+        }
+//
+        if (Filter.ladyBabyChairGood) { //Example
+            toilet.ladyBabyChairGood = (Boolean) dataSnapshot.child("ladyBabyChairGood").getValue();
+
+            if (!toilet.ladyBabyChairGood) {
+                return;
+            }
+        }
+//
+        if (Filter.ladyBabyCarAccess) { //Example
+
+            toilet.ladyBabyCarAccess = (Boolean) dataSnapshot.child("ladyBabyCarAccess").getValue();
+            if (!toilet.ladyBabyCarAccess) {
+                return;
+            }
+        }
 
         //for Mans
-        toilet.maleOmutu = (Boolean) dataSnapshot.child("maleOmutu").getValue();
-        toilet.maleBabyChair = (Boolean) dataSnapshot.child("maleBabyChair").getValue();
-        toilet.maleBabyChairGood = (Boolean) dataSnapshot.child("maleBabyChairGood").getValue();
-        toilet.maleBabyCarAccess = (Boolean) dataSnapshot.child("maleBabyCarAccess").getValue();
+
+            if (Filter.maleOmutuFilter) { //Example
+                toilet.maleOmutu = (Boolean) dataSnapshot.child("maleOmutu").getValue();
+
+            if (!toilet.maleOmutu) {
+                return;
+            }
+        }
+
+        if (Filter.maleBabyChair) { //Example
+            toilet.maleBabyChair = (Boolean) dataSnapshot.child("maleBabyChair").getValue();
+            if (!toilet.maleBabyChair) {
+                return;
+            }
+        }
+
+
+        if (Filter.maleBabyChairGood) { //Example
+            toilet.maleBabyChairGood = (Boolean) dataSnapshot.child("maleBabyChairGood").getValue();
+            if (!toilet.maleBabyChairGood) {
+                return;
+            }
+        }
+
+        if (Filter.maleBabyCarAccess) { //Example
+            toilet.maleBabyCarAccess = (Boolean) dataSnapshot.child("maleBabyCarAccess").getValue();
+            if (!toilet.maleBabyCarAccess) {
+                return;
+            }
+        }
+
+
 
         //for Family Restroom
 
-        toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
-        toilet.wheelchairAccess = (Boolean) dataSnapshot.child("wheelchairAccess").getValue();
-        toilet.autoDoor = (Boolean) dataSnapshot.child("handrail").getValue();
-        toilet.callHelp = (Boolean) dataSnapshot.child("callHelp").getValue();
-        toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
-        toilet.braille = (Boolean) dataSnapshot.child("braille").getValue();
-        toilet.voiceGuide = (Boolean) dataSnapshot.child("voiceGuide").getValue();
-        toilet.familyOmutu = (Boolean) dataSnapshot.child("familyOmutu").getValue();
-        toilet.familyBabyChair = (Boolean) dataSnapshot.child("familyBabyChair").getValue();
+//        toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
+        if (Filter.wheelchairFilter) { //Example
+            toilet.wheelchair = (Boolean) dataSnapshot.child("wheelchair").getValue();
+            if (!toilet.wheelchair) {
+                return;
+            }
+        }
+       // toilet.wheelchairAccess = (Boolean) dataSnapshot.child("wheelchairAccess").getValue();
+        if (Filter.wheelchairAccessFilter) { //Example
+            toilet.wheelchairAccess = (Boolean) dataSnapshot.child("wheelchairAccess").getValue();
+            if (!toilet.wheelchairAccess) {
+                return;
+            }
+        }
+       // toilet.autoDoor = (Boolean) dataSnapshot.child("handrail").getValue();
+        if (Filter.autoDoorFilter) { //Example
+            toilet.autoDoor = (Boolean) dataSnapshot.child("handrail").getValue();
+            if (!toilet.autoDoor) {
+                return;
+            }
+        }
+        //toilet.callHelp = (Boolean) dataSnapshot.child("callHelp").getValue();
+        if (Filter.callHelpFilter) { //Example
+            toilet.callHelp = (Boolean) dataSnapshot.child("callHelp").getValue();
+            if (!toilet.callHelp) {
+                return;
+            }
+        }
+        //toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
+        if (Filter.ostomateFilter) { //Example
+            toilet.ostomate = (Boolean) dataSnapshot.child("ostomate").getValue();
+            if (!toilet.ostomate) {
+                return;
+            }
+        }
+        //toilet.braille = (Boolean) dataSnapshot.child("braille").getValue();
+        if (Filter.braille) { //Example
+            toilet.braille = (Boolean) dataSnapshot.child("braille").getValue();
+            if (!toilet.braille) {
+                return;
+            }
+        }
+        //toilet.voiceGuide = (Boolean) dataSnapshot.child("voiceGuide").getValue();
+        if (Filter.voiceGuideFilter) { //Example
+            toilet.voiceGuide = (Boolean) dataSnapshot.child("voiceGuide").getValue();
+
+            if (!toilet.voiceGuide) {
+                return;
+            }
+        }
+        //toilet.familyOmutu = (Boolean) dataSnapshot.child("familyOmutu").getValue();
+        if (Filter.familyOmutuFilter) { //Example
+            toilet.familyOmutu = (Boolean) dataSnapshot.child("familyOmutu").getValue();
+            if (!toilet.familyOmutu) {
+                return;
+            }
+        }
+
+
+        //toilet.familyBabyChair = (Boolean) dataSnapshot.child("familyBabyChair").getValue();
+        if (Filter.familyBabyChair) { //Example
+            toilet.familyBabyChair = (Boolean) dataSnapshot.child("familyBabyChair").getValue();
+
+            if (!toilet.familyBabyChair) {
+                return;
+            }
+        }
+
+
         //From Maps Activity
 
 
 
 
 
-        toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
-        toilet.babyroomOnlyFemale = (Boolean) dataSnapshot.child("babyRoomOnlyFemale").getValue();
-        toilet.babyroomManCanEnter = (Boolean) dataSnapshot.child("babyRoomMaleEnter").getValue();
-        toilet.babyPersonalSpace = (Boolean) dataSnapshot.child("babyRoomPersonalSpace").getValue();
-        toilet.babyPersonalSpaceWithLock = (Boolean) dataSnapshot.child("babyRoomPersonalSpaceWithLock").getValue();
-        toilet.babyRoomWideSpace = (Boolean) dataSnapshot.child("babyRoomWideSpace").getValue();
-
-        toilet.babyCarRental = (Boolean) dataSnapshot.child("babyCarRental").getValue();
-        toilet.babyCarAccess = (Boolean) dataSnapshot.child("babyCarAccess").getValue();
-        toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
-        toilet.hipWashingStuff = (Boolean) dataSnapshot.child("hipCleaningStuff").getValue();
-        toilet.babyTrashCan = (Boolean) dataSnapshot.child("omutuTrashCan").getValue();
-        toilet.omutuSelling = (Boolean) dataSnapshot.child("omutuSelling").getValue();
+        //toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
+        if (Filter.milkspaceFilter) { //Example
+            toilet.milkspace = (Boolean) dataSnapshot.child("milkspace").getValue();
+            //toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+            if (!toilet.milkspace) {
+                return;
+            }
+        }
 
 
-        toilet.babyRoomSink = (Boolean) dataSnapshot.child("babySink").getValue();
-        toilet.babyWashStand = (Boolean) dataSnapshot.child("babyWashstand").getValue();
-        toilet.babyHotWater = (Boolean) dataSnapshot.child("babyHotwater").getValue();
-        toilet.babyMicroWave = (Boolean) dataSnapshot.child("babyMicrowave").getValue();
-        toilet.babyWaterSelling = (Boolean) dataSnapshot.child("babyWaterSelling").getValue();
-        toilet.babyFoddSelling = (Boolean) dataSnapshot.child("babyFoodSelling").getValue();
-        toilet.babyEatingSpace = (Boolean) dataSnapshot.child("babyEatingSpace").getValue();
+        //toilet.babyroomOnlyFemale = (Boolean) dataSnapshot.child("babyRoomOnlyFemale").getValue();
+        if (Filter.babyRoomOnlyFemaleFilter) { //Example
+            toilet.babyroomOnlyFemale = (Boolean) dataSnapshot.child("babyRoomOnlyFemale").getValue();
+            if (!toilet.babyroomOnlyFemale) {
+                return;
+            }
+        }
 
 
-        toilet.babyChair = (Boolean) dataSnapshot.child("babyChair").getValue();
-        toilet.babySoffa = (Boolean) dataSnapshot.child("babySoffa").getValue();
-        toilet.babyKidsToilet = (Boolean) dataSnapshot.child("kidsToilet").getValue();
-        toilet.babyKidsSpace = (Boolean) dataSnapshot.child("kidsSpace").getValue();
-        toilet.babyHeightMeasure = (Boolean) dataSnapshot.child("babyHeight").getValue();
-        toilet.babyWeightMeasure = (Boolean) dataSnapshot.child("babyWeight").getValue();
-        toilet.babyToy = (Boolean) dataSnapshot.child("babyToy").getValue();
-        toilet.babyFancy = (Boolean) dataSnapshot.child("babyFancy").getValue();
-        toilet.babySmellGood = (Boolean) dataSnapshot.child("babySmellGood").getValue();
+        //toilet.babyroomManCanEnter = (Boolean) dataSnapshot.child("babyRoomMaleEnter").getValue();
+        if (Filter.babyRoomMaleCanEnterFilter) { //Example
+            toilet.babyroomManCanEnter = (Boolean) dataSnapshot.child("babyRoomMaleEnter").getValue();
+            if (!toilet.babyroomManCanEnter) {
+                return;
+            }
+        }
 
+
+       // toilet.babyPersonalSpace = (Boolean) dataSnapshot.child("babyRoomPersonalSpace").getValue();
+        if (Filter.babyRoomPersonalSpaceFilter) { //Example
+            toilet.babyPersonalSpace = (Boolean) dataSnapshot.child("babyRoomPersonalSpace").getValue();
+            if (!toilet.babyPersonalSpace) {
+                return;
+            }
+        }
+        //toilet.babyPersonalSpaceWithLock = (Boolean) dataSnapshot.child("babyRoomPersonalSpaceWithLock").getValue();
+        if (Filter.babyRoomPersonalWithLockFilter) { //Example
+            toilet.babyPersonalSpaceWithLock = (Boolean) dataSnapshot.child("babyRoomPersonalSpaceWithLock").getValue();
+
+            //toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+            if (!toilet.babyPersonalSpaceWithLock) {
+                return;
+            }
+        }
+
+
+        //toilet.babyRoomWideSpace = (Boolean) dataSnapshot.child("babyRoomWideSpace").getValue();
+        if (Filter.babyRoomWideSpaceFilter) { //Example
+            toilet.babyRoomWideSpace = (Boolean) dataSnapshot.child("babyRoomWideSpace").getValue();
+
+            if (toilet.babyRoomWideSpace) {
+                return;
+            }
+        }
+
+        //toilet.babyCarRental = (Boolean) dataSnapshot.child("babyCarRental").getValue();
+        if (Filter.babyCarRentalFilter) { //Example
+            toilet.babyCarRental = (Boolean) dataSnapshot.child("babyCarRental").getValue();
+
+            if (!toilet.babyCarRental) {
+                return;
+            }
+        }
+
+
+        //toilet.babyCarAccess = (Boolean) dataSnapshot.child("babyCarAccess").getValue();
+        if (Filter.babyCarAccessFilter) { //Example
+            toilet.babyCarAccess = (Boolean) dataSnapshot.child("babyCarAccess").getValue();
+
+            if (!toilet.babyCarAccess) {
+                return;
+            }
+        }
+
+        //toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+        if (Filter.omutuFilter) { //Example
+            toilet.omutu = (Boolean) dataSnapshot.child("omutu").getValue();
+
+            if (!toilet.omutu) {
+                return;
+            }
+        }
+
+
+        //toilet.hipWashingStuff = (Boolean) dataSnapshot.child("hipCleaningStuff").getValue();
+        if (Filter.babyHipWashingStuffFilter) { //Example
+            toilet.hipWashingStuff = (Boolean) dataSnapshot.child("hipCleaningStuff").getValue();
+
+            //toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
+            if (!toilet.hipWashingStuff) {
+                return;
+            }
+        }
+
+
+        //toilet.babyTrashCan = (Boolean) dataSnapshot.child("omutuTrashCan").getValue();
+        if (Filter.omutuTrashCanFilter) { //Example
+            toilet.babyTrashCan = (Boolean) dataSnapshot.child("omutuTrashCan").getValue();
+
+            if (!toilet.babyTrashCan) {
+                return;
+            }
+        }
+
+
+        if (Filter.omutuSelling) { //Example
+            toilet.omutuSelling = (Boolean) dataSnapshot.child("omutuSelling").getValue();
+            if (!toilet.omutuSelling) {
+                return;
+            }
+        }
+
+
+        //toilet.babyRoomSink = (Boolean) dataSnapshot.child("babySink").getValue();
+        if (Filter.babySinkFilter) { //Example
+            toilet.babyRoomSink = (Boolean) dataSnapshot.child("babySink").getValue();
+
+            if (!toilet.babyRoomSink) {
+                return;
+            }
+        }
+
+
+        //toilet.babyWashStand = (Boolean) dataSnapshot.child("babyWashstand").getValue();
+        if (Filter.babyWashstandFilter) { //Example
+            toilet.babyWashStand = (Boolean) dataSnapshot.child("babyWashstand").getValue();
+
+            if (!toilet.babyWashStand) {
+                return;
+            }
+        }
+
+
+        //toilet.babyHotWater = (Boolean) dataSnapshot.child("babyHotwater").getValue();
+        if (Filter.babyHotWaterFilter) { //Example
+            toilet.babyHotWater = (Boolean) dataSnapshot.child("babyHotwater").getValue();
+
+            if (!toilet.babyHotWater) {
+                return;
+            }
+        }
+
+
+        //toilet.babyMicroWave = (Boolean) dataSnapshot.child("babyMicrowave").getValue();
+        if (Filter.babyMicrowaveFilter) { //Example
+            toilet.babyMicroWave = (Boolean) dataSnapshot.child("babyMicrowave").getValue();
+
+            if (!toilet.babyMicroWave) {
+                return;
+            }
+        }
+
+
+        //toilet.babyWaterSelling = (Boolean) dataSnapshot.child("babyWaterSelling").getValue();
+        if (Filter.babySellingWaterFilter) { //Example
+            toilet.babyWaterSelling = (Boolean) dataSnapshot.child("babyWaterSelling").getValue();
+
+            if (!toilet.babyWaterSelling) {
+                return;
+            }
+        }
+
+
+        //toilet.babyFoddSelling = (Boolean) dataSnapshot.child("babyFoodSelling").getValue();
+        if (Filter.babyFoodSellingFilter) { //Example
+            toilet.babyFoddSelling = (Boolean) dataSnapshot.child("babyFoodSelling").getValue();
+
+            if (!toilet.babyFoddSelling) {
+                return;
+            }
+        }
+
+
+        //toilet.babyEatingSpace = (Boolean) dataSnapshot.child("babyEatingSpace").getValue();
+        if (Filter.babyEatingSpaceFilter) { //Example
+            toilet.babyEatingSpace = (Boolean) dataSnapshot.child("babyEatingSpace").getValue();
+
+            if (!toilet.babyEatingSpace) {
+                return;
+            }
+        }
+
+
+       // toilet.babyChair = (Boolean) dataSnapshot.child("babyChair").getValue();
+        if (Filter.babyChairFilter) { //Example
+            toilet.babyChair = (Boolean) dataSnapshot.child("babyChair").getValue();
+
+            if (!toilet.babyChair) {
+                return;
+            }
+        }
+        //toilet.babySoffa = (Boolean) dataSnapshot.child("babySoffa").getValue();
+        if (Filter.babySoffaFilter) { //Example
+            toilet.babySoffa = (Boolean) dataSnapshot.child("babySoffa").getValue();
+
+            if (!toilet.babySoffa) {
+                return;
+            }
+        }
+        //toilet.babyKidsToilet = (Boolean) dataSnapshot.child("kidsToilet").getValue();
+        if (Filter.babyKidsSpaceFilter) { //Example
+            toilet.babyKidsToilet = (Boolean) dataSnapshot.child("kidsToilet").getValue();
+
+            if (!toilet.babyKidsToilet) {
+                return;
+            }
+        }
+
+
+        //toilet.babyKidsSpace = (Boolean) dataSnapshot.child("kidsSpace").getValue();
+        if (Filter.babyKidsSpaceFilter) { //Example
+            toilet.babyKidsSpace = (Boolean) dataSnapshot.child("kidsSpace").getValue();
+
+            if (!toilet.babyKidsToilet) {
+                return;
+            }
+        }
+
+
+        //toilet.babyHeightMeasure = (Boolean) dataSnapshot.child("babyHeight").getValue();
+        if (Filter.babyHeightMeasureFilter) { //Example
+            toilet.babyHeightMeasure = (Boolean) dataSnapshot.child("babyHeight").getValue();
+
+            if (!toilet.babyHeightMeasure) {
+                return;
+            }
+        }
+
+
+        //toilet.babyWeightMeasure = (Boolean) dataSnapshot.child("babyWeight").getValue();
+        if (Filter.babyWeightMeasureFilter) { //Example
+            toilet.babyWeightMeasure = (Boolean) dataSnapshot.child("babyWeight").getValue();
+
+            if (!toilet.babyWeightMeasure) {
+                return;
+            }
+        }
+
+
+        //toilet.babyToy = (Boolean) dataSnapshot.child("babyToy").getValue();
+        if (Filter.babyToyFilter) { //Example
+            toilet.babyToy = (Boolean) dataSnapshot.child("babyToy").getValue();
+
+            if (!toilet.babyToy) {
+                return;
+            }
+        }
+        //toilet.babyFancy = (Boolean) dataSnapshot.child("babyFancy").getValue();
+        if (Filter.babyRoomFancyFilter) { //Example
+            toilet.babyFancy = (Boolean) dataSnapshot.child("babyFancy").getValue();
+
+            if (!toilet.babyFancy) {
+                return;
+            }
+        }
+
+        //toilet.babySmellGood = (Boolean) dataSnapshot.child("babySmellGood").getValue();
+        if (Filter.babyRoomSmellGoodFilter) { //Example
+            toilet.babySmellGood = (Boolean) dataSnapshot.child("babySmellGood").getValue();
+
+            if (!toilet.babySmellGood) {
+                return;
+            }
+        }
+
+        
 
         Double averaegeStarDouble = Double.parseDouble(toilet.averageStar);
 
@@ -961,79 +1527,79 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
 
-        if (Filter.japaneseFilter && !toilet.japanesetoilet) {
-            removedToilet = true;
-
-        }
-
-        if (Filter.westernFilter && !toilet.westerntoilet) {
-            removedToilet = true;
-        }
-        if (Filter.onlyFemaleFilter && !toilet.onlyFemale) {
-            removedToilet = true;
-        }
-
-        Log.i("before unisex", "776");
-        if (Filter.unisexFilter && !toilet.unisex) {
-            return;
-        }
-
-        Log.i("after unisex", "778");
-
-        //Benki function
-
-        if (Filter.washletFilter && !toilet.washlet) {
-            removedToilet = true;
-        }
-
-        if (Filter.warmSearFilter && !toilet.warmSeat) {
-            removedToilet = true;
-        }
-
-        if (Filter.autoOpen && !toilet.autoOpen) {
-            removedToilet = true;
-        }
-
-        if (Filter.noVirusFilter && !toilet.noVirus) {
-            removedToilet = true;
-        }
-
-        if (Filter.paperForBenkiFilter && !toilet.paperForBenki) {
-            removedToilet = true;
-        }
-
-        if (Filter.cleanerForBenkiFilter && !toilet.cleanerForBenki) {
-            removedToilet = true;
-        }
+//        if (Filter.japaneseFilter && !toilet.japanesetoilet) {
+//            removedToilet = true;
+//
+//        }
+//
+//        if (Filter.westernFilter && !toilet.westerntoilet) {
+//            removedToilet = true;
+//        }
+//        if (Filter.onlyFemaleFilter && !toilet.onlyFemale) {
+//            removedToilet = true;
+//        }
+//
+//        Log.i("before unisex", "776");
+//        if (Filter.unisexFilter && !toilet.unisex) {
+//            return;
+//        }
+//
+//        Log.i("after unisex", "778");
+//
+//        //Benki function
+//
+//        if (Filter.washletFilter && !toilet.washlet) {
+//            removedToilet = true;
+//        }
+//
+//        if (Filter.warmSearFilter && !toilet.warmSeat) {
+//            removedToilet = true;
+//        }
+//
+//        if (Filter.autoOpen && !toilet.autoOpen) {
+//            removedToilet = true;
+//        }
+//
+//        if (Filter.noVirusFilter && !toilet.noVirus) {
+//            removedToilet = true;
+//        }
+//
+//        if (Filter.paperForBenkiFilter && !toilet.paperForBenki) {
+//            removedToilet = true;
+//        }
+//
+//        if (Filter.cleanerForBenkiFilter && !toilet.cleanerForBenki) {
+//            removedToilet = true;
+//        }
 
         //washStand..
 
-        if (Filter.sensorHandWashFilter && !toilet.sensorHandWash) {
-            removedToilet = true;
-        }
-        if (Filter.handSoapFilter && !toilet.handSoap) {
-            removedToilet = true;
-        }
-        if (Filter.autoHandSoapFilter && !toilet.autoHandSoap) {
-            removedToilet = true;
-        }
-        if (Filter.paperTowelFilter && !toilet.paperTowel) {
-            removedToilet = true;
-        }
-        if (Filter.handDrierFilter && !toilet.handDrier) {
-            removedToilet = true;
-        }
-
-        // For ladys...
-
-        if (Filter.otohime && !toilet.otohime) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.napkinSelling && !toilet.napkinSelling) {
-            removedToilet = true;
-        }
+//        if (Filter.sensorHandWashFilter && !toilet.sensorHandWash) {
+//            removedToilet = true;
+//        }
+//        if (Filter.handSoapFilter && !toilet.handSoap) {
+//            removedToilet = true;
+//        }
+//        if (Filter.autoHandSoapFilter && !toilet.autoHandSoap) {
+//            removedToilet = true;
+//        }
+//        if (Filter.paperTowelFilter && !toilet.paperTowel) {
+//            removedToilet = true;
+//        }
+//        if (Filter.handDrierFilter && !toilet.handDrier) {
+//            removedToilet = true;
+//        }
+//
+//        // For ladys...
+//
+//        if (Filter.otohime && !toilet.otohime) {
+//            removedToilet = true;
+//        }
+//
+//
+//        if (Filter.napkinSelling && !toilet.napkinSelling) {
+//            removedToilet = true;
+//        }
 
 
         if (Filter.makeroomFilter && !toilet.makeuproom) {
