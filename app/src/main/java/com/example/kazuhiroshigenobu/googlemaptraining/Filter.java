@@ -17,6 +17,8 @@ class Filter {
     static Boolean orderReviewFilter = false;
     static Boolean typeFilterOn = false;
     static Integer typeFilter = 0;
+
+    static String queryPath = "";
     //Changed string to integet
 
     static Boolean availableFilter = false;

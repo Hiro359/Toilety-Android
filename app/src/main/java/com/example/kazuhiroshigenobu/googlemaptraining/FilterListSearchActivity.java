@@ -79,10 +79,12 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
         int id = item.getItemId();
         if (id == R.id.filter){
 
-            Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
-            startActivity(intent);
-            finish();
+            //Gotta choose query path here!! May 23
+//            Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+//            startActivity(intent);
+//            finish();
+            queryPathCheck();
             return  true;
         } else {
 
@@ -90,6 +92,171 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
             return super.onOptionsItemSelected(item);
         }
     }
+
+    private void queryPathCheck(){
+        /////
+
+        if (Filter.availableFilter || Filter.japaneseFilter || Filter.westernFilter || Filter.onlyFemaleFilter || Filter.unisexFilter) {
+            QueryPath.unit1 = true;
+            QueryPath.groupOneMember = true;
+
+
+
+        }
+
+        if (Filter.washletFilter || Filter.warmSearFilter || Filter.autoOpen || Filter.noVirusFilter || Filter.paperForBenkiFilter || Filter.cleanerForBenkiFilter || Filter.autoToiletWashFilter) {
+            QueryPath.unit2 = true;
+            QueryPath.groupOneMember = true;
+
+        }
+        if (Filter.sensorHandWashFilter || Filter.handSoapFilter || Filter.autoHandSoapFilter || Filter.paperTowelFilter || Filter.handDrierFilter) {
+            QueryPath.unit3 = true;
+            QueryPath.groupOneMember = true;
+
+        }
+        if (Filter.fancy || Filter.smell || Filter.confortableWise || Filter.clothes || Filter.baggageSpaceFilter) {
+            QueryPath.unit4 = true;
+            QueryPath.groupOneMember = true;
+
+        }
+        if (Filter.noNeedAsk || Filter.writtenEnglish || Filter.parking
+                || Filter.airConditionFilter || Filter.wifiFilter) {
+            QueryPath.unit5 = true;
+            QueryPath.groupOneMember = true;
+
+        }
+        if (Filter.otohime || Filter.napkinSelling || Filter.makeroomFilter || Filter.ladyOmutuFilter || Filter.ladyBabyChair || Filter.ladyBabyChairGood || Filter.ladyBabyCarAccess) {
+            QueryPath.unit6 = true;
+            QueryPath.groupTwoMember = true;
+
+        }
+        if (Filter.maleOmutuFilter || Filter.maleBabyChair || Filter.maleBabyChairGood || Filter.maleBabyCarAccess)  {
+            QueryPath.unit7 = true;
+            QueryPath.groupTwoMember = true;
+
+        }
+        if (Filter.wheelchairFilter || Filter.wheelchairAccessFilter || Filter.autoDoorFilter || Filter.callHelpFilter || Filter.ostomateFilter || Filter.braille || Filter.voiceGuideFilter || Filter.familyOmutuFilter || Filter.familyBabyChair){
+            QueryPath.unit8 = true;
+            QueryPath.groupTwoMember = true;
+
+        }
+        if (Filter.milkspaceFilter || Filter.babyRoomOnlyFemaleFilter || Filter.babyRoomMaleCanEnterFilter || Filter.babyRoomPersonalSpaceFilter || Filter.babyRoomPersonalWithLockFilter || Filter.babyRoomWideSpaceFilter){
+            QueryPath.unit9 = true;
+            QueryPath.groupThreeMember = true;
+
+        }
+        if (Filter.babyCarRentalFilter || Filter.babyCarAccessFilter || Filter.omutuFilter || Filter.babyHipWashingStuffFilter || Filter.omutuTrashCanFilter || Filter.omutuSelling){
+            QueryPath.unit10 = true;
+            QueryPath.groupThreeMember = true;
+
+        }
+        if (Filter.babySinkFilter || Filter.babyWashstandFilter || Filter.babyHotWaterFilter || Filter.babyMicrowaveFilter || Filter.babySellingWaterFilter || Filter.babyFoodSellingFilter || Filter.babyEatingSpaceFilter){
+            QueryPath.unit11 = true;
+            QueryPath.groupThreeMember = true;
+
+        }
+
+        if (Filter.babyChairFilter || Filter.babySoffaFilter || Filter.babyToiletFilter || Filter.babyKidsSpaceFilter || Filter.babyHeightMeasureFilter || Filter.babyWeightMeasureFilter || Filter.babyToyFilter || Filter.babyRoomFancyFilter || Filter.babyRoomSmellGoodFilter){
+            QueryPath.unit12 = true;
+            QueryPath.groupThreeMember = true;
+
+        }
+
+        if (QueryPath.unit1 && QueryPath.unit2 || QueryPath.unit1 && QueryPath.unit3 || QueryPath.unit1  && QueryPath.unit4||QueryPath.unit1 && QueryPath.unit5 || QueryPath.unit2 && QueryPath.unit3 || QueryPath.unit2  && QueryPath.unit4||QueryPath.unit2 && QueryPath.unit5 || QueryPath.unit3  && QueryPath.unit4||QueryPath.unit3  && QueryPath.unit5||QueryPath.unit4  && QueryPath.unit5) {
+            QueryPath.group1 = true;
+        }
+
+        if (( QueryPath.unit6 && QueryPath.unit7) || (QueryPath.unit6 && QueryPath.unit8) || (QueryPath.unit7  && QueryPath.unit8)) {
+            QueryPath.group2 = true;
+        }
+
+        if (( QueryPath.unit9 && QueryPath.unit10) || (QueryPath.unit9 && QueryPath.unit11) || (QueryPath.unit9  && QueryPath.unit12) || (QueryPath.unit10 && QueryPath.unit11) || (QueryPath.unit10 && QueryPath.unit12) || (QueryPath.unit11 && QueryPath.unit12)) {
+            QueryPath.group3 = true;
+        }
+
+        if ( QueryPath.groupOneMember && QueryPath.groupTwoMember){
+            QueryPath.half1 = true;
+
+        }
+
+        if ( QueryPath.groupTwoMember && QueryPath.groupThreeMember){
+            QueryPath.half2 = true;
+
+        }
+        if (QueryPath.groupOneMember  && QueryPath.groupThreeMember){
+            QueryPath.all = true;
+
+        }
+
+
+        if ( QueryPath.group1 && QueryPath.group2) {
+            QueryPath.half1 = true;
+        }
+
+        if ( QueryPath.group2 && QueryPath.group3) {
+            QueryPath.half2 = true;
+        }
+
+        if (( QueryPath.half1 && QueryPath.half2 ) || ( QueryPath.group1 && QueryPath.group3)) {
+            QueryPath.all = true;
+        }
+
+        decideQueryPath();
+        /////
+    }
+
+     private void decideQueryPath(){
+
+
+
+
+         if (QueryPath.all){
+             Filter.queryPath = "AllFilter";
+         } else if (QueryPath.half1){
+             Filter.queryPath = "HalfOne";
+         } else if (QueryPath.half2){
+             Filter.queryPath = "HalfTwo";
+         } else if (QueryPath.group1){
+             Filter.queryPath = "GroupOne";
+         } else if (QueryPath.group2){
+             Filter.queryPath = "GroupTwo";
+         }else if (QueryPath.group3){
+             Filter.queryPath = "GroupThree";
+         } else if(QueryPath.unit1){
+             Filter.queryPath = "UnitOne";
+         } else if (QueryPath.unit2){
+             Filter.queryPath = "UnitTwo";
+         } else if (QueryPath.unit3){
+             Filter.queryPath = "UnitThree";
+         } else if (QueryPath.unit4){
+             Filter.queryPath = "UnitFour";
+         } else if (QueryPath.unit5){
+             Filter.queryPath = "UnitFive";
+         } else if (QueryPath.unit6){
+             Filter.queryPath = "UnitSix";
+         } else if (QueryPath.unit7){
+             Filter.queryPath = "UnitSeven";
+         } else if (QueryPath.unit8){
+             Filter.queryPath = "UnitEight";
+         } else if (QueryPath.unit9){
+             Filter.queryPath = "UnitNine";
+         } else if(QueryPath.unit10){
+             Filter.queryPath = "UnitTen";
+         } else if (QueryPath.unit11){
+             Filter.queryPath = "UnitEleven";
+         } else if (QueryPath.unit12){
+             Filter.queryPath = "UnitTwelve";
+         } else {
+             Filter.queryPath = "NoFilter";
+
+         }
+
+         Toast.makeText(this, "Hey Did you Click filter??", Toast.LENGTH_SHORT).show();
+         Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+         startActivity(intent);
+         finish();
+
+     }
 
 
     private void toolbarReady(){

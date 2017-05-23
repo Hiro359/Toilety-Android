@@ -40,6 +40,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.query.Query;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -224,6 +225,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mProgressView.setVisibility(View.VISIBLE);
         buttonSetClick();
 
+        Log.i("QueryPath 88888", Filter.queryPath);
+
 
 
     }
@@ -337,7 +340,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
 
-//        if id == R.id.
             return super.onOptionsItemSelected(item);
         }
     }
@@ -350,7 +352,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 16.0f));
-
 
 
     }
