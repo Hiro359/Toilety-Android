@@ -992,6 +992,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                         booleanArray.add("女性専用トイレ");
                     }
 
+                    Log.i("Passed Boolean","8.1");
                     if (toilet.unisex){
                         booleanArray.add("男女兼用トイレ");
                     }
@@ -1004,6 +1005,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                     if (toilet.warmSeat){
                         booleanArray.add("暖房便座");
                     }
+
+                    Log.i("Passed Boolean","8.3");
 
                     if (toilet.autoOpen){
                         booleanArray.add("自動開閉便座");
@@ -1025,6 +1028,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                         booleanArray.add("自動洗浄");
                     }
 
+                    Log.i("Passed Boolean","8.6");
+
                     if (toilet.sensorHandWash){
                         booleanArray.add("センサー式お手洗い");
                     }
@@ -1033,9 +1038,13 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                         booleanArray.add("ハンドソープ");
                     }
 
+                    Log.i("Passed Boolean","8.7");
+
                     if (toilet.autoHandSoap){
                         booleanArray.add("センサー式ハンドソープ");
                     }
+
+                    Log.i("Passed Boolean","8.8");
                     if (toilet.paperTowel){
                         booleanArray.add("ペーパータオル");
                     }

@@ -79,7 +79,7 @@ class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             ((AddBooleansViewHolder) holder).booleanSwitch.setChecked(filterSparseArray.get(position).booleanValue);
 
-            Log.i("OKAY","2");
+            Log.i("OKAY","99999");
 
             //((FilterListAdapter.FilterViewHolder)holder).bindData(filterSparseArray.get(position).booleanName);
            // ((AddBooleansListAdapter.AddHeaderViewHolder) holder).setChecked(filterSparseArray.get(position).booleanValue);
@@ -352,6 +352,8 @@ class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if (pos == 85) {
                         AddDetailBooleans.babySmellGood = buttonView.isChecked();
                     }
+
+
 
                 }
 
