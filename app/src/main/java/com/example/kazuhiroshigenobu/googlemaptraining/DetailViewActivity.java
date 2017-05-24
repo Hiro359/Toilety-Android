@@ -1357,8 +1357,16 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                     mapAddress.setText(toilet.address);
                     mapHowToAccess.setText(toilet.howtoaccess);
 
-                    firstPosterGetInfo(toilet.addedBy);
-                    lastEditerGetInfo(toilet.editedBy);
+                    if(!toilet.addedBy.equals("")){
+                        firstPosterGetInfo(toilet.addedBy);
+                         }
+
+                    if(!toilet.addedBy.equals("")){
+                        lastEditerGetInfo(toilet.editedBy);
+                    }
+
+
+
 
                     addDrawerItems();
                     //
@@ -1514,9 +1522,11 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
     private void thumbsUpQuery(String ridOne, String ridTwo){
 
+        Log.i("ThumbsUPCalled", "1234");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uid = user.getUid();
+
 
 
             DatabaseReference thumbsUpRef;
@@ -1524,14 +1534,23 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
             thumbsUpRef = FirebaseDatabase.getInstance().getReference().child("ThumbsUpList");
 
 
+            Log.i("ThumbsUP Uid 1234", uid);
+
             thumbsUpRef.child(uid).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
+
+
+                    Log.i("Datasnapshot", String.valueOf(dataSnapshot));
+
                     for (final DataSnapshot child : dataSnapshot.getChildren()) {
+
+                        Log.i("ThumbsUP Data", "1234");
 
                         final String ridKey = child.getKey();
                         thumbsUpSet.add(ridKey);
+                        Log.i("ThumbsUP Add", "1234");
 
 
                     }
@@ -1544,6 +1563,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
             });
 
             Log.i(" toiletreviewItself", "908");
+            /////////////////////////////////qqqqqqqqqqqqqqqqqqqqqqqqq
+
 
             if (!ridOne.equals("")) {
                 getReviewInfoAndUserInfo(ridOne);

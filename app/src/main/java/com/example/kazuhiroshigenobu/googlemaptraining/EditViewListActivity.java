@@ -745,6 +745,9 @@ public class EditViewListActivity extends AppCompatActivity {
                     toilet.address = (String) dataSnapshot.child("address").getValue();
                     toilet.howtoaccess = (String) dataSnapshot.child("howtoaccess").getValue();
 
+                    toilet.reviewOne = (String) dataSnapshot.child("reviewOne").getValue();
+                    toilet.reviewTwo = (String) dataSnapshot.child("reviewTwo").getValue();
+
                     Log.i("BOOOL???", "3");
 
                     Long openh = (Long) dataSnapshot.child("openHours").getValue();
@@ -980,6 +983,8 @@ public class EditViewListActivity extends AppCompatActivity {
                     AddDetailBooleans.babyToy = toilet.babyToy;
                     AddDetailBooleans.babyFancy = toilet.babyFancy;
                     AddDetailBooleans.babySmellGood = toilet.babySmellGood;
+
+
 
 
                     textToiletName.setText(toilet.name);
@@ -1983,12 +1988,12 @@ public class EditViewListActivity extends AppCompatActivity {
             toiletViewData.put("urlOne",urlOne);
             toiletViewData.put("urlTwo",urlTwo);
             toiletViewData.put("urlThree",urlThree);
-            toiletViewData.put("addedBy",uid);
+            toiletViewData.put("addedBy",toilet.addedBy);
             toiletViewData.put("editedBy",uid);
             toiletViewData.put("reviewOne",toilet.reviewOne);
             toiletViewData.put("reviewTwo",toilet.reviewTwo);
             toiletViewData.put("averageStar",toilet.averageStar);
-            toiletViewData.put("address",AddLocations.address);
+            toiletViewData.put("address",toilet.address);
             toiletViewData.put("howtoaccess","");
             toiletViewData.put("openAndCloseHours",openingString);
             toiletViewData.put("openHours",openData);

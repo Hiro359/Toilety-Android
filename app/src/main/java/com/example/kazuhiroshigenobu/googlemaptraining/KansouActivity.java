@@ -145,7 +145,7 @@ public class KansouActivity extends AppCompatActivity {
             Toast.makeText(this, "Hey Did you post Kansou??", Toast.LENGTH_SHORT).show();
 
             newAvStarAvWaitReviewCountUpload();
-            reviewDataUpload();
+            //reviewDataUpload();
 
             Intent intent = new Intent(getApplicationContext(),DetailViewActivity.class);
             intent.putExtra("EXTRA_SESSION_ID", toilet.key);
@@ -210,6 +210,7 @@ public class KansouActivity extends AppCompatActivity {
 
     }
 
+    @SuppressWarnings("unchecked")
     private void newAvStarAvWaitReviewCountUpload(){
         //get averageStar, averageWait, and reviewCount so that we could calculate values after user posts kansou
 
@@ -265,6 +266,7 @@ public class KansouActivity extends AppCompatActivity {
 
         double roundedAverageStar = (double) Math.round(newAvStarDouble * 10) / 10;
 
+        String newAvStarString = String.valueOf(roundedAverageStar);
 
         //So i should update newReviewCount,  newWaitingTime, and newWaitingTime.
         // I used long instead of int but i am not sure its right...
@@ -274,20 +276,185 @@ public class KansouActivity extends AppCompatActivity {
 //        if (user != null) {
             //String uid = user.getUid();
 
-            DatabaseReference toiletRef;
-            toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
-            DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+
+            String uid = user.getUid();
 
 
-            String newAvStarString = String.valueOf(roundedAverageStar);
 
-            Map<String, Object> childUpdates = new HashMap<>();
+        long timeStamp = System.currentTimeMillis();
+        Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
 
-            childUpdates.put("reviewCount", newReviewCount);
-            childUpdates.put("averageStar", newAvStarString);
-            childUpdates.put("averageWait", newWaitingTime);
-            childUpdates.put("reviewOne", newRid);
-            childUpdates.put("reviewTwo", originalReviewOne);
+      //  String ratingValue = String.valueOf(kansouRaitng.getRating());
+
+        String dateString = getDate(timeStamp);
+        //String dateString = toDate(timeStamp);
+
+        Map<String, Object> reviewInfoData = new HashMap();
+
+
+
+
+
+        reviewInfoData.put("available", availableSwitch.isChecked());
+        reviewInfoData.put("feedback",String.valueOf(kansouText.getText()));
+        reviewInfoData.put("likedCount",0);
+        reviewInfoData.put("star", ratingValue);
+        reviewInfoData.put("tid", toilet.key);
+        reviewInfoData.put("time",dateString);
+        reviewInfoData.put("timeNumbers", timeStampDouble);
+        reviewInfoData.put("uid", uid);
+        reviewInfoData.put("waitingtime",waitingSpinner.getSelectedItem().toString());
+
+
+//        reviewsRef.child(newRid).setValue(new ReviewPost(
+//                availableSwitch.isChecked(),
+//                String.valueOf(kansouText.getText()),
+//                0,
+//                ratingValue,
+//                toilet.key,
+//                dateString,
+//                timeStampDouble,
+//                uid,
+//                waitingSpinner.getSelectedItem().toString()
+//        ));
+
+
+        ///Get from Swift
+
+
+        Map<String, Object> updateData = new HashMap();
+
+        updateData.put("ReviewInfo/" + newRid, reviewInfoData);
+        updateData.put("ReviewList/" + uid + "/" + newRid, true);
+        updateData.put("ToiletReviews/" + toilet.key + "/" + newRid, true);
+
+
+        updateData.put("ToiletView/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("ToiletView/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("ToiletView/" + toilet.key + "/reviewCount", newReviewCount);
+        updateData.put("ToiletView/" + toilet.key + "/reviewOne", newRid);
+        updateData.put("ToiletView/" + toilet.key + "/reviewOne", originalReviewOne);
+
+        updateData.put("NoFilter/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("NoFilter/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("NoFilter/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("ToiletUserList/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("ToiletUserList/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("ToiletUserList/" + toilet.key + "/reviewCount", newReviewCount);
+
+
+        updateData.put("UnitOne/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitOne/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitOne/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitTwo/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitTwo/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitTwo/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitThree/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitThree/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitThree/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitFour/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitFour/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitFour/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitFive/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitFive/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitFive/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitSix/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitSix/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitSix/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitSeven/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitSeven/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitSeven/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitEight/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitEight/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitEight/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitNine/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitNine/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitNine/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitTen/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitTen/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitTen/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitEleven/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitEleven/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitEleven/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("UnitTwelve/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("UnitTwelve/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("UnitTwelve/" + toilet.key + "/reviewCount", newReviewCount);
+
+
+        updateData.put("GroupOne/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("GroupOne/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("GroupOne/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("GroupTwo/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("GroupTwo/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("GroupTwo/" + toilet.key + "/reviewCount", newReviewCount);
+
+        updateData.put("GroupThree/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("GroupThree/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("GroupThree/" + toilet.key + "/reviewCount", newReviewCount);
+
+
+        updateData.put("HalfOne/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("HalfOne/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("HalfOne/" + toilet.key + "/reviewCount", newReviewCount);
+
+
+        updateData.put("HalfTwo/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("HalfTwo/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("HalfTwo/" + toilet.key + "/reviewCount", newReviewCount);
+
+
+        updateData.put("AllFilter/" + toilet.key + "/averageStar", newAvStarString);
+        updateData.put("AllFilter/" + toilet.key + "/averageWait", newWaitingTime);
+        updateData.put("AllFilter/" + toilet.key + "/reviewCount", newReviewCount);
+
+
+
+            DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+
+
+            firebaseRef.updateChildren(updateData,new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+
+                }
+            });
+
+
+
+
+
+            ///Get from Swift
+//
+//            DatabaseReference toiletRef;
+//            toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+//            DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
+//
+//
+////            String newAvStarString = String.valueOf(roundedAverageStar);
+//
+//            Map<String, Object> childUpdates = new HashMap<>();
+//
+//            childUpdates.put("reviewCount", newReviewCount);
+//            childUpdates.put("averageStar", newAvStarString);
+//            childUpdates.put("averageWait", newWaitingTime);
+//            childUpdates.put("reviewOne", newRid);
+//            childUpdates.put("reviewTwo", originalReviewOne);
 
 
             //childUpdates.put("editedBy",uid);
@@ -295,67 +462,67 @@ public class KansouActivity extends AppCompatActivity {
             //We dont need to updata editedBy uid....
 
 
-            updateToiletRef.updateChildren(childUpdates);
+          //  updateToiletRef.updateChildren(childUpdates);
 
-    }
+    }}
 
-    private void reviewDataUpload(){
-
-//        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-//            //Go to login
+//    private void reviewDataUpload(){
+//
+////        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+////            //Go to login
+////        }
+////        else{
+////            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+////        }
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            String uid = user.getUid();
+//
+//            Log.i("This is the UID", uid);
+//
+//
+//            long timeStamp = System.currentTimeMillis();
+//            Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
+//
+//            String ratingValue = String.valueOf(kansouRaitng.getRating());
+//
+//            String dateString = getDate(timeStamp);
+//            //String dateString = toDate(timeStamp);
+//            Log.i("This is the dateString", dateString);
+//
+//
+//            DatabaseReference reviewsRef;
+//            reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
+//            DatabaseReference toiletReviewRef;
+//            toiletReviewRef = FirebaseDatabase.getInstance().getReference().child("ToiletReviews");
+//            DatabaseReference reviewListRef;
+//            reviewListRef = FirebaseDatabase.getInstance().getReference().child("ReviewList");
+//
+////            reviewsRef.child(newRid).setValue(new ReviewPost(
+////                    availableSwitch.isChecked(),
+////                    String.valueOf(kansouText.getText()),
+////                    0,
+////                    ratingValue,
+////                    toilet.key,
+////                    dateString,
+////                    timeStampDouble,
+////                    uid,
+////                    waitingSpinner.getSelectedItem().toString()
+////            ));
+//
+//
+//            Log.i("before", "toiletReviewRef");
+//            Log.i("toilet.key", toilet.key);
+//            Log.i("newRid", newRid);
+//            toiletReviewRef.child(toilet.key).child(newRid).setValue(true);
+//
+//
+//            Log.i("before", "reviewListRef");
+//            reviewListRef.child(uid).child(newRid).setValue(true);
+//
+//
 //        }
-//        else{
-//            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        }
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            String uid = user.getUid();
-
-            Log.i("This is the UID", uid);
-
-
-            long timeStamp = System.currentTimeMillis();
-            Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
-
-            String ratingValue = String.valueOf(kansouRaitng.getRating());
-
-            String dateString = getDate(timeStamp);
-            //String dateString = toDate(timeStamp);
-            Log.i("This is the dateString", dateString);
-
-
-            DatabaseReference reviewsRef;
-            reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
-            DatabaseReference toiletReviewRef;
-            toiletReviewRef = FirebaseDatabase.getInstance().getReference().child("ToiletReviews");
-            DatabaseReference reviewListRef;
-            reviewListRef = FirebaseDatabase.getInstance().getReference().child("ReviewList");
-
-            reviewsRef.child(newRid).setValue(new ReviewPost(
-                    availableSwitch.isChecked(),
-                    String.valueOf(kansouText.getText()),
-                    0,
-                    ratingValue,
-                    toilet.key,
-                    dateString,
-                    timeStampDouble,
-                    uid,
-                    waitingSpinner.getSelectedItem().toString()
-            ));
-
-
-            Log.i("before", "toiletReviewRef");
-            Log.i("toilet.key", toilet.key);
-            Log.i("newRid", newRid);
-            toiletReviewRef.child(toilet.key).child(newRid).setValue(true);
-
-
-            Log.i("before", "reviewListRef");
-            reviewListRef.child(uid).child(newRid).setValue(true);
-
-
-        }
-    }
+//    }
 
 //    private String getDate(long time) {
 //        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
