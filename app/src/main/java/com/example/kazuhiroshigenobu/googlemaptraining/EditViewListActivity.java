@@ -31,6 +31,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -650,7 +652,7 @@ public class EditViewListActivity extends AppCompatActivity {
 
     private void toileGetData(final String originalKey) {
 
-        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+        toiletRef = FirebaseDatabase.getInstance().getReference().child("ToiletView");
 
         toiletRef.child(originalKey).addValueEventListener(new ValueEventListener() {
             @Override
@@ -724,6 +726,12 @@ public class EditViewListActivity extends AppCompatActivity {
                     toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
                     toilet.urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
                     toilet.urlThree = (String) dataSnapshot.child("urlThree").getValue();
+
+
+                    toilet.latitude = (Double) dataSnapshot.child("latitude").getValue();
+                    toilet.longitude = (Double) dataSnapshot.child("longitude").getValue();
+
+
 
                     urlOne = toilet.urlOne;
                     urlTwo = toilet.urlTwo;
@@ -1182,6 +1190,7 @@ public class EditViewListActivity extends AppCompatActivity {
 
     }
 
+    @SuppressWarnings("unchecked")
     private void firebaseRenewdata(){
 
 
@@ -1293,129 +1302,984 @@ public class EditViewListActivity extends AppCompatActivity {
             //Log.i("datbaseUpdateAVSTAR", String.valueOf(avStar));
 
 
-            Map<String, Object> childUpdates = new HashMap<>();
+//            ////From AddDetailView
+//
+//            Map<String, Object> noFilterData = new HashMap();
+//
+//            noFilterData.put("name",tName);
+//            noFilterData.put("type",typeSpinner.getSelectedItemPosition());
+//            noFilterData.put("urlOne",urlOne);
+//            noFilterData.put("averageStar",toilet.averageStar);
+//            noFilterData.put("reviewCount",1);
+//            noFilterData.put("available",true);
+//            noFilterData.put("averageWait",toilet.averageWait);
+//            noFilterData.put("toiletFloor",toilet.floor);
+//
+//            //
+
+            ////From AddDetailView
+//            ReviewPost newPost = new ReviewPost(
+//                    true,
+//                    textFeedback.getText().toString(),//String feedback,
+//                    0,//Integer likedCount,
+//                    avStar,//String star,
+//                    newTid,
+//                    dateString,//String time,
+//                    timeNumbers,
+//                    uid,
+//                    waitingTime);
 
 
-            //I could not get tName
-            //Maybe I could not get other values either
+//            reviewInfoRef.child(newRid).setValue(newPost);
+//
+//            reviewListRef.child(uid).child(newRid).setValue(true);
+//
+//            toiletReviewsRef.child(newTid).child(newRid).setValue(true);
+//.
 
 
-            childUpdates.put("name", tName);
-            childUpdates.put("openAndCloseHours", openingString);
-            childUpdates.put("type", updateType);
 
-            childUpdates.put("urlOne", urlOne);
-            childUpdates.put("urlTwo", urlTwo);
-            childUpdates.put("urlThree", urlThree);
-            childUpdates.put("editedBy", uid);
-            childUpdates.put("howtoaccess", "");
-            childUpdates.put("openHours", openTime);
-            childUpdates.put("closeHours", endTime);
-            childUpdates.put("toiletFloor", 3);
+            Map<String, Object> noFilterData = new HashMap();
+//
+            noFilterData.put("name",tName);
+            noFilterData.put("type",typeSpinner.getSelectedItemPosition());
+            noFilterData.put("urlOne",toilet.urlOne);
+            noFilterData.put("averageStar",toilet.averageStar);
+            noFilterData.put("reviewCount",1);
+            noFilterData.put("available",true);
+            noFilterData.put("averageWait",toilet.averageWait);
+            noFilterData.put("toiletFloor",toilet.floor);
 
-
-            childUpdates.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
-            childUpdates.put("westerntoilet", AddDetailBooleans.westerntoilet);
-            childUpdates.put("onlyFemale", AddDetailBooleans.onlyFemale);
-            childUpdates.put("unisex", AddDetailBooleans.unisex);
-
-            childUpdates.put("washlet", AddDetailBooleans.washlet);
-            childUpdates.put("warmSeat", AddDetailBooleans.warmSeat);
-            childUpdates.put("autoOpen", AddDetailBooleans.autoOpen);
-            childUpdates.put("noVirus", AddDetailBooleans.noVirus);
-            childUpdates.put("paperForBenki", AddDetailBooleans.paperForBenki);
-            childUpdates.put("cleanerForBenki", AddDetailBooleans.cleanerForBenki);
-            childUpdates.put("nonTouchWash", AddDetailBooleans.autoToiletWash);
+            Log.i("URL 999", "888");
 
 
-            childUpdates.put("sensorHandWash", AddDetailBooleans.sensorHandWash);
-            childUpdates.put("handSoap", AddDetailBooleans.handSoap);
-            childUpdates.put("nonTouchHandSoap", AddDetailBooleans.autoHandSoap);
-            childUpdates.put("paperTowel", AddDetailBooleans.paperTowel);
-            childUpdates.put("handDrier", AddDetailBooleans.handDrier);
+            Map<String, Object> toiletUserList = new HashMap();
+            toiletUserList.put("name",tName);
+            toiletUserList.put("type",typeSpinner.getSelectedItemPosition());
+            toiletUserList.put("urlOne",urlOne);
+            toiletUserList.put("averageStar",toilet.averageStar);
+            toiletUserList.put("reviewCount",1);
+            toiletUserList.put("available",true);
+            toiletUserList.put("averageWait",toilet.averageWait);
+            toiletUserList.put("toiletFloor",toilet.floor);
+            toiletUserList.put("latitude",toilet.latitude);
+            toiletUserList.put("longitude",toilet.longitude);
+
+            Log.i("URL 999", "888 777");
 
 
-            childUpdates.put("fancy", AddDetailBooleans.fancy);
-            childUpdates.put("smell", AddDetailBooleans.smell);
-            childUpdates.put("confortable", AddDetailBooleans.conforatableWide);
-            childUpdates.put("clothes", AddDetailBooleans.clothes);
-            childUpdates.put("baggageSpace", AddDetailBooleans.baggageSpace);
-
-            childUpdates.put("noNeedAsk", AddDetailBooleans.noNeedAsk);
-            childUpdates.put("english", AddDetailBooleans.english);
-            childUpdates.put("parking", AddDetailBooleans.parking);
-            childUpdates.put("airCondition", AddDetailBooleans.airCondition);
-            childUpdates.put("wifi", AddDetailBooleans.wifi);
-
-            childUpdates.put("otohime", AddDetailBooleans.otohime);
-            childUpdates.put("napkinSelling", AddDetailBooleans.napkinSelling);
-            childUpdates.put("makeuproom", AddDetailBooleans.makeuproom);
-            childUpdates.put("ladyOmutu", AddDetailBooleans.ladyOmutu);
-            childUpdates.put("ladyBabyChair", AddDetailBooleans.ladyBabyChair);
-            childUpdates.put("ladyBabyChairGood", AddDetailBooleans.ladyBabyChairGood);
-            childUpdates.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
-
-            childUpdates.put("maleOmutu", AddDetailBooleans.maleOmutu);
-            childUpdates.put("maleBabyChair", AddDetailBooleans.maleBabyChair);
-            childUpdates.put("maleBabyChairGood", AddDetailBooleans.maleBabyChairGood);
-            childUpdates.put("maleBabyCarAccess", AddDetailBooleans.maleBabyCarAccess);
-
-            //for Family Restroom
-            Log.i("Passed Boolean", "6");
-
-            childUpdates.put("wheelchair", AddDetailBooleans.wheelchair);
-            childUpdates.put("wheelchairAccess", AddDetailBooleans.wheelchairAccess);
-            childUpdates.put("autoDoor", AddDetailBooleans.autoDoor);
-            childUpdates.put("callHelp", AddDetailBooleans.callHelp);
-            childUpdates.put("ostomate", AddDetailBooleans.ostomate);
-            childUpdates.put("braille", AddDetailBooleans.braille);
-            childUpdates.put("voiceGuide", AddDetailBooleans.voiceGuide);
-            childUpdates.put("familyOmutu", AddDetailBooleans.familyOmutu);
-            childUpdates.put("familyBabyChair", AddDetailBooleans.familyBabyChair);
+            Map<String, Object> unitOneData = new HashMap();
+            unitOneData.put("name",tName);
+            unitOneData.put("type",typeSpinner.getSelectedItemPosition());
+            unitOneData.put("urlOne",urlOne);
+            unitOneData.put("averageStar",toilet.averageStar);
+            unitOneData.put("reviewCount",1);
+            unitOneData.put("available",true);
+            unitOneData.put("averageWait",toilet.averageWait);
+            unitOneData.put("toiletFloor",toilet.floor);
+            unitOneData.put("openHours",openData);
+            unitOneData.put("closeHours",endData);
+            unitOneData.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
+            unitOneData.put("westerntoilet",AddDetailBooleans.westerntoilet);
+            unitOneData.put("onlyFemale",AddDetailBooleans.onlyFemale);
+            unitOneData.put("unisex",AddDetailBooleans.unisex);
 
 
-            childUpdates.put("milkspace", AddDetailBooleans.milkspace);
-            childUpdates.put("babyRoomOnlyFemale", AddDetailBooleans.babyroomOnlyFemale);
-            childUpdates.put("babyRoomMaleEnter", AddDetailBooleans.babyroomManCanEnter);
-            childUpdates.put("babyRoomPersonalSpace", AddDetailBooleans.babyPersonalSpace);
-            childUpdates.put("babyRoomPersonalSpaceWithLock", AddDetailBooleans.babyPersonalSpaceWithLock);
-            childUpdates.put("babyRoomWideSpace", AddDetailBooleans.babyRoomWideSpace);
+
+            Map<String, Object> unitTwoData = new HashMap();
+
+            unitTwoData.put("name",tName);
+            unitTwoData.put("type",typeSpinner.getSelectedItemPosition());
+            unitTwoData.put("urlOne",urlOne);
+            unitTwoData.put("averageStar",toilet.averageStar);
+            unitTwoData.put("reviewCount",1);
+            unitTwoData.put("available",true);
+            unitTwoData.put("averageWait",toilet.averageWait);
+            unitTwoData.put("toiletFloor",toilet.floor);
+            unitTwoData.put("washlet",AddDetailBooleans.washlet);
+            unitTwoData.put("warmSeat",AddDetailBooleans.warmSeat);
+            unitTwoData.put("autoOpen",AddDetailBooleans.autoOpen);
+            unitTwoData.put("noVirus",AddDetailBooleans.noVirus);
+            unitTwoData.put("paperForBenki",AddDetailBooleans.paperForBenki);
+            unitTwoData.put("cleanerForBenki",AddDetailBooleans.cleanerForBenki);
+            unitTwoData.put("nonTouchWash",AddDetailBooleans.autoToiletWash);
 
 
-            childUpdates.put("babyCarRental", AddDetailBooleans.babyCarRental);
-            childUpdates.put("babyCarAccess", AddDetailBooleans.babyCarAccess);
-            childUpdates.put("omutu", AddDetailBooleans.omutu);
-            childUpdates.put("hipCleaningStuff", AddDetailBooleans.hipWashingStuff);
-            childUpdates.put("omutuTrashCan", AddDetailBooleans.babyTrashCan);
-            childUpdates.put("omutuSelling", AddDetailBooleans.omutuSelling);
 
 
-            childUpdates.put("babySink", AddDetailBooleans.babyRoomSink);
-            childUpdates.put("babyWashstand", AddDetailBooleans.babyWashStand);
-            childUpdates.put("babyHotwater", AddDetailBooleans.babyHotWater);
-            childUpdates.put("babyMicrowave", AddDetailBooleans.babyMicroWave);
-            childUpdates.put("babyWaterSelling", AddDetailBooleans.babyWaterSelling);
-            childUpdates.put("babyFoodSelling", AddDetailBooleans.babyFoddSelling);
-            childUpdates.put("babyEatingSpace", AddDetailBooleans.babyEatingSpace);
+            Map<String, Object> unitThreeData = new HashMap();
+            unitThreeData.put("name",tName);
+            unitThreeData.put("type",typeSpinner.getSelectedItemPosition());
+            unitThreeData.put("urlOne",urlOne);
+            unitThreeData.put("averageStar",toilet.averageStar);
+            unitThreeData.put("reviewCount",1);
+            unitThreeData.put("available",true);
+            unitThreeData.put("averageWait",toilet.averageWait);
+            unitThreeData.put("toiletFloor",toilet.floor);
+            unitThreeData.put("sensorHandWash",AddDetailBooleans.sensorHandWash);
+            unitThreeData.put("handSoap", AddDetailBooleans.handSoap);
+            unitThreeData.put("nonTouchHandSoap", AddDetailBooleans.autoHandSoap);
+            unitThreeData.put("paperTowel",AddDetailBooleans.paperTowel);
+            unitThreeData.put("handDrier",AddDetailBooleans.handDrier);
 
 
-            childUpdates.put("babyChair", AddDetailBooleans.babyChair);
-            childUpdates.put("babySoffa", AddDetailBooleans.babySoffa);
-            childUpdates.put("kidsToilet", AddDetailBooleans.babyKidsToilet);
-            childUpdates.put("kidsSpace", AddDetailBooleans.babyKidsSpace);
-            childUpdates.put("babyHeight", AddDetailBooleans.babyHeightMeasure);
-            childUpdates.put("babyWeight", AddDetailBooleans.babyWeightMeasure);
-            childUpdates.put("babyToy", AddDetailBooleans.babyToy);
-            childUpdates.put("babyFancy", AddDetailBooleans.babyFancy);
-            childUpdates.put("babySmellGood", AddDetailBooleans.babySmellGood);
+            Map<String, Object> unitFourData = new HashMap();
+            unitFourData.put("name",tName);
+            unitFourData.put("type",typeSpinner.getSelectedItemPosition());
+            unitFourData.put("urlOne",urlOne);
+            unitFourData.put("averageStar",toilet.averageStar);
+            unitFourData.put("reviewCount",1);
+            unitFourData.put("available",true);
+            unitFourData.put("averageWait",toilet.averageWait);
+            unitFourData.put("toiletFloor",toilet.floor);
+            unitFourData.put("fancy", AddDetailBooleans.fancy);
+            unitFourData.put("smell",AddDetailBooleans.smell);
+            unitFourData.put("confortable",AddDetailBooleans.conforatableWide);
+            unitFourData.put("clothes",AddDetailBooleans.clothes);
+            unitFourData.put("baggageSpace",AddDetailBooleans.baggageSpace);
 
 
-            //childUpdates.put("editedBy",uid);
 
-            //We dont need to updata editedBy uid....
+            Map<String, Object> unitFiveData = new HashMap();
+            unitFiveData.put("name",tName);
+            unitFiveData.put("type",typeSpinner.getSelectedItemPosition());
+            unitFiveData.put("urlOne",urlOne);
+            unitFiveData.put("averageStar",toilet.averageStar);
+            unitFiveData.put("reviewCount",1);
+            unitFiveData.put("available",true);
+            unitFiveData.put("averageWait",toilet.averageWait);
+            unitFiveData.put("toiletFloor",toilet.floor);
+            unitFiveData.put("noNeedAsk",AddDetailBooleans.noNeedAsk);
+            unitFiveData.put("english",AddDetailBooleans.english);
+            unitFiveData.put("parking",AddDetailBooleans.parking);
+            unitFiveData.put("airCondition",AddDetailBooleans.airCondition);
+            unitFiveData.put("wifi",AddDetailBooleans.wifi);
 
 
-            updateToiletRef.updateChildren(childUpdates);
+
+            Map<String, Object> unitSixData = new HashMap();
+            unitSixData.put("name",tName);
+            unitSixData.put("type",typeSpinner.getSelectedItemPosition());
+            unitSixData.put("urlOne",urlOne);
+            unitSixData.put("averageStar",toilet.averageStar);
+            unitSixData.put("reviewCount",1);
+            unitSixData.put("available",true);
+            unitSixData.put("averageWait",toilet.averageWait);
+            unitSixData.put("toiletFloor",toilet.floor);
+            unitSixData.put("otohime",AddDetailBooleans.otohime);
+            unitSixData.put("napkinSelling",AddDetailBooleans.napkinSelling);
+            unitSixData.put("makeuproom",AddDetailBooleans.makeuproom);
+            unitSixData.put("ladyOmutu",AddDetailBooleans.ladyOmutu);
+            unitSixData.put("ladyBabyChair",AddDetailBooleans.ladyBabyChair);
+            unitSixData.put("ladyBabyChairGood",AddDetailBooleans.ladyBabyChairGood);
+            unitSixData.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
+
+
+            Map<String, Object> unitSevenData = new HashMap();
+            unitSevenData.put("name",tName);
+            unitSevenData.put("type",typeSpinner.getSelectedItemPosition());
+            unitSevenData.put("urlOne",urlOne);
+            unitSevenData.put("averageStar",toilet.averageStar);
+            unitSevenData.put("reviewCount",1);
+            unitSevenData.put("available",true);
+            unitSevenData.put("averageWait",toilet.averageWait);
+            unitSevenData.put("toiletFloor",toilet.floor);
+            unitSevenData.put("maleOmutu",AddDetailBooleans.maleOmutu);
+            unitSevenData.put("maleBabyChair",AddDetailBooleans.maleBabyChair);
+            unitSevenData.put("maleBabyChairGood",AddDetailBooleans.maleBabyChairGood);
+            unitSevenData.put("maleBabyCarAccess",AddDetailBooleans.babyCarAccess);
+
+
+
+            Map<String, Object> unitEightData = new HashMap();
+            unitEightData.put("name",tName);
+            unitEightData.put("type",typeSpinner.getSelectedItemPosition());
+            unitEightData.put("urlOne",urlOne);
+            unitEightData.put("averageStar",toilet.averageStar);
+            unitEightData.put("reviewCount",1);
+            unitEightData.put("available",true);
+            unitEightData.put("averageWait",toilet.averageWait);
+            unitEightData.put("toiletFloor",toilet.floor);
+            unitEightData.put("wheelchair",AddDetailBooleans.wheelchair);
+            unitEightData.put("wheelchairAccess",AddDetailBooleans.wheelchairAccess);
+            unitEightData.put("autoDoor",AddDetailBooleans.autoDoor);
+            unitEightData.put("callHelp",AddDetailBooleans.callHelp);
+            unitEightData.put("ostomate",AddDetailBooleans.ostomate);
+            unitEightData.put("braille",AddDetailBooleans.braille);
+            unitEightData.put("voiceGuide",AddDetailBooleans.voiceGuide);
+            unitEightData.put("familyOmutu",AddDetailBooleans.familyOmutu);
+            unitEightData.put("familyBabyChair",AddDetailBooleans.familyBabyChair);
+
+
+
+            Map<String, Object> unitNineData = new HashMap();
+            unitNineData.put("name",tName);
+            unitNineData.put("type",typeSpinner.getSelectedItemPosition());
+            unitNineData.put("urlOne",urlOne);
+            unitNineData.put("averageStar",toilet.averageStar);
+            unitNineData.put("reviewCount",1);
+            unitNineData.put("available",true);
+            unitNineData.put("averageWait",toilet.averageWait);
+            unitNineData.put("toiletFloor",toilet.floor);
+            unitNineData.put("milkspace",AddDetailBooleans.milkspace);
+            unitNineData.put("babyRoomOnlyFemale",AddDetailBooleans.babyroomOnlyFemale);
+            unitNineData.put("babyRoomMaleEnter",AddDetailBooleans.babyroomManCanEnter);
+            unitNineData.put("babyRoomPersonalSpace",AddDetailBooleans.babyPersonalSpace);
+            unitNineData.put("babyRoomPersonalSpaceWithLock",AddDetailBooleans.babyPersonalSpaceWithLock);
+            unitNineData.put("babyRoomWideSpace",AddDetailBooleans.babyRoomWideSpace);
+
+
+
+            Map<String, Object> unitTenData = new HashMap();
+            unitTenData.put("name",tName);
+            unitTenData.put("type",typeSpinner.getSelectedItemPosition());
+            unitTenData.put("urlOne",urlOne);
+            unitTenData.put("averageStar",toilet.averageStar);
+            unitTenData.put("reviewCount",1);
+            unitTenData.put("available",true);
+            unitTenData.put("averageWait",toilet.averageWait);
+            unitTenData.put("toiletFloor",toilet.floor);
+            unitTenData.put("babyCarRental",AddDetailBooleans.babyCarRental);
+            unitTenData.put("babyCarAccess",AddDetailBooleans.babyCarAccess);
+            unitTenData.put("omutu",AddDetailBooleans.omutu);
+            unitTenData.put("hipCleaningStuff",AddDetailBooleans.hipWashingStuff);
+            unitTenData.put("omutuTrashCan",AddDetailBooleans.babyTrashCan);
+            unitTenData.put("omutuSelling",AddDetailBooleans.omutuSelling);
+
+            Map<String, Object> unitElevenData = new HashMap();
+            unitElevenData.put("name",tName);
+            unitElevenData.put("type",typeSpinner.getSelectedItemPosition());
+            unitElevenData.put("urlOne",urlOne);
+            unitElevenData.put("averageStar",toilet.averageStar);
+            unitElevenData.put("reviewCount",1);
+            unitElevenData.put("available",true);
+            unitElevenData.put("averageWait",toilet.averageWait);
+            unitElevenData.put("toiletFloor",toilet.floor);
+            unitElevenData.put("babySink",AddDetailBooleans.babyRoomSink);
+            unitElevenData.put("babyWashstand",AddDetailBooleans.babyWashStand);
+            unitElevenData.put("babyHotwater",AddDetailBooleans.babyHotWater);
+            unitElevenData.put("babyMicrowave",AddDetailBooleans.babyMicroWave);
+            unitElevenData.put("babyWaterSelling",AddDetailBooleans.babyWaterSelling);
+            unitElevenData.put("babyFoodSelling",AddDetailBooleans.babyFoddSelling);
+            unitElevenData.put("babyEatingSpace",AddDetailBooleans.babyEatingSpace);
+
+
+
+            Map<String, Object> unitTwelveData = new HashMap();
+            unitTwelveData.put("name",tName);
+            unitTwelveData.put("type",typeSpinner.getSelectedItemPosition());
+            unitTwelveData.put("urlOne",urlOne);
+            unitTwelveData.put("averageStar",toilet.averageStar);
+            unitTwelveData.put("reviewCount",1);
+            unitTwelveData.put("available",true);
+            unitTwelveData.put("averageWait",toilet.averageWait);
+            unitTwelveData.put("toiletFloor",toilet.floor);
+            unitTwelveData.put("babyChair",AddDetailBooleans.babyChair);
+            unitTwelveData.put("babySoffa",AddDetailBooleans.babySoffa);
+            unitTwelveData.put("kidsToilet",AddDetailBooleans.babyKidsToilet);
+            unitTwelveData.put("kidsSpace",AddDetailBooleans.babyKidsSpace);
+            unitTwelveData.put("babyHeight",AddDetailBooleans.babyHeightMeasure);
+            unitTwelveData.put("babyWeight",AddDetailBooleans.babyWeightMeasure);
+            unitTwelveData.put("babyToy",AddDetailBooleans.babyToy);
+            unitTwelveData.put("babyFancy",AddDetailBooleans.babyFancy);
+            unitTwelveData.put("babySmellGood",AddDetailBooleans.babySmellGood);
+
+
+            Map<String, Object> groupOneData = new HashMap();
+            groupOneData.put("name",tName);
+            groupOneData.put("type",typeSpinner.getSelectedItemPosition());
+            groupOneData.put("urlOne",urlOne);
+            groupOneData.put("averageStar",toilet.averageStar);
+            groupOneData.put("reviewCount",1);
+            groupOneData.put("available",true);
+            groupOneData.put("averageWait",toilet.averageWait);
+            groupOneData.put("toiletFloor",toilet.floor);
+            groupOneData.put("openHours",openData);
+            groupOneData.put("closeHours",endData);
+
+
+            groupOneData.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
+            groupOneData.put("westerntoilet",AddDetailBooleans.westerntoilet);
+            groupOneData.put("onlyFemale",AddDetailBooleans.onlyFemale);
+            groupOneData.put("unisex",AddDetailBooleans.unisex);
+
+            groupOneData.put("washlet",AddDetailBooleans.washlet);
+            groupOneData.put("warmSeat",AddDetailBooleans.warmSeat);
+            groupOneData.put("autoOpen",AddDetailBooleans.autoOpen);
+            groupOneData.put("noVirus",AddDetailBooleans.noVirus);
+            groupOneData.put("paperForBenki",AddDetailBooleans.paperForBenki);
+            groupOneData.put("cleanerForBenki",AddDetailBooleans.cleanerForBenki);
+            groupOneData.put("nonTouchWash",AddDetailBooleans.autoToiletWash);
+
+
+
+            groupOneData.put("sensorHandWash",AddDetailBooleans.sensorHandWash);
+            groupOneData.put("handSoap", AddDetailBooleans.handSoap);
+            groupOneData.put("nonTouchHandSoap", AddDetailBooleans.autoHandSoap);
+            groupOneData.put("paperTowel",AddDetailBooleans.paperTowel);
+            groupOneData.put("handDrier",AddDetailBooleans.handDrier);
+
+
+
+            groupOneData.put("fancy", AddDetailBooleans.fancy);
+            groupOneData.put("smell",AddDetailBooleans.smell);
+            groupOneData.put("confortable",AddDetailBooleans.conforatableWide);
+            groupOneData.put("clothes",AddDetailBooleans.clothes);
+            groupOneData.put("baggageSpace",AddDetailBooleans.baggageSpace);
+
+
+            groupOneData.put("noNeedAsk",AddDetailBooleans.noNeedAsk);
+            groupOneData.put("english",AddDetailBooleans.english);
+            groupOneData.put("parking",AddDetailBooleans.parking);
+            groupOneData.put("airCondition",AddDetailBooleans.airCondition);
+            groupOneData.put("wifi",AddDetailBooleans.wifi);
+
+
+
+            Map<String, Object> groupTwoData = new HashMap();
+            groupTwoData.put("name",tName);
+            groupTwoData.put("type",typeSpinner.getSelectedItemPosition());
+            groupTwoData.put("urlOne",urlOne);
+            groupTwoData.put("averageStar",toilet.averageStar);
+            groupTwoData.put("reviewCount",1);
+            groupTwoData.put("available",true);
+            groupTwoData.put("averageWait",toilet.averageWait);
+            groupTwoData.put("toiletFloor",toilet.floor);
+
+            groupTwoData.put("otohime",AddDetailBooleans.otohime);
+            groupTwoData.put("napkinSelling",AddDetailBooleans.napkinSelling);
+            groupTwoData.put("makeuproom",AddDetailBooleans.makeuproom);
+            groupTwoData.put("ladyOmutu",AddDetailBooleans.ladyOmutu);
+            groupTwoData.put("ladyBabyChair",AddDetailBooleans.ladyBabyChair);
+            groupTwoData.put("ladyBabyChairGood",AddDetailBooleans.ladyBabyChairGood);
+            groupTwoData.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
+
+
+            groupTwoData.put("maleOmutu",AddDetailBooleans.maleOmutu);
+            groupTwoData.put("maleBabyChair",AddDetailBooleans.maleBabyChair);
+            groupTwoData.put("maleBabyChairGood",AddDetailBooleans.maleBabyChairGood);
+            groupTwoData.put("maleBabyCarAccess",AddDetailBooleans.babyCarAccess);
+
+
+            groupTwoData.put("wheelchair",AddDetailBooleans.wheelchair);
+            groupTwoData.put("wheelchairAccess",AddDetailBooleans.wheelchairAccess);
+            groupTwoData.put("autoDoor",AddDetailBooleans.autoDoor);
+            groupTwoData.put("callHelp",AddDetailBooleans.callHelp);
+            groupTwoData.put("ostomate",AddDetailBooleans.ostomate);
+            groupTwoData.put("braille",AddDetailBooleans.braille);
+            groupTwoData.put("voiceGuide",AddDetailBooleans.voiceGuide);
+            groupTwoData.put("familyOmutu",AddDetailBooleans.familyOmutu);
+            groupTwoData.put("familyBabyChair",AddDetailBooleans.familyBabyChair);
+
+
+            Map<String, Object> groupThreeData = new HashMap();
+            groupThreeData.put("name",tName);
+            groupThreeData.put("type",typeSpinner.getSelectedItemPosition());
+            groupThreeData.put("urlOne",urlOne);
+            groupThreeData.put("averageStar",toilet.averageStar);
+            groupThreeData.put("reviewCount",1);
+            groupThreeData.put("available",true);
+            groupThreeData.put("averageWait",toilet.averageWait);
+            groupThreeData.put("toiletFloor",toilet.floor);
+            groupThreeData.put("milkspace",AddDetailBooleans.milkspace);
+            groupThreeData.put("babyRoomOnlyFemale",AddDetailBooleans.babyroomOnlyFemale);
+            groupThreeData.put("babyRoomMaleEnter",AddDetailBooleans.babyroomManCanEnter);
+            groupThreeData.put("babyRoomPersonalSpace",AddDetailBooleans.babyPersonalSpace);
+            groupThreeData.put("babyRoomPersonalSpaceWithLock",AddDetailBooleans.babyPersonalSpaceWithLock);
+            groupThreeData.put("babyRoomWideSpace",AddDetailBooleans.babyRoomWideSpace);
+
+
+            groupThreeData.put("babyCarRental",AddDetailBooleans.babyCarRental);
+            groupThreeData.put("babyCarAccess",AddDetailBooleans.babyCarAccess);
+            groupThreeData.put("omutu",AddDetailBooleans.omutu);
+            groupThreeData.put("hipCleaningStuff",AddDetailBooleans.hipWashingStuff);
+            groupThreeData.put("omutuTrashCan",AddDetailBooleans.babyTrashCan);
+            groupThreeData.put("omutuSelling",AddDetailBooleans.omutuSelling);
+
+
+            groupThreeData.put("babySink",AddDetailBooleans.babyRoomSink);
+            groupThreeData.put("babyWashstand",AddDetailBooleans.babyWashStand);
+            groupThreeData.put("babyHotwater",AddDetailBooleans.babyHotWater);
+            groupThreeData.put("babyMicrowave",AddDetailBooleans.babyMicroWave);
+            groupThreeData.put("babyWaterSelling",AddDetailBooleans.babyWaterSelling);
+            groupThreeData.put("babyFoodSelling",AddDetailBooleans.babyFoddSelling);
+            groupThreeData.put("babyEatingSpace",AddDetailBooleans.babyEatingSpace);
+
+
+
+            groupThreeData.put("babyChair",AddDetailBooleans.babyChair);
+            groupThreeData.put("babySoffa",AddDetailBooleans.babySoffa);
+            groupThreeData.put("kidsToilet",AddDetailBooleans.babyKidsToilet);
+            groupThreeData.put("kidsSpace",AddDetailBooleans.babyKidsSpace);
+            groupThreeData.put("babyHeight",AddDetailBooleans.babyHeightMeasure);
+            groupThreeData.put("babyWeight",AddDetailBooleans.babyWeightMeasure);
+            groupThreeData.put("babyToy",AddDetailBooleans.babyToy);
+            groupThreeData.put("babyFancy",AddDetailBooleans.babyFancy);
+            groupThreeData.put("babySmellGood",AddDetailBooleans.babySmellGood);
+
+
+            Map<String, Object> halfOneData = new HashMap();
+            halfOneData.put("name",tName);
+            halfOneData.put("type",typeSpinner.getSelectedItemPosition());
+            halfOneData.put("urlOne",urlOne);
+            halfOneData.put("averageStar",toilet.averageStar);
+            halfOneData.put("reviewCount",1);
+            halfOneData.put("available",true);
+            halfOneData.put("averageWait",toilet.averageWait);
+            halfOneData.put("toiletFloor",toilet.floor);
+            halfOneData.put("openHours",openData);
+            halfOneData.put("closeHours",endData);
+            halfOneData.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
+            halfOneData.put("westerntoilet",AddDetailBooleans.westerntoilet);
+            halfOneData.put("onlyFemale",AddDetailBooleans.onlyFemale);
+            halfOneData.put("unisex",AddDetailBooleans.unisex);
+
+            halfOneData.put("washlet",AddDetailBooleans.washlet);
+            halfOneData.put("warmSeat",AddDetailBooleans.warmSeat);
+            halfOneData.put("autoOpen",AddDetailBooleans.autoOpen);
+            halfOneData.put("noVirus",AddDetailBooleans.noVirus);
+            halfOneData.put("paperForBenki",AddDetailBooleans.paperForBenki);
+            halfOneData.put("cleanerForBenki",AddDetailBooleans.cleanerForBenki);
+            halfOneData.put("nonTouchWash",AddDetailBooleans.autoToiletWash);
+
+
+
+            halfOneData.put("sensorHandWash",AddDetailBooleans.sensorHandWash);
+            halfOneData.put("handSoap", AddDetailBooleans.handSoap);
+            halfOneData.put("nonTouchHandSoap", AddDetailBooleans.autoHandSoap);
+            halfOneData.put("paperTowel",AddDetailBooleans.paperTowel);
+            halfOneData.put("handDrier",AddDetailBooleans.handDrier);
+
+
+
+            halfOneData.put("fancy", AddDetailBooleans.fancy);
+            halfOneData.put("smell",AddDetailBooleans.smell);
+            halfOneData.put("confortable",AddDetailBooleans.conforatableWide);
+            halfOneData.put("clothes",AddDetailBooleans.clothes);
+            halfOneData.put("baggageSpace",AddDetailBooleans.baggageSpace);
+
+
+            halfOneData.put("noNeedAsk",AddDetailBooleans.noNeedAsk);
+            halfOneData.put("english",AddDetailBooleans.english);
+            halfOneData.put("parking",AddDetailBooleans.parking);
+            halfOneData.put("airCondition",AddDetailBooleans.airCondition);
+            halfOneData.put("wifi",AddDetailBooleans.wifi);
+
+
+            //for males
+
+
+            halfOneData.put("otohime",AddDetailBooleans.otohime);
+            halfOneData.put("napkinSelling",AddDetailBooleans.napkinSelling);
+            halfOneData.put("makeuproom",AddDetailBooleans.makeuproom);
+            halfOneData.put("ladyOmutu",AddDetailBooleans.ladyOmutu);
+            halfOneData.put("ladyBabyChair",AddDetailBooleans.ladyBabyChair);
+            halfOneData.put("ladyBabyChairGood",AddDetailBooleans.ladyBabyChairGood);
+            halfOneData.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
+
+
+            halfOneData.put("maleOmutu",AddDetailBooleans.maleOmutu);
+            halfOneData.put("maleBabyChair",AddDetailBooleans.maleBabyChair);
+            halfOneData.put("maleBabyChairGood",AddDetailBooleans.maleBabyChairGood);
+            halfOneData.put("maleBabyCarAccess",AddDetailBooleans.babyCarAccess);
+
+
+            halfOneData.put("wheelchair",AddDetailBooleans.wheelchair);
+            halfOneData.put("wheelchairAccess",AddDetailBooleans.wheelchairAccess);
+            halfOneData.put("autoDoor",AddDetailBooleans.autoDoor);
+            halfOneData.put("callHelp",AddDetailBooleans.callHelp);
+            halfOneData.put("ostomate",AddDetailBooleans.ostomate);
+            halfOneData.put("braille",AddDetailBooleans.braille);
+            halfOneData.put("voiceGuide",AddDetailBooleans.voiceGuide);
+            halfOneData.put("familyOmutu",AddDetailBooleans.familyOmutu);
+            halfOneData.put("familyBabyChair",AddDetailBooleans.familyBabyChair);
+
+
+
+            Map<String, Object> halfTwoData = new HashMap();
+            halfTwoData.put("name",tName);
+            halfTwoData.put("type",typeSpinner.getSelectedItemPosition());
+            halfTwoData.put("urlOne",urlOne);
+            halfTwoData.put("averageStar",toilet.averageStar);
+            halfTwoData.put("reviewCount",1);
+            halfTwoData.put("available",true);
+            halfTwoData.put("averageWait",toilet.averageStar);
+            halfTwoData.put("toiletFloor",toilet.floor);
+
+            halfTwoData.put("otohime",AddDetailBooleans.otohime);
+            halfTwoData.put("napkinSelling",AddDetailBooleans.napkinSelling);
+            halfTwoData.put("makeuproom",AddDetailBooleans.makeuproom);
+            halfTwoData.put("ladyOmutu",AddDetailBooleans.ladyOmutu);
+            halfTwoData.put("ladyBabyChair",AddDetailBooleans.ladyBabyChair);
+            halfTwoData.put("ladyBabyChairGood",AddDetailBooleans.ladyBabyChairGood);
+            halfTwoData.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
+
+
+            halfTwoData.put("maleOmutu",AddDetailBooleans.maleOmutu);
+            halfTwoData.put("maleBabyChair",AddDetailBooleans.maleBabyChair);
+            halfTwoData.put("maleBabyChairGood",AddDetailBooleans.maleBabyChairGood);
+            halfTwoData.put("maleBabyCarAccess",AddDetailBooleans.babyCarAccess);
+
+
+            halfTwoData.put("wheelchair",AddDetailBooleans.wheelchair);
+            halfTwoData.put("wheelchairAccess",AddDetailBooleans.wheelchairAccess);
+            halfTwoData.put("autoDoor",AddDetailBooleans.autoDoor);
+            halfTwoData.put("callHelp",AddDetailBooleans.callHelp);
+            halfTwoData.put("ostomate",AddDetailBooleans.ostomate);
+            halfTwoData.put("braille",AddDetailBooleans.braille);
+            halfTwoData.put("voiceGuide",AddDetailBooleans.voiceGuide);
+            halfTwoData.put("familyOmutu",AddDetailBooleans.familyOmutu);
+            halfTwoData.put("familyBabyChair",AddDetailBooleans.familyBabyChair);
+
+            halfTwoData.put("milkspace",AddDetailBooleans.milkspace);
+            halfTwoData.put("babyRoomOnlyFemale",AddDetailBooleans.babyroomOnlyFemale);
+            halfTwoData.put("babyRoomMaleEnter",AddDetailBooleans.babyroomManCanEnter);
+            halfTwoData.put("babyRoomPersonalSpace",AddDetailBooleans.babyPersonalSpace);
+            halfTwoData.put("babyRoomPersonalSpaceWithLock",AddDetailBooleans.babyPersonalSpaceWithLock);
+            halfTwoData.put("babyRoomWideSpace",AddDetailBooleans.babyRoomWideSpace);
+
+
+            halfTwoData.put("babyCarRental",AddDetailBooleans.babyCarRental);
+            halfTwoData.put("babyCarAccess",AddDetailBooleans.babyCarAccess);
+            halfTwoData.put("omutu",AddDetailBooleans.omutu);
+            halfTwoData.put("hipCleaningStuff",AddDetailBooleans.hipWashingStuff);
+            halfTwoData.put("omutuTrashCan",AddDetailBooleans.babyTrashCan);
+            halfTwoData.put("omutuSelling",AddDetailBooleans.omutuSelling);
+
+
+            halfTwoData.put("babySink",AddDetailBooleans.babyRoomSink);
+            halfTwoData.put("babyWashstand",AddDetailBooleans.babyWashStand);
+            halfTwoData.put("babyHotwater",AddDetailBooleans.babyHotWater);
+            halfTwoData.put("babyMicrowave",AddDetailBooleans.babyMicroWave);
+            halfTwoData.put("babyWaterSelling",AddDetailBooleans.babyWaterSelling);
+            halfTwoData.put("babyFoodSelling",AddDetailBooleans.babyFoddSelling);
+            halfTwoData.put("babyEatingSpace",AddDetailBooleans.babyEatingSpace);
+
+
+
+            halfTwoData.put("babyChair",AddDetailBooleans.babyChair);
+            halfTwoData.put("babySoffa",AddDetailBooleans.babySoffa);
+            halfTwoData.put("kidsToilet",AddDetailBooleans.babyKidsToilet);
+            halfTwoData.put("kidsSpace",AddDetailBooleans.babyKidsSpace);
+            halfTwoData.put("babyHeight",AddDetailBooleans.babyHeightMeasure);
+            halfTwoData.put("babyWeight",AddDetailBooleans.babyWeightMeasure);
+            halfTwoData.put("babyToy",AddDetailBooleans.babyToy);
+            halfTwoData.put("babyFancy",AddDetailBooleans.babyFancy);
+            halfTwoData.put("babySmellGood",AddDetailBooleans.babySmellGood);
+
+            Map<String, Object> allFilterData = new HashMap();
+            allFilterData.put("name",tName);
+            allFilterData.put("type",typeSpinner.getSelectedItemPosition());
+            allFilterData.put("urlOne",urlOne);
+            allFilterData.put("averageStar",toilet.averageStar);
+            allFilterData.put("reviewCount",1);
+            allFilterData.put("available",true);
+            allFilterData.put("averageWait",toilet.averageStar);
+            allFilterData.put("toiletFloor",toilet.floor);
+            allFilterData.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
+            allFilterData.put("westerntoilet",AddDetailBooleans.westerntoilet);
+            allFilterData.put("onlyFemale",AddDetailBooleans.onlyFemale);
+            allFilterData.put("unisex",AddDetailBooleans.unisex);
+
+            allFilterData.put("washlet",AddDetailBooleans.washlet);
+            allFilterData.put("warmSeat",AddDetailBooleans.warmSeat);
+            allFilterData.put("autoOpen",AddDetailBooleans.autoOpen);
+            allFilterData.put("noVirus",AddDetailBooleans.noVirus);
+            allFilterData.put("paperForBenki",AddDetailBooleans.paperForBenki);
+            allFilterData.put("cleanerForBenki",AddDetailBooleans.cleanerForBenki);
+            allFilterData.put("nonTouchWash",AddDetailBooleans.autoToiletWash);
+
+
+
+            allFilterData.put("sensorHandWash",AddDetailBooleans.sensorHandWash);
+            allFilterData.put("handSoap", AddDetailBooleans.handSoap);
+            allFilterData.put("nonTouchHandSoap", AddDetailBooleans.autoHandSoap);
+            allFilterData.put("paperTowel",AddDetailBooleans.paperTowel);
+            allFilterData.put("handDrier",AddDetailBooleans.handDrier);
+
+
+
+            allFilterData.put("fancy", AddDetailBooleans.fancy);
+            allFilterData.put("smell",AddDetailBooleans.smell);
+            allFilterData.put("confortable",AddDetailBooleans.conforatableWide);
+            allFilterData.put("clothes",AddDetailBooleans.clothes);
+            allFilterData.put("baggageSpace",AddDetailBooleans.baggageSpace);
+
+
+            allFilterData.put("noNeedAsk",AddDetailBooleans.noNeedAsk);
+            allFilterData.put("english",AddDetailBooleans.english);
+            allFilterData.put("parking",AddDetailBooleans.parking);
+            allFilterData.put("airCondition",AddDetailBooleans.airCondition);
+            allFilterData.put("wifi",AddDetailBooleans.wifi);
+
+
+            //for males
+
+
+            allFilterData.put("otohime",AddDetailBooleans.otohime);
+            allFilterData.put("napkinSelling",AddDetailBooleans.napkinSelling);
+            allFilterData.put("makeuproom",AddDetailBooleans.makeuproom);
+            allFilterData.put("ladyOmutu",AddDetailBooleans.ladyOmutu);
+            allFilterData.put("ladyBabyChair",AddDetailBooleans.ladyBabyChair);
+            allFilterData.put("ladyBabyChairGood",AddDetailBooleans.ladyBabyChairGood);
+            allFilterData.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
+
+
+            allFilterData.put("maleOmutu",AddDetailBooleans.maleOmutu);
+            allFilterData.put("maleBabyChair",AddDetailBooleans.maleBabyChair);
+            allFilterData.put("maleBabyChairGood",AddDetailBooleans.maleBabyChairGood);
+            allFilterData.put("maleBabyCarAccess",AddDetailBooleans.babyCarAccess);
+
+
+            allFilterData.put("wheelchair",AddDetailBooleans.wheelchair);
+            allFilterData.put("wheelchairAccess",AddDetailBooleans.wheelchairAccess);
+            allFilterData.put("autoDoor",AddDetailBooleans.autoDoor);
+            allFilterData.put("callHelp",AddDetailBooleans.callHelp);
+            allFilterData.put("ostomate",AddDetailBooleans.ostomate);
+            allFilterData.put("braille",AddDetailBooleans.braille);
+            allFilterData.put("voiceGuide",AddDetailBooleans.voiceGuide);
+            allFilterData.put("familyOmutu",AddDetailBooleans.familyOmutu);
+            allFilterData.put("familyBabyChair",AddDetailBooleans.familyBabyChair);
+
+            allFilterData.put("milkspace",AddDetailBooleans.milkspace);
+            allFilterData.put("babyRoomOnlyFemale",AddDetailBooleans.babyroomOnlyFemale);
+            allFilterData.put("babyRoomMaleEnter",AddDetailBooleans.babyroomManCanEnter);
+            allFilterData.put("babyRoomPersonalSpace",AddDetailBooleans.babyPersonalSpace);
+            allFilterData.put("babyRoomPersonalSpaceWithLock",AddDetailBooleans.babyPersonalSpaceWithLock);
+            allFilterData.put("babyRoomWideSpace",AddDetailBooleans.babyRoomWideSpace);
+
+
+            allFilterData.put("babyCarRental",AddDetailBooleans.babyCarRental);
+            allFilterData.put("babyCarAccess",AddDetailBooleans.babyCarAccess);
+            allFilterData.put("omutu",AddDetailBooleans.omutu);
+            allFilterData.put("hipCleaningStuff",AddDetailBooleans.hipWashingStuff);
+            allFilterData.put("omutuTrashCan",AddDetailBooleans.babyTrashCan);
+            allFilterData.put("omutuSelling",AddDetailBooleans.omutuSelling);
+
+
+            allFilterData.put("babySink",AddDetailBooleans.babyRoomSink);
+            allFilterData.put("babyWashstand",AddDetailBooleans.babyWashStand);
+            allFilterData.put("babyHotwater",AddDetailBooleans.babyHotWater);
+            allFilterData.put("babyMicrowave",AddDetailBooleans.babyMicroWave);
+            allFilterData.put("babyWaterSelling",AddDetailBooleans.babyWaterSelling);
+            allFilterData.put("babyFoodSelling",AddDetailBooleans.babyFoddSelling);
+            allFilterData.put("babyEatingSpace",AddDetailBooleans.babyEatingSpace);
+
+
+            allFilterData.put("babyChair",AddDetailBooleans.babyChair);
+            allFilterData.put("babySoffa",AddDetailBooleans.babySoffa);
+            allFilterData.put("kidsToilet",AddDetailBooleans.babyKidsToilet);
+            allFilterData.put("kidsSpace",AddDetailBooleans.babyKidsSpace);
+            allFilterData.put("babyHeight",AddDetailBooleans.babyHeightMeasure);
+            allFilterData.put("babyWeight",AddDetailBooleans.babyWeightMeasure);
+            allFilterData.put("babyToy",AddDetailBooleans.babyToy);
+            allFilterData.put("babyFancy",AddDetailBooleans.babyFancy);
+            allFilterData.put("babySmellGood",AddDetailBooleans.babySmellGood);
+
+
+            Map<String, Object> toiletViewData = new HashMap();
+            toiletViewData.put("name",tName);
+            toiletViewData.put("type",typeSpinner.getSelectedItemPosition());
+            toiletViewData.put("urlOne",urlOne);
+            toiletViewData.put("urlTwo",urlTwo);
+            toiletViewData.put("urlThree",urlThree);
+            toiletViewData.put("addedBy",uid);
+            toiletViewData.put("editedBy",uid);
+            toiletViewData.put("reviewOne",toilet.reviewOne);
+            toiletViewData.put("reviewTwo",toilet.reviewTwo);
+            toiletViewData.put("averageStar",toilet.averageStar);
+            toiletViewData.put("address",AddLocations.address);
+            toiletViewData.put("howtoaccess","");
+            toiletViewData.put("openAndCloseHours",openingString);
+            toiletViewData.put("openHours",openData);
+            toiletViewData.put("closeHours",endData);
+            toiletViewData.put("reviewCount",1);
+            toiletViewData.put("averageWait",toilet.averageWait);
+            toiletViewData.put("toiletFloor",toilet.floor);
+
+
+
+
+
+            toiletViewData.put("latitude",toilet.latitude);
+            toiletViewData.put("longitude",toilet.longitude);
+
+
+            toiletViewData.put("available",true);
+            toiletViewData.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
+            toiletViewData.put("westerntoilet",AddDetailBooleans.westerntoilet);
+            toiletViewData.put("onlyFemale",AddDetailBooleans.onlyFemale);
+            toiletViewData.put("unisex",AddDetailBooleans.unisex);
+
+            toiletViewData.put("washlet",AddDetailBooleans.washlet);
+            toiletViewData.put("warmSeat",AddDetailBooleans.warmSeat);
+            toiletViewData.put("autoOpen",AddDetailBooleans.autoOpen);
+            toiletViewData.put("noVirus",AddDetailBooleans.noVirus);
+            toiletViewData.put("paperForBenki",AddDetailBooleans.paperForBenki);
+            toiletViewData.put("cleanerForBenki",AddDetailBooleans.cleanerForBenki);
+            toiletViewData.put("nonTouchWash",AddDetailBooleans.autoToiletWash);
+
+
+
+            toiletViewData.put("sensorHandWash",AddDetailBooleans.sensorHandWash);
+            toiletViewData.put("handSoap", AddDetailBooleans.handSoap);
+            toiletViewData.put("nonTouchHandSoap", AddDetailBooleans.autoHandSoap);
+            toiletViewData.put("paperTowel",AddDetailBooleans.paperTowel);
+            toiletViewData.put("handDrier",AddDetailBooleans.handDrier);
+
+
+
+            toiletViewData.put("fancy", AddDetailBooleans.fancy);
+            toiletViewData.put("smell",AddDetailBooleans.smell);
+            toiletViewData.put("confortable",AddDetailBooleans.conforatableWide);
+            toiletViewData.put("clothes",AddDetailBooleans.clothes);
+            toiletViewData.put("baggageSpace",AddDetailBooleans.baggageSpace);
+
+
+            toiletViewData.put("noNeedAsk",AddDetailBooleans.noNeedAsk);
+            toiletViewData.put("english",AddDetailBooleans.english);
+            toiletViewData.put("parking",AddDetailBooleans.parking);
+            toiletViewData.put("airCondition",AddDetailBooleans.airCondition);
+            toiletViewData.put("wifi",AddDetailBooleans.wifi);
+
+
+            //for males
+
+
+            toiletViewData.put("otohime",AddDetailBooleans.otohime);
+            toiletViewData.put("napkinSelling",AddDetailBooleans.napkinSelling);
+            toiletViewData.put("makeuproom",AddDetailBooleans.makeuproom);
+            toiletViewData.put("ladyOmutu",AddDetailBooleans.ladyOmutu);
+            toiletViewData.put("ladyBabyChair",AddDetailBooleans.ladyBabyChair);
+            toiletViewData.put("ladyBabyChairGood",AddDetailBooleans.ladyBabyChairGood);
+            toiletViewData.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
+
+
+            toiletViewData.put("maleOmutu",AddDetailBooleans.maleOmutu);
+            toiletViewData.put("maleBabyChair",AddDetailBooleans.maleBabyChair);
+            toiletViewData.put("maleBabyChairGood",AddDetailBooleans.maleBabyChairGood);
+            toiletViewData.put("maleBabyCarAccess",AddDetailBooleans.babyCarAccess);
+
+
+            toiletViewData.put("wheelchair",AddDetailBooleans.wheelchair);
+            toiletViewData.put("wheelchairAccess",AddDetailBooleans.wheelchairAccess);
+            toiletViewData.put("autoDoor",AddDetailBooleans.autoDoor);
+            toiletViewData.put("callHelp",AddDetailBooleans.callHelp);
+            toiletViewData.put("ostomate",AddDetailBooleans.ostomate);
+            toiletViewData.put("braille",AddDetailBooleans.braille);
+            toiletViewData.put("voiceGuide",AddDetailBooleans.voiceGuide);
+            toiletViewData.put("familyOmutu",AddDetailBooleans.familyOmutu);
+            toiletViewData.put("familyBabyChair",AddDetailBooleans.familyBabyChair);
+
+            toiletViewData.put("milkspace",AddDetailBooleans.milkspace);
+            toiletViewData.put("babyRoomOnlyFemale",AddDetailBooleans.babyroomOnlyFemale);
+            toiletViewData.put("babyRoomMaleEnter",AddDetailBooleans.babyroomManCanEnter);
+            toiletViewData.put("babyRoomPersonalSpace",AddDetailBooleans.babyPersonalSpace);
+            toiletViewData.put("babyRoomPersonalSpaceWithLock",AddDetailBooleans.babyPersonalSpaceWithLock);
+            toiletViewData.put("babyRoomWideSpace",AddDetailBooleans.babyRoomWideSpace);
+
+
+            toiletViewData.put("babyCarRental",AddDetailBooleans.babyCarRental);
+            toiletViewData.put("babyCarAccess",AddDetailBooleans.babyCarAccess);
+            toiletViewData.put("omutu",AddDetailBooleans.omutu);
+            toiletViewData.put("hipCleaningStuff",AddDetailBooleans.hipWashingStuff);
+            toiletViewData.put("omutuTrashCan",AddDetailBooleans.babyTrashCan);
+            toiletViewData.put("omutuSelling",AddDetailBooleans.omutuSelling);
+
+
+            toiletViewData.put("babySink",AddDetailBooleans.babyRoomSink);
+            toiletViewData.put("babyWashstand",AddDetailBooleans.babyWashStand);
+            toiletViewData.put("babyHotwater",AddDetailBooleans.babyHotWater);
+            toiletViewData.put("babyMicrowave",AddDetailBooleans.babyMicroWave);
+            toiletViewData.put("babyWaterSelling",AddDetailBooleans.babyWaterSelling);
+            toiletViewData.put("babyFoodSelling",AddDetailBooleans.babyFoddSelling);
+            toiletViewData.put("babyEatingSpace",AddDetailBooleans.babyEatingSpace);
+
+
+
+            toiletViewData.put("babyChair",AddDetailBooleans.babyChair);
+            toiletViewData.put("babySoffa",AddDetailBooleans.babySoffa);
+            toiletViewData.put("kidsToilet",AddDetailBooleans.babyKidsToilet);
+            toiletViewData.put("kidsSpace",AddDetailBooleans.babyKidsSpace);
+            toiletViewData.put("babyHeight",AddDetailBooleans.babyHeightMeasure);
+            toiletViewData.put("babyWeight",AddDetailBooleans.babyWeightMeasure);
+            toiletViewData.put("babyToy",AddDetailBooleans.babyToy);
+            toiletViewData.put("babyFancy",AddDetailBooleans.babyFancy);
+            toiletViewData.put("babySmellGood",AddDetailBooleans.babySmellGood);
+
+
+
+
+
+            Map<String, Object> updateData = new HashMap();
+
+
+            updateData.put("ToiletView/" + toilet.key, toiletViewData);
+            updateData.put("NoFilter/" + toilet.key, noFilterData);
+            updateData.put("ToiletUserList/" + toilet.key, toiletUserList);
+            updateData.put("UnitOne/" + toilet.key, unitOneData);
+            updateData.put("UnitTwo/" + toilet.key, unitTwoData);
+            updateData.put("UnitThree/" + toilet.key, unitThreeData);
+            updateData.put("UnitFour/" + toilet.key, unitFourData);
+            updateData.put("UnitFive/" + toilet.key, unitFiveData);
+            updateData.put("UnitSix/" + toilet.key, unitSixData);
+            updateData.put("UnitSeven/" + toilet.key, unitSevenData);
+            updateData.put("UnitEight/" + toilet.key, unitEightData);
+            updateData.put("UnitNine/" + toilet.key, unitNineData);
+            updateData.put("UnitTen/" + toilet.key, unitTenData);
+            updateData.put("UnitEleven/" + toilet.key, unitElevenData);
+            updateData.put("UnitTwelve/" + toilet.key, unitTwelveData);
+            updateData.put("GroupOne/" + toilet.key, groupOneData);
+            updateData.put("GroupTwo/" + toilet.key, groupTwoData);
+            updateData.put("GroupThree/" + toilet.key, groupThreeData);
+            updateData.put("HalfOne/" + toilet.key, halfOneData);
+            updateData.put("HalfTwo/" + toilet.key, halfTwoData);
+            updateData.put("AllFilter/" + toilet.key, allFilterData);
+
+
+
+
+
+            DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+
+
+            firebaseRef.updateChildren(updateData,new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+
+                }
+            });
+
+            ///From AddDetailView
+
+
+
+
+//
+//            Map<String, Object> childUpdates = new HashMap<>();
+//
+//
+//            //I could not get tName
+//            //Maybe I could not get other values either
+//
+//
+//            childUpdates.put("name", tName);
+//            childUpdates.put("openAndCloseHours", openingString);
+//            childUpdates.put("type", updateType);
+//
+//            childUpdates.put("urlOne", urlOne);
+//            childUpdates.put("urlTwo", urlTwo);
+//            childUpdates.put("urlThree", urlThree);
+//            childUpdates.put("editedBy", uid);
+//            childUpdates.put("howtoaccess", "");
+//            childUpdates.put("openHours", openTime);
+//            childUpdates.put("closeHours", endTime);
+//            childUpdates.put("toiletFloor", 3);
+//
+//
+//            childUpdates.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
+//            childUpdates.put("westerntoilet", AddDetailBooleans.westerntoilet);
+//            childUpdates.put("onlyFemale", AddDetailBooleans.onlyFemale);
+//            childUpdates.put("unisex", AddDetailBooleans.unisex);
+//
+//            childUpdates.put("washlet", AddDetailBooleans.washlet);
+//            childUpdates.put("warmSeat", AddDetailBooleans.warmSeat);
+//            childUpdates.put("autoOpen", AddDetailBooleans.autoOpen);
+//            childUpdates.put("noVirus", AddDetailBooleans.noVirus);
+//            childUpdates.put("paperForBenki", AddDetailBooleans.paperForBenki);
+//            childUpdates.put("cleanerForBenki", AddDetailBooleans.cleanerForBenki);
+//            childUpdates.put("nonTouchWash", AddDetailBooleans.autoToiletWash);
+//
+//
+//            childUpdates.put("sensorHandWash", AddDetailBooleans.sensorHandWash);
+//            childUpdates.put("handSoap", AddDetailBooleans.handSoap);
+//            childUpdates.put("nonTouchHandSoap", AddDetailBooleans.autoHandSoap);
+//            childUpdates.put("paperTowel", AddDetailBooleans.paperTowel);
+//            childUpdates.put("handDrier", AddDetailBooleans.handDrier);
+//
+//
+//            childUpdates.put("fancy", AddDetailBooleans.fancy);
+//            childUpdates.put("smell", AddDetailBooleans.smell);
+//            childUpdates.put("confortable", AddDetailBooleans.conforatableWide);
+//            childUpdates.put("clothes", AddDetailBooleans.clothes);
+//            childUpdates.put("baggageSpace", AddDetailBooleans.baggageSpace);
+//
+//            childUpdates.put("noNeedAsk", AddDetailBooleans.noNeedAsk);
+//            childUpdates.put("english", AddDetailBooleans.english);
+//            childUpdates.put("parking", AddDetailBooleans.parking);
+//            childUpdates.put("airCondition", AddDetailBooleans.airCondition);
+//            childUpdates.put("wifi", AddDetailBooleans.wifi);
+//
+//            childUpdates.put("otohime", AddDetailBooleans.otohime);
+//            childUpdates.put("napkinSelling", AddDetailBooleans.napkinSelling);
+//            childUpdates.put("makeuproom", AddDetailBooleans.makeuproom);
+//            childUpdates.put("ladyOmutu", AddDetailBooleans.ladyOmutu);
+//            childUpdates.put("ladyBabyChair", AddDetailBooleans.ladyBabyChair);
+//            childUpdates.put("ladyBabyChairGood", AddDetailBooleans.ladyBabyChairGood);
+//            childUpdates.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
+//
+//            childUpdates.put("maleOmutu", AddDetailBooleans.maleOmutu);
+//            childUpdates.put("maleBabyChair", AddDetailBooleans.maleBabyChair);
+//            childUpdates.put("maleBabyChairGood", AddDetailBooleans.maleBabyChairGood);
+//            childUpdates.put("maleBabyCarAccess", AddDetailBooleans.maleBabyCarAccess);
+//
+//            //for Family Restroom
+//            Log.i("Passed Boolean", "6");
+//
+//            childUpdates.put("wheelchair", AddDetailBooleans.wheelchair);
+//            childUpdates.put("wheelchairAccess", AddDetailBooleans.wheelchairAccess);
+//            childUpdates.put("autoDoor", AddDetailBooleans.autoDoor);
+//            childUpdates.put("callHelp", AddDetailBooleans.callHelp);
+//            childUpdates.put("ostomate", AddDetailBooleans.ostomate);
+//            childUpdates.put("braille", AddDetailBooleans.braille);
+//            childUpdates.put("voiceGuide", AddDetailBooleans.voiceGuide);
+//            childUpdates.put("familyOmutu", AddDetailBooleans.familyOmutu);
+//            childUpdates.put("familyBabyChair", AddDetailBooleans.familyBabyChair);
+//
+//
+//            childUpdates.put("milkspace", AddDetailBooleans.milkspace);
+//            childUpdates.put("babyRoomOnlyFemale", AddDetailBooleans.babyroomOnlyFemale);
+//            childUpdates.put("babyRoomMaleEnter", AddDetailBooleans.babyroomManCanEnter);
+//            childUpdates.put("babyRoomPersonalSpace", AddDetailBooleans.babyPersonalSpace);
+//            childUpdates.put("babyRoomPersonalSpaceWithLock", AddDetailBooleans.babyPersonalSpaceWithLock);
+//            childUpdates.put("babyRoomWideSpace", AddDetailBooleans.babyRoomWideSpace);
+//
+//
+//            childUpdates.put("babyCarRental", AddDetailBooleans.babyCarRental);
+//            childUpdates.put("babyCarAccess", AddDetailBooleans.babyCarAccess);
+//            childUpdates.put("omutu", AddDetailBooleans.omutu);
+//            childUpdates.put("hipCleaningStuff", AddDetailBooleans.hipWashingStuff);
+//            childUpdates.put("omutuTrashCan", AddDetailBooleans.babyTrashCan);
+//            childUpdates.put("omutuSelling", AddDetailBooleans.omutuSelling);
+//
+//
+//            childUpdates.put("babySink", AddDetailBooleans.babyRoomSink);
+//            childUpdates.put("babyWashstand", AddDetailBooleans.babyWashStand);
+//            childUpdates.put("babyHotwater", AddDetailBooleans.babyHotWater);
+//            childUpdates.put("babyMicrowave", AddDetailBooleans.babyMicroWave);
+//            childUpdates.put("babyWaterSelling", AddDetailBooleans.babyWaterSelling);
+//            childUpdates.put("babyFoodSelling", AddDetailBooleans.babyFoddSelling);
+//            childUpdates.put("babyEatingSpace", AddDetailBooleans.babyEatingSpace);
+//
+//
+//            childUpdates.put("babyChair", AddDetailBooleans.babyChair);
+//            childUpdates.put("babySoffa", AddDetailBooleans.babySoffa);
+//            childUpdates.put("kidsToilet", AddDetailBooleans.babyKidsToilet);
+//            childUpdates.put("kidsSpace", AddDetailBooleans.babyKidsSpace);
+//            childUpdates.put("babyHeight", AddDetailBooleans.babyHeightMeasure);
+//            childUpdates.put("babyWeight", AddDetailBooleans.babyWeightMeasure);
+//            childUpdates.put("babyToy", AddDetailBooleans.babyToy);
+//            childUpdates.put("babyFancy", AddDetailBooleans.babyFancy);
+//            childUpdates.put("babySmellGood", AddDetailBooleans.babySmellGood);
+//
+//
+//            //childUpdates.put("editedBy",uid);
+//
+//            //We dont need to updata editedBy uid....
+//
+//
+//            updateToiletRef.updateChildren(childUpdates);
 
 
             Log.i("please", "...");
