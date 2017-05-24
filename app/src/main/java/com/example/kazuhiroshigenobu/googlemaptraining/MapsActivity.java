@@ -673,7 +673,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void toiletSearch(Location location){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
 
-        Log.i("toiletSearch","Called");
         GeoFire geoFire;
         geoFire = new GeoFire(ref);
 
@@ -681,18 +680,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         final Double centerLongitude = location.getLongitude();
 
 
-        Log.i("toiletSearch Called", "333333");
 
 
         Double centerRadius = 5.0;
 
-//        final List<Toilet> toiletData = new ArrayList<>();
-        //This value should be changed depending on the filter...
-//
-        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+
+        String queryPath;
+
+        queryPath = Filter.queryPath;
+
+        if (queryPath.equals("")){
+            queryPath = "NoFilter";
+        }
 
 
-        Log.i("toiletSearch","BeforeGeoQueryCalled");
+        toiletRef = FirebaseDatabase.getInstance().getReference().child(queryPath);
+
         GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(centerLatitude,centerLongitude), centerRadius);
         //final LatLng centerLocation = new LatLng(centerLatitude,centerLongitude);
 //        UserInfo.latitude = centerLatitude;
@@ -709,7 +712,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         {
 
-                            getToiletData(dataSnapshot,key);
+                            getToiletData(dataSnapshot,key,location);
 
                         }
                     }
@@ -750,14 +753,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         );
     }
 
-    private void getToiletData(DataSnapshot dataSnapshot, String key){
+    private void getToiletData(DataSnapshot dataSnapshot, String key, GeoLocation location){
 
         Log.i("getInfoData Called", "333333");
 
 
 
 
-        Boolean removedToilet = false;
 
         Toilet toilet = new Toilet();
 //        final List<Toilet> toiletData = new ArrayList<>();
@@ -773,9 +775,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        UserInfo.longitude = lastKnownLocation.getLongitude();
 
 
+        toilet.latitude = location.latitude;
+        toilet.longitude = location.longitude;
 
-        toilet.latitude = (Double)dataSnapshot.child("latitude").getValue();
-        toilet.longitude = (Double)dataSnapshot.child("longitude").getValue();
+
+//        toilet.latitude = (Double)dataSnapshot.child("latitude").getValue();
+//        toilet.longitude = (Double)dataSnapshot.child("longitude").getValue();
 
 
         LatLng centerLocation = new LatLng(UserInfo.latitude, UserInfo.longitude);
@@ -818,6 +823,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
         toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();
 
+
+//        Long floorLong = (Long) dataSnapshot.child("toiletFloor").getValue();
+//        toilet.floor = floorLong.intValue();
+//
+//
+//        toilet.name = name + stringToiletFloor(toilet.floor);
+
+
+
+
+
+        Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
+        toilet.reviewCount = reviewCount.intValue();
+        Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
+        toilet.averageWait = averageWait.intValue();
+//
+//        Long openh = (Long) dataSnapshot.child("openHours").getValue();
+//        toilet.openHours = openh.intValue();
+//        Long closeh = (Long) dataSnapshot.child("closeHours").getValue();
+//        toilet.closeHours = closeh.intValue();
+
         Long floorLong = (Long) dataSnapshot.child("toiletFloor").getValue();
         toilet.floor = floorLong.intValue();
 
@@ -825,18 +851,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         toilet.name = name + stringToiletFloor(toilet.floor);
 
 
-
-        Long openh = (Long) dataSnapshot.child("openHours").getValue();
-        toilet.openHours = openh.intValue();
-        Long closeh = (Long) dataSnapshot.child("closeHours").getValue();
-        toilet.closeHours = closeh.intValue();
-        Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
-        toilet.reviewCount = reviewCount.intValue();
-        Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
-        toilet.averageWait = averageWait.intValue();
-
-
         //basic info
+
+        if (Filter.availableFilter){
+
+            Long openh = (Long) dataSnapshot.child("openHours").getValue();
+            toilet.openHours = openh.intValue();
+            Long closeh = (Long) dataSnapshot.child("closeHours").getValue();
+            toilet.closeHours = closeh.intValue();
+
+
+        }
+
         toilet.available = (Boolean) dataSnapshot.child("available").getValue();
 
 
@@ -1282,7 +1308,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //toilet.babyPersonalSpaceWithLock = (Boolean) dataSnapshot.child("babyRoomPersonalSpaceWithLock").getValue();
         if (Filter.babyRoomPersonalWithLockFilter) { //Example
             toilet.babyPersonalSpaceWithLock = (Boolean) dataSnapshot.child("babyRoomPersonalSpaceWithLock").getValue();
-
             //toilet.baggageSpace = (Boolean) dataSnapshot.child("baggageSpace").getValue();
             if (!toilet.babyPersonalSpaceWithLock) {
                 return;
@@ -1509,16 +1534,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
-        
+
 
         Double averaegeStarDouble = Double.parseDouble(toilet.averageStar);
 
         if (averaegeStarDouble < Filter.starFilter) {
 
-            //Not sure averaegeStarDouble works......
-
-            removedToilet = true;
-            // continue;
+            return;
         }
 
 
@@ -1526,287 +1548,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
 
-
-//        if (Filter.japaneseFilter && !toilet.japanesetoilet) {
-//            removedToilet = true;
-//
-//        }
-//
-//        if (Filter.westernFilter && !toilet.westerntoilet) {
-//            removedToilet = true;
-//        }
-//        if (Filter.onlyFemaleFilter && !toilet.onlyFemale) {
-//            removedToilet = true;
-//        }
-//
-//        Log.i("before unisex", "776");
-//        if (Filter.unisexFilter && !toilet.unisex) {
-//            return;
-//        }
-//
-//        Log.i("after unisex", "778");
-//
-//        //Benki function
-//
-//        if (Filter.washletFilter && !toilet.washlet) {
-//            removedToilet = true;
-//        }
-//
-//        if (Filter.warmSearFilter && !toilet.warmSeat) {
-//            removedToilet = true;
-//        }
-//
-//        if (Filter.autoOpen && !toilet.autoOpen) {
-//            removedToilet = true;
-//        }
-//
-//        if (Filter.noVirusFilter && !toilet.noVirus) {
-//            removedToilet = true;
-//        }
-//
-//        if (Filter.paperForBenkiFilter && !toilet.paperForBenki) {
-//            removedToilet = true;
-//        }
-//
-//        if (Filter.cleanerForBenkiFilter && !toilet.cleanerForBenki) {
-//            removedToilet = true;
-//        }
-
-        //washStand..
-
-//        if (Filter.sensorHandWashFilter && !toilet.sensorHandWash) {
-//            removedToilet = true;
-//        }
-//        if (Filter.handSoapFilter && !toilet.handSoap) {
-//            removedToilet = true;
-//        }
-//        if (Filter.autoHandSoapFilter && !toilet.autoHandSoap) {
-//            removedToilet = true;
-//        }
-//        if (Filter.paperTowelFilter && !toilet.paperTowel) {
-//            removedToilet = true;
-//        }
-//        if (Filter.handDrierFilter && !toilet.handDrier) {
-//            removedToilet = true;
-//        }
-//
-//        // For ladys...
-//
-//        if (Filter.otohime && !toilet.otohime) {
-//            removedToilet = true;
-//        }
-//
-//
-//        if (Filter.napkinSelling && !toilet.napkinSelling) {
-//            removedToilet = true;
-//        }
-
-
-        if (Filter.makeroomFilter && !toilet.makeuproom) {
-            removedToilet = true;
-        }
-
-        if (Filter.clothes && !toilet.clothes) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.baggageSpaceFilter && !toilet.baggageSpace) {
-            removedToilet = true;
-        }
-
-        //Barrier free...
-
-        if (Filter.wheelchairFilter && !toilet.wheelchair) {
-            removedToilet = true;
-        }
-
-        if (Filter.wheelchairAccessFilter && !toilet.wheelchairAccess) {
-            removedToilet = true;
-        }
-
-        if (Filter.autoDoorFilter && !toilet.autoDoor) {
-            removedToilet = true;
-        }
-
-        if (Filter.callHelpFilter && !toilet.callHelp) {
-            removedToilet = true;
-        }
-
-        if (Filter.ostomateFilter && !toilet.ostomate) {
-            removedToilet = true;
-        }
-
-        if (Filter.writtenEnglish && !toilet.english) {
-            removedToilet = true;
-        }
-
-        if (Filter.braille && !toilet.braille) {
-            removedToilet = true;
-        }
-
-        if (Filter.voiceGuideFilter && !toilet.voiceGuide) {
-            removedToilet = true;
-        }
-
-        //Other stuffs...
-
-
-        if (Filter.fancy && !toilet.fancy) {
-            removedToilet = true;
-        }
-
-        if (Filter.smell && !toilet.smell) {
-            removedToilet = true;
-        }
-
-        if (Filter.confortableWise && !toilet.conforatableWide) {
-            removedToilet = true;
-        }
-
-        if (Filter.noNeedAsk && !toilet.noNeedAsk) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.parking && !toilet.parking) {
-            removedToilet = true;
-        }
-        if (Filter.airConditionFilter && !toilet.airCondition) {
-            removedToilet = true;
-        }
-        if (Filter.wifiFilter && !toilet.wifi) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.milkspaceFilter && !toilet.milkspace) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyRoomOnlyFemaleFilter && !toilet.babyroomOnlyFemale) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyRoomMaleCanEnterFilter && !toilet.babyroomManCanEnter) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyRoomPersonalSpaceFilter && !toilet.babyPersonalSpace) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyRoomPersonalWithLockFilter && !toilet.babyPersonalSpaceWithLock) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyRoomWideSpaceFilter && !toilet.babyRoomWideSpace) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.babyCarRentalFilter && !toilet.babyCarRental) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyCarAccessFilter && !toilet.babyCarAccess) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.omutuFilter && !toilet.omutu) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyHipWashingStuffFilter && !toilet.hipWashingStuff) {
-            removedToilet = true;
-        }
-
-        if (Filter.omutuTrashCanFilter && !toilet.babyTrashCan) {
-            removedToilet = true;
-        }
-
-        if (Filter.omutuSelling && !toilet.omutuSelling) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.babySinkFilter && !toilet.babyRoomSink) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyWashstandFilter && !toilet.babyWashStand) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyHotWaterFilter && !toilet.babyHotWater) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyMicrowaveFilter && !toilet.babyMicroWave) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.babySellingWaterFilter && !toilet.babyWaterSelling) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyFoodSellingFilter && !toilet.babyFoddSelling) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyEatingSpaceFilter && !toilet.babyEatingSpace) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.babyChairFilter && !toilet.babyChair) {
-            removedToilet = true;
-        }
-
-        if (Filter.babySoffaFilter && !toilet.babySoffa) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.babyToiletFilter && !toilet.babyKidsToilet) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyKidsSpaceFilter && !toilet.babyKidsSpace) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.babyHeightMeasureFilter && !toilet.babyHeightMeasure) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyWeightMeasureFilter && !toilet.babyWeightMeasure) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyToyFilter && !toilet.babyToy) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyRoomFancyFilter && !toilet.babyFancy) {
-            removedToilet = true;
-        }
-
-        if (Filter.babyRoomSmellGoodFilter && !toilet.babySmellGood) {
-            removedToilet = true;
-        }
-
-
-        if (Filter.typeFilterOn && toilet.type.equals(Filter.typeFilter)) {
-            removedToilet = true;
-        }
-
-        if (!removedToilet) {
-
-            // toiletData.add(String.valueOf(toilet.key));
             toiletData.add(toilet);
 
 
@@ -1815,7 +1556,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             float miniAvWaitFloat = toilet.averageWait/100f;
 
-            Log.i("miniAvWait99999", String.valueOf(miniAvWaitFloat));
 
 
 
@@ -1875,7 +1615,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-    }
+
 
     private String stringToiletFloor(Integer tFloor){
         String floorString = "2F";
