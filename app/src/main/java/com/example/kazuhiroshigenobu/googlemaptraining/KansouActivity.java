@@ -439,31 +439,6 @@ public class KansouActivity extends AppCompatActivity {
 
 
 
-            ///Get from Swift
-//
-//            DatabaseReference toiletRef;
-//            toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
-//            DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
-//
-//
-////            String newAvStarString = String.valueOf(roundedAverageStar);
-//
-//            Map<String, Object> childUpdates = new HashMap<>();
-//
-//            childUpdates.put("reviewCount", newReviewCount);
-//            childUpdates.put("averageStar", newAvStarString);
-//            childUpdates.put("averageWait", newWaitingTime);
-//            childUpdates.put("reviewOne", newRid);
-//            childUpdates.put("reviewTwo", originalReviewOne);
-
-
-            //childUpdates.put("editedBy",uid);
-
-            //We dont need to updata editedBy uid....
-
-
-          //  updateToiletRef.updateChildren(childUpdates);
-
     }}
 
 //    private void reviewDataUpload(){

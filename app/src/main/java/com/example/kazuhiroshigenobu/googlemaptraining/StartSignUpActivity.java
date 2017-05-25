@@ -24,8 +24,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class StartSignUpActivity extends AppCompatActivity {
 
@@ -244,29 +248,59 @@ public class StartSignUpActivity extends AppCompatActivity {
     }
 
 
+    @SuppressWarnings("unchecked")
     private void firebaseUpdate(String userID, String userName, String email, String password) {
 
-        DatabaseReference databaseReference;
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        //DatabaseReference databaseReference;
+        //databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
         //For just Development
 
+        Map<String, Object> userPublicData = new HashMap();
+
+        userPublicData.put("userPhoto", "");
+        userPublicData.put("userName", userName);
+        userPublicData.put("totalFavoriteCount", 0);
+        userPublicData.put("totalHelpedCount", 0);
+        userPublicData.put("totalLikedCount", 0);
+
+
+        Map<String, Object> userPrivateData = new HashMap();
+        userPrivateData.put("userEmail", email);
+        userPrivateData.put("password", password);
+
+        Map<String, Object> updateData = new HashMap();
+        updateData.put("Users/" + userID, userPublicData);
+        updateData.put("UserPrivateInfo/" + userID, userPrivateData);
+
+        DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+
+
+        firebaseRef.updateChildren(updateData,new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+
+            }
+        });
 
 
 
-        User user = new User(userName, password, "", email, 0, 0, 0);
+
+
+        // User user = new User(userName, password, "", email, 0, 0, 0);
 
 //        FirebaseUser userID = firebaseAuth.getCurrentUser();
 //        String userid = userID.getUid();
 
 
-        Log.i("User","onComplete: uid=" + user +"FIreCalled21");
+        //Log.i("User","onComplete: uid=" + user +"FIreCalled21");
 
 //        databaseReference.child("HUHU").setValue(user);
 //        databaseReference.child("JUJU").setValue("JUHU");
 
-        databaseReference.child("Users").child(userID).setValue(user);
+        //databaseReference.child("Users").child(userID).setValue(user);
 
 
 
