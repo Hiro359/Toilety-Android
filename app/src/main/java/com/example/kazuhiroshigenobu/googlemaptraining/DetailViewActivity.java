@@ -1,16 +1,22 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 //import android.*;
+import android.*;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -36,12 +42,20 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.BooleanResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.*;
 import com.google.firebase.database.DataSnapshot;
@@ -68,7 +82,8 @@ import static android.widget.LinearLayout.VERTICAL;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.CalculationByDistance;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.round;
 
-public class DetailViewActivity extends AppCompatActivity implements ReviewListAdapter.ReviewAdapterCallback {
+public class DetailViewActivity extends AppCompatActivity implements ReviewListAdapter.ReviewAdapterCallback
+        {
 
 
 
@@ -101,6 +116,10 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     Button buttonFavorite;
     Button buttonGetDirection;
     Button buttonGoToReviewList;
+
+    private LocationRequest mLocationRequest;
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
 
     Boolean userAlreadyLogin = false;
     final List<Review> reviewList = new ArrayList<>();
@@ -1812,60 +1831,95 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
 
 
+
+
+
     public void onMapReadyCalled(GoogleMap googleMap,Double toiletLat, Double toiletLon) {
          GoogleMap mMap;
          mMap = googleMap;
 
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        locationListener = new android.location.LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.i("onLocationChanged","Called");
-            }
+        //Check it is not null
+         LatLng toiletLocation = new LatLng(toiletLat,toiletLon);
+         MarkerOptions markerOptions = new MarkerOptions();
+         markerOptions.position(toiletLocation);
+         markerOptions.title("Toilet");
+         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+         mMap.addMarker(markerOptions);
 
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-            }
-        };
+        //move map camera
+         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(toiletLocation,16));
+        //Check UserInfo is not null
+         LatLng userLocation = new LatLng(UserInfo.latitude, UserInfo.longitude);
+         Drawable userImage = ContextCompat.getDrawable(getApplication(), R.drawable.user_pin_drawable);
 
 
-        if (Build.VERSION.SDK_INT < 23) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
-        } else{
+         MarkerOptions userMarker = new MarkerOptions();
+         userMarker.position(userLocation);
+         userMarker.title("User Location");
+         BitmapDescriptor markerIcon = getMarkerIconFromDrawable(userImage);
+         userMarker.icon(markerIcon);
+         mMap.addMarker(userMarker);
 
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
 
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
 
-            }else {
-                //When the permission is granted....
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                mMap.setMyLocationEnabled(true);
 
-                if (lastKnownLocation != null){
-                    LatLng toiletLocation = new LatLng(toiletLat,toiletLon);
-                    mMap.addMarker(new MarkerOptions().position(toiletLocation).title("施設の位置"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletLocation));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletLocation, 14.0f));
-                } else {
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                    //When you could not get the last known location...
-                    //I am not sure how to handle this
 
-                }
-            }
-        }
+
+
+//        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+//
+//        locationListener = new android.location.LocationListener() {
+//            @Override
+//            public void onLocationChanged(Location location) {
+//                Log.i("onLocationChanged","Called");
+//            }
+//
+//            @Override
+//            public void onStatusChanged(String provider, int status, Bundle extras) {
+//            }
+//
+//            @Override
+//            public void onProviderEnabled(String provider) {
+//            }
+//
+//            @Override
+//            public void onProviderDisabled(String provider) {
+//            }
+//        };
+
+
+//        if (Build.VERSION.SDK_INT < 23) {
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+//        } else{
+//
+//            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+//
+//                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
+//
+//            }else {
+//                //When the permission is granted....
+//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//                mMap.setMyLocationEnabled(true);
+//
+//                if (lastKnownLocation != null){
+//                    LatLng toiletLocation = new LatLng(toiletLat,toiletLon);
+//                    mMap.addMarker(new MarkerOptions().position(toiletLocation).title("施設の位置"));
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletLocation));
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletLocation, 14.0f));
+//                } else {
+//                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//                    //When you could not get the last known location...
+//                    //I am not sure how to handle this
+//
+//                }
+//            }
+       // }
     }
+
+
+
 
     private void isThereInfoProblem(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -1995,12 +2049,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                     }
                 });
         builder.create().show();
-
-
         //Post Report
-
-
-
 
     }
 
@@ -2178,7 +2227,17 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     }
 
 
+            private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
+                Canvas canvas = new Canvas();
+                Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                canvas.setBitmap(bitmap);
+                // drawable.setBounds(0, 0, 20, 20);
 
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                drawable.draw(canvas);
+
+                return BitmapDescriptorFactory.fromBitmap(bitmap);
+            }
 
 
 }

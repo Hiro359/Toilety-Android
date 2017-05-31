@@ -133,47 +133,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-   // private Map<Marker, Toilet> allMarkersMap = new HashMap<>();
-
-//    LocationRequest locationRequest;
-//    LocationClient locationClient;
-
-
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-
-
-
-
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == 1) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                Log.i("Permission", "Permission111");
-//                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//                    Log.i("Permission", "Permission222");
-//                    mMap.setMyLocationEnabled(true);
-//
-//
-//                    //mapUserCenterZoon();
-//
-//
-//
-//                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-//                    Log.i("Permission", "Permission333");
-//                }
-//
-//            }
-//
-//
-//        }
-//    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -511,30 +470,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-//        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-//
-//        locationListener = new android.location.LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-//
-//
-//                Log.i("onLocationChanged 0000", String.valueOf(location));
-//            }
-//
-//            @Override
-//            public void onStatusChanged(String provider, int status, Bundle extras) {
-//            }
-//
-//            @Override
-//            public void onProviderEnabled(String provider) {
-//            }
-//
-//            @Override
-//            public void onProviderDisabled(String provider) {
-//            }
-//        };
-
-        //Commented for changing google location listener May 31
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
@@ -553,47 +488,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.setMyLocationEnabled(true);
         }
 
-        //Copied from example... May 31
-
-
-//        if (Build.VERSION.SDK_INT < 23) {
-//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-//
-//        } else {
-//
-//            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//
-//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-//
-//            } else {
-//                //When the permission is granted....
-//
-//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 300, locationListener);
-//
-//
-//
-//
-//
-//                //Changed the min time and min distance
-//                //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-//
-//
-//                //Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
-//                Location lastKnownLocation;
-//                if (UserInfo.userSelectedLocation){
-//                    Location userDestination = new Location(LocationManager.GPS_PROVIDER);
-//                    userDestination.setLatitude(UserInfo.userSelectedLatLng.latitude);
-//                    userDestination.setLongitude(UserInfo.userSelectedLatLng.longitude);
-//                    lastKnownLocation = userDestination;
-//
-//                } else {
-//                    lastKnownLocation = getLastKnownLocation();
-//                }
-//
-//
-//                mMap.setMyLocationEnabled(true);
-
-        //Commented for google map location listener implemnation
 
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
@@ -654,19 +548,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             distanceSting = String.valueOf(meterB) + "m";
                         }
 
-
-//                        Float fixedAlpha =  marker.getTag().;
-////                        Float fixedAlpha =  marker.getAlpha();
-//                        Double doubleAlpha = fixedAlpha.doubleValue() - 0.5;
-//                        Double alpha = doubleAlpha * 10;
-//                        Log.i("alpha000",String.valueOf(alpha));
-
-//                        Float fixedAlpha =  marker.getAlpha();
-//                        Double doubleAlpha = fixedAlpha.doubleValue() - 0.5;
-//                        Double alpha = doubleAlpha * 10;
-//                        Log.i("alpha000",String.valueOf(alpha));
-
-                        // double roundedAlpha = round(alpha, 1);
 
                         String avStar = marker.getTag().toString();
                         Float ratingValue = Float.parseFloat(avStar);
@@ -791,8 +672,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             locationLoadedOnce = true;
 
             //new LatLng(UserInfo.latitude, UserInfo.longitude);
-
-
         }
     }
 
@@ -834,48 +713,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     //Those method were added becuase of google location listener May 31
 
 
-
-//    //get last location funtions
-//    private Location getLastKnownLocation() {
-//
-//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 300, locationListener);
-//
-//
-//        List<String> providers = locationManager.getProviders(true);
-//        Location bestLocation = null;
-//        for (String provider : providers) {
-//
-//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//
-//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-//
-//            } else {
-//
-//                //permission granted .....
-//
-//                Location l = locationManager.getLastKnownLocation(provider);
-//                //Location l = locationListener.getLastKnownLocation(provider);
-////            Log.d("last known location, provider: %s, location: %s", provider,
-////                    l);
-//
-//
-//                if (l == null) {
-//                    continue;
-//                }
-//                if (bestLocation == null
-//                        || l.getAccuracy() < bestLocation.getAccuracy()) {
-////                ALog.d("found best last known location: %s", l);
-//                    bestLocation = l;
-//                }
-//                //////
-//            }
-//        }
-//        if (bestLocation == null) {
-//            return null;
-//        }
-//        return bestLocation;
-//
-//    }
 
 
     //get last location funtions
@@ -1945,48 +1782,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         return Radius * c;
     }
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-
-//    public Action getIndexApiAction() {
-//        Thing object = new Thing.Builder()
-//                .setName("Maps Page") // TODO: Define a title for the content shown.
-//                // TODO: Make sure this auto-generated URL is correct.
-//                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-//                .build();
-//        return new Action.Builder(Action.TYPE_VIEW)
-//                .setObject(object)
-//                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-//                .build();
-//    }
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//        // ATTENTION: This was auto-generated to implement the App Indexing API.
-//        // See https://g.co/AppIndexing/AndroidStudio for more information.
-//        mGoogleApiClient.connect();
-//        AppIndex.AppIndexApi.start(mGoogleApiClient, getIndexApiAction());
-//        mAuth.addAuthStateListener(mAuthListener);
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//
-//        // ATTENTION: This was auto-generated to implement the App Indexing API.
-//        // See https://g.co/AppIndexing/AndroidStudio for more information.
-//        AppIndex.AppIndexApi.end(mGoogleApiClient, getIndexApiAction());
-//        mGoogleApiClient.disconnect();
-//        if (mAuthListener != null) {
-//            mAuth.removeAuthStateListener(mAuthListener);
-//        }
-//    }
-
-    //Commented those May 31
 
 
 
