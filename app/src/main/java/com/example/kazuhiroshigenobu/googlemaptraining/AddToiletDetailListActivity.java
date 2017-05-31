@@ -931,19 +931,21 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             noFilterData.put("available",true);
             noFilterData.put("averageWait",waitingValue);
             noFilterData.put("toiletFloor",toiletFloor);
+            noFilterData.put("latitude",AddLocations.latitude);
+            noFilterData.put("longitude",AddLocations.longitude);
 
 
-            Map<String, Object> toiletUserList = new HashMap();
-            toiletUserList.put("name",tName);
-            toiletUserList.put("type",typeSpinner.getSelectedItemPosition());
-            toiletUserList.put("urlOne",urlOne);
-            toiletUserList.put("averageStar",avStar);
-            toiletUserList.put("reviewCount",1);
-            toiletUserList.put("available",true);
-            toiletUserList.put("averageWait",waitingValue);
-            toiletUserList.put("toiletFloor",toiletFloor);
-            toiletUserList.put("latitude",AddLocations.latitude);
-            toiletUserList.put("longitude",AddLocations.longitude);
+//            Map<String, Object> toiletUserList = new HashMap();
+//            toiletUserList.put("name",tName);
+//            toiletUserList.put("type",typeSpinner.getSelectedItemPosition());
+//            toiletUserList.put("urlOne",urlOne);
+//            toiletUserList.put("averageStar",avStar);
+//            toiletUserList.put("reviewCount",1);
+//            toiletUserList.put("available",true);
+//            toiletUserList.put("averageWait",waitingValue);
+//            toiletUserList.put("toiletFloor",toiletFloor);
+//            toiletUserList.put("latitude",AddLocations.latitude);
+//            toiletUserList.put("longitude",AddLocations.longitude);
 
 
             Map<String, Object> unitOneData = new HashMap();
@@ -961,6 +963,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitOneData.put("westerntoilet",AddDetailBooleans.westerntoilet);
             unitOneData.put("onlyFemale",AddDetailBooleans.onlyFemale);
             unitOneData.put("unisex",AddDetailBooleans.unisex);
+            unitOneData.put("latitude",AddLocations.latitude);
+            unitOneData.put("longitude",AddLocations.longitude);
 
 
 
@@ -981,6 +985,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitTwoData.put("paperForBenki",AddDetailBooleans.paperForBenki);
             unitTwoData.put("cleanerForBenki",AddDetailBooleans.cleanerForBenki);
             unitTwoData.put("nonTouchWash",AddDetailBooleans.autoToiletWash);
+            unitTwoData.put("latitude",AddLocations.latitude);
+            unitTwoData.put("longitude",AddLocations.longitude);
 
 
 
@@ -999,6 +1005,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitThreeData.put("nonTouchHandSoap", AddDetailBooleans.autoHandSoap);
             unitThreeData.put("paperTowel",AddDetailBooleans.paperTowel);
             unitThreeData.put("handDrier",AddDetailBooleans.handDrier);
+            unitThreeData.put("latitude",AddLocations.latitude);
+            unitThreeData.put("longitude",AddLocations.longitude);
 
 
             Map<String, Object> unitFourData = new HashMap();
@@ -1015,6 +1023,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitFourData.put("confortable",AddDetailBooleans.conforatableWide);
             unitFourData.put("clothes",AddDetailBooleans.clothes);
             unitFourData.put("baggageSpace",AddDetailBooleans.baggageSpace);
+            unitFourData.put("latitude",AddLocations.latitude);
+            unitFourData.put("longitude",AddLocations.longitude);
 
 
 
@@ -1032,6 +1042,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitFiveData.put("parking",AddDetailBooleans.parking);
             unitFiveData.put("airCondition",AddDetailBooleans.airCondition);
             unitFiveData.put("wifi",AddDetailBooleans.wifi);
+            unitFiveData.put("latitude",AddLocations.latitude);
+            unitFiveData.put("longitude",AddLocations.longitude);
 
 
 
@@ -1051,6 +1063,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitSixData.put("ladyBabyChair",AddDetailBooleans.ladyBabyChair);
             unitSixData.put("ladyBabyChairGood",AddDetailBooleans.ladyBabyChairGood);
             unitSixData.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
+            unitSixData.put("latitude",AddLocations.latitude);
+            unitSixData.put("longitude",AddLocations.longitude);
 
 
             Map<String, Object> unitSevenData = new HashMap();
@@ -1066,6 +1080,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitSevenData.put("maleBabyChair",AddDetailBooleans.maleBabyChair);
             unitSevenData.put("maleBabyChairGood",AddDetailBooleans.maleBabyChairGood);
             unitSevenData.put("maleBabyCarAccess",AddDetailBooleans.babyCarAccess);
+            unitSevenData.put("latitude",AddLocations.latitude);
+            unitSevenData.put("longitude",AddLocations.longitude);
 
 
 
@@ -1087,6 +1103,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitEightData.put("voiceGuide",AddDetailBooleans.voiceGuide);
             unitEightData.put("familyOmutu",AddDetailBooleans.familyOmutu);
             unitEightData.put("familyBabyChair",AddDetailBooleans.familyBabyChair);
+            unitEightData.put("latitude",AddLocations.latitude);
+            unitEightData.put("longitude",AddLocations.longitude);
 
 
 
@@ -1105,6 +1123,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitNineData.put("babyRoomPersonalSpace",AddDetailBooleans.babyPersonalSpace);
             unitNineData.put("babyRoomPersonalSpaceWithLock",AddDetailBooleans.babyPersonalSpaceWithLock);
             unitNineData.put("babyRoomWideSpace",AddDetailBooleans.babyRoomWideSpace);
+            unitNineData.put("latitude",AddLocations.latitude);
+            unitNineData.put("longitude",AddLocations.longitude);
 
 
 
@@ -1123,6 +1143,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitTenData.put("hipCleaningStuff",AddDetailBooleans.hipWashingStuff);
             unitTenData.put("omutuTrashCan",AddDetailBooleans.babyTrashCan);
             unitTenData.put("omutuSelling",AddDetailBooleans.omutuSelling);
+            unitTenData.put("latitude",AddLocations.latitude);
+            unitTenData.put("longitude",AddLocations.longitude);
 
             Map<String, Object> unitElevenData = new HashMap();
             unitElevenData.put("name",tName);
@@ -1140,6 +1162,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitElevenData.put("babyWaterSelling",AddDetailBooleans.babyWaterSelling);
             unitElevenData.put("babyFoodSelling",AddDetailBooleans.babyFoddSelling);
             unitElevenData.put("babyEatingSpace",AddDetailBooleans.babyEatingSpace);
+            unitElevenData.put("latitude",AddLocations.latitude);
+            unitElevenData.put("longitude",AddLocations.longitude);
 
 
 
@@ -1161,6 +1185,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitTwelveData.put("babyToy",AddDetailBooleans.babyToy);
             unitTwelveData.put("babyFancy",AddDetailBooleans.babyFancy);
             unitTwelveData.put("babySmellGood",AddDetailBooleans.babySmellGood);
+            unitTwelveData.put("latitude",AddLocations.latitude);
+            unitTwelveData.put("longitude",AddLocations.longitude);
 
 
             Map<String, Object> groupOneData = new HashMap();
@@ -1174,12 +1200,15 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             groupOneData.put("toiletFloor",toiletFloor);
             groupOneData.put("openHours",openData);
             groupOneData.put("closeHours",endData);
+            groupOneData.put("latitude",AddLocations.latitude);
+            groupOneData.put("longitude",AddLocations.longitude);
 
 
             groupOneData.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
             groupOneData.put("westerntoilet",AddDetailBooleans.westerntoilet);
             groupOneData.put("onlyFemale",AddDetailBooleans.onlyFemale);
             groupOneData.put("unisex",AddDetailBooleans.unisex);
+
 
             groupOneData.put("washlet",AddDetailBooleans.washlet);
             groupOneData.put("warmSeat",AddDetailBooleans.warmSeat);
@@ -1223,6 +1252,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             groupTwoData.put("available",true);
             groupTwoData.put("averageWait",waitingValue);
             groupTwoData.put("toiletFloor",toiletFloor);
+            groupTwoData.put("latitude",AddLocations.latitude);
+            groupTwoData.put("longitude",AddLocations.longitude);
 
             groupTwoData.put("otohime",AddDetailBooleans.otohime);
             groupTwoData.put("napkinSelling",AddDetailBooleans.napkinSelling);
@@ -1265,6 +1296,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             groupThreeData.put("babyRoomPersonalSpace",AddDetailBooleans.babyPersonalSpace);
             groupThreeData.put("babyRoomPersonalSpaceWithLock",AddDetailBooleans.babyPersonalSpaceWithLock);
             groupThreeData.put("babyRoomWideSpace",AddDetailBooleans.babyRoomWideSpace);
+            groupThreeData.put("latitude",AddLocations.latitude);
+            groupThreeData.put("longitude",AddLocations.longitude);
 
 
             groupThreeData.put("babyCarRental",AddDetailBooleans.babyCarRental);
@@ -1311,6 +1344,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             halfOneData.put("westerntoilet",AddDetailBooleans.westerntoilet);
             halfOneData.put("onlyFemale",AddDetailBooleans.onlyFemale);
             halfOneData.put("unisex",AddDetailBooleans.unisex);
+            halfOneData.put("latitude",AddLocations.latitude);
+            halfOneData.put("longitude",AddLocations.longitude);
 
             halfOneData.put("washlet",AddDetailBooleans.washlet);
             halfOneData.put("warmSeat",AddDetailBooleans.warmSeat);
@@ -1383,6 +1418,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             halfTwoData.put("available",true);
             halfTwoData.put("averageWait",waitingValue);
             halfTwoData.put("toiletFloor",toiletFloor);
+            halfTwoData.put("latitude",AddLocations.latitude);
+            halfTwoData.put("longitude",AddLocations.longitude);
 
             halfTwoData.put("otohime",AddDetailBooleans.otohime);
             halfTwoData.put("napkinSelling",AddDetailBooleans.napkinSelling);
@@ -1458,6 +1495,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             allFilterData.put("westerntoilet",AddDetailBooleans.westerntoilet);
             allFilterData.put("onlyFemale",AddDetailBooleans.onlyFemale);
             allFilterData.put("unisex",AddDetailBooleans.unisex);
+            allFilterData.put("latitude",AddLocations.latitude);
+            allFilterData.put("longitude",AddLocations.longitude);
 
             allFilterData.put("washlet",AddDetailBooleans.washlet);
             allFilterData.put("warmSeat",AddDetailBooleans.warmSeat);
@@ -1579,6 +1618,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
 
 
+
             toiletViewData.put("latitude",AddLocations.latitude);
             toiletViewData.put("longitude",AddLocations.longitude);
 
@@ -1694,7 +1734,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
             updateData.put("ToiletView/" + newTid, toiletViewData);
             updateData.put("NoFilter/" + newTid, noFilterData);
-            updateData.put("ToiletUserList/" + newTid, toiletUserList);
+            //updateData.put("ToiletUserList/" + newTid, toiletUserList);
             updateData.put("UnitOne/" + newTid, unitOneData);
             updateData.put("UnitTwo/" + newTid, unitTwoData);
             updateData.put("UnitThree/" + newTid, unitThreeData);

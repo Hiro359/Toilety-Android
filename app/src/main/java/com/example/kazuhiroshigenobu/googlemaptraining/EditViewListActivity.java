@@ -1354,21 +1354,25 @@ public class EditViewListActivity extends AppCompatActivity {
             noFilterData.put("available",true);
             noFilterData.put("averageWait",toilet.averageWait);
             noFilterData.put("toiletFloor",toilet.floor);
+            noFilterData.put("latitude",toilet.latitude);
+            noFilterData.put("longitude",toilet.longitude);
 
             Log.i("URL 999", "888");
 
 
-            Map<String, Object> toiletUserList = new HashMap();
-            toiletUserList.put("name",tName);
-            toiletUserList.put("type",typeSpinner.getSelectedItemPosition());
-            toiletUserList.put("urlOne",urlOne);
-            toiletUserList.put("averageStar",toilet.averageStar);
-            toiletUserList.put("reviewCount",1);
-            toiletUserList.put("available",true);
-            toiletUserList.put("averageWait",toilet.averageWait);
-            toiletUserList.put("toiletFloor",toilet.floor);
-            toiletUserList.put("latitude",toilet.latitude);
-            toiletUserList.put("longitude",toilet.longitude);
+//            Map<String, Object> toiletUserList = new HashMap();
+//            toiletUserList.put("name",tName);
+//            toiletUserList.put("type",typeSpinner.getSelectedItemPosition());
+//            toiletUserList.put("urlOne",urlOne);
+//            toiletUserList.put("averageStar",toilet.averageStar);
+//            toiletUserList.put("reviewCount",1);
+//            toiletUserList.put("available",true);
+//            toiletUserList.put("averageWait",toilet.averageWait);
+//            toiletUserList.put("toiletFloor",toilet.floor);
+//            toiletUserList.put("latitude",toilet.latitude);
+//            toiletUserList.put("longitude",toilet.longitude);
+//            toiletViewData.put("latitude",toilet.latitude);
+//            toiletViewData.put("longitude",toilet.longitude);
 
             Log.i("URL 999", "888 777");
 
@@ -1388,6 +1392,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitOneData.put("westerntoilet",AddDetailBooleans.westerntoilet);
             unitOneData.put("onlyFemale",AddDetailBooleans.onlyFemale);
             unitOneData.put("unisex",AddDetailBooleans.unisex);
+            unitOneData.put("latitude",toilet.latitude);
+            unitOneData.put("longitude",toilet.longitude);
 
 
 
@@ -1408,6 +1414,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitTwoData.put("paperForBenki",AddDetailBooleans.paperForBenki);
             unitTwoData.put("cleanerForBenki",AddDetailBooleans.cleanerForBenki);
             unitTwoData.put("nonTouchWash",AddDetailBooleans.autoToiletWash);
+            unitTwoData.put("latitude",toilet.latitude);
+            unitTwoData.put("longitude",toilet.longitude);
 
 
 
@@ -1426,6 +1434,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitThreeData.put("nonTouchHandSoap", AddDetailBooleans.autoHandSoap);
             unitThreeData.put("paperTowel",AddDetailBooleans.paperTowel);
             unitThreeData.put("handDrier",AddDetailBooleans.handDrier);
+            unitThreeData.put("latitude",toilet.latitude);
+            unitThreeData.put("longitude",toilet.longitude);
 
 
             Map<String, Object> unitFourData = new HashMap();
@@ -1442,6 +1452,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitFourData.put("confortable",AddDetailBooleans.conforatableWide);
             unitFourData.put("clothes",AddDetailBooleans.clothes);
             unitFourData.put("baggageSpace",AddDetailBooleans.baggageSpace);
+            unitFourData.put("latitude",toilet.latitude);
+            unitFourData.put("longitude",toilet.longitude);
 
 
 
@@ -1459,6 +1471,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitFiveData.put("parking",AddDetailBooleans.parking);
             unitFiveData.put("airCondition",AddDetailBooleans.airCondition);
             unitFiveData.put("wifi",AddDetailBooleans.wifi);
+            unitFiveData.put("latitude",toilet.latitude);
+            unitFiveData.put("longitude",toilet.longitude);
 
 
 
@@ -1478,6 +1492,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitSixData.put("ladyBabyChair",AddDetailBooleans.ladyBabyChair);
             unitSixData.put("ladyBabyChairGood",AddDetailBooleans.ladyBabyChairGood);
             unitSixData.put("ladyBabyCarAccess", AddDetailBooleans.ladyBabyCarAccess);
+            unitSixData.put("latitude",toilet.latitude);
+            unitSixData.put("longitude",toilet.longitude);
 
 
             Map<String, Object> unitSevenData = new HashMap();
@@ -1493,6 +1509,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitSevenData.put("maleBabyChair",AddDetailBooleans.maleBabyChair);
             unitSevenData.put("maleBabyChairGood",AddDetailBooleans.maleBabyChairGood);
             unitSevenData.put("maleBabyCarAccess",AddDetailBooleans.babyCarAccess);
+            unitSevenData.put("latitude",toilet.latitude);
+            unitSevenData.put("longitude",toilet.longitude);
 
 
 
@@ -1514,6 +1532,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitEightData.put("voiceGuide",AddDetailBooleans.voiceGuide);
             unitEightData.put("familyOmutu",AddDetailBooleans.familyOmutu);
             unitEightData.put("familyBabyChair",AddDetailBooleans.familyBabyChair);
+            unitEightData.put("latitude",toilet.latitude);
+            unitEightData.put("longitude",toilet.longitude);
 
 
 
@@ -1532,6 +1552,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitNineData.put("babyRoomPersonalSpace",AddDetailBooleans.babyPersonalSpace);
             unitNineData.put("babyRoomPersonalSpaceWithLock",AddDetailBooleans.babyPersonalSpaceWithLock);
             unitNineData.put("babyRoomWideSpace",AddDetailBooleans.babyRoomWideSpace);
+            unitNineData.put("latitude",toilet.latitude);
+            unitNineData.put("longitude",toilet.longitude);
 
 
 
@@ -1550,6 +1572,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitTenData.put("hipCleaningStuff",AddDetailBooleans.hipWashingStuff);
             unitTenData.put("omutuTrashCan",AddDetailBooleans.babyTrashCan);
             unitTenData.put("omutuSelling",AddDetailBooleans.omutuSelling);
+            unitTenData.put("latitude",toilet.latitude);
+            unitTenData.put("longitude",toilet.longitude);
 
             Map<String, Object> unitElevenData = new HashMap();
             unitElevenData.put("name",tName);
@@ -1567,6 +1591,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitElevenData.put("babyWaterSelling",AddDetailBooleans.babyWaterSelling);
             unitElevenData.put("babyFoodSelling",AddDetailBooleans.babyFoddSelling);
             unitElevenData.put("babyEatingSpace",AddDetailBooleans.babyEatingSpace);
+            unitElevenData.put("latitude",toilet.latitude);
+            unitElevenData.put("longitude",toilet.longitude);
 
 
 
@@ -1588,6 +1614,8 @@ public class EditViewListActivity extends AppCompatActivity {
             unitTwelveData.put("babyToy",AddDetailBooleans.babyToy);
             unitTwelveData.put("babyFancy",AddDetailBooleans.babyFancy);
             unitTwelveData.put("babySmellGood",AddDetailBooleans.babySmellGood);
+            unitTwelveData.put("latitude",toilet.latitude);
+            unitTwelveData.put("longitude",toilet.longitude);
 
 
             Map<String, Object> groupOneData = new HashMap();
@@ -1601,6 +1629,8 @@ public class EditViewListActivity extends AppCompatActivity {
             groupOneData.put("toiletFloor",toilet.floor);
             groupOneData.put("openHours",openData);
             groupOneData.put("closeHours",endData);
+            groupOneData.put("latitude",toilet.latitude);
+            groupOneData.put("longitude",toilet.longitude);
 
 
             groupOneData.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
@@ -1650,6 +1680,8 @@ public class EditViewListActivity extends AppCompatActivity {
             groupTwoData.put("available",true);
             groupTwoData.put("averageWait",toilet.averageWait);
             groupTwoData.put("toiletFloor",toilet.floor);
+            groupTwoData.put("latitude",toilet.latitude);
+            groupTwoData.put("longitude",toilet.longitude);
 
             groupTwoData.put("otohime",AddDetailBooleans.otohime);
             groupTwoData.put("napkinSelling",AddDetailBooleans.napkinSelling);
@@ -1677,6 +1709,8 @@ public class EditViewListActivity extends AppCompatActivity {
             groupTwoData.put("familyBabyChair",AddDetailBooleans.familyBabyChair);
 
 
+
+
             Map<String, Object> groupThreeData = new HashMap();
             groupThreeData.put("name",tName);
             groupThreeData.put("type",typeSpinner.getSelectedItemPosition());
@@ -1692,6 +1726,8 @@ public class EditViewListActivity extends AppCompatActivity {
             groupThreeData.put("babyRoomPersonalSpace",AddDetailBooleans.babyPersonalSpace);
             groupThreeData.put("babyRoomPersonalSpaceWithLock",AddDetailBooleans.babyPersonalSpaceWithLock);
             groupThreeData.put("babyRoomWideSpace",AddDetailBooleans.babyRoomWideSpace);
+            groupThreeData.put("latitude",toilet.latitude);
+            groupThreeData.put("longitude",toilet.longitude);
 
 
             groupThreeData.put("babyCarRental",AddDetailBooleans.babyCarRental);
@@ -1738,6 +1774,8 @@ public class EditViewListActivity extends AppCompatActivity {
             halfOneData.put("westerntoilet",AddDetailBooleans.westerntoilet);
             halfOneData.put("onlyFemale",AddDetailBooleans.onlyFemale);
             halfOneData.put("unisex",AddDetailBooleans.unisex);
+            halfOneData.put("latitude",toilet.latitude);
+            halfOneData.put("longitude",toilet.longitude);
 
             halfOneData.put("washlet",AddDetailBooleans.washlet);
             halfOneData.put("warmSeat",AddDetailBooleans.warmSeat);
@@ -1810,6 +1848,8 @@ public class EditViewListActivity extends AppCompatActivity {
             halfTwoData.put("available",true);
             halfTwoData.put("averageWait",toilet.averageStar);
             halfTwoData.put("toiletFloor",toilet.floor);
+            halfTwoData.put("latitude",toilet.latitude);
+            halfTwoData.put("longitude",toilet.longitude);
 
             halfTwoData.put("otohime",AddDetailBooleans.otohime);
             halfTwoData.put("napkinSelling",AddDetailBooleans.napkinSelling);
@@ -1872,6 +1912,9 @@ public class EditViewListActivity extends AppCompatActivity {
             halfTwoData.put("babyFancy",AddDetailBooleans.babyFancy);
             halfTwoData.put("babySmellGood",AddDetailBooleans.babySmellGood);
 
+
+
+
             Map<String, Object> allFilterData = new HashMap();
             allFilterData.put("name",tName);
             allFilterData.put("type",typeSpinner.getSelectedItemPosition());
@@ -1885,6 +1928,8 @@ public class EditViewListActivity extends AppCompatActivity {
             allFilterData.put("westerntoilet",AddDetailBooleans.westerntoilet);
             allFilterData.put("onlyFemale",AddDetailBooleans.onlyFemale);
             allFilterData.put("unisex",AddDetailBooleans.unisex);
+            allFilterData.put("latitude",toilet.latitude);
+            allFilterData.put("longitude",toilet.longitude);
 
             allFilterData.put("washlet",AddDetailBooleans.washlet);
             allFilterData.put("warmSeat",AddDetailBooleans.warmSeat);
@@ -2121,7 +2166,7 @@ public class EditViewListActivity extends AppCompatActivity {
 
             updateData.put("ToiletView/" + toilet.key, toiletViewData);
             updateData.put("NoFilter/" + toilet.key, noFilterData);
-            updateData.put("ToiletUserList/" + toilet.key, toiletUserList);
+            //updateData.put("ToiletUserList/" + toilet.key, toiletUserList);
             updateData.put("UnitOne/" + toilet.key, unitOneData);
             updateData.put("UnitTwo/" + toilet.key, unitTwoData);
             updateData.put("UnitThree/" + toilet.key, unitThreeData);
