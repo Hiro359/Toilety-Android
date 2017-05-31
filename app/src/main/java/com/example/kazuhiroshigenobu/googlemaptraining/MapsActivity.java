@@ -163,6 +163,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+        //Get location here..
+
+
+
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setNavigationIcon(R.drawable.app_filter_icon_drawable);
@@ -226,6 +231,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         buttonSetClick();
 
         Log.i("QueryPath 88888", Filter.queryPath);
+
+
 
 
 
@@ -428,7 +435,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onLocationChanged(Location location) {
 
-                Log.i("onLocationChanged0088", String.valueOf(location));
+
+                Log.i("onLocationChanged 0000", String.valueOf(location));
             }
 
             @Override
@@ -457,6 +465,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 //When the permission is granted....
 
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 300, locationListener);
+
+
 
 
 
