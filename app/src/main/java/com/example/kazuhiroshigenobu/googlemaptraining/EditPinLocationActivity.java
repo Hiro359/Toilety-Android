@@ -13,7 +13,8 @@ import android.location.Location;
         import android.os.AsyncTask;
         import android.os.Build;
         import android.support.annotation.NonNull;
-        import android.support.v4.app.ActivityCompat;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
         import android.support.v4.content.ContextCompat;
         import android.support.v7.app.AlertDialog;
@@ -31,12 +32,16 @@ import com.firebase.geofire.GeoFire;
 import com.google.android.gms.appindexing.Action;
         import com.google.android.gms.appindexing.AppIndex;
         import com.google.android.gms.appindexing.Thing;
-        import com.google.android.gms.common.api.GoogleApiClient;
-        import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
         import com.google.android.gms.maps.GoogleMap;
         import com.google.android.gms.maps.OnMapReadyCallback;
         import com.google.android.gms.maps.SupportMapFragment;
         import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseError;
         import com.google.firebase.database.DatabaseReference;
@@ -52,7 +57,9 @@ import java.util.Map;
 
 //Trying to remove strict network but other pople say its not the right way to do that 4th March
 
-public class EditPinLocationActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class EditPinLocationActivity extends AppCompatActivity implements OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener{
+        //implements GooglePlayServicesClient.ConnectionCallbacks {
 
     //Change Fragment Activity to AppCompatActivity 29th March
 
@@ -61,6 +68,7 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
     LocationManager locationManager;
 
     LocationListener locationListener;
+    private Boolean locationFirstLoad = false;
 
 
 //    private FirebaseAuth mAuth;
@@ -71,6 +79,12 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 //    private RequestQueue requestQueue;
 
     private Boolean markerSetted = false;
+    //GoogleMap mGoogleMap;
+    SupportMapFragment mapFrag;
+    LocationRequest mLocationRequest;
+    GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
+    Marker mCurrLocationMarker;
 //    private Toolbar toolbar;
 //    private TextView toolbarTitle;
 
@@ -82,30 +96,30 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 
     Toilet toilet =  new Toilet();
 
-    private GoogleApiClient client;
+    //private GoogleApiClient client;
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Log.i("Permission","Permission111");
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    Log.i("Permission","Permission222");
-                    mMap.setMyLocationEnabled(true);
-
-                    //mapUserCenterZoon();
-
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                    Log.i("Permission","Permission333");
-                }
-
-            }
-
-
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == 1){
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                Log.i("Permission","Permission111");
+//                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//                    Log.i("Permission","Permission222");
+//                    mMap.setMyLocationEnabled(true);
+//
+//                    //mapUserCenterZoon();
+//
+//                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//                    Log.i("Permission","Permission333");
+//                }
+//
+//            }
+//
+//
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,9 +200,11 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 
 
 
+
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
 
 //        mAuth = FirebaseAuth.getInstance();
@@ -209,6 +225,201 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 //                // ...
 //            }
 //        };
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap)
+    {
+        mMap =googleMap;
+        //mMap.setMapType(GoogleMap.);
+
+        //Initialize Google Play Services
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                //Location Permission already granted
+                buildGoogleApiClient();
+                mMap.setMyLocationEnabled(true);
+            } else {
+                //Request Location Permission
+                checkLocationPermission();
+            }
+        }
+        else {
+            buildGoogleApiClient();
+            mMap.setMyLocationEnabled(true);
+        }
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+
+                mMap.clear();
+                Double l1=latLng.latitude;
+                Double l2=latLng.longitude;
+                String coordl1 = l1.toString();
+                String coordl2 = l2.toString();
+                l1 = Double.parseDouble(coordl1);
+                l2 = Double.parseDouble(coordl2);
+
+                LatLng newToilet = new LatLng(l1,l2);
+                mMap.addMarker(new MarkerOptions().position(newToilet)
+                        .title("追加するトイレ"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(newToilet));
+
+                AddLocations.latitude = l1;
+                Log.i("AddLocations.latitude",String.valueOf(l1));
+
+                AddLocations.longitude = l2;
+                Log.i("AddLocations.longitude",String.valueOf(l2));
+
+              //  new AddToiletActivity.JSONParse().execute();
+                new JSONParse().execute();
+
+
+                markerSetted = true;
+
+
+            }
+        });
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        }
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if (!locationFirstLoad) {
+            //This will be called once
+
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            UserInfo.latitude = location.getLatitude();
+            UserInfo.longitude = location.getLongitude();
+            Log.i("THis is latlng 0000", String.valueOf(latLng));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+            locationFirstLoad = true;
+
+            //new LatLng(UserInfo.latitude, UserInfo.longitude);
+        }
+
+    }
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission Needed")
+                        .setMessage("This app needs the Location permission, please accept to use location functionality")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(EditPinLocationActivity.this,
+                                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION );
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION );
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        if (mGoogleApiClient == null) {
+                            buildGoogleApiClient();
+                        }
+                        mMap.setMyLocationEnabled(true);
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                }
+                //return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+
+
+
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        //stop location updates when Activity is no longer active
+        if (mGoogleApiClient != null) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        }
     }
 
     private void alertCall(){
@@ -337,159 +548,161 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
 
 
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-
-
-                mMap.clear();
-                Double l1=latLng.latitude;
-                Double l2=latLng.longitude;
-                String coordl1 = l1.toString();
-                String coordl2 = l2.toString();
-                l1 = Double.parseDouble(coordl1);
-                l2 = Double.parseDouble(coordl2);
-
-                LatLng newToilet = new LatLng(l1,l2);
-                mMap.addMarker(new MarkerOptions().position(newToilet)
-                        .title("追加するトイレ"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(newToilet));
-
-                AddLocations.latitude = l1;
-                Log.i("AddLocations.latitude",String.valueOf(l1));
-
-                AddLocations.longitude = l2;
-                Log.i("AddLocations.longitude",String.valueOf(l2));
-
-              //  new AddToiletActivity.JSONParse().execute();
-                new JSONParse().execute();
-
-
-                markerSetted = true;
-
-
-            }
-        });
-
-        locationListener = new android.location.LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.i("onLocationChanged", "Called");
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-            }
-        };
-
-
-        if (Build.VERSION.SDK_INT < 23) {
-
-            Log.i("Build.VERSION.SDK_INT ", "Build.VERSION.SDK_INT ");
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
-        } else {
-
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-
-            } else {
-                //When the permission is granted....
-                Log.i("HeyHey333", "locationManager.requestLocationUpdates");
-
-
+//    @Override
+//    public void onMapReady(GoogleMap googleMap) {
+//        mMap = googleMap;
+//        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 //
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                mMap.setMyLocationEnabled(true);
-                Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
+//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng latLng) {
+//
+//
+//                mMap.clear();
+//                Double l1=latLng.latitude;
+//                Double l2=latLng.longitude;
+//                String coordl1 = l1.toString();
+//                String coordl2 = l2.toString();
+//                l1 = Double.parseDouble(coordl1);
+//                l2 = Double.parseDouble(coordl2);
+//
+//                LatLng newToilet = new LatLng(l1,l2);
+//                mMap.addMarker(new MarkerOptions().position(newToilet)
+//                        .title("追加するトイレ"));
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(newToilet));
+//
+//                AddLocations.latitude = l1;
+//                Log.i("AddLocations.latitude",String.valueOf(l1));
+//
+//                AddLocations.longitude = l2;
+//                Log.i("AddLocations.longitude",String.valueOf(l2));
+//
+//              //  new AddToiletActivity.JSONParse().execute();
+//                new JSONParse().execute();
+//
+//
+//                markerSetted = true;
+//
+//
+//            }
+//        });
+//
+//        locationListener = new android.location.LocationListener() {
+//            @Override
+//            public void onLocationChanged(Location location) {
+//                Log.i("onLocationChanged", "Called");
+//            }
+//
+//            @Override
+//            public void onStatusChanged(String provider, int status, Bundle extras) {
+//            }
+//
+//            @Override
+//            public void onProviderEnabled(String provider) {
+//            }
+//
+//            @Override
+//            public void onProviderDisabled(String provider) {
+//            }
+//        };
+//
+//
+//        if (Build.VERSION.SDK_INT < 23) {
+//
+//            Log.i("Build.VERSION.SDK_INT ", "Build.VERSION.SDK_INT ");
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//
+//        } else {
+//
+//            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//
+//
+//                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+//
+//
+//            } else {
+//                //When the permission is granted....
+//                Log.i("HeyHey333", "locationManager.requestLocationUpdates");
+//
+//
+////
+//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//                mMap.setMyLocationEnabled(true);
+//                Log.i("HeyHey333444555", "locationManager.requestLocationUpdates");
+//
+//
+//                if (lastKnownLocation != null) {
+//                    Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
+//
+//
+//                    mMap.clear();
+//
+//                    //LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+//
+//
+//                    if (toilet.latitude != null && toilet.longitude != null){
+//                        LatLng toiletsLatLng = new LatLng(toilet.latitude, toilet.longitude);
+//                        mMap.addMarker(new MarkerOptions().position(toiletsLatLng).title("施設の位置"));
+//                        mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletsLatLng));
+//                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletsLatLng, 14.0f));
+//                    }
+//
+//
+////                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
+////                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
+////                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
+//////                                                       toiletSearch(lastKnownLocation);
+//
+//
+//                } else {
+//                    Log.i("Last Known","Cannot FInd");
+//                    //When you could not get the last known location...
+//
+//                }
+//            }
+//        }
+//    }
+
+    //Commented for implementing google map location listener May 31
+
+//    public Action getIndexApiAction() {
+//        Thing object = new Thing.Builder()
+//                .setName("AddToilet Page") // TODO: Define a title for the content shown.
+//                // TODO: Make sure this auto-generated URL is correct.
+//                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+//                .build();
+//        return new Action.Builder(Action.TYPE_VIEW)
+//                .setObject(object)
+//                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+//                .build();
+//    }
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//
+//        // ATTENTION: This was auto-generated to implement the App Indexing API.
+//        // See https://g.co/AppIndexing/AndroidStudio for more information.
+//        client.connect();
+//        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//
+//        // ATTENTION: This was auto-generated to implement the App Indexing API.
+//        // See https://g.co/AppIndexing/AndroidStudio for more information.
+//        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+//        client.disconnect();
+//    }
 
 
-                if (lastKnownLocation != null) {
-                    Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
-
-
-                    mMap.clear();
-
-                    //LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-
-
-                    if (toilet.latitude != null && toilet.longitude != null){
-                        LatLng toiletsLatLng = new LatLng(toilet.latitude, toilet.longitude);
-                        mMap.addMarker(new MarkerOptions().position(toiletsLatLng).title("施設の位置"));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletsLatLng));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletsLatLng, 14.0f));
-                    }
-
-
-//                    mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
-////                                                       toiletSearch(lastKnownLocation);
-
-
-                } else {
-                    Log.i("Last Known","Cannot FInd");
-                    //When you could not get the last known location...
-
-                }
-            }
-        }
-    }
-
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("AddToilet Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
 
 
 
-
-
-   //AsycTask
+    //AsycTask
 
     private class JSONParse extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;

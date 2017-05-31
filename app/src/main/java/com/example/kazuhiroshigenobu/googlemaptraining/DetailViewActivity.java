@@ -1831,9 +1831,6 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
 
 
-
-
-
     public void onMapReadyCalled(GoogleMap googleMap,Double toiletLat, Double toiletLon) {
          GoogleMap mMap;
          mMap = googleMap;
@@ -1861,61 +1858,6 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
          userMarker.icon(markerIcon);
          mMap.addMarker(userMarker);
 
-
-
-
-
-
-
-//        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-//
-//        locationListener = new android.location.LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-//                Log.i("onLocationChanged","Called");
-//            }
-//
-//            @Override
-//            public void onStatusChanged(String provider, int status, Bundle extras) {
-//            }
-//
-//            @Override
-//            public void onProviderEnabled(String provider) {
-//            }
-//
-//            @Override
-//            public void onProviderDisabled(String provider) {
-//            }
-//        };
-
-
-//        if (Build.VERSION.SDK_INT < 23) {
-//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
-//        } else{
-//
-//            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-//
-//                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
-//
-//            }else {
-//                //When the permission is granted....
-//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-//                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//                mMap.setMyLocationEnabled(true);
-//
-//                if (lastKnownLocation != null){
-//                    LatLng toiletLocation = new LatLng(toiletLat,toiletLon);
-//                    mMap.addMarker(new MarkerOptions().position(toiletLocation).title("施設の位置"));
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(toiletLocation));
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(toiletLocation, 14.0f));
-//                } else {
-//                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-//                    //When you could not get the last known location...
-//                    //I am not sure how to handle this
-//
-//                }
-//            }
-       // }
     }
 
 
