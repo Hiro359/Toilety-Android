@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
         import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.core.GeoHash;
 import com.google.android.gms.appindexing.Action;
         import com.google.android.gms.appindexing.AppIndex;
         import com.google.android.gms.appindexing.Thing;
@@ -40,7 +41,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
         import com.google.android.gms.maps.GoogleMap;
         import com.google.android.gms.maps.OnMapReadyCallback;
         import com.google.android.gms.maps.SupportMapFragment;
-        import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseError;
@@ -50,6 +52,7 @@ import com.google.firebase.database.DatabaseError;
 import org.json.JSONException;
         import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 //import android.os.StrictMode;
@@ -232,6 +235,17 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
     {
         mMap =googleMap;
         //mMap.setMapType(GoogleMap.);
+
+
+        ///
+        LatLng oldLocation = new LatLng(toilet.latitude,toilet.longitude);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(oldLocation);
+        markerOptions.title("Toilet");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        mMap.addMarker(markerOptions);
+
+        ///
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -475,45 +489,143 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
     private void firebaseToiletLocationChildRenew(){
 
 
-            Log.i("datbaseUpdateLat", String.valueOf(AddLocations.latitude));
-            Log.i("datbaseUpdateLon", String.valueOf(AddLocations.longitude));
-
-            geoFire.setLocation(toilet.key, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
-                @Override
-                public void onComplete(String key, DatabaseError error) {
-                    if (error != null) {
-                        System.err.println("There was an error saving the location to GeoFire: " + error);
 
 
-                    } else {
-                        System.out.println("Location saved on server successfully!");
-                        firebaseToiletsChildLatLonAddressUpdate();
 
-//                    firebaseUpdate();
-                    }
 
+        //Atomic datebase update...
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
+
+
+        GeoHash geoHash = new GeoHash(new GeoLocation(AddLocations.latitude, AddLocations.longitude));
+
+
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("NoFilter/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("NoFilter/" + toilet.key + "/longitude",AddLocations.longitude);
+
+
+        updates.put("UnitOne/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitOne/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("UnitTwo/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitTwo/" + toilet.key + "/longitude",AddLocations.longitude);
+
+
+        updates.put("UnitThree/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitThree/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("UnitFour/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitFour/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("UnitFive/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitFive/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("UnitSix/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitSix/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("UnitSeven/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitSeven/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("UnitEight/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitEight/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("UnitNine/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitNine/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("UnitTen/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitTen/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("UnitEleven/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitEleven/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("UnitTwelve/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("UnitTwelve/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("GroupOne/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("GroupOne/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("GroupTwo/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("GroupTwo/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("GroupThree/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("GroupThree/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("HalfOne/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("HalfOne/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("HalfTwo/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("HalfTwo/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("AllFilter/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("AllFilter/" + toilet.key + "/longitude",AddLocations.longitude);
+
+        updates.put("ToiletView/" + toilet.key + "/latitude",AddLocations.latitude);
+        updates.put("ToiletView/" + toilet.key + "/longitude",AddLocations.longitude);
+        updates.put("ToiletView/" + toilet.key + "/address",AddLocations.address);
+
+        updates.put("ToiletLocations/" + toilet.key + "/g", geoHash.getGeoHashString());
+        updates.put("ToiletLocations/" + toilet.key + "/l", Arrays.asList(AddLocations.latitude, AddLocations.longitude));
+
+
+        //ref.updateChildren();
+
+        ref.updateChildren(updates,new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                if (databaseError != null){
+                    Toast.makeText(EditPinLocationActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    Log.i("Error 121", String.valueOf(databaseError));
+
+                } else {
+                    Log.i("Edit Pin Update", "Success");
+                    goBackToDetailView();
                 }
-            });
+            }
+        });
+
+
+
+//            geoFire.setLocation(toilet.key, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener(){
+//                @Override
+//                public void onComplete(String key, DatabaseError error) {
+//                    if (error != null) {
+//                        System.err.println("There was an error saving the location to GeoFire: " + error);
+//
+//                    } else {
+//                        System.out.println("Location saved on server successfully!");
+//                        firebaseToiletsChildLatLonAddressUpdate();
+//
+////                    firebaseUpdate();
+//                    }
+//
+//                }
+//            });
         }
 
-    private void firebaseToiletsChildLatLonAddressUpdate(){
+    private void goBackToDetailView(){
 
-        DatabaseReference toiletRef;
-        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
-        DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
-
-        //Hash map ..
-
-//        Post post = new Post(AddLocations.address, AddLocations.latitude, AddLocations.longitude);
-//        Map<String, Object> postValues = post.toMap();
-
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("address",AddLocations.address);
-        childUpdates.put("latitude",AddLocations.latitude);
-        childUpdates.put("longitude",AddLocations.longitude);
-
-        updateToiletRef.updateChildren(childUpdates);
-
+//        DatabaseReference toiletRef;
+//        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+//        DatabaseReference updateToiletRef = toiletRef.child(toilet.key);
+//
+//        //Hash map ..
+//
+////        Post post = new Post(AddLocations.address, AddLocations.latitude, AddLocations.longitude);
+////        Map<String, Object> postValues = post.toMap();
+//
+//        Map<String, Object> childUpdates = new HashMap<>();
+//        childUpdates.put("address",AddLocations.address);
+//        childUpdates.put("latitude",AddLocations.latitude);
+//        childUpdates.put("longitude",AddLocations.longitude);
+//
+//        updateToiletRef.updateChildren(childUpdates);
+//
 
 
         //updateToiletRef.updateChildren(new Post(AddLocations.address,AddLocations.latitude,AddLocations.longitude));
