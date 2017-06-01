@@ -144,6 +144,7 @@ public class Toilet {
 
     Double latitude;
     Double longitude;
+    Double distanceNumber;
     String distanceNumberString;
 
     //Constructor

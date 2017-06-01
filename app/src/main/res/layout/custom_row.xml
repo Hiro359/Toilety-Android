@@ -4,7 +4,7 @@
                 android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="100dp"
-              android:paddingLeft="10dp"
+              android:paddingLeft="5dp"
               android:paddingRight="10dp"
               android:paddingBottom="5dp"
               android:paddingTop="5dp"
@@ -17,7 +17,8 @@
         android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="6dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginEnd="5dp"
         android:contentDescription="TODO"/>
 
     <!--<ImageView-->
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content"
         android:text="560m"
         android:textColor="@color/colorText"
+        android:textSize="20dp"
         android:layout_gravity="center_vertical"
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="false"
@@ -99,16 +101,18 @@
 
     <TextView
         android:layout_width="40dp"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
         android:id="@+id/tv_starRate"
         android:text="2.0"
-        android:textSize="18dp"
+        android:textSize="20sp"
         android:textColor="#dec107"
-        android:textAlignment="textStart"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/ratingBar2"/>
+        android:layout_alignRight="@+id/tv_starRateBar"
+        android:layout_alignEnd="@+id/tv_starRateBar"
+        android:layout_toRightOf="@+id/tv_starRateBar"
+        android:layout_toEndOf="@+id/tv_starRateBar"/>
 
 
 </RelativeLayout>

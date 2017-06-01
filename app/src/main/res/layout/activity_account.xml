@@ -34,13 +34,14 @@
 
 
                  <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:srcCompat="@color/cast_intro_overlay_button_background_color"
-            android:layout_marginTop="10dp"
-            android:id="@+id/imageViewForAccount"
-            android:contentDescription="@string/accountImage"
+                     android:layout_width="100dp"
+                     android:layout_height="100dp"
+                     app:srcCompat="@drawable/app_default_user_icon"
+                     android:layout_marginTop="10dp"
+                     android:id="@+id/imageViewForAccount"
+                     android:contentDescription="@string/accountImage"
             />
+
                     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -176,7 +177,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/helpedImage"
                         android:layout_gravity="center"
-                        android:src="@drawable/standing"
+                        app:srcCompat="@drawable/app_help_count_icon_drawable"
                         android:contentDescription="@string/HelpImage"
                        />
                     <TextView

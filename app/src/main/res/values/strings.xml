@@ -303,7 +303,7 @@
 
     <!--Related to Account Activity-->
     <string name="countZero">0</string>
-    <string name="notLogIn">ユーザー未登録</string>
+    <string name="notLogIn">User</string>
     <string name="get1">もらった</string>
     <string name="getliked2">いいね</string>
     <string name="getFavorite2">お気に入り</string>

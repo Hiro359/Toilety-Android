@@ -61,6 +61,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static android.view.View.GONE;
@@ -287,6 +289,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
 
+
+
+
                 mapUserCenterZoon();
 
             }
@@ -406,21 +411,28 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (recyclertView != null) {
             if (toiletData.size() < 2) {
-                recycleViewHeight = 300;
+                recycleViewHeight = 267;
+                //recycleViewHeight = 300;
                 listViewAdjustAnimation();
             } else if (toiletData.size() < 3) {
 
-                recycleViewHeight = 600;
+                recycleViewHeight = 533;
+                //recycleViewHeight = 600;
                 listViewAdjustAnimation();
+
             } else {
-                recycleViewHeight = 900;
+                recycleViewHeight = 800;
+                //recycleViewHeight = 900;
+
+                //Changed for user interface June 2
+
                 listViewAdjustAnimation();
 
                 //Commented May 12
-
             }
 
         }
+
 
     }
 
@@ -437,6 +449,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 recycleViewHeight,
                 0
         );
+
+        //Added - 50 for checking how it goes.. June 2
+
+
+
+//        ResizeAnimation resizeAnimation = new ResizeAnimation(
+//                recyclertView,
+//                recycleViewHeight,
+//                0
+//        );
+
+
+
+
+        ////////SSSSSADASA
+
+
 
         resizeAnimation.setDuration(400);
         recyclertView.startAnimation(resizeAnimation);
@@ -634,18 +663,45 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
-        if (!locationLoadedOnce) {
-            //This will be called once
 
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            UserInfo.latitude = location.getLatitude();
-            UserInfo.longitude = location.getLongitude();
-            Log.i("THis is latlng 0000", String.valueOf(latLng));
-            toiletSearch(location);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
-            locationLoadedOnce = true;
+        if (UserInfo.userSelectedLocation){
+            if (!locationLoadedOnce) {
 
-            //new LatLng(UserInfo.latitude, UserInfo.longitude);
+                //User Search location
+
+                Location selectedLocation = new Location("dummyprovider");
+
+                //Location selectedLocation = new Location("");
+                Log.i("UserSelectedSearch", "554");
+                UserInfo.latitude = UserInfo.userSelectedLatLng.latitude;
+                UserInfo.longitude = UserInfo.userSelectedLatLng.longitude;
+
+                selectedLocation.setLatitude(UserInfo.userSelectedLatLng.latitude);
+                selectedLocation.setLongitude(UserInfo.userSelectedLatLng.longitude);
+
+                // LatLng latLng = new LatLng(UserInfo.latitude, UserInfo.longitude);
+                toiletSearch(selectedLocation);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UserInfo.userSelectedLatLng, 16));
+                locationLoadedOnce = true;
+
+            }
+        } else {
+            if (!locationLoadedOnce) {
+                //This will be called once
+                //get user location and zoom the location
+                Log.i("UserLocaionSearch", "554");
+
+
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                UserInfo.latitude = location.getLatitude();
+                UserInfo.longitude = location.getLongitude();
+
+                toiletSearch(location);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                locationLoadedOnce = true;
+
+                //new LatLng(UserInfo.latitude, UserInfo.longitude);
+            }
         }
     }
 
@@ -1060,6 +1116,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         double distance = CalculationByDistance(centerLocation, toiletLocation);
         toilet.distanceNumberString = String.valueOf(distance);
+
+        toilet.distanceNumber = distance * 100;
 
 
         if (distance > 1) {
@@ -1870,6 +1928,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             createRecyclerView(toiletData);
             Log.i("ToiletSearch1212", "Ended");
+
+
+        Collections.sort(toiletData, new Comparator<Toilet>() {
+            @Override
+            public int compare(Toilet c1, Toilet c2) {
+                Log.i("CollecgtionSort", "2222");
+                return Double.compare(c1.distanceNumber, c2.distanceNumber);
+            }
+        });
+
+
 
         }
 
