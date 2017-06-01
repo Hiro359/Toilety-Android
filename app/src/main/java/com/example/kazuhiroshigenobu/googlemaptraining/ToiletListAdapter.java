@@ -44,13 +44,11 @@ class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.MyViewHol
 //        View view = inflator.inflate(R.layout.custom_row,parent,false);
 //        MyViewHolder holder = new MyViewHolder(view);
 
-        Log.i("MyMyholder12345", "12345");
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_row,parent,false);
 
         MyViewHolder holder = new MyViewHolder(view);
 
-        Log.i("holder12345", String.valueOf(holder));
 
         return holder;
     }
@@ -62,18 +60,12 @@ class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.MyViewHol
 
 
         if (toiletData.isEmpty()) {
-            Log.i("current.key", "Its empty");
 
         } else {
-            Log.i("toiletDataContent.get0", String.valueOf(toiletData.get(0)));
-            Log.i("current.key", "Its Not empty");
-            Log.i("current.position", String.valueOf(position));
-            Log.i("current.holder", String.valueOf(holder));
 
 
             final Toilet current = toiletData.get(position);
 
-            Log.i("current.key", String.valueOf(position));
 
 
             //Uri uri = Uri.parse(current.urlOne);
@@ -133,11 +125,7 @@ class ToiletListAdapter extends RecyclerView.Adapter<ToiletListAdapter.MyViewHol
 
     @Override
     public int getItemCount() {
-
-        Log.i("toiletData.size()",String.valueOf(toiletData.size()));
         return toiletData.size();
-
-
     }
 
 

@@ -286,6 +286,10 @@ public class KansouActivity extends AppCompatActivity {
         long timeStamp = System.currentTimeMillis();
         Double timeStampDouble = Double.parseDouble(String.valueOf(timeStamp));
 
+
+
+            String ratingString = String.valueOf(ratingValue);
+
       //  String ratingValue = String.valueOf(kansouRaitng.getRating());
 
         String dateString = getDate(timeStamp);
@@ -300,7 +304,7 @@ public class KansouActivity extends AppCompatActivity {
         reviewInfoData.put("available", availableSwitch.isChecked());
         reviewInfoData.put("feedback",String.valueOf(kansouText.getText()));
         reviewInfoData.put("likedCount",0);
-        reviewInfoData.put("star", ratingValue);
+        reviewInfoData.put("star", ratingString);
         reviewInfoData.put("tid", toilet.key);
         reviewInfoData.put("time",dateString);
         reviewInfoData.put("timeNumbers", timeStampDouble);
@@ -328,18 +332,19 @@ public class KansouActivity extends AppCompatActivity {
 
         updateData.put("ReviewInfo/" + newRid, reviewInfoData);
         updateData.put("ReviewList/" + uid + "/" + newRid, true);
-        updateData.put("ToiletReviews/" + toilet.key + "/" + newRid, true);
+        updateData.put("ToiletReview/" + toilet.key + "/" + newRid, true);
 
 
         updateData.put("ToiletView/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("ToiletView/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("ToiletView/" + toilet.key + "/reviewCount", newReviewCount);
         updateData.put("ToiletView/" + toilet.key + "/reviewOne", newRid);
-        updateData.put("ToiletView/" + toilet.key + "/reviewOne", originalReviewOne);
+        updateData.put("ToiletView/" + toilet.key + "/reviewTwo", originalReviewOne);
 
         updateData.put("NoFilter/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("NoFilter/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("NoFilter/" + toilet.key + "/reviewCount", newReviewCount);
+
 
         updateData.put("ToiletUserList/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("ToiletUserList/" + toilet.key + "/averageWait", newWaitingTime);

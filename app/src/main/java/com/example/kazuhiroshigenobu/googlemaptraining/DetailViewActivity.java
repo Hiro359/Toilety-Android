@@ -299,7 +299,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     private void userDataCheck(final String userID){
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
 
-        userRef.addValueEventListener(new ValueEventListener() {
+        //Changed to single June 1
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null){
@@ -466,9 +467,14 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         buttonGetDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://maps.google.com/maps?" + "saddr="+ UserInfo.latitude + "," + UserInfo.longitude + "&daddr=" + toilet.latitude + "," + toilet.longitude));
-                intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
-                startActivity(intent);
+
+                userGoToThePlaceAction();
+
+//                DatabaseReference userWentRef = FirebaseDatabase.getInstance().getReference().child("UserWentList");
+//
+//                final Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://maps.google.com/maps?" + "saddr="+ UserInfo.latitude + "," + UserInfo.longitude + "&daddr=" + toilet.latitude + "," + toilet.longitude));
+//                intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+//                startActivity(intent);
             }
         });
 
@@ -526,27 +532,11 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
                     Log.i("FavoriteButton", "Tapped 22222");
                     favotireButtonTappedAction();
-//                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                    if (user != null) {
-//                        String uid = user.getUid();
-//
-//                        //String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//                        if (!userLikePushed) {
-//                            //buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
-//                            buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_non_colored_drawable);
-//                            userLikePushed = true;
-//
-//                            favoriteRef.child(uid).child(toilet.key).setValue(true);
-//                        } else {
-//                            buttonFavorite.setBackgroundResource(R.drawable.app_love_icon_24_drawable);
-//
-//                            userLikePushed = false;
-//                            favoriteRef.child(uid).child(toilet.key).removeValue();
-//                        }
-//                    }
+
                 }
             }
         });
+
 
         buttonGoToReviewList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -565,6 +555,25 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
             }
         });
+
+    }
+
+    private void userGoToThePlaceAction(){
+        DatabaseReference userWentRef = FirebaseDatabase.getInstance().getReference().child("UserWentList");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+
+            String uid = user.getUid();
+
+            userWentRef.child(uid).child(toilet.key).setValue(true);
+
+            final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?" + "saddr=" + UserInfo.latitude + "," + UserInfo.longitude + "&daddr=" + toilet.latitude + "," + toilet.longitude));
+            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+            startActivity(intent);
+
+        }
+
 
     }
 
@@ -711,7 +720,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         if (user != null) {
             String uid = user.getUid();
 
-            favoriteRef.child(uid).addValueEventListener(new ValueEventListener() {
+            favoriteRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (final DataSnapshot child : dataSnapshot.getChildren()) {
@@ -744,7 +753,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
         toiletRef = FirebaseDatabase.getInstance().getReference().child("ToiletView");
 
-        toiletRef.child(queryKey).addValueEventListener(new ValueEventListener() {
+        //Changed to single June 1
+        toiletRef.child(queryKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i("OnDataChangeCalled","333333");
@@ -1555,7 +1565,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
             Log.i("ThumbsUP Uid 1234", uid);
 
-            thumbsUpRef.child(uid).addValueEventListener(new ValueEventListener() {
+            //Changed to single June 1
+            thumbsUpRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -1658,7 +1669,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
 
 
-        reviewsRef.child(ridKey).addValueEventListener(new ValueEventListener() {
+        //Changed to single June 1
+        reviewsRef.child(ridKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

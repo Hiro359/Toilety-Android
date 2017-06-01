@@ -81,7 +81,7 @@ public class FavotiteListActivity extends AppCompatActivity {
 
         DatabaseReference favRef;
         final List<Toilet> toiletData = new ArrayList<>();
-        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+        toiletRef = FirebaseDatabase.getInstance().getReference().child("NoFilter");
         favRef = FirebaseDatabase.getInstance().getReference().child("FavoriteList");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -93,14 +93,16 @@ public class FavotiteListActivity extends AppCompatActivity {
             //Gotta need to check null...??
 
 
-            favRef.child(uid).addValueEventListener(new ValueEventListener() {
+            //Changed to single June 1
+            favRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     //Get tid lists
                     for (final DataSnapshot child : dataSnapshot.getChildren()) {
 
                         final String queryKey = child.getKey();
-                        toiletRef.child(queryKey).addValueEventListener(new ValueEventListener() {
+                        //Changed to single June 1
+                        toiletRef.child(queryKey).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Toilet toilet = new Toilet();

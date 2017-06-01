@@ -233,7 +233,8 @@ public class AccountActivity extends AppCompatActivity {
     private void userDataCheck(final String userID){
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
 
-        userRef.addValueEventListener(new ValueEventListener() {
+        //Changed to single June 1
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null){
@@ -259,7 +260,7 @@ public class AccountActivity extends AppCompatActivity {
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         //addValueEventListener(new ValueEventListener() {
 
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userPhoto = (String) dataSnapshot.child("userPhoto").getValue();

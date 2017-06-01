@@ -654,7 +654,8 @@ public class EditViewListActivity extends AppCompatActivity {
 
         toiletRef = FirebaseDatabase.getInstance().getReference().child("ToiletView");
 
-        toiletRef.child(originalKey).addValueEventListener(new ValueEventListener() {
+        //Changed to single June 1
+        toiletRef.child(originalKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i("OnDataChangeCalled", "777");

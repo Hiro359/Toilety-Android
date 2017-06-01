@@ -37,7 +37,7 @@ public class CommentListView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_list_view);
 
-        toiletRef = FirebaseDatabase.getInstance().getReference().child("Toilets");
+        toiletRef = FirebaseDatabase.getInstance().getReference().child("NoFilter");
         reviewRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
 
         FirebaseAuth firebaseAuth;
@@ -56,7 +56,7 @@ public class CommentListView extends AppCompatActivity {
     private void reviewRidQuery(){
 
 
-        reviewListRef.addValueEventListener(new ValueEventListener() {
+        reviewListRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (final DataSnapshot child : dataSnapshot.getChildren()) {
@@ -80,7 +80,8 @@ public class CommentListView extends AppCompatActivity {
     private void  commnetsReviewInfoQuery(String ridKey){
         //get review Info
 
-        reviewRef.child(ridKey).addValueEventListener(new ValueEventListener() {
+        //Changed to single June 1
+        reviewRef.child(ridKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -116,7 +117,8 @@ public class CommentListView extends AppCompatActivity {
     private void commentsToiletInfoQuery(String tidKey){
         //get toilet Info
 
-        toiletRef.child(tidKey).addValueEventListener(new ValueEventListener() {
+        //Changed to single June 1
+        toiletRef.child(tidKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

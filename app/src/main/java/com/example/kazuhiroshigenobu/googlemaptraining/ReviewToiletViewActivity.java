@@ -160,7 +160,8 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
             thumbsUpRef = FirebaseDatabase.getInstance().getReference().child("ThumbsUpList");
 
 
-            thumbsUpRef.child(uid).addValueEventListener(new ValueEventListener() {
+            //Changed to single June 1
+            thumbsUpRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -187,12 +188,13 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
 
     private void toiletReviewQuery(String queryKey){
         // final List<Review> reviewList = new ArrayList<>();
-        DatabaseReference toiletReviewsRef;
+        DatabaseReference toiletReviewRef;
 
 
-        toiletReviewsRef = FirebaseDatabase.getInstance().getReference().child("ToiletReviews");
+        toiletReviewRef = FirebaseDatabase.getInstance().getReference().child("ToiletReview");
 
-        toiletReviewsRef.child(queryKey).addValueEventListener(new ValueEventListener() {
+        //Changed to single June 1
+        toiletReviewRef.child(queryKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -236,7 +238,8 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
         reviewsRef = FirebaseDatabase.getInstance().getReference().child("ReviewInfo");
 
 
-        reviewsRef.child(ridKey).addValueEventListener(new ValueEventListener() {
+        //Changed to single June 1
+        reviewsRef.child(ridKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -271,7 +274,8 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
 
                     userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-                    userRef.child(review.uid).addValueEventListener(new ValueEventListener() {
+                    //Changed to single June 1
+                    userRef.child(review.uid).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
