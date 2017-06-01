@@ -1,8 +1,6 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,15 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
-//import android.location.Location;
-//import android.location.LocationManager;
-//Commnet for change it to google location manager
 
 
 import android.location.Location;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,7 +19,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -44,12 +35,8 @@ import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.drive.query.Query;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -70,16 +57,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static android.view.View.GONE;
 import static android.widget.LinearLayout.VERTICAL;
@@ -101,37 +83,65 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
-    //private SupportMapFragment mapFrag;
 
 
 
-    //LocationManager locationManager;
-
-    //android.location.LocationListener locationListener;
-    //Commented for google map listener May 31
 
     private DatabaseReference toiletRef;
-//    private GeoFire geoFire;
-//    private Filter filter = new Filter();
-//    private ToiletMarker tMarker = new ToiletMarker();
-
-//    private ToiletListAdapter adapter;
     private RecyclerView recyclertView;
-//    private RecyclerView.LayoutManager layoutManager;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private View mProgressView;
     private Button buttonShowListview;
     private Button buttonMapCenter;
-    //private Button buttonSearch;
     private Button buttonForOriginalLocation;
 
     private Integer recycleViewHeight = 900;
 
     final List<Toilet> toiletData = new ArrayList<>();
+    private List<String> distance300 = new ArrayList<>();
+    private List<String> distance300In = new ArrayList<>();
+
+    private List<String> distance600 = new ArrayList<>();
+    private List<String> distance600In = new ArrayList<>();
+
+    private List<String> distance900 = new ArrayList<>();
+    private List<String> distance900In = new ArrayList<>();
+
+    private List<String> distance1200 = new ArrayList<>();
+    private List<String> distance1200In = new ArrayList<>();
+
+    private List<String> distance1500 = new ArrayList<>();
+    private List<String> distance1500In = new ArrayList<>();
+
+    private List<String> distance1800 = new ArrayList<>();
+    private List<String> distance1800In = new ArrayList<>();
+
+    private List<String> distance3600 = new ArrayList<>();
+    private List<String> distance3600In = new ArrayList<>();
+
+    private List<String> distance7200 = new ArrayList<>();
+    private List<String> distance7200In = new ArrayList<>();
+
+    private List<String> distance10000 = new ArrayList<>();
+
+    private Boolean distance300Called = false;
+    private Boolean distance600Called = false;
+    private Boolean distance900Called = false;
+    private Boolean distance1200Called = false;
+    private Boolean distance1500Called = false;
+    private Boolean distance1800Called = false;
+    private Boolean distance3600Called = false;
+    private Boolean distance7200Called = false;
+    private Boolean distance10000Called = false;
+
+
+
+
 
     private Boolean locationLoadedOnce = false;
+
 
 
 
@@ -187,21 +197,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-        //Get location here..
-
-
-
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setNavigationIcon(R.drawable.app_filter_icon_drawable);
 
         //toolbar.setNavigationIcon(R.drawable.app_help_count_icon_drawable);
-
-
-
-
-
 
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
@@ -222,17 +222,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                  }
                                              }
         );
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-
-        //mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-        //Commented for this tring to remove error May 31
-
-
-
-
-
-
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -262,10 +251,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         buttonSetClick();
 
         Log.i("QueryPath 88888", Filter.queryPath);
-
-
-
-
 
     }
 
@@ -297,9 +282,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
-
-
-
 
         buttonMapCenter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -355,8 +337,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         getMenuInflater().inflate(R.menu.filter, menu);
         // getMenuInflater().inflate(R.menu.places_search, menu);
         //Google Places API Copied April1
-
-
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -422,9 +402,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        recyclertView.addItemDecoration(dividerItemDecoration);
 
         //Commented May 12 for removing the divider because i felt its too big
-
-
-
         Log.i("createReclerView()Ended", "");
 
         if (recyclertView != null) {
@@ -463,9 +440,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         resizeAnimation.setDuration(400);
         recyclertView.startAnimation(resizeAnimation);
-
-
-
     }
 
     @Override
@@ -489,8 +463,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
-
-
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
@@ -727,11 +699,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         GeoFire geoFire;
         geoFire = new GeoFire(ref);
 
+
+
+
+
         final Double centerLatitude = location.getLatitude();
         final Double centerLongitude = location.getLongitude();
 
-
-
+        final LatLng center = new LatLng(centerLatitude,centerLongitude);
 
         Double centerRadius = 5.0;
 
@@ -752,67 +727,305 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        UserInfo.latitude = centerLatitude;
 //        UserInfo.longitude = centerLongitude;
 
-        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+        geoQuery.addGeoQueryEventListener(
+                new GeoQueryEventListener() {
 
-            @Override
-            public void onKeyEntered(final String key, final GeoLocation location) {
+                    @Override
+                    public void onKeyEntered(final String key, final GeoLocation location) {
+
+                        //double distance = CalculationByDistance(center, location);
+                        LatLng toiletLocation = new LatLng(location.latitude,location.longitude);
+                        double distance = CalculationByDistance(center, toiletLocation) * 1000;
+
+                        Log.i(key,distance + "888");
+
+                        if (distance < 300){
+                            distance300.add(key);
+                        } else if (distance < 600){
+                            distance600.add(key);
+                        } else if (distance < 900){
+                            distance900.add(key);
+                        } else if (distance < 1200){
+                            distance1200.add(key);
+                        } else if (distance < 1500){
+                            distance1500.add(key);
+                        } else if (distance < 1800){
+                            distance1800.add(key);
+                        } else if (distance < 3600){
+                            distance3600.add(key);
+                        } else if (distance < 7200){
+                            distance7200.add(key);
+                        } else if (distance < 10000){
+                            distance10000.add(key);
+                        }
+
+                    }
+
+                    @Override
+                    public void onKeyExited(String key) {
+
+                    }
+
+                    @Override
+                    public void onKeyMoved(String key, GeoLocation location) {
+
+                    }
+
+                    @Override
+                    public void onGeoQueryReady() {
+                        queryDistance300StartLoading();
+                        mProgressView.setVisibility(GONE);
+                    }
+
+                    @Override
+                    public void onGeoQueryError(DatabaseError error) {
+                        Log.i("Firebase111Error", String.valueOf(error));
+
+                    }
+                }
+        );
+    }
 
 
-                toiletRef.child(key).addValueEventListener(new ValueEventListener() {
+    private void queryDistance300StartLoading(){
+        Log.i("query300Called","8877");
+        distance300Called = true;
+
+        if (distance300.size() == 0){
+            queryDistance600StartLoading();
+        }
+
+        toiletDataLoadFromDatabase((ArrayList) distance300);
+
+    }
+
+    private void queryDistance600StartLoading(){
+        Log.i("query600Called","8877");
+        distance300Called = false;
+        distance600Called = true;
+
+        if (distance600.size() == 0){
+            queryDistance900StartLoading();
+        }
+
+        toiletDataLoadFromDatabase((ArrayList) distance600);
+
+    }
+
+    private void queryDistance900StartLoading(){
+        Log.i("query900Called","8877");
+        distance600Called = false;
+        distance900Called = true;
+
+        if (distance900.size() == 0){
+            queryDistance1200StartLoading();
+        }
+        toiletDataLoadFromDatabase((ArrayList) distance900);
+
+    }
+
+    private void queryDistance1200StartLoading(){
+        Log.i("query1200Called","8877");
+        distance900Called = false;
+        distance1200Called = true;
+        if (distance1200.size() == 0){
+            queryDistance1500StartLoading();
+        }
+
+        toiletDataLoadFromDatabase((ArrayList) distance1200);
+
+    }
+
+    private void queryDistance1500StartLoading(){
+        Log.i("query1500Called","8877");
+        distance1200Called = false;
+        distance1500Called = true;
+        if (distance1500.size() == 0){
+            queryDistance1800StartLoading();
+        }
+
+        toiletDataLoadFromDatabase((ArrayList) distance1500);
+
+    }
+
+    private void queryDistance1800StartLoading(){
+        Log.i("query1800Called","8877");
+        distance1500Called = false;
+        distance1800Called = true;
+
+        if (distance1800.size() == 0){
+            queryDistance3600StartLoading();
+        }
+
+        toiletDataLoadFromDatabase((ArrayList) distance1800);
+
+    }
+
+    private void queryDistance3600StartLoading(){
+        Log.i("query3600Called","8877");
+        distance1800Called = false;
+        distance3600Called = true;
+
+        if (distance3600.size() == 0){
+            queryDistance7200StartLoading();
+        }
+
+        toiletDataLoadFromDatabase((ArrayList) distance3600);
+
+    }
+    private void queryDistance7200StartLoading(){
+        Log.i("query7200Called","8877");
+        distance3600Called = false;
+        distance7200Called = true;
+
+        if (distance7200.size() == 0){
+            queryDistance10000StartLoading();
+        }
+
+
+        toiletDataLoadFromDatabase((ArrayList) distance7200);
+
+    }
+
+    private void queryDistance10000StartLoading(){
+        Log.i("query10000Called","8877");
+        distance7200Called = false;
+        distance10000Called = true;
+
+        toiletDataLoadFromDatabase((ArrayList) distance10000);
+
+    }
+
+
+
+
+
+    private void toiletDataLoadFromDatabase(ArrayList arrayList){
+
+        for (Object item: arrayList) {
+            final String key = item.toString();
+
+                toiletRef.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        {
+                        Log.i("300 data key", key);
+                        getToiletData(dataSnapshot,key);
 
-                            getToiletData(dataSnapshot,key,location);
-
-                        }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        String TAG = "Error";
-                        Log.w(TAG, "DatabaseError", databaseError.toException());
-                    }
-                }
-                );
 
+                    }
+                });
 
             }
 
+        }
 
-                                              @Override
-                                              public void onKeyExited(String key) {
+//        toiletRef.child(key).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        {
+//
+//                            //getToiletData(dataSnapshot,key,location);
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                        String TAG = "Error";
+//                        Log.w(TAG, "DatabaseError", databaseError.toException());
+//                    }
+//                }
+//                );
 
-                                              }
 
-                                              @Override
-                                              public void onKeyMoved(String key, GeoLocation location) {
 
-                                              }
 
-                                              @Override
-                                              public void onGeoQueryReady() {
-                                                  mProgressView.setVisibility(GONE);
-                                              }
 
-                                              @Override
-                                              public void onGeoQueryError(DatabaseError error) {
-                                                  Log.i("Firebase111Error", String.valueOf(error));
 
-                                              }
-                                          }
-        );
-    }
 
-    private void getToiletData(DataSnapshot dataSnapshot, String key, GeoLocation location){
+    private void getToiletData(DataSnapshot dataSnapshot, String key){
 
         Log.i("getInfoData Called", "333333");
 
-
-
-
-
         Toilet toilet = new Toilet();
+
+        if (distance300Called){
+            distance300In.add(key);
+            if (distance300In.size()  == distance300.size()){
+                if (toiletData.size() < 4){
+                    queryDistance600StartLoading();
+                }
+            }
+        }
+
+        if (distance600Called){
+            distance600In.add(key);
+            if (distance600In.size()  == distance600.size()){
+                if (toiletData.size() < 4){
+                    queryDistance900StartLoading();
+                }
+            }
+        }
+
+        if (distance900Called){
+            distance900In.add(key);
+            if (distance900In.size()  == distance900.size()){
+                if (toiletData.size() < 4){
+                    queryDistance1200StartLoading();
+                }
+            }
+        }
+
+        if (distance1200Called){
+            distance1200In.add(key);
+            if (distance1200In.size()  == distance1200.size()){
+                if (toiletData.size() < 4){
+                    queryDistance1500StartLoading();
+                }
+            }
+        }
+
+        if (distance1500Called){
+            distance1500In.add(key);
+            if (distance1500In.size()  == distance1500.size()){
+                if (toiletData.size() < 4){
+                    queryDistance1800StartLoading();
+                }
+            }
+        }
+
+        if (distance1800Called){
+            distance1800In.add(key);
+            if (distance1800In.size()  == distance1800.size()){
+                if (toiletData.size() < 4){
+                    queryDistance3600StartLoading();
+                }
+            }
+        }
+
+        if (distance3600Called){
+            distance3600In.add(key);
+            if (distance3600In.size()  == distance3600.size()){
+                if (toiletData.size() < 4){
+                    queryDistance7200StartLoading();
+                }
+            }
+        }
+
+        if (distance7200Called){
+            distance7200In.add(key);
+            if (distance7200In.size()  == distance7200.size()){
+                if (toiletData.size() < 4){
+                    queryDistance10000StartLoading();
+                }
+            }
+        }
+
+
 //        final List<Toilet> toiletData = new ArrayList<>();
 
         //Commented May 12
@@ -825,9 +1038,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        UserInfo.latitude = lastKnownLocation.getLatitude();
 //        UserInfo.longitude = lastKnownLocation.getLongitude();
 
+        toilet.latitude = (Double)dataSnapshot.child("latitude").getValue();
+        toilet.longitude = (Double)dataSnapshot.child("longitude").getValue();
 
-        toilet.latitude = location.latitude;
-        toilet.longitude = location.longitude;
+
+//        toilet.latitude = location.latitude;
+//        toilet.longitude = location.longitude;
 
 
 //        toilet.latitude = (Double)dataSnapshot.child("latitude").getValue();
@@ -888,10 +1104,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //
 //        toilet.name = name + stringToiletFloor(toilet.floor);
 
-
-
-
-
         Long reviewCount = (Long) dataSnapshot.child("reviewCount").getValue();
         toilet.reviewCount = reviewCount.intValue();
         Long averageWait = (Long) dataSnapshot.child("averageWait").getValue();
@@ -924,7 +1136,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         toilet.available = (Boolean) dataSnapshot.child("available").getValue();
-
 
         //Basic
         if (Filter.japaneseFilter) {
@@ -1616,10 +1827,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             float miniAvWaitFloat = toilet.averageWait/100f;
 
-
-
-
-
             Double avStar = Double.parseDouble(toilet.averageStar);
             Drawable dImage;
 
@@ -1644,14 +1851,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
             }
-
-//             markerA = new google.maps.Marker({
-//                    map: map,
-//                    position: new google.maps.LatLng(0, 0),
-//                    customInfo: "Marker A"
-//            });
-
-
 
             BitmapDescriptor markerIcon = getMarkerIconFromDrawable(dImage);
 
