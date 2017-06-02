@@ -722,6 +722,7 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
 
         recyclertView.setHasFixedSize(true);
         recyclertView.setNestedScrollingEnabled(false);
+        recyclertView.setFocusable(false);
 
 
     }

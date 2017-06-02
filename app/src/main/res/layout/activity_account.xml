@@ -86,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/likeImage"
                         android:layout_gravity="center"
-                        android:src="@drawable/thumb"
+                        app:srcCompat="@drawable/app_thumb_icon_colored_24"
                         android:contentDescription="@string/likeImage"
 
                         />
@@ -134,7 +134,8 @@
                         android:id="@+id/heartImage"
                         android:layout_gravity="center"
                         android:contentDescription="@string/FavoriteImage"
-                        android:src="@drawable/like"/>
+                        app:srcCompat="@drawable/app_love_icon_24_drawable"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

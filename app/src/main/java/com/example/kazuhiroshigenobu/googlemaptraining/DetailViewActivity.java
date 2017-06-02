@@ -876,6 +876,19 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
                     Log.i("BOOOL???","4");
 
+                    Float averaegeStarFloat = Float.parseFloat(toilet.averageStar);
+
+                    toiletNameLabel.setText(toilet.name);
+                    typeAndDistance.setText(stringType(toilet.type) + "/" + toilet.distance);
+                    availableAndWaiting.setText("ご利用時間" + toilet.openAndCloseHours+ "/平均待ち" + String.valueOf(toilet.averageWait) + "分");
+                    ratingDisplay.setRating(averaegeStarFloat);
+                    ratingNumber.setText(toilet.averageStar);
+                    ratingCount.setText("(" + toilet.reviewCount + ")");
+                    mapAddress.setText(toilet.address);
+                    mapHowToAccess.setText(toilet.howtoaccess);
+
+                    //Moved to here June 2
+
 //                    Log.i("IS THIS THE ERROR???","1");
 //                    toilet.latitude = (Double) dataSnapshot.child("latitude").getValue();
 //                    toilet.longitude = (Double) dataSnapshot.child("longitude").getValue();
@@ -1006,7 +1019,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                     Log.i("Passed Boolean","8");
 
 
-                    Float averaegeStarFloat = Float.parseFloat(toilet.averageStar);
+//                    Float averaegeStarFloat = Float.parseFloat(toilet.averageStar);
 
 
                     booleanArray.add("トイレの設備");
@@ -1377,14 +1390,14 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
 
 
-                    toiletNameLabel.setText(toilet.name);
-                    typeAndDistance.setText(stringType(toilet.type) + "/" + toilet.distance);
-                    availableAndWaiting.setText("ご利用時間" + toilet.openAndCloseHours+ "/平均待ち" + String.valueOf(toilet.averageWait) + "分");
-                    ratingDisplay.setRating(averaegeStarFloat);
-                    ratingNumber.setText(toilet.averageStar);
-                    ratingCount.setText("(" + toilet.reviewCount + ")");
-                    mapAddress.setText(toilet.address);
-                    mapHowToAccess.setText(toilet.howtoaccess);
+//                    toiletNameLabel.setText(toilet.name);
+//                    typeAndDistance.setText(stringType(toilet.type) + "/" + toilet.distance);
+//                    availableAndWaiting.setText("ご利用時間" + toilet.openAndCloseHours+ "/平均待ち" + String.valueOf(toilet.averageWait) + "分");
+//                    ratingDisplay.setRating(averaegeStarFloat);
+//                    ratingNumber.setText(toilet.averageStar);
+//                    ratingCount.setText("(" + toilet.reviewCount + ")");
+//                    mapAddress.setText(toilet.address);
+//                    mapHowToAccess.setText(toilet.howtoaccess);
 
                     if(!toilet.addedBy.equals("")){
                         firstPosterGetInfo(toilet.addedBy);
