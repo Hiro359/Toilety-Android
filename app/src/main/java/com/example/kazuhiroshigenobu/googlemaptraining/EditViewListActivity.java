@@ -1192,6 +1192,7 @@ public class EditViewListActivity extends AppCompatActivity {
 
         recyclertView.setHasFixedSize(true);
         recyclertView.setNestedScrollingEnabled(false);
+        recyclertView.setFocusable(false);
 
 
     }

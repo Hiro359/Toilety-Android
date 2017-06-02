@@ -42,6 +42,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -82,8 +83,7 @@ import static android.widget.LinearLayout.VERTICAL;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.CalculationByDistance;
 import static com.example.kazuhiroshigenobu.googlemaptraining.MapsActivity.round;
 
-public class DetailViewActivity extends AppCompatActivity implements ReviewListAdapter.ReviewAdapterCallback
-        {
+public class DetailViewActivity extends AppCompatActivity implements ReviewListAdapter.ReviewAdapterCallback {
 
 
 
@@ -147,7 +147,14 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 //    private Toolbar toolbar;
 //    private TextView toolbarTitle;
     private Boolean userLikePushed = false;
-//    private FirebaseAuth firebaseAuth;
+    private ImageView mainImage;
+    private ImageView pictureOne;
+    private ImageView pictureTwo;
+    private ImageView pictureThree;
+
+
+
+
 
     private ImageView firstPosterImage;
     private TextView firstPosterName;
@@ -160,6 +167,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     private TextView lastEditorLikeCount;
     private TextView lastEditorFavoriteCount;
     private TextView lastEditorHelpCount;
+
 
 
     Long firstPosterFavoriteNumber;
@@ -461,6 +469,12 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         buttonEdit = (Button) findViewById(R.id.buttonEdit);
         buttonFavorite = (Button) findViewById(R.id.detailFavoriteButton);
         buttonGetDirection = (Button) findViewById(R.id.buttonGoToThisPlace);
+
+        mainImage = (ImageView) findViewById(R.id.mainImage);
+        pictureOne = (ImageView) findViewById(R.id.picture1);
+        pictureTwo = (ImageView) findViewById(R.id.picture2);
+        pictureThree = (ImageView) findViewById(R.id.picture3);
+
 
         buttonGoToReviewList = (Button) findViewById(R.id.buttonGoToReviewList);
 
@@ -840,6 +854,40 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                     toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
                     toilet.urlTwo = (String) dataSnapshot.child("urlTwo").getValue();
                     toilet.urlThree = (String) dataSnapshot.child("urlThree").getValue();
+
+                    if (!toilet.urlOne.equals("")){
+                        //set picaso
+                        Uri uri = Uri.parse(toilet.urlOne);
+                        Picasso.with(getApplicationContext()).load(uri).into(mainImage);
+                        Picasso.with(getApplicationContext()).load(uri).into(pictureOne);
+
+                    } else {
+                        mainImage.setImageResource(R.drawable.default_photo_white_drawable);
+                        pictureOne.setImageResource(R.drawable.default_photo_white_drawable);
+
+                    }
+
+                    if (!toilet.urlTwo.equals("")){
+                        //set picaso
+                        Uri uri = Uri.parse(toilet.urlTwo);
+                        Picasso.with(getApplicationContext()).load(uri).into(pictureTwo);
+                    } else {
+                        pictureTwo.setImageResource(R.drawable.default_photo_white_drawable);
+
+                    }
+
+                    if (!toilet.urlThree.equals("")){
+                        //set picaso
+                        Uri uri = Uri.parse(toilet.urlThree);
+                        Picasso.with(getApplicationContext()).load(uri).into(pictureThree);
+                    } else {
+                        pictureThree.setImageResource(R.drawable.default_photo_white_drawable);
+
+                    }
+
+
+
+
 
                     Log.i("BOOOL???","2");
 
@@ -1791,8 +1839,18 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                 firstPosterHelpCount.setText(String.valueOf(totalHelpedCountLong));
                 //if user == "" ....
 
-                Uri uri = Uri.parse(user.userPhoto);
-                Picasso.with(getApplicationContext()).load(uri).into(firstPosterImage);
+
+                if (!user.userPhoto.equals("")){
+                    //set picaso
+                    Uri uri = Uri.parse(user.userPhoto);
+                    Picasso.with(getApplicationContext()).load(uri).into(firstPosterImage);
+                } else {
+                    firstPosterImage.setImageResource(R.drawable.app_default_user_icon);
+
+                }
+//
+//                Uri uri = Uri.parse(user.userPhoto);
+//                Picasso.with(getApplicationContext()).load(uri).into(firstPosterImage);
 
 
                 Map<String, Object> childUpdates = new HashMap<>();
@@ -1832,8 +1890,17 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                 lastEditorFavoriteCount.setText(String.valueOf(totalFavoriteCountLong));
                 lastEditorHelpCount.setText(String.valueOf(totalHelpedCountLong));
                 //if user == "" ....
-                Uri uri = Uri.parse(user.userPhoto);
-                Picasso.with(getApplicationContext()).load(uri).into(lastEditorImage);
+
+                if (!user.userPhoto.equals("")){
+                    //set picaso
+                    Uri uri = Uri.parse(user.userPhoto);
+                    Picasso.with(getApplicationContext()).load(uri).into(lastEditorImage);
+                } else {
+                    lastEditorImage.setImageResource(R.drawable.app_default_user_icon);
+
+                }
+//                Uri uri = Uri.parse(user.userPhoto);
+//                Picasso.with(getApplicationContext()).load(uri).into(lastEditorImage);
 
                 Map<String, Object> childUpdates = new HashMap<>();
 

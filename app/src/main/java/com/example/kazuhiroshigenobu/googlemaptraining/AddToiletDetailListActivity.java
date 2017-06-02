@@ -446,6 +446,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
         recyclertView.setHasFixedSize(true);
         recyclertView.setNestedScrollingEnabled(false);
+        recyclertView.setFocusable(false);
 
 
     }

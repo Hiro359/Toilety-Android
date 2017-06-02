@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
                     android:id="@+id/mainImage"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorForBackground"
                     android:contentDescription="@string/mainDetailImage"
                     />
 
@@ -323,6 +323,7 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:padding="10dp"
+                    android:background="@color/colorWhiteText"
 
                     >
 
@@ -330,7 +331,7 @@
                         android:layout_width="100sp"
                         android:layout_height="100sp"
                         android:id="@+id/picture1"
-                        android:background="@drawable/border"
+                        android:background="@color/colorForBackground"
                         android:contentDescription="@string/common_google_play_services_enable_button"
                         android:layout_gravity="start"
                         android:layout_toLeftOf="@+id/picture2"
@@ -342,7 +343,7 @@
                         android:layout_width="100sp"
                         android:layout_height="100sp"
                         android:id="@+id/picture2"
-                        android:background="@drawable/border"
+                        android:background="@color/colorForBackground"
                         android:contentDescription="@string/common_google_play_services_enable_button"
                         android:layout_centerHorizontal="true"
                         android:layout_marginRight="20dp"
@@ -354,7 +355,7 @@
                         android:layout_width="100sp"
                         android:layout_height="100sp"
                         android:id="@+id/picture3"
-                        android:background="@drawable/border"
+                        android:background="@color/colorForBackground"
                         android:contentDescription="@string/common_google_play_services_enable_button"
                         android:layout_toRightOf="@+id/picture2"
                         android:layout_toEndOf="@+id/picture2"
