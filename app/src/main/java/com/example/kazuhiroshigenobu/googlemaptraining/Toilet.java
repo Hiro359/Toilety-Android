@@ -26,6 +26,7 @@ public class Toilet {
     String reviewOne;
     String reviewTwo;
     String averageStar;
+    Double averageStarDouble;
 
 
     String address;

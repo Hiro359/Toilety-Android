@@ -192,12 +192,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
 
-        Log.i("ScreenLoading", "Start");
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        if (!Filter.orderReviewFilter && !Filter.orderStarFilter){
+            Log.i("orderDistanceTrue", "234");
+            Filter.orderDistanceFilter = true;
+
+        }
 
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -403,11 +408,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         recyclertView.setHasFixedSize(true);
         recyclertView.setAdapter(adapter);
 
+
+
 //        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclertView.getContext(),VERTICAL);
 //        recyclertView.addItemDecoration(dividerItemDecoration);
 
         //Commented May 12 for removing the divider because i felt its too big
-        Log.i("createReclerView()Ended", "");
+        Log.i("createReclerView()Ended", "234");
 
         if (recyclertView != null) {
             if (toiletData.size() < 2) {
@@ -438,11 +445,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void listViewAdjustAnimation(){
 
-//        ResizeAnimation resizeAnimation = new ResizeAnimation(
-//                recyclertView,
-//                recycleViewHeight,
-//                recyclertView.getHeight()
-//        );
+        Log.i("listViewAdjust 234", "");
+        Log.i("recyclertView 234", String.valueOf(recyclertView));
+        Log.i("recycleViewHeight 234", String.valueOf(recycleViewHeight));
+
+
+
 
         ResizeAnimation resizeAnimation = new ResizeAnimation(
                 recyclertView,
@@ -450,25 +458,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 0
         );
 
-        //Added - 50 for checking how it goes.. June 2
-
-
-
-//        ResizeAnimation resizeAnimation = new ResizeAnimation(
-//                recyclertView,
-//                recycleViewHeight,
-//                0
-//        );
-
-
-
-
-        ////////SSSSSADASA
-
-
 
         resizeAnimation.setDuration(400);
         recyclertView.startAnimation(resizeAnimation);
+
+
+
+        //Commented June 2
     }
 
     @Override
@@ -764,7 +760,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         final LatLng center = new LatLng(centerLatitude,centerLongitude);
 
-        Double centerRadius = 5.0;
+        Double centerRadius = 10.0;
 
 
         String queryPath;
@@ -1153,7 +1149,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         toilet.urlOne = (String) dataSnapshot.child("urlOne").getValue();
         toilet.averageStar = (String) dataSnapshot.child("averageStar").getValue();
 
-        Log.i("getData 3", "0000");
+        toilet.averageStarDouble = Double.parseDouble(toilet.averageStar);
+
 
 
 
@@ -1930,16 +1927,36 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.i("ToiletSearch1212", "Ended");
 
 
-        Collections.sort(toiletData, new Comparator<Toilet>() {
-            @Override
-            public int compare(Toilet c1, Toilet c2) {
-                Log.i("CollecgtionSort", "2222");
-                return Double.compare(c1.distanceNumber, c2.distanceNumber);
-            }
-        });
+        if (Filter.orderDistanceFilter) {
+            Collections.sort(toiletData, new Comparator<Toilet>() {
+                @Override
+                public int compare(Toilet c1, Toilet c2) {
+                    Log.i("CollecgtionSort", "2222");
+                    return Double.compare(c1.distanceNumber, c2.distanceNumber);
+                }
+            });
+        }
 
+        if (Filter.orderStarFilter) {
+            Collections.sort(toiletData, new Comparator<Toilet>() {
+                @Override
+                public int compare(Toilet c1, Toilet c2) {
+                    Log.i("CollecgtionSort", "2222");
+                    return Double.compare(c2.averageStarDouble, c1.averageStarDouble);
+                }
+            });
+        }
 
+        if (Filter.orderReviewFilter) {
 
+            Collections.sort(toiletData, new Comparator<Toilet>() {
+                public int compare(Toilet c1, Toilet c2) {
+                    return c2.reviewCount - c1.reviewCount;
+                }
+            });
+        }
+
+        
         }
 
 

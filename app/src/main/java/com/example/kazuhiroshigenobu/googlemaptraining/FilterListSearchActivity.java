@@ -39,11 +39,11 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
     Button button;
     Toolbar toolbar;
     TextView toolbarTitle;
-    Spinner spinner1;
+    //Spinner spinner1;
     Spinner spinner2;
     Spinner spinner3;
     Spinner spinner4;
-    ArrayAdapter<CharSequence> adapter1;
+    //ArrayAdapter<CharSequence> adapter1;
     ArrayAdapter<CharSequence> adapter2;
     ArrayAdapter<CharSequence> adapter3;
     ArrayAdapter<CharSequence> adapter4;
@@ -312,84 +312,84 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
     }
 
     private void spinnersReady(){
-        spinner1 = (Spinner) findViewById(R.id.spinner1);
+        //spinner1 = (Spinner) findViewById(R.id.spinner1);
         spinner2 = (Spinner) findViewById(R.id.spinner2);
         spinner3 = (Spinner) findViewById(R.id.spinner3);
         spinner4 = (Spinner) findViewById(R.id.spinner4);
-        adapter1 = ArrayAdapter.createFromResource(this,R.array.distance_names,android.R.layout.simple_spinner_item);
+        //adapter1 = ArrayAdapter.createFromResource(this,R.array.distance_names,android.R.layout.simple_spinner_item);
         adapter2 = ArrayAdapter.createFromResource(this,R.array.order_names,android.R.layout.simple_spinner_item);
         adapter3 = ArrayAdapter.createFromResource(this,R.array.places_filters,android.R.layout.simple_spinner_item);
         adapter4 = ArrayAdapter.createFromResource(this,R.array.star_numbers,android.R.layout.simple_spinner_item);
 
 
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner1.setAdapter(adapter1);
+        //spinner1.setAdapter(adapter1);
         spinner2.setAdapter(adapter2);
         spinner3.setAdapter(adapter3);
         spinner4.setAdapter(adapter4);
 
 
 
-        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                //((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+//                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+//
+//                ((TextView) parent.getChildAt(0)).setTextSize(20);
+//
+//
+//                if (position == 0){
+//                    Log.i("DIDIDID", "9090");
+//
+//                }
+//
+//                if (position == 1){
+//                    Toast.makeText(getBaseContext(),"1",Toast.LENGTH_SHORT).show();
+//                    Filter.distanceSetted = true;
+//                    Filter.distanceFilter = 1.0;
+//                }
+//
+//                if (position == 2){
+//                    Toast.makeText(getBaseContext(),"2",Toast.LENGTH_SHORT).show();
+//                    Filter.distanceSetted = true;
+//                    Filter.distanceFilter = 3.0;
+//                }
+//
+//                if (position == 3){
+//                    Toast.makeText(getBaseContext(),"3",Toast.LENGTH_SHORT).show();
+//                    Filter.distanceSetted = true;
+//                    Filter.distanceFilter = 5.0;
+//                }
+//
+//                if (position == 4){
+//                    Toast.makeText(getBaseContext(),"4",Toast.LENGTH_SHORT).show();
+//                    Filter.distanceSetted = true;
+//                    Filter.distanceFilter = 10.0;
+//                }
+//
+//                Toast.makeText(getBaseContext(),String.valueOf(Filter.distanceFilter) + "After",Toast.LENGTH_SHORT).show();
+//
+//                ((TextView) parent.getChildAt(0)).setText(Filter.distanceFilter + "kmのトイレを検索" );
+//
+//                // ((TextView) parent.getChildAt(0)).setText(filter.distanceFilter + "kmのトイレを検索" );
+//
+////                Toast.makeText(getBaseContext(),String.valueOf(position) + "Selected",Toast.LENGTH_SHORT).show();
+////                //This might cause an error 2pm 24th
+//            }
 
-                //((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-
-                ((TextView) parent.getChildAt(0)).setTextSize(20);
 
 
-                if (position == 0){
-                    Log.i("DIDIDID", "9090");
-
-                }
-
-                if (position == 1){
-                    Toast.makeText(getBaseContext(),"1",Toast.LENGTH_SHORT).show();
-                    Filter.distanceSetted = true;
-                    Filter.distanceFilter = 1.0;
-                }
-
-                if (position == 2){
-                    Toast.makeText(getBaseContext(),"2",Toast.LENGTH_SHORT).show();
-                    Filter.distanceSetted = true;
-                    Filter.distanceFilter = 3.0;
-                }
-
-                if (position == 3){
-                    Toast.makeText(getBaseContext(),"3",Toast.LENGTH_SHORT).show();
-                    Filter.distanceSetted = true;
-                    Filter.distanceFilter = 5.0;
-                }
-
-                if (position == 4){
-                    Toast.makeText(getBaseContext(),"4",Toast.LENGTH_SHORT).show();
-                    Filter.distanceSetted = true;
-                    Filter.distanceFilter = 10.0;
-                }
-
-                Toast.makeText(getBaseContext(),String.valueOf(Filter.distanceFilter) + "After",Toast.LENGTH_SHORT).show();
-
-                ((TextView) parent.getChildAt(0)).setText(Filter.distanceFilter + "kmのトイレを検索" );
-
-                // ((TextView) parent.getChildAt(0)).setText(filter.distanceFilter + "kmのトイレを検索" );
-
-//                Toast.makeText(getBaseContext(),String.valueOf(position) + "Selected",Toast.LENGTH_SHORT).show();
-//                //This might cause an error 2pm 24th
-            }
-
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -423,6 +423,7 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
                     Filter.orderDistanceFilter = false;
                     Filter.orderStarFilter = false;
                 }
+
 
                 if (Filter.orderDistanceFilter){
                     ((TextView) parent.getChildAt(0)).setText("現在地から近い順");
