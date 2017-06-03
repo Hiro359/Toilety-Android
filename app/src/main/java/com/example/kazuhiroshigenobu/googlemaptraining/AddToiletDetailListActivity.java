@@ -65,6 +65,8 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -966,6 +968,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             unitOneData.put("unisex",AddDetailBooleans.unisex);
             unitOneData.put("latitude",AddLocations.latitude);
             unitOneData.put("longitude",AddLocations.longitude);
+            unitOneData.put("openHours",3600);
+            unitOneData.put("closeHours",3600);
 
 
 
@@ -1203,6 +1207,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             groupOneData.put("closeHours",endData);
             groupOneData.put("latitude",AddLocations.latitude);
             groupOneData.put("longitude",AddLocations.longitude);
+            groupOneData.put("openHours",3600);
+            groupOneData.put("closeHours",3600);
 
 
             groupOneData.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
@@ -1347,6 +1353,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             halfOneData.put("unisex",AddDetailBooleans.unisex);
             halfOneData.put("latitude",AddLocations.latitude);
             halfOneData.put("longitude",AddLocations.longitude);
+            halfOneData.put("openHours",3600);
+            halfOneData.put("closeHours",3600);
 
             halfOneData.put("washlet",AddDetailBooleans.washlet);
             halfOneData.put("warmSeat",AddDetailBooleans.warmSeat);
@@ -1498,6 +1506,8 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             allFilterData.put("unisex",AddDetailBooleans.unisex);
             allFilterData.put("latitude",AddLocations.latitude);
             allFilterData.put("longitude",AddLocations.longitude);
+            allFilterData.put("openHours",3600);
+            allFilterData.put("closeHours",3600);
 
             allFilterData.put("washlet",AddDetailBooleans.washlet);
             allFilterData.put("warmSeat",AddDetailBooleans.warmSeat);
@@ -1758,6 +1768,15 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             updateData.put("ToiletReview/" + newTid + "/" + newRid, true);
             updateData.put("ReviewList/" + uid + "/" + newRid, true);
 
+            JSONObject json = new JSONObject(allFilterData); // Convert text to object
+            System.out.println(json);
+
+
+
+//            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//            JsonParser jp = new JsonParser();
+//            JsonElement je = jp.parse(uglyJSONString);
+//            String prettyJsonString = gson.toJson(je);
 
 
 
@@ -1791,6 +1810,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
                     }
                 }
             });
+
 
 
 

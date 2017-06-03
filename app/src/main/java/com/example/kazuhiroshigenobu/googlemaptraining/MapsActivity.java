@@ -294,9 +294,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
 
-
-
-
                 mapUserCenterZoon();
 
             }
@@ -391,7 +388,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
         //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 16.0f));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 18.0f));
 
 
     }
