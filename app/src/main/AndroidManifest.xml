@@ -46,6 +46,8 @@
             android:theme="@style/splashScreenTheme">
 
 
+
+
             <!--
   ATTENTION: This intent was auto-generated. Follow instructions at
   https://g.co/AppIndexing/AndroidStudio to publish your URLs.
@@ -192,6 +194,7 @@
         <activity android:name=".ChangeUserNameActivity">
         </activity>
         <activity android:name=".DatabaseCreationActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -210,6 +213,7 @@
                     android:pathPrefix="/login"
                     android:scheme="http"/>
             </intent-filter>
+
         </activity>
     </application>
 

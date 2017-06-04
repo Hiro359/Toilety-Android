@@ -78,6 +78,8 @@ public class SearchLocationActivity extends AppCompatActivity {
         );
 
 
+
+
         buttonSearchLocationFromAddress = (Button)findViewById(R.id.buttonSearchLatLngFromAddress);
         buttonSearchLocationFromAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,8 +87,6 @@ public class SearchLocationActivity extends AppCompatActivity {
 
                 Log.i("Is this the add 765 AA","");
                 Log.i("Is this the add 765??",String.valueOf(atvPlaces.getText()));
-
-
 
                 if (addressStringSetted) {
 
@@ -102,15 +102,13 @@ public class SearchLocationActivity extends AppCompatActivity {
 
         atvPlaces.setThreshold(1);
 
-        //Changed 1 to 2 April 2
-
         atvPlaces.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 placesTask = new PlacesTask();
                 placesTask.execute(s.toString());
-                Log.i("onTextChangeCalled", "099");
+                Log.i("onTextChangeCalled", "765");
             }
 
             @Override
@@ -125,29 +123,6 @@ public class SearchLocationActivity extends AppCompatActivity {
             }
         });
 
-//        atvPlaces.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                atvPlaces.showDropDown();
-//                Log.i("setTouchListenerCalled", "099");
-//                return false;
-//            }
-//        });
-
-         //Commented for finding causes of error of Index 0 April 2
-
-//        String locationString = .getPlace().geometry.location
-//        String place = autocomplete.getPlace();
-//
-//        Double lat = place.geometry.location.lat(),
-//                lng = place.geometry.location.lng();
-//
-//// Then do whatever you want with them
-//
-//        console.log(lat);
-//        console.log(lng);
-//
-//        console.warn('Warning: I didn\'t test this code!');
     }
 
     /**
@@ -157,6 +132,8 @@ public class SearchLocationActivity extends AppCompatActivity {
     //I am not sure about this target API  .........................................................
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private String downloadUrl(String strUrl) throws IOException {
+
+        Log.i("downloadUrl Called", "765");
         String data = "";
         HttpURLConnection urlConnection;
         URL url = new URL(strUrl);
@@ -237,7 +214,7 @@ public class SearchLocationActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... place) {
 
-            Log.i("doInBackGroundCalled", "765");
+            Log.i("BackGround PlacesTask", "765");
             // For storing data from web service
             String data = "";
 
@@ -305,6 +282,8 @@ public class SearchLocationActivity extends AppCompatActivity {
     /**
      * A class to parse the Google Places in JSON format
      */
+
+    //Commented June 4
     private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String, String>>> {
 
         JSONObject jObject;
@@ -318,7 +297,7 @@ public class SearchLocationActivity extends AppCompatActivity {
 
             try {
 
-                Log.i("doInBackground J ob", "765");
+                Log.i("BackGround ParcerTask", "765");
                 jObject = new JSONObject(jsonData[0]);
                 Log.i("JSONGET090", String.valueOf(jObject));
 //                Log.i("THis is the jason1",String.valueOf(jsonData[1]));
@@ -370,6 +349,8 @@ public class SearchLocationActivity extends AppCompatActivity {
             atvPlaces.setAdapter(adapter);
         }
     }
+
+    //Commented June 4
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -424,13 +405,6 @@ public class SearchLocationActivity extends AppCompatActivity {
             atvPlaces.setError("目的地が入力されていません");
 
 
-            //display something for letting the user know its not the right address...
-
-           // showSearchAgain();
-            //dont
-
-
-            //Write something on Display
 
         }
     }
@@ -467,9 +441,6 @@ public class SearchLocationActivity extends AppCompatActivity {
                 Log.i("THIS ERROR765", "GIVE ME");
                 ex.printStackTrace();
             }
-
-
-
 
         return p1;
     }
