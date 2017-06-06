@@ -1501,7 +1501,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
             typeString = "Restaurant";
 
         }else if (typeInt == 5){
-            typeString = "Shoping Store";
+            typeString = "Shopping Store";
 
         }else if (typeInt == 6){
             typeString = "Tourist Places";
