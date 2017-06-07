@@ -1,8 +1,10 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +19,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wearable.CapabilityApi;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
@@ -58,6 +63,16 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 //    PlacesTaskDataBase placesTask;
 //    ParserTaskDataBase parserTask;
 
+    private FirebaseAuth firebaseAuth;
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ToiletLocations");
+    GeoFire geoFire = new GeoFire(ref);
+    private List<Toilet> geoFireArray = new ArrayList<>();
+    private Integer databaseUploadCount = 0;
+    private Integer successUpdateCount = 0;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,9 +84,43 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 //        PlacesTaskData placesTask = new PlacesTaskData();
 //        placesTask.execute(sbValue.toString());
 
+        String email = "database@gmail.com";
+        String password = "Database";
+        //String userName = userNameText.getText().toString();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+//        firebaseAuth.signInAnonymously();
+//
+//        pointAllocation(33.590, 130.40, 35.689, 139.69);
 
 
-        pointAllocation(33.590, 130.40, 35.689, 139.69);
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+
+
+                    pointAllocation(33.590, 130.40, 35.689, 139.69);
+
+                } else {
+
+                    Toast.makeText(DatabaseCreationActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    System.out.print("Error Found!!!!!!!!");
+
+                    //Toast.makeText(StartLoginActivity.this, "UnSuccess", Toast.LENGTH_SHORT).show();
+
+
+                }
+
+
+            }
+        });
+
+
+
+
+
         //From Fukuoka to Tokyo
 
 //        StringBuilder sbValue = new StringBuilder(sbMethod(34.402789,133.096325));
@@ -124,9 +173,8 @@ public class DatabaseCreationActivity extends AppCompatActivity {
         Log.i("heightTimes", String.valueOf(heightTimes));
 
 
-        widthTimes = 5;
-        heightTimes = 5;
-
+        widthTimes = 1;
+        heightTimes = 1;
 
 
         for (int x = 0; x <= heightTimes;) {
@@ -167,106 +215,10 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 
             System.out.print("\n");
         }
-//
-
-//        for (int n = 0; n <= times;) {
-//            //double i = 0.01 * n;
-//            //Log.i("i value", String.valueOf(i));
-//            //startLon = startLon + 0.01;
-//            n = n + 1;
-//
-////            startLon = round(startLon,7);
-////            Log.i("startLon value Seven", String.valueOf(startLon));
-//
-//            Log.i("count N", String.valueOf(n));
-//            //Log.i("startLon value", String.valueOf(startLon));
-//
-//
-//
-//            // ...
-//        }
-
-        //30.00 should be 30.000000;
-
-
-
-//        for (int n = 0; n <= 40; n++) {
-//            double i = 0.01 * n;
-//            Log.i("i", String.valueOf(i));
-//            // ...
-//        }
-
-//        int i = 0;
-//        while (i <= 100) {
-//            double x = 0.01 * i;
-//            System.out.print("value of x : " + x );
-//
-//            i++;
-//        }
 
 
 
 
-//        Double x = startLon;
-//        do {
-//            System.out.print("value of x : " + x );
-//            x = x + 0.01;
-//            System.out.print("value of x  added: " + x );
-//
-//            System.out.print("\n");
-//        }while( x > endLon );
-
-
-
-//        for(double x = startLon; endLon < x; x = x + 0.01) {
-//            System.out.print("value of startPointLon : " + x );
-//            System.out.print("\n");
-//        }
-
-
-
-
-
-
-//        Double pointWidthBefore = width / 111.0;
-//        Double pointHeightBefore = height / 111.0;
-//
-//        Log.i("widthBefore", String.valueOf(pointWidthBefore));
-//        Log.i("heightBefore", String.valueOf(pointHeightBefore));
-
-
-
-
-
-//        Double pointWidth = width / 111.0 * perKm;
-//        Double pointHeight = height /111.0 * perKm;
-//
-//        Double startPointLon = startLon;
-//        Integer counter = 0;
-//
-//        Log.i("startPointLon", String.valueOf(startPointLon));
-//        Log.i("endLon", String.valueOf(endLon));
-//
-//        Log.i("starpointWidth", String.valueOf(startPointLon + pointWidth));
-//
-//
-//
-//        for(double x = startPointLon; endLon < x; x = x + pointWidth) {
-//            System.out.print("value of startPointLon : " + x );
-//            System.out.print("\n");
-//        }
-
-
-
-//       while( startPointLon > endLon ) {
-//           startPointLon = startPointLon + pointWidth;
-//            counter = counter + 1;
-//            Log.i("counter", String.valueOf(counter));
-//            Log.i("startPointLon", String.valueOf(startPointLon));
-//
-////            System.out.print("counter" + counter);
-////            System.out.print("startPointLon" + startPointLon);
-//        }
 
     }
 
@@ -420,45 +372,6 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             return places;
         }
 
-        // Executed after the complete execution of doInBackground() method
-
-//        private String downloadUrlData(String strUrl) throws IOException {
-//            String data = "";
-//            InputStream iStream = null;
-//            HttpURLConnection urlConnection = null;
-//            try {
-//                URL url = new URL(strUrl);
-//
-//                // Creating an http connection to communicate with url
-//                urlConnection = (HttpURLConnection) url.openConnection();
-//
-//                // Connecting to url
-//                urlConnection.connect();
-//
-//                // Reading data from url
-//                iStream = urlConnection.getInputStream();
-//
-//                BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
-//
-//                StringBuffer sb = new StringBuffer();
-//
-//                String line = "";
-//                while ((line = br.readLine()) != null) {
-//                    sb.append(line);
-//                }
-//
-//                data = sb.toString();
-//
-//                br.close();
-//
-//            } catch (Exception e) {
-//                Log.d("Exception whloading url", e.toString());
-//            } finally {
-//                iStream.close();
-//                urlConnection.disconnect();
-//            }
-//            return data;
-//        }
 
 
 
@@ -502,7 +415,10 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 
 
 
+
                 Log.i("3344", name + lat + "/" + lng + "id" + "=" + id + "address" + address + "Types=" + types);
+
+
 
                 databaseUpload(name,id,address,lat,lng);
 
@@ -515,6 +431,8 @@ public class DatabaseCreationActivity extends AppCompatActivity {
     private void databaseUpload(String name,String id, String address, Double lat, Double lng){
 
 
+        databaseUploadCount = databaseUploadCount + 1;
+        Log.i("databaseUploadCount 222", String.valueOf(databaseUploadCount));
 
         String urlOne = "";
 
@@ -532,13 +450,21 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 
         Integer type = 2;
 
-        String avStar = "1";
+        String avStar = "0";
 
         Integer toiletFloor = 3;
         Integer openData = 0;
         Integer endData = 2400;
+        Integer reviewCount = 0;
 
         String openingString = "0:00 〜 24:00";
+
+
+        final Toilet toilet = new Toilet();
+
+        toilet.key = id;
+        toilet.latitude = lat;
+        toilet.longitude = lng;
 
         //Get data from google places api
 
@@ -568,7 +494,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             noFilterData.put("type",type);
             noFilterData.put("urlOne",urlOne);
             noFilterData.put("averageStar",avStar);
-            noFilterData.put("reviewCount",1);
+            noFilterData.put("reviewCount",reviewCount);
             noFilterData.put("available",true);
             noFilterData.put("averageWait",waitingValue);
             noFilterData.put("toiletFloor",toiletFloor);
@@ -594,7 +520,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitOneData.put("type",type);
             unitOneData.put("urlOne",urlOne);
             unitOneData.put("averageStar",avStar);
-            unitOneData.put("reviewCount",1);
+            unitOneData.put("reviewCount",reviewCount);
             unitOneData.put("available",true);
             unitOneData.put("averageWait",waitingValue);
             unitOneData.put("toiletFloor",toiletFloor);
@@ -617,7 +543,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitTwoData.put("type",type);
             unitTwoData.put("urlOne",urlOne);
             unitTwoData.put("averageStar",avStar);
-            unitTwoData.put("reviewCount",1);
+            unitTwoData.put("reviewCount",reviewCount);
             unitTwoData.put("available",true);
             unitTwoData.put("averageWait",waitingValue);
             unitTwoData.put("toiletFloor",toiletFloor);
@@ -639,7 +565,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitThreeData.put("type",type);
             unitThreeData.put("urlOne",urlOne);
             unitThreeData.put("averageStar",avStar);
-            unitThreeData.put("reviewCount",1);
+            unitThreeData.put("reviewCount",reviewCount);
             unitThreeData.put("available",true);
             unitThreeData.put("averageWait",waitingValue);
             unitThreeData.put("toiletFloor",toiletFloor);
@@ -657,7 +583,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitFourData.put("type",type);
             unitFourData.put("urlOne",urlOne);
             unitFourData.put("averageStar",avStar);
-            unitFourData.put("reviewCount",1);
+            unitFourData.put("reviewCount",reviewCount);
             unitFourData.put("available",true);
             unitFourData.put("averageWait",waitingValue);
             unitFourData.put("toiletFloor",toiletFloor);
@@ -676,7 +602,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitFiveData.put("type",type);
             unitFiveData.put("urlOne",urlOne);
             unitFiveData.put("averageStar",avStar);
-            unitFiveData.put("reviewCount",1);
+            unitFiveData.put("reviewCount",reviewCount);
             unitFiveData.put("available",true);
             unitFiveData.put("averageWait",waitingValue);
             unitFiveData.put("toiletFloor",toiletFloor);
@@ -695,7 +621,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitSixData.put("type",type);
             unitSixData.put("urlOne",urlOne);
             unitSixData.put("averageStar",avStar);
-            unitSixData.put("reviewCount",1);
+            unitSixData.put("reviewCount",reviewCount);
             unitSixData.put("available",true);
             unitSixData.put("averageWait",waitingValue);
             unitSixData.put("toiletFloor",toiletFloor);
@@ -715,7 +641,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitSevenData.put("type",type);
             unitSevenData.put("urlOne",urlOne);
             unitSevenData.put("averageStar",avStar);
-            unitSevenData.put("reviewCount",1);
+            unitSevenData.put("reviewCount",reviewCount);
             unitSevenData.put("available",true);
             unitSevenData.put("averageWait",waitingValue);
             unitSevenData.put("toiletFloor",toiletFloor);
@@ -733,7 +659,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitEightData.put("type",type);
             unitEightData.put("urlOne",urlOne);
             unitEightData.put("averageStar",avStar);
-            unitEightData.put("reviewCount",1);
+            unitEightData.put("reviewCount",reviewCount);
             unitEightData.put("available",true);
             unitEightData.put("averageWait",waitingValue);
             unitEightData.put("toiletFloor",toiletFloor);
@@ -756,7 +682,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitNineData.put("type",type);
             unitNineData.put("urlOne",urlOne);
             unitNineData.put("averageStar",avStar);
-            unitNineData.put("reviewCount",1);
+            unitNineData.put("reviewCount",reviewCount);
             unitNineData.put("available",true);
             unitNineData.put("averageWait",waitingValue);
             unitNineData.put("toiletFloor",toiletFloor);
@@ -776,7 +702,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitTenData.put("type",type);
             unitTenData.put("urlOne",urlOne);
             unitTenData.put("averageStar",avStar);
-            unitTenData.put("reviewCount",1);
+            unitTenData.put("reviewCount",reviewCount);
             unitTenData.put("available",true);
             unitTenData.put("averageWait",waitingValue);
             unitTenData.put("toiletFloor",toiletFloor);
@@ -794,7 +720,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitElevenData.put("type",type);
             unitElevenData.put("urlOne",urlOne);
             unitElevenData.put("averageStar",avStar);
-            unitElevenData.put("reviewCount",1);
+            unitElevenData.put("reviewCount",reviewCount);
             unitElevenData.put("available",true);
             unitElevenData.put("averageWait",waitingValue);
             unitElevenData.put("toiletFloor",toiletFloor);
@@ -815,7 +741,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             unitTwelveData.put("type",type);
             unitTwelveData.put("urlOne",urlOne);
             unitTwelveData.put("averageStar",avStar);
-            unitTwelveData.put("reviewCount",1);
+            unitTwelveData.put("reviewCount",reviewCount);
             unitTwelveData.put("available",true);
             unitTwelveData.put("averageWait",waitingValue);
             unitTwelveData.put("toiletFloor",toiletFloor);
@@ -837,7 +763,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             groupOneData.put("type",type);
             groupOneData.put("urlOne",urlOne);
             groupOneData.put("averageStar",avStar);
-            groupOneData.put("reviewCount",1);
+            groupOneData.put("reviewCount",reviewCount);
             groupOneData.put("available",true);
             groupOneData.put("averageWait",waitingValue);
             groupOneData.put("toiletFloor",toiletFloor);
@@ -893,7 +819,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             groupTwoData.put("type",type);
             groupTwoData.put("urlOne",urlOne);
             groupTwoData.put("averageStar",avStar);
-            groupTwoData.put("reviewCount",1);
+            groupTwoData.put("reviewCount",reviewCount);
             groupTwoData.put("available",true);
             groupTwoData.put("averageWait",waitingValue);
             groupTwoData.put("toiletFloor",toiletFloor);
@@ -931,7 +857,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             groupThreeData.put("type",type);
             groupThreeData.put("urlOne",urlOne);
             groupThreeData.put("averageStar",avStar);
-            groupThreeData.put("reviewCount",1);
+            groupThreeData.put("reviewCount",reviewCount);
             groupThreeData.put("available",true);
             groupThreeData.put("averageWait",waitingValue);
             groupThreeData.put("toiletFloor",toiletFloor);
@@ -979,7 +905,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             halfOneData.put("type",type);
             halfOneData.put("urlOne",urlOne);
             halfOneData.put("averageStar",avStar);
-            halfOneData.put("reviewCount",1);
+            halfOneData.put("reviewCount",reviewCount);
             halfOneData.put("available",true);
             halfOneData.put("averageWait",waitingValue);
             halfOneData.put("toiletFloor",toiletFloor);
@@ -1061,7 +987,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             halfTwoData.put("type",type);
             halfTwoData.put("urlOne",urlOne);
             halfTwoData.put("averageStar",avStar);
-            halfTwoData.put("reviewCount",1);
+            halfTwoData.put("reviewCount",reviewCount);
             halfTwoData.put("available",true);
             halfTwoData.put("averageWait",waitingValue);
             halfTwoData.put("toiletFloor",toiletFloor);
@@ -1134,7 +1060,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             allFilterData.put("type",type);
             allFilterData.put("urlOne",urlOne);
             allFilterData.put("averageStar",avStar);
-            allFilterData.put("reviewCount",1);
+            allFilterData.put("reviewCount",reviewCount);
             allFilterData.put("available",true);
             allFilterData.put("averageWait",waitingValue);
             allFilterData.put("toiletFloor",toiletFloor);
@@ -1259,7 +1185,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             toiletViewData.put("openAndCloseHours",openingString);
             toiletViewData.put("openHours",openData);
             toiletViewData.put("closeHours",endData);
-            toiletViewData.put("reviewCount",1);
+            toiletViewData.put("reviewCount",reviewCount);
             toiletViewData.put("averageWait",waitingValue);
             toiletViewData.put("toiletFloor",toiletFloor);
 
@@ -1385,7 +1311,6 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 
             updateData.put("ToiletView/" + newTid, toiletViewData);
             updateData.put("NoFilter/" + newTid, noFilterData);
-            //updateData.put("ToiletUserList/" + newTid, toiletUserList);
             updateData.put("UnitOne/" + newTid, unitOneData);
             updateData.put("UnitTwo/" + newTid, unitTwoData);
             updateData.put("UnitThree/" + newTid, unitThreeData);
@@ -1398,14 +1323,28 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             updateData.put("UnitTen/" + newTid, unitTenData);
             updateData.put("UnitEleven/" + newTid, unitElevenData);
             updateData.put("UnitTwelve/" + newTid, unitTwelveData);
+
             updateData.put("GroupOne/" + newTid, groupOneData);
             updateData.put("GroupTwo/" + newTid, groupTwoData);
             updateData.put("GroupThree/" + newTid, groupThreeData);
+
             updateData.put("HalfOne/" + newTid, halfOneData);
             updateData.put("HalfTwo/" + newTid, halfTwoData);
+            //Permission Error Here??
+
+
             updateData.put("AllFilter/" + newTid, allFilterData);
-            updateData.put("ToiletLocations/" + newTid + "/g", geoHash.getGeoHashString());
-            updateData.put("ToiletLocations/" + newTid + "/l", Arrays.asList(AddLocations.latitude, AddLocations.longitude));
+
+//            updateData.put("ToiletLocations/" + newTid + "/g", geoHash.getGeoHashString());
+//            updateData.put("ToiletLocations/" + newTid + "/l", Arrays.asList(AddLocations.latitude, AddLocations.longitude));
+//            updateData.put("ToiletLocations/" + newTid + "/.priority", geoHash.getGeoHashString());
+
+
+
+
+        System.out.print("geoHash.getGeoHashString()" + geoHash.getGeoHashString());
+        System.out.print("Arrays.asList(AddLocations.latitude, AddLocations.longitude)" + Arrays.asList(AddLocations.latitude, AddLocations.longitude));
+
 
 
 
@@ -1413,13 +1352,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             System.out.println(json);
 
 
-
-//            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//            JsonParser jp = new JsonParser();
-//            JsonElement je = jp.parse(uglyJSONString);
-//            String prettyJsonString = gson.toJson(je);
-
-
+            geoFireArray.add(toilet);
 
 
             DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
@@ -1431,22 +1364,39 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 
                     if (databaseError != null){
                         Toast.makeText(DatabaseCreationActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        Log.i("Database Sccess!", "234");
 
                     } else {
-                        //Success
-//                        geoFire.setLocation(newTid, new GeoLocation(AddLocations.latitude, AddLocations.longitude), new GeoFire.CompletionListener() {
-//                            @Override
-//                            public void onComplete(String key, DatabaseError error) {
-//                                if (error != null) {
-//                                    System.err.println("There was an error saving the location to GeoFire: " + error);
-//
-//                                } else {
-//                                    System.out.println("Location saved on server successfully!");
-//                                }
-//
-//                            }
-//                        });
 
+                        successUpdateCount = successUpdateCount + 1;
+                        Log.i("successUpdateCount 222", String.valueOf(successUpdateCount));
+
+
+                            if (successUpdateCount.equals(databaseUploadCount)) {
+
+                                Log.i("geoFireArrayStart", "Yeah");
+
+                                for (Toilet toilet : geoFireArray) {
+                                    // access foo here
+
+                                    Log.i("geoFireArrayInside", toilet.key);
+
+                                    geoFire.setLocation(toilet.key, new GeoLocation(toilet.latitude, toilet.longitude), new GeoFire.CompletionListener() {
+                                        @Override
+                                        public void onComplete(String key, DatabaseError error) {
+                                            if (error != null) {
+                                                System.err.println("Error saving the location to GeoFire: " + error + "key" + key);
+
+                                            } else {
+                                                System.out.println("Location saved on server successfully!");
+                                            }
+
+                                        }
+                                    });
+
+
+                                }
+                            }
 
                     }
                 }
