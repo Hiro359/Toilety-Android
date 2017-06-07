@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.core.GeoHash;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -34,11 +35,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,16 +65,214 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 
         Log.i("search called", "3344");
 
-        StringBuilder sbValue = new StringBuilder(sbMethod());
-        PlacesTaskData placesTask = new PlacesTaskData();
-        placesTask.execute(sbValue.toString());
+//        StringBuilder sbValue = new StringBuilder(sbMethod(34.402789,133.096325));
+//        PlacesTaskData placesTask = new PlacesTaskData();
+//        placesTask.execute(sbValue.toString());
+
+
+
+        pointAllocation(33.590, 130.40, 35.689, 139.69);
+        //From Fukuoka to Tokyo
+
+//        StringBuilder sbValue = new StringBuilder(sbMethod(34.402789,133.096325));
+//        PlacesTaskData placesTask = new PlacesTaskData();
+//        placesTask.execute(sbValue.toString());
+
+
 
 
     }
 
 
+    private void pointAllocation(Double startLat, Double startLon, Double endLat, Double endLon){
 
-    public StringBuilder sbMethod() {
+        Double perKm = 2.0;
+        //二キロごとにポイントをおく
+
+
+        Double width = endLon - startLon;
+        Double height = endLat - startLat;
+
+        Log.i("width", String.valueOf(width));
+        Log.i("height", String.valueOf(height));
+
+        Double pointDistance = 0.01;
+        Double pointDistanceKm = 0.01 * perKm;
+
+
+
+        Log.i("pointDistance", String.valueOf(pointDistance));
+        Log.i("pointDistanceKm", String.valueOf(pointDistanceKm));
+
+
+
+        Log.i("What is this?", String.valueOf(0.01 + 0.01));
+
+        Double roundWidth = round(width,3) * 100;
+        Double roundHeight = round(height,3) * 100;
+
+        Log.i("roundWidth", String.valueOf(roundWidth));
+        Log.i("roundHeight", String.valueOf(roundWidth));
+
+
+
+
+        Integer widthTimes = roundWidth.intValue() + 1;
+        Integer heightTimes = roundHeight.intValue() + 1;
+
+        Log.i("widthTimes", String.valueOf(widthTimes));
+        Log.i("heightTimes", String.valueOf(heightTimes));
+
+
+        widthTimes = 5;
+        heightTimes = 5;
+
+
+
+        for (int x = 0; x <= heightTimes;) {
+
+            for (int y = 0; y <= widthTimes; ) {
+
+                System.out.print("x,y" + "(" + x  + "," +  y + ")");
+
+                System.out.print("\n");
+
+                startLon = startLon + 0.02;
+                //put pointer per about 2km
+                startLon = round(startLon,6);
+
+                System.out.print("lat,lon" + "(" + startLat  + "," +  startLon + ")");
+
+                StringBuilder sbValue = new StringBuilder(sbMethod(startLat,startLon));
+                PlacesTaskData placesTask = new PlacesTaskData();
+                placesTask.execute(sbValue.toString());
+
+
+
+//
+//                System.out.print("value of y  added: " + startLon);
+
+                //Log.i("y value", String.valueOf(y));
+                y = y + 1;
+
+            }
+            x = x + 1;
+
+            startLat = startLat + 0.02;
+            //put pointer per about 2km
+            startLat = round(startLat,6);
+
+            //System.out.print("x,y" + "(" + x  + "," +  y + ")");
+            //System.out.print("value of x " + x);
+
+            System.out.print("\n");
+        }
+//
+
+//        for (int n = 0; n <= times;) {
+//            //double i = 0.01 * n;
+//            //Log.i("i value", String.valueOf(i));
+//            //startLon = startLon + 0.01;
+//            n = n + 1;
+//
+////            startLon = round(startLon,7);
+////            Log.i("startLon value Seven", String.valueOf(startLon));
+//
+//            Log.i("count N", String.valueOf(n));
+//            //Log.i("startLon value", String.valueOf(startLon));
+//
+//
+//
+//            // ...
+//        }
+
+        //30.00 should be 30.000000;
+
+
+
+//        for (int n = 0; n <= 40; n++) {
+//            double i = 0.01 * n;
+//            Log.i("i", String.valueOf(i));
+//            // ...
+//        }
+
+//        int i = 0;
+//        while (i <= 100) {
+//            double x = 0.01 * i;
+//            System.out.print("value of x : " + x );
+//
+//            i++;
+//        }
+
+
+
+
+//        Double x = startLon;
+//        do {
+//            System.out.print("value of x : " + x );
+//            x = x + 0.01;
+//            System.out.print("value of x  added: " + x );
+//
+//            System.out.print("\n");
+//        }while( x > endLon );
+
+
+
+//        for(double x = startLon; endLon < x; x = x + 0.01) {
+//            System.out.print("value of startPointLon : " + x );
+//            System.out.print("\n");
+//        }
+
+
+
+
+
+
+//        Double pointWidthBefore = width / 111.0;
+//        Double pointHeightBefore = height / 111.0;
+//
+//        Log.i("widthBefore", String.valueOf(pointWidthBefore));
+//        Log.i("heightBefore", String.valueOf(pointHeightBefore));
+
+
+
+
+
+//        Double pointWidth = width / 111.0 * perKm;
+//        Double pointHeight = height /111.0 * perKm;
+//
+//        Double startPointLon = startLon;
+//        Integer counter = 0;
+//
+//        Log.i("startPointLon", String.valueOf(startPointLon));
+//        Log.i("endLon", String.valueOf(endLon));
+//
+//        Log.i("starpointWidth", String.valueOf(startPointLon + pointWidth));
+//
+//
+//
+//        for(double x = startPointLon; endLon < x; x = x + pointWidth) {
+//            System.out.print("value of startPointLon : " + x );
+//            System.out.print("\n");
+//        }
+
+
+
+//       while( startPointLon > endLon ) {
+//           startPointLon = startPointLon + pointWidth;
+//            counter = counter + 1;
+//            Log.i("counter", String.valueOf(counter));
+//            Log.i("startPointLon", String.valueOf(startPointLon));
+//
+////            System.out.print("counter" + counter);
+////            System.out.print("startPointLon" + startPointLon);
+//        }
+
+    }
+
+
+
+    public StringBuilder sbMethod(Double mLatitude, Double mLongitude) {
 
 
         Log.i("sbMethod called", "3344");
@@ -81,19 +283,23 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 //        //Sydney Opera House
 
 
-        Double mLatitude = 34.402789;
-        Double mLongitude = 133.096325;
+//        Double mLatitude = startLat;
+//        Double mLongitude = startLon;
+
+
+//        Double mLatitude = 34.402789;
+//        Double mLongitude = 133.096325;
 
        // Hiroshima Mihara
 
         StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         sb.append("location=" + mLatitude + "," + mLongitude);
-        sb.append("&radius=10000000000");
-        //sb.append("&rankby=distance");
-        //sb.append("&types=" + "park");
+        //sb.append("&radius=10000000000");
+        sb.append("&rankby=distance");
+        sb.append("&type=" + "convenience_store");
 
         //sb.append("&type" + "toilet");
-        sb.append("&keyword=" + "toilet");
+        //sb.append("&keyword=" + "toilet");
 
         //Changed to restroom ..
         //sb.append("&types=" + "restaurant");
@@ -298,6 +504,8 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 
                 Log.i("3344", name + lat + "/" + lng + "id" + "=" + id + "address" + address + "Types=" + types);
 
+                databaseUpload(name,id,address,lat,lng);
+
 
 
             }
@@ -322,15 +530,15 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 
         AddLocations.address = address;
 
-        Integer type = 0;
+        Integer type = 2;
 
-        String avStar = "";
+        String avStar = "1";
 
         Integer toiletFloor = 3;
-        Integer openData = 5000;
-        Integer endData = 5000;
+        Integer openData = 0;
+        Integer endData = 2400;
 
-        String openingString = "0:00 〜　0:00";
+        String openingString = "0:00 〜 24:00";
 
         //Get data from google places api
 
@@ -1168,9 +1376,11 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 
 
 
+        GeoHash geoHash = new GeoHash(new GeoLocation(AddLocations.latitude, AddLocations.longitude));
 
 
-            Map<String, Object> updateData = new HashMap();
+
+        Map<String, Object> updateData = new HashMap();
 
 
             updateData.put("ToiletView/" + newTid, toiletViewData);
@@ -1194,9 +1404,12 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             updateData.put("HalfOne/" + newTid, halfOneData);
             updateData.put("HalfTwo/" + newTid, halfTwoData);
             updateData.put("AllFilter/" + newTid, allFilterData);
+            updateData.put("ToiletLocations/" + newTid + "/g", geoHash.getGeoHashString());
+            updateData.put("ToiletLocations/" + newTid + "/l", Arrays.asList(AddLocations.latitude, AddLocations.longitude));
 
 
-            JSONObject json = new JSONObject(allFilterData); // Convert text to object
+
+        JSONObject json = new JSONObject(allFilterData); // Convert text to object
             System.out.println(json);
 
 
@@ -1354,6 +1567,14 @@ public class DatabaseCreationActivity extends AppCompatActivity {
     }
 
     ///Copied from example stock overflow June 4
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 
 
 
