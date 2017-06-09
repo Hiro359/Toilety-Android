@@ -39,14 +39,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-
         <activity
             android:name=".MapsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/splashScreenTheme">
-
-
-
 
             <!--
   ATTENTION: This intent was auto-generated. Follow instructions at
@@ -194,7 +190,9 @@
         <activity android:name=".ChangeUserNameActivity">
         </activity>
         <activity android:name=".DatabaseCreationActivity">
-
+           
+        </activity>
+        <activity android:name=".ReadXmlActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -213,7 +211,6 @@
                     android:pathPrefix="/login"
                     android:scheme="http"/>
             </intent-filter>
-
         </activity>
     </application>
 

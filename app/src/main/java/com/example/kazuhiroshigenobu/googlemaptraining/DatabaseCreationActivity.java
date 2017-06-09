@@ -29,6 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import junit.framework.Assert;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,6 +71,8 @@ public class DatabaseCreationActivity extends AppCompatActivity {
     private List<Toilet> geoFireArray = new ArrayList<>();
     private Integer databaseUploadCount = 0;
     private Integer successUpdateCount = 0;
+
+    //List<String, Integer, Integer> messages = Arrays.asList("",0,0);
 
 
 
@@ -1525,6 +1529,11 @@ public class DatabaseCreationActivity extends AppCompatActivity {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+
+
+
+
+
 
 
 
