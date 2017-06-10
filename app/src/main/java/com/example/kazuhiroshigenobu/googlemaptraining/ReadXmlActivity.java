@@ -12,6 +12,8 @@ import org.w3c.dom.NodeList;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -48,9 +50,34 @@ public class ReadXmlActivity extends AppCompatActivity {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element2 = (Element) node;
 
-                    Log.i("Name Text 333",getValue("name",element2));
 
-                    Log.i("coordinates 333",getValue("coordinates", element2));
+                    String name = getValue("name",element2);
+
+                    String coordinate = getValue("coordinates", element2);
+
+                    String latitude = coordinate.split(",")[0];
+                    String longitude = coordinate.split(",")[1];
+
+
+                    Double latDouble = Double.parseDouble(latitude);
+                    Double lonDouble = Double.parseDouble(longitude);
+
+
+                    Log.i("name 222",name);
+                    Log.i("lat 222",String.valueOf(latDouble));
+                    Log.i("lon 222",String.valueOf(lonDouble));
+
+
+
+
+
+
+
+
+                    List<String> elephantList = Arrays.asList(coordinate.split(","));
+
+                    System.out.print(elephantList + "444");
+
 
 
 

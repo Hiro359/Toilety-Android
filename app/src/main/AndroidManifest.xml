@@ -190,9 +190,11 @@
         <activity android:name=".ChangeUserNameActivity">
         </activity>
         <activity android:name=".DatabaseCreationActivity">
-
         </activity>
         <activity android:name=".ReadXmlActivity">
+
+        </activity>
+        <activity android:name=".ReadJsonActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
