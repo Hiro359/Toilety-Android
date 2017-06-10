@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <Document>
+        <name>トイレマップ（toilet map）東京都エリア01/03</name>
+        <description><![CDATA[《アイコン色》<br>　青　：公衆トイレ<br>　黄　：公共施設等<br>　緑　：商業施設<br>　オリーブ色　：コンビニ<br>　紫　：有料施設<br>　赤　：駅改札内／高速道PA・SA（徒歩進入不可）<br>　水色　：寺社、墓地、イベント会場。その他管理施設<br>　赤紫　：退役 or 改装中<br>【シンボル】<br>　ハート枠　：シャワートイレ有り<br>　車椅子　：多目的トイレ（多機能トイレ・だれでもトイレ・ユニバーサルトイレ）有り<br>　黒い人　：オストメイト有り<br>　緑抜き　：共用トイレ<br>　白抜き　：詳細無し<br>　丸枠　　：位置不明<br>【詳細】<br>　△　：各フロア、各個室等で有無がある。<br>　※　：多目的トイレのみの装備。<br><br>奥多摩町、桧原村、日の出町、あきる野市、青梅市<br>町田市、八王子市、羽村市、福生市、昭島市、日野市、立川市、国立市、多摩市、瑞穂町、武蔵村山市<br>東大和市、東村山市、国分寺市、稲城市、府中市<br>小平市、東久留米市、清瀬市、西東京市、小金井市<br>武蔵野市、三鷹市、調布市、狛江市、杉並区、中野区<br>渋谷区、新宿区（他区は02/03。大田区、世田谷区、目黒区は03/03）。<br><br>---------------------------------<br>トイレ紹介ブログ『トイレの三ツ星』は↓<br><br>http://toilet.blog.shinobi.jp/<br>---------------------------------<br>東京トイレマップ　02/03<br>http://goo.gl/nFDjb<br>東京トイレマップ　03/03<br>http://goo.gl/SLDfp<br>神奈川トイレマップ<br>http://goo.gl/Qpyg<br>埼玉トイレマップ<br>http://goo.gl/Vh6B<br>京都トイレマップ<br>http://goo.gl/KKc1<br>大阪トイレマップ<br>http://goo.gl/19Umx<br>千葉トイレマップ<br>http://goo.gl/8lEL2<br>福岡トイレマップ<br>http://goo.gl/maps/7imTQ<br>広島トイレマップ<br>http://goo.gl/maps/x5kvc<br>---------------------------------<br>↓以下のアプリでもご利用できます<br><br>トイレアプリ（android）<br>https://market.android.com/details?id=co]]></description>
+        <Style id="icon-165-normal">
+            <IconStyle>
+                <scale>1.1</scale>
+                <Icon>
+                    <href>http://www.gstatic.com/mapspro/images/stock/165-pink-pushpin.png</href>
+                </Icon>
+                <hotSpot x="10" xunits="pixels" y="31" yunits="insetPixels"/>
+            </IconStyle>
+            <LabelStyle>
+                <scale>0</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="icon-165-highlight">
+            <IconStyle>
+                <scale>1.1</scale>
+                <Icon>
+                    <href>http://www.gstatic.com/mapspro/images/stock/165-pink-pushpin.png</href>
+                </Icon>
+                <hotSpot x="10" xunits="pixels" y="31" yunits="insetPixels"/>
+            </IconStyle>
+            <LabelStyle>
+                <scale>1.1</scale>
+            </LabelStyle>
+        </Style>
+        <StyleMap id="icon-165">
+            <Pair>
+                <key>normal</key>
+                <styleUrl>#icon-165-normal</styleUrl>
+            </Pair>
+            <Pair>
+                <key>highlight</key>
+                <styleUrl>#icon-165-highlight</styleUrl>
+            </Pair>
+        </StyleMap>
+        <Style id="icon-181-normal">
+            <IconStyle>
+                <scale>1.1</scale>
+                <Icon>
+                    <href>http://www.gstatic.com/mapspro/images/stock/181-info_circle.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle>
+                <scale>0</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="icon-181-highlight">
+            <IconStyle>
+                <scale>1.1</scale>
+                <Icon>
+                    <href>http://www.gstatic.com/mapspro/images/stock/181-info_circle.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle>
+                <scale>1.1</scale>
+            </LabelStyle>
+        </Style>
+        <StyleMap id="icon-181">
+            <Pair>
+                <key>normal</key>
+                <styleUrl>#icon-181-normal</styleUrl>
+            </Pair>
+            <Pair>
+                <key>highlight</key>
+                <styleUrl>#icon-181-highlight</styleUrl>
+            </Pair>
+        </StyleMap>
+        <Style id="icon-181-nodesc-normal">
+            <IconStyle>
+                <scale>1.1</scale>
+                <Icon>
+                    <href>http://www.gstatic.com/mapspro/images/stock/181-info_circle.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle>
+                <scale>0</scale>
+            </LabelStyle>
+            <BalloonStyle>
+                <text><![CDATA[<h3>$[name]</h3>]]></text>
+            </BalloonStyle>
+        </Style>
+        <Style id="icon-181-nodesc-highlight">
+            <IconStyle>
+                <scale>1.1</scale>
+                <Icon>
+                    <href>http://www.gstatic.com/mapspro/images/stock/181-info_circle.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle>
+                <scale>1.1</scale>
+            </LabelStyle>
+            <BalloonStyle>
+                <text><![CDATA[<h3>$[name]</h3>]]></text>
+            </BalloonStyle>
+        </Style>
+        <StyleMap id="icon-181-nodesc">
+            <Pair>
+                <key>normal</key>
+                <styleUrl>#icon-181-nodesc-normal</styleUrl>
+            </Pair>
+            <Pair>
+                <key>highlight</key>
+                <styleUrl>#icon-181-nodesc-highlight</styleUrl>
+            </Pair>
+        </StyleMap>
+        <Style id="icon-503-DB4436-normal">
+            <IconStyle>
+                <color>ff3644db</color>
+                <scale>1.1</scale>
+                <Icon>
+                    <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+                </Icon>
+                <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+            </IconStyle>
+            <LabelStyle>
+                <scale>0</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="icon-503-DB4436-highlight">
+            <IconStyle>
+                <color>ff3644db</color>
+                <scale>1.1</scale>
+                <Icon>
+                    <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+                </Icon>
+                <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+            </IconStyle>
+            <LabelStyle>
+                <scale>1.1</scale>
+            </LabelStyle>
+        </Style>
+        <StyleMap id="icon-503-DB4436">
+            <Pair>
+                <key>normal</key>
+                <styleUrl>#icon-503-DB4436-normal</styleUrl>
+            </Pair>
+            <Pair>
+                <key>highlight</key>
+                <styleUrl>#icon-503-DB4436-highlight</styleUrl>
+            </Pair>
+        </StyleMap>
+        <Style id="icon-503-DB4436-nodesc-normal">
+            <IconStyle>
+                <color>ff3644db</color>
+                <scale>1.1</scale>
+                <Icon>
+                    <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+                </Icon>
+                <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+            </IconStyle>
+            <LabelStyle>
+                <scale>0</scale>
+            </LabelStyle>
+            <BalloonStyle>
+                <text><![CDATA[<h3>$[name]</h3>]]></text>
+            </BalloonStyle>
+        </Style>
+        <Style id="icon-503-DB4436-nodesc-highlight">
+            <IconStyle>
+                <color>ff3644db</color>
+                <scale>1.1</scale>
+                <Icon>
+                    <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+                </Icon>
+                <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+            </IconStyle>
+            <LabelStyle>
+                <scale>1.1</scale>
+            </LabelStyle>
+            <BalloonStyle>
+                <text><![CDATA[<h3>$[name]</h3>]]></text>
+            </BalloonStyle>
+        </Style>
+        <StyleMap id="icon-503-DB4436-nodesc">
+            <Pair>
+                <key>normal</key>
+                <styleUrl>#icon-503-DB4436-nodesc-normal</styleUrl>
+            </Pair>
+            <Pair>
+                <key>highlight</key>
+                <styleUrl>#icon-503-DB4436-nodesc-highlight</styleUrl>
+            </Pair>
+        </StyleMap>
+        <Folder>
+            <name>無題のレイヤ</name>
+            <Placemark>
+                <name>------東京都　奥多摩町------</name>
+                <styleUrl>#icon-181-nodesc</styleUrl>
+                <Point>
+                    <coordinates>
+                        139.0962,35.809509,0
+                    </coordinates>
+                </Point>
+            </Placemark>
+            <Placemark>
+                <name>雲取山荘　外トイレ</name>
+                <styleUrl>#icon-503-DB4436-nodesc</styleUrl>
+                <Point>
+                    <coordinates>
+                        138.943885,35.86092,0
+                    </coordinates>
+                </Point>
+            </Placemark>
+            <Placemark>
+                <name>雲取山避難小屋　外トイレ</name>
+                <styleUrl>#icon-503-DB4436-nodesc</styleUrl>
+                <Point>
+                    <coordinates>
+                        138.944368,35.854883,0
+                    </coordinates>
+                </Point>
+            </Placemark>
+            <Placemark>
+                <name>奥多摩小屋　外トイレ</name>
+                <styleUrl>#icon-503-DB4436-nodesc</styleUrl>
+                <Point>
+                    <coordinates>
+                        138.948432,35.841754,0
+                    </coordinates>
+                </Point>
+            </Placemark>
+        </Folder>
+    </Document>

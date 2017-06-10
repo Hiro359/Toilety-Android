@@ -30,7 +30,7 @@ public class ReadXmlActivity extends AppCompatActivity {
 
     private void readXmlData(){
         try {
-            InputStream is = getAssets().open("example_one.xml");
+            InputStream is = getAssets().open("new_file");
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -39,7 +39,8 @@ public class ReadXmlActivity extends AppCompatActivity {
             Element element=doc.getDocumentElement();
             element.normalize();
 
-            NodeList nList = doc.getElementsByTagName("employee");
+            NodeList nList = doc.getElementsByTagName("Placemark");
+//            NodeList nList = doc.getElementsByTagName("employee");
 
             for (int i=0; i<nList.getLength(); i++) {
 
@@ -48,6 +49,12 @@ public class ReadXmlActivity extends AppCompatActivity {
                     Element element2 = (Element) node;
 
                     Log.i("Name Text 333",getValue("name",element2));
+
+                    Log.i("coordinates 333",getValue("coordinates", element2));
+
+
+
+
 
 
 //                    tv1.setText(tv1.getText()+"\nName : " + getValue("name", element2)+"\n");
@@ -65,6 +72,16 @@ public class ReadXmlActivity extends AppCompatActivity {
         Node node = nodeList.item(0);
         return node.getNodeValue();
     }
+
+//    private static String getNodeValue(String tag, Element element) {
+//        NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
+//        Node node = nodeList.item(0);
+//        return node.getNodeValue();
+//    }
+//
+//    //I have made this June 10.
+
+
 
 
     }
