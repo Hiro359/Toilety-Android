@@ -1,7 +1,9 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.content.res.XmlResourceParser;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,6 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
+import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,55 +23,49 @@ public class ReadXmlActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_xml);
 
+        Log.i("readXML loaded", "333");
+
         readXmlData();
     }
 
     private void readXmlData(){
-
-
         try {
-
-            File fXmlFile = new File("map_kml_example.xml");
-            //File fXmlFile = new File("/Users/mkyong/staff.xml");
-            //Need to find xml(kml) here
+            InputStream is = getAssets().open("example_one.xml");
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+            Document doc = dBuilder.parse(is);
 
-            //optional, but recommended
-            //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-            doc.getDocumentElement().normalize();
+            Element element=doc.getDocumentElement();
+            element.normalize();
 
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            NodeList nList = doc.getElementsByTagName("employee");
 
-            NodeList nList = doc.getElementsByTagName("staff");
+            for (int i=0; i<nList.getLength(); i++) {
 
-            System.out.println("----------------------------");
+                Node node = nList.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element2 = (Element) node;
 
-            for (int temp = 0; temp < nList.getLength(); temp++) {
+                    Log.i("Name Text 333",getValue("name",element2));
 
-                Node nNode = nList.item(temp);
 
-                System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-                    Element eElement = (Element) nNode;
-
-                    System.out.println("Staff id : " + eElement.getAttribute("id"));
-                    System.out.println("First Name : " + eElement.getElementsByTagName("firstname").item(0).getTextContent());
-                    System.out.println("Last Name : " + eElement.getElementsByTagName("lastname").item(0).getTextContent());
-                    System.out.println("Nick Name : " + eElement.getElementsByTagName("nickname").item(0).getTextContent());
-                    System.out.println("Salary : " + eElement.getElementsByTagName("salary").item(0).getTextContent());
-
+//                    tv1.setText(tv1.getText()+"\nName : " + getValue("name", element2)+"\n");
+//                    tv1.setText(tv1.getText()+"Surname : " + getValue("surname", element2)+"\n");
+//                    tv1.setText(tv1.getText()+"-----------------------");
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
 
+        } catch (Exception e) {e.printStackTrace();}
+
+    }
+
+    private static String getValue(String tag, Element element) {
+        NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
+        Node node = nodeList.item(0);
+        return node.getNodeValue();
     }
 
 
     }
-}
+

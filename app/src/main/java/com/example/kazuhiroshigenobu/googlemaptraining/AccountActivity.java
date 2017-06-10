@@ -52,6 +52,8 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+
+
         FirebaseAuth firebaseAuth;
 
         Log.i("Account Loaded", "Start");
