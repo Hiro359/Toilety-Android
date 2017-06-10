@@ -428,6 +428,10 @@ public class SearchLocationActivity extends AppCompatActivity {
                 if (address == null) {
                     return null;
                 }
+
+                if (address.isEmpty()) {
+                    return null;
+                }
                 Address location = address.get(0);
                 location.getLatitude();
                 location.getLongitude();

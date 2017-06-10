@@ -1,8 +1,13 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ReadJsonActivity extends AppCompatActivity {
@@ -52,8 +58,26 @@ public class ReadJsonActivity extends AppCompatActivity {
                 String name = jo_inside.getString("FIELD2");
                 String address = jo_inside.getString("FIELD4");
 
-                Log.i("name 666", name);
-                Log.i("address 666", address);
+
+
+                if (address.length() > 7){
+                    Log.i("address 33333", name);
+                    LatLng latLng = getLocationFromAddress(getApplicationContext(),address);
+                    Log.i("lat lng 33333", String.valueOf(latLng));
+
+
+                }
+
+
+
+
+
+
+
+
+                if (name.contains("ファミリーマート")){
+                    Log.i("shit 666", name);
+                }
 
 
 
@@ -105,6 +129,49 @@ public class ReadJsonActivity extends AppCompatActivity {
 
     }
 
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        Log.i(" strAddress 765",strAddress);
+        //crash before..
+        //It didnt give me anything..
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            if (address.isEmpty()) {
+                Log.i("address Empty 33333",String.valueOf(address));
+                return null;
+            }
+
+
+            Log.i("address Inside 33333",String.valueOf(address));
+
+
+
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+            Log.i("THIS P1ONE", String.valueOf(p1));
+
+
+        } catch (IOException ex) {
+
+            Log.i("THIS ERROR765", "GIVE ME");
+            ex.printStackTrace();
+        }
+
+        return p1;
+    }
 
 
 //    private void jsonGetData() throws JSONException, IOException {
