@@ -42,6 +42,8 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
     //private
 
     private ReviewAdapterCallback mAdapterCallback;
+    private ReviewAdapterExpandImageCallBack rAdapterExpandImageCallback;
+
     //String [] toiletNames;
 
 
@@ -54,9 +56,18 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
         } catch (ClassCastException e) {
             throw new ClassCastException("Activity must implement ReviewAdapterCallback.");
         }
+
+        try {
+
+            this.rAdapterExpandImageCallback = ((ReviewAdapterExpandImageCallBack) context);
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Activity must implement ReviewImageCallback.");
+        }
         // this.toiletData = toiletData;
 
     }
+
+
 
 
 
@@ -109,6 +120,25 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
                 Picasso.with(context).load(uri).into(holder.reviewUserImage);
 
             }
+
+
+
+            holder.reviewUserImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("review UserImageCalled","666");
+
+                    try {
+                        rAdapterExpandImageCallback.onReviewImageExpandCallback(current.userPhoto);
+
+                    } catch (ClassCastException exception) {
+                        // do something
+                    }
+
+                }
+            });
+
+
 
             if (current.userLiked){
                 holder.reviewLikeButton.setBackgroundResource(R.drawable.app_thumb_icon_colored_24);
@@ -192,6 +222,8 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
                 });
 
 
+
+
 //
 //                holder.itemView.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -227,6 +259,14 @@ class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ReviewVie
     interface ReviewAdapterCallback {
         void onReviewMethodCallback(String rid, String suspiciosUser);
     }
+
+    interface  ReviewAdapterExpandImageCallBack{
+        void onReviewImageExpandCallback(String imageUrl);
+    }
+
+//    interface ReviewImageExpansionCallback{
+//        void
+//    }
 
 
     @Override

@@ -15,6 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
+
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/toiletReviewList"
         android:layout_marginTop="50dp"
@@ -22,6 +25,31 @@
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         >
+
+
     </android.support.v7.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/expanded_image_before"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        android:contentDescription="@string/mainDetailImage"/>
+
+
+    <ImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:contentDescription="@string/mainDetailImage"/>
+
+
+
+
+
+
+
+
 
 </RelativeLayout>
