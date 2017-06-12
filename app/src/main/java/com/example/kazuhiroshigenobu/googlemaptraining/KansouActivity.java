@@ -340,92 +340,134 @@ public class KansouActivity extends AppCompatActivity {
         updateData.put("ToiletView/" + toilet.key + "/reviewCount", newReviewCount);
         updateData.put("ToiletView/" + toilet.key + "/reviewOne", newRid);
         updateData.put("ToiletView/" + toilet.key + "/reviewTwo", originalReviewOne);
+            updateData.put("ToiletView/" + toilet.key + "/available", true);
+
 
         updateData.put("NoFilter/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("NoFilter/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("NoFilter/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("NoFilter/" + toilet.key + "/available", true);
 
 
-        updateData.put("ToiletUserList/" + toilet.key + "/averageStar", newAvStarString);
-        updateData.put("ToiletUserList/" + toilet.key + "/averageWait", newWaitingTime);
-        updateData.put("ToiletUserList/" + toilet.key + "/reviewCount", newReviewCount);
+//
+//            updateData.put("ToiletUserList/" + toilet.key + "/averageStar", newAvStarString);
+//        updateData.put("ToiletUserList/" + toilet.key + "/averageWait", newWaitingTime);
+//        updateData.put("ToiletUserList/" + toilet.key + "/reviewCount", newReviewCount);
+//            updateData.put("ToiletView/" + toilet.key + "/available", false);
 
 
-        updateData.put("UnitOne/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitOne/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitOne/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitOne/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitOne/" + toilet.key + "/available", true);
 
-        updateData.put("UnitTwo/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitTwo/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitTwo/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitTwo/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitTwo/" + toilet.key + "/available", true);
 
-        updateData.put("UnitThree/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitThree/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitThree/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitThree/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitThree/" + toilet.key + "/available", true);
 
-        updateData.put("UnitFour/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitFour/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitFour/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitFour/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitFour/" + toilet.key + "/available", true);
 
-        updateData.put("UnitFive/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitFive/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitFive/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitFive/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitFive/" + toilet.key + "/available", true);
 
-        updateData.put("UnitSix/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitSix/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitSix/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitSix/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitSix/" + toilet.key + "/available", true);
 
-        updateData.put("UnitSeven/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitSeven/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitSeven/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitSeven/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitSeven/" + toilet.key + "/available", true);
 
-        updateData.put("UnitEight/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitEight/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitEight/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitEight/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitEight/" + toilet.key + "/available", true);
 
-        updateData.put("UnitNine/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitNine/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitNine/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitNine/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitNine/" + toilet.key + "/available", true);
 
-        updateData.put("UnitTen/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitTen/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitTen/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitTen/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitTen/" + toilet.key + "/available", true);
 
-        updateData.put("UnitEleven/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitEleven/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitEleven/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitEleven/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitEleven/" + toilet.key + "/available", true);
 
-        updateData.put("UnitTwelve/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("UnitTwelve/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("UnitTwelve/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("UnitTwelve/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("UnitTwelve/" + toilet.key + "/available", true);
 
 
-        updateData.put("GroupOne/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("GroupOne/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("GroupOne/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("GroupOne/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("GroupOne/" + toilet.key + "/available", true);
 
-        updateData.put("GroupTwo/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("GroupTwo/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("GroupTwo/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("GroupTwo/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("GroupTwo/" + toilet.key + "/available", true);
 
-        updateData.put("GroupThree/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("GroupThree/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("GroupThree/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("GroupThree/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("GroupThree/" + toilet.key + "/available", true);
 
 
-        updateData.put("HalfOne/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("HalfOne/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("HalfOne/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("HalfOne/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("HalfOne/" + toilet.key + "/available", true);
 
 
-        updateData.put("HalfTwo/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("HalfTwo/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("HalfTwo/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("HalfTwo/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("HalfTwo/" + toilet.key + "/available", true);
 
 
-        updateData.put("AllFilter/" + toilet.key + "/averageStar", newAvStarString);
+
+            updateData.put("AllFilter/" + toilet.key + "/averageStar", newAvStarString);
         updateData.put("AllFilter/" + toilet.key + "/averageWait", newWaitingTime);
         updateData.put("AllFilter/" + toilet.key + "/reviewCount", newReviewCount);
+            updateData.put("AllFilter/" + toilet.key + "/available", true);
+
 
 
 
@@ -593,7 +635,9 @@ public class KansouActivity extends AppCompatActivity {
 
     private void problemUploadToDatabase(String problemString){
 
-        toiletWarningsListUpload();
+        //toiletWarningsListUpload();
+
+
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -605,14 +649,84 @@ public class KansouActivity extends AppCompatActivity {
 
             String postId = UUID.randomUUID().toString();
 
+            Map<String, Object> updateInfo = new HashMap();
+
+            Map<String, Object> problemData = new HashMap();
+
+            problemData.put("tid", toilet.key);
+            problemData.put("uid", uid);
+            problemData.put("time", timeString);
+            problemData.put("timeNumbers", timeStampDouble);
+            problemData.put("problem", problemString);
 
 
-            DatabaseReference toiletProblemRef = FirebaseDatabase.getInstance().getReference().child("ToiletProblems");
+//                    public ToiletProblem(String tid, String uid, String time, Double timeNumbers, String problem) {
+//                this.tid = tid;
+//                this.uid = uid;
+//                this.time = time;
+//                this.timeNumbers = timeNumbers;
+//                this.problem = problem;
+//            }
 
-            toiletProblemRef.child(postId).setValue(new ToiletProblem(
-                    toilet.key,uid, timeString, timeStampDouble, problemString)
 
-            );
+
+
+            //Multi Update June 13
+
+
+
+
+
+            updateInfo.put("ToiletProblems/" + postId, problemData);
+            updateInfo.put("ToiletWarningList/" + toilet.key + "/"+ uid , true);
+            updateInfo.put("ToiletView/" + toilet.key + "/available", false);
+            updateInfo.put("NoFilter/" + toilet.key + "/available", false);
+
+
+//
+//            updateData.put("ToiletUserList/" + toilet.key + "/averageStar", newAvStarString);
+//        updateData.put("ToiletUserList/" + toilet.key + "/averageWait", newWaitingTime);
+//        updateData.put("ToiletUserList/" + toilet.key + "/reviewCount", newReviewCount);
+//            updateData.put("ToiletView/" + toilet.key + "/available", false);
+
+
+
+            updateInfo.put("UnitOne/" + toilet.key + "/available", false);
+            updateInfo.put("UnitTwo/" + toilet.key + "/available", false);
+            updateInfo.put("UnitThree/" + toilet.key + "/available", false);
+            updateInfo.put("UnitFour/" + toilet.key + "/available", false);
+            updateInfo.put("UnitFive/" + toilet.key + "/available", false);
+            updateInfo.put("UnitSix/" + toilet.key + "/available", false);
+            updateInfo.put("UnitSeven/" + toilet.key + "/available", false);
+            updateInfo.put("UnitEight/" + toilet.key + "/available", false);
+            updateInfo.put("UnitNine/" + toilet.key + "/available", false);
+            updateInfo.put("UnitTen/" + toilet.key + "/available", false);
+            updateInfo.put("UnitEleven/" + toilet.key + "/available", false);
+            updateInfo.put("UnitTwelve/" + toilet.key + "/available", false);
+            updateInfo.put("GroupOne/" + toilet.key + "/available", false);
+            updateInfo.put("GroupTwo/" + toilet.key + "/available", false);
+            updateInfo.put("GroupThree/" + toilet.key + "/available", false);
+            updateInfo.put("HalfOne/" + toilet.key + "/available", false);
+            updateInfo.put("HalfTwo/" + toilet.key + "/available", false);
+            updateInfo.put("AllFilter/" + toilet.key + "/available", false);
+
+
+            DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+
+
+
+            firebaseRef.updateChildren(updateInfo,new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+
+                }
+            });
+
+
+
+
+//            userWarningsListRef.child(toilet.key).child(uid).setValue(true);
 
             Log.i("Post Done", "222222");
 
@@ -622,49 +736,49 @@ public class KansouActivity extends AppCompatActivity {
     }
 
 
-    ///
-    private void toiletWarningsListUpload(){
+//    ///
+//    private void toiletWarningsListUpload(){
+//
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ToiletWarningList");
+//        if (user != null){
+//            String uid = user.getUid();
+//            userWarningsListRef.child(toilet.key).child(uid).setValue(true);
+//            //userWarningCount();
+//        }
+//
+//    }
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ToiletWarningList");
-        if (user != null){
-            String uid = user.getUid();
-            userWarningsListRef.child(toilet.key).child(uid).setValue(true);
-            userWarningCount();
-        }
+//    private void userWarningCount(){
+//        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ToiletWarningList");
+//
+//
+//        userWarningsListRef.child(toilet.key).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                   Log.i("DataSnap 99999", String.valueOf(dataSnapshot));
+//
+//
+//                    //Call Once //Maybe I need boolean filter
+//                    Long warningCount = dataSnapshot.getChildrenCount();
+//                    userWarningCountUpload(warningCount);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
-    }
-
-    private void userWarningCount(){
-        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ToiletWarningList");
-
-
-        userWarningsListRef.child(toilet.key).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                   Log.i("DataSnap 99999", String.valueOf(dataSnapshot));
-
-
-                    //Call Once //Maybe I need boolean filter
-                    Long warningCount = dataSnapshot.getChildrenCount();
-                    userWarningCountUpload(warningCount);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void userWarningCountUpload(Long warningCount){
-        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("ToiletWarningCount");
-
-        userWarningsCountRef.child(toilet.key).setValue(warningCount);
-
-    }
+//    private void userWarningCountUpload(Long warningCount){
+//        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("ToiletWarningCount");
+//
+//        userWarningsCountRef.child(toilet.key).setValue(warningCount);
+//
+//    }
 
 
     ///
