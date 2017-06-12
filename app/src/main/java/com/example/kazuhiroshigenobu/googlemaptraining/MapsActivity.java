@@ -1883,29 +1883,52 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Double avStar = Double.parseDouble(toilet.averageStar);
             Drawable dImage;
 
-            if (avStar < 2) {
+
+            if (toilet.reviewCount == 0 && toilet.available){
+                dImage = ContextCompat.getDrawable(getApplication(), R.drawable.review_zero_pin_blue);
+
+            } else if (toilet.reviewCount == 0 && !toilet.available){
+                dImage = ContextCompat.getDrawable(getApplication(), R.drawable.review_zero_pin_red);
+
+            } else if (avStar < 2 && toilet.available) {
                 dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_one_pin_drawable);
 
+            } else if (avStar < 2 && !toilet.available) {
+                dImage = ContextCompat.getDrawable(getApplication(), R.drawable.pin_one_red_drawable);
 
-            } else if (avStar < 3) {
+            } else if (avStar < 3 && toilet.available) {
                 dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_two_pin_drawable);
 
 
-            } else if (avStar < 4) {
+            } else if (avStar < 3 && !toilet.available) {
+                dImage = ContextCompat.getDrawable(getApplication(), R.drawable.pin_two_red_drawable);
+
+            }  else if (avStar < 4 && toilet.available) {
                 dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_three_pin_drawable);
 
 
-            } else if (avStar < 5) {
+            } else if (avStar < 4 && !toilet.available) {
+                dImage = ContextCompat.getDrawable(getApplication(), R.drawable.pin_three_red_drawable);
+
+            }  else if (avStar < 5 && toilet.available) {
                 dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_four_pin_drawable);
 
 
-            } else {
-                dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_five_pin_drawable);
+            } else if (avStar < 5 && !toilet.available) {
+                dImage = ContextCompat.getDrawable(getApplication(), R.drawable.pin_four_red_drawable);
 
+            }else if (avStar == 5 && !toilet.available){
+                dImage = ContextCompat.getDrawable(getApplication(), R.drawable.pin_five_red_drawable);
+            } else if (avStar == 5 && toilet.available){
+                dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_five_pin_drawable);
+            } else {
+                //Default 2 pin
+                dImage = ContextCompat.getDrawable(getApplication(), R.drawable.number_two_pin_drawable);
 
             }
 
-            BitmapDescriptor markerIcon = getMarkerIconFromDrawable(dImage);
+
+                BitmapDescriptor markerIcon = getMarkerIconFromDrawable(dImage);
 
 
             Marker marker = mMap.addMarker(new MarkerOptions().position(toiletLocation)

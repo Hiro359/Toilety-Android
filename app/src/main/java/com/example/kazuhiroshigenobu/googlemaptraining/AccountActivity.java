@@ -347,7 +347,7 @@ public class AccountActivity extends AppCompatActivity {
 
         //Use Picaso June 11
 
-        
+
 
         expandedImageView.setImageDrawable(image.getDrawable());
         expandedImageView.setBackgroundColor(Color.parseColor("#F3F3F3"));
