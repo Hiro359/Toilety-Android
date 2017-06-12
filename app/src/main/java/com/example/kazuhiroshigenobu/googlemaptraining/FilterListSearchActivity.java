@@ -39,6 +39,7 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
     Button button;
     Toolbar toolbar;
     TextView toolbarTitle;
+    Button filterRemoveButton;
     //Spinner spinner1;
     Spinner spinner2;
     Spinner spinner3;
@@ -262,6 +263,7 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
     private void toolbarReady(){
 
         button = (Button) findViewById(R.id.startSearchButton);
+        filterRemoveButton = (Button)findViewById(R.id.deleteFiltersButton);
         toolbar = (Toolbar) findViewById(R.id.app_bar2);
         toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
 
@@ -274,9 +276,15 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),MapsActivity.class);
-                startActivity(intent);
-                finish();
+               goBackToMapView();
+            }
+        });
+
+        filterRemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeFilterAction();
+
             }
         });
 
@@ -285,29 +293,20 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
             @Override
             public void onClick(View v)
             {
+                goBackToMapView();
 
-//                Filter.availableFilter = false;
-//                Filter.japaneseFilter = false;
-//                Filter.westernFilter = false;
-//                Filter.onlyFemaleFilter = false;
-//                Filter.washletFilter = false;
-//                Filter.warmSearFilter = false;
-//                Filter.omutuFilter = false;
-//                Filter.milkspaceFilter = false;
-//                Filter.makeroomFilter = false;
-//                Filter.baggageSpaceFilter = false;
-//                Filter.wheelchairFilter = false;
-//                Filter.ostomateFilter = false;
-
-
-                Intent intent = new Intent(v.getContext(), MapsActivity.class);
-                startActivity(intent);
-                finish();
             }
                                              }
         );
 
 
+
+    }
+
+    private void goBackToMapView(){
+        Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 
@@ -756,6 +755,129 @@ public class FilterListSearchActivity extends AppCompatActivity implements Filte
 
 
         // do something
+    }
+
+    private void removeFilterAction(){
+
+
+        //static Boolean starFilterSetted = false;
+        Filter.starFilter = 1.0;
+        //static Boolean myOrderSetted = false;
+        Filter.orderDistanceFilter = false;
+        Filter.orderStarFilter = false;
+        Filter.orderReviewFilter = false;
+        Filter.typeFilterOn = false;
+        Filter.typeFilter = 0;
+
+        Filter.queryPath = "";
+        //Changed string to integet
+
+        Filter.availableFilter = false;
+        Filter.japaneseFilter = false;
+        Filter.westernFilter = false;
+        Filter.onlyFemaleFilter = false;
+        Filter.unisexFilter = false;
+
+
+        Filter.washletFilter = false;
+        Filter.warmSearFilter = false;
+        Filter.autoOpen = false;
+        Filter.noVirusFilter = false;
+        Filter.paperForBenkiFilter = false;
+        Filter.cleanerForBenkiFilter = false;
+        Filter.autoToiletWashFilter = false;
+
+        Filter.sensorHandWashFilter = false;
+        Filter.handSoapFilter = false;
+        Filter.autoHandSoapFilter = false;
+        Filter.paperTowelFilter = false;
+        Filter.handDrierFilter = false;
+
+
+        //others 1
+        Filter.fancy = false;
+        Filter.smell = false;
+        Filter.confortableWise = false;
+        Filter.clothes = false;
+        Filter.baggageSpaceFilter = false;
+
+
+        //others 2
+        Filter.noNeedAsk = false;
+        Filter.writtenEnglish = false;
+        Filter.parking = false;
+        Filter.airConditionFilter = false;
+        Filter.wifiFilter = false;
+
+
+
+
+
+
+        //For ladys
+        Filter.otohime = false;
+        Filter.napkinSelling = false;
+        Filter.makeroomFilter = false;
+        Filter.ladyOmutuFilter= false;
+        Filter.ladyBabyChair = false;
+        Filter.ladyBabyChairGood = false;
+        Filter.ladyBabyCarAccess = false;
+
+        //For men
+        Filter.maleOmutuFilter= false;
+        Filter.maleBabyChair = false;
+        Filter.maleBabyChairGood = false;
+        Filter.maleBabyCarAccess = false;
+
+
+
+        //For unisex
+        Filter.wheelchairFilter = false;
+        Filter.wheelchairAccessFilter = false;
+        Filter.autoDoorFilter = false;
+        Filter.callHelpFilter = false;
+        Filter.ostomateFilter = false;
+        Filter.braille = false;
+        Filter.voiceGuideFilter = false;
+        Filter.familyOmutuFilter= false;
+        Filter.familyBabyChair = false;
+
+
+
+
+
+        Filter.milkspaceFilter = false;
+        Filter.babyRoomOnlyFemaleFilter = false;
+        Filter.babyRoomMaleCanEnterFilter = false;
+        Filter.babyRoomPersonalSpaceFilter = false;
+        Filter.babyRoomPersonalWithLockFilter = false;
+        Filter.babyRoomWideSpaceFilter = false;
+        Filter.babyCarRentalFilter = false;
+        Filter.babyCarAccessFilter = false;
+        Filter.omutuFilter = false;
+        Filter.babyHipWashingStuffFilter = false;
+        Filter.omutuTrashCanFilter = false;
+        Filter.omutuSelling = false;
+
+        Filter.babySinkFilter = false;
+        Filter.babyWashstandFilter = false;
+        Filter.babyHotWaterFilter = false;
+        Filter.babyMicrowaveFilter = false;
+        Filter.babySellingWaterFilter = false;
+        Filter.babyFoodSellingFilter = false;
+        Filter.babyEatingSpaceFilter = false;
+        Filter.babyChairFilter = false;
+        Filter.babySoffaFilter = false;
+        Filter.babyToiletFilter = false;
+        Filter.babyKidsSpaceFilter = false;
+        Filter.babyHeightMeasureFilter = false;
+        Filter.babyWeightMeasureFilter = false;
+        Filter.babyToyFilter = false;
+        Filter.babyRoomFancyFilter = false;
+        Filter.babyRoomSmellGoodFilter = false;
+
+        goBackToMapView();
+
     }
 
 
