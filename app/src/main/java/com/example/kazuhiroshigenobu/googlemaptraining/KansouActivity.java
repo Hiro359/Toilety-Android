@@ -593,7 +593,7 @@ public class KansouActivity extends AppCompatActivity {
         builder.setTitle("利用できなかった理由を教えてください");
         //Set title localization
         builder.setItems(new CharSequence[]
-                        {"施設が見つからなかったから","漏水していたから","断水していたから", "トイレが詰まっていたから", "トイレットペーパーがなかったから","いいえ、利用することができた"},
+                        {"施設が見つからなかったから","トイレットペーパーがなかったから", "トイレが詰まっていたから" ,"漏水していたから","断水していたから","いいえ、利用することができた"},
 
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -601,23 +601,24 @@ public class KansouActivity extends AppCompatActivity {
                         // of the selected item
                         switch (which) {
                             case 0:
-                                problemUploadToDatabase("Could not find the Toilet");
+                                problemUploadToDatabase(0);
                                 //reviewReportUploadToDatabase("The content of the review is not correct",rid);
                                 break;
                             case 1:
-                                problemUploadToDatabase("Water Leakage");
+                                problemUploadToDatabase(1);
+
                                 //reviewReportUploadToDatabase("The content of the review is not relevent",rid);
                                 break;
                             case 2:
-                                problemUploadToDatabase("Water Outage");
+                                problemUploadToDatabase(2);
                                 //reviewReportUploadToDatabase("The picture of the user is not appropriate",rid);
                                 break;
                             case 3:
-                                problemUploadToDatabase("No Flush");
+                                problemUploadToDatabase(3);
                                 //reviewReportUploadToDatabase("The name of the user is not appropriate",rid);
                                 break;
                             case 4:
-                                problemUploadToDatabase("No Toilet Paper");
+                                problemUploadToDatabase(4);
 
                             case 5:
                                 availableSwitch.setChecked(true);
@@ -633,7 +634,7 @@ public class KansouActivity extends AppCompatActivity {
 
 
 
-    private void problemUploadToDatabase(String problemString){
+    private void problemUploadToDatabase(Integer problemInt){
 
         //toiletWarningsListUpload();
 
@@ -657,7 +658,7 @@ public class KansouActivity extends AppCompatActivity {
             problemData.put("uid", uid);
             problemData.put("time", timeString);
             problemData.put("timeNumbers", timeStampDouble);
-            problemData.put("problem", problemString);
+            problemData.put("problem", problemInt);
 
 
 //                    public ToiletProblem(String tid, String uid, String time, Double timeNumbers, String problem) {
@@ -728,7 +729,6 @@ public class KansouActivity extends AppCompatActivity {
 
 //            userWarningsListRef.child(toilet.key).child(uid).setValue(true);
 
-            Log.i("Post Done", "222222");
 
         }
 

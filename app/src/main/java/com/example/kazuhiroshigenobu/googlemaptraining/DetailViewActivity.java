@@ -2229,23 +2229,23 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                         switch (which) {
                             case 0:
                                 suspiciosUserId = toilet.editedBy;
-                                toiletInfoProblemUpload("the picture of this place is not appropriate");
-                                userWarningsListUpload();
+                                toiletInfoProblemUpload(0);
+                                //userWarningsListUpload();
                                 break;
                             case 1:
                                 suspiciosUserId = toilet.editedBy;
-                                toiletInfoProblemUpload("the infomation of this place is not correct");
-                                userWarningsListUpload();
+                                toiletInfoProblemUpload(1);
+                                //userWarningsListUpload();
                                 break;
                             case 2:
                                 suspiciosUserId = toilet.editedBy;
-                                toiletInfoProblemUpload("Fisrt Poster Not Appropriate");
-                                userWarningsListUpload();
+                                toiletInfoProblemUpload(2);
+                                //userWarningsListUpload();
                                 break;
                             case 3:
                                 suspiciosUserId = toilet.editedBy;
-                                toiletInfoProblemUpload("Last Editer Not Appropriate");
-                                userWarningsListUpload();
+                                toiletInfoProblemUpload(3);
+                                //userWarningsListUpload();
                                 break;
                             case 4:
                                 break;
@@ -2258,7 +2258,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
     }
 
-    private void toiletInfoProblemUpload(String problemString){
+    private void toiletInfoProblemUpload(Integer problemInt){
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
@@ -2271,18 +2271,41 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
 
 
-            DatabaseReference reviewProblemRef = FirebaseDatabase.getInstance().getReference().child("ToiletInfoProblems");
+//            DatabaseReference reviewProblemRef = FirebaseDatabase.getInstance().getReference().child("ToiletInfoProblems");
+//
+//            reviewProblemRef.child(postId).setValue(new ToiletProblem(
+//                    toilet.key ,uid, timeString, timeStampDouble, problemInt)
+//
+//            );
 
-            reviewProblemRef.child(postId).setValue(new ToiletProblem(
-                    toilet.key ,uid, timeString, timeStampDouble, problemString)
+            Map<String, Object> updateInfo = new HashMap();
 
-            );
-
-            Toast.makeText(this, "Report Is Done", Toast.LENGTH_SHORT).show();
-            //Should i make a dialog for this?? May 14
+            Map<String, Object> problemData = new HashMap();
 
 
-            Log.i("Post Done", "222222");
+
+            problemData.put("tid", toilet.key);
+            problemData.put("uid", uid);
+            problemData.put("time", timeString);
+            problemData.put("timeNumbers", timeStampDouble);
+            problemData.put("problem", problemInt);
+
+            updateInfo.put("ToiletInfoProblems/" + postId, problemData);
+            updateInfo.put("UserWarningList/" + suspiciosUserId + "/"+ uid , true);
+
+
+
+            DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+
+
+
+            firebaseRef.updateChildren(updateInfo,new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+
+                }
+            });
 
 
         }
@@ -2338,24 +2361,23 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                         // of the selected item
                         switch (which) {
                             case 0:
-                                reviewReportUploadToDatabase("The content of the review is not correct",rid);
-                                userWarningsListUpload();
+                                reviewReportUploadToDatabase(0,rid);
+                                //userWarningsListUpload();
                                 break;
                             case 1:
-                                reviewReportUploadToDatabase("The content of the review is not relevent",rid);
-                                userWarningsListUpload();
+                                reviewReportUploadToDatabase(1,rid);
+                                //userWarningsListUpload();
                                 break;
                             case 2:
-                                reviewReportUploadToDatabase("The picture of the user is not appropriate",rid);
-                                userWarningsListUpload();
+                                reviewReportUploadToDatabase(2,rid);
+                                //userWarningsListUpload();
                                 break;
                             case 3:
-                                reviewReportUploadToDatabase("The name of the user is not appropriate",rid);
-                                userWarningsListUpload();
+                                reviewReportUploadToDatabase(3,rid);
+                                //userWarningsListUpload();
                                 break;
                             case 4:
                                 break;
-
 
                         }
                     }
@@ -2364,8 +2386,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
     }
 
-    private void reviewReportUploadToDatabase(String problemString, String rid){
-        reviewWarningsListUpload();
+    private void reviewReportUploadToDatabase(Integer problemInt, String rid){
+        //reviewWarningsListUpload();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
@@ -2376,100 +2398,132 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
             String postId = UUID.randomUUID().toString();
 
-            DatabaseReference reviewProblemRef = FirebaseDatabase.getInstance().getReference().child("ReviewProblems");
+            //DatabaseReference reviewProblemRef = FirebaseDatabase.getInstance().getReference().child("ReviewProblems");
 
-            reviewProblemRef.child(postId).setValue(new ReviewReport(
-                    rid,uid, timeString, timeStampDouble, problemString)
+            //DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
 
-            );
+
+
+
+               // userWarningsListRef.child(suspiciosUserId).child(uid).setValue(true);
+                //userWarningCount();
+
+//            reviewProblemRef.child(postId).setValue(new ReviewReport(
+//                    rid,uid, timeString, timeStampDouble, problemInt)
+//
+//            );
+
+            Map<String, Object> updateInfo = new HashMap();
+
+
+            Map<String, Object> problemData = new HashMap();
+
+
+
+            problemData.put("rid", rid);
+            problemData.put("uid", uid);
+            problemData.put("time", timeString);
+            problemData.put("timeNumbers", timeStampDouble);
+            problemData.put("problem", problemInt);
+
+
+
+            updateInfo.put("ReviewProblems/" + postId, problemData);
+            updateInfo.put("UserWarningList" + suspiciosUserId + "/" + uid, true);
+
+
+            DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+
+            firebaseRef.updateChildren(updateInfo,new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+
+                }
+            });
 
             Toast.makeText(this, "Report Is Done", Toast.LENGTH_SHORT).show();
-            //Should i make a dialog for this?? May 14
-
-            Log.i("Post Done", "222222");
-
-
         }
     }
 
-    private void userWarningsListUpload(){
+//    private void userWarningsListUpload(){
+//
+////        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+////        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
+////        if (user != null){
+////            String uid = user.getUid();
+////            userWarningsListRef.child(suspiciosUserId).child(uid).setValue(true);
+////            //userWarningCount();
+////        }
+//
+//    }
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
-        if (user != null){
-            String uid = user.getUid();
-            userWarningsListRef.child(suspiciosUserId).child(uid).setValue(true);
-            userWarningCount();
-        }
+//    private void userWarningCount(){
+//        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
+//
+//
+//        userWarningsListRef.child(suspiciosUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                    //Call Once //Maybe I need boolean filter
+//                    Long warningCount = dataSnapshot.getChildrenCount();
+//                    userWarningCountUpload(warningCount);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
-    }
+//    private void userWarningCountUpload(Long warningCount){
+//        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("UserWarningCount");
+//
+//        userWarningsCountRef.child(suspiciosUserId).setValue(warningCount);
+//
+//    }
 
-    private void userWarningCount(){
-        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
+//    private void reviewWarningsListUpload(){
+//
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
+//        if (user != null){
+//            String uid = user.getUid();
+//            userWarningsListRef.child(suspiciosReviewId).child(uid).setValue(true);
+//            //reviewWarningCount();
+//        }
+//
+//    }
 
+//    private void reviewWarningCount(){
+//        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
+//
+//
+//        userWarningsListRef.child(suspiciosReviewId).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                    //Call Once //Maybe I need boolean filter
+//                    Long warningCount = dataSnapshot.getChildrenCount();
+//                    reviewWarningCountUpload(warningCount);
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
-        userWarningsListRef.child(suspiciosUserId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                    //Call Once //Maybe I need boolean filter
-                    Long warningCount = dataSnapshot.getChildrenCount();
-                    userWarningCountUpload(warningCount);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void userWarningCountUpload(Long warningCount){
-        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("UserWarningCount");
-
-        userWarningsCountRef.child(suspiciosUserId).setValue(warningCount);
-
-    }
-
-    private void reviewWarningsListUpload(){
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
-        if (user != null){
-            String uid = user.getUid();
-            userWarningsListRef.child(suspiciosReviewId).child(uid).setValue(true);
-            reviewWarningCount();
-        }
-
-    }
-
-    private void reviewWarningCount(){
-        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
-
-
-        userWarningsListRef.child(suspiciosReviewId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                    //Call Once //Maybe I need boolean filter
-                    Long warningCount = dataSnapshot.getChildrenCount();
-                    reviewWarningCountUpload(warningCount);
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void reviewWarningCountUpload(Long warningCount){
-        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningCount");
-
-        userWarningsCountRef.child(suspiciosReviewId).setValue(warningCount);
-
-    }
+//    private void reviewWarningCountUpload(Long warningCount){
+//        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningCount");
+//
+//        userWarningsCountRef.child(suspiciosReviewId).setValue(warningCount);
+//
+//    }
 
 
     private String getDate(long time) {
