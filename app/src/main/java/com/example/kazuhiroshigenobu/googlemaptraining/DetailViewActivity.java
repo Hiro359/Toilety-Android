@@ -541,13 +541,10 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
                 userGoToThePlaceAction();
 
-//                DatabaseReference userWentRef = FirebaseDatabase.getInstance().getReference().child("UserWentList");
-//
-//                final Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://maps.google.com/maps?" + "saddr="+ UserInfo.latitude + "," + UserInfo.longitude + "&daddr=" + toilet.latitude + "," + toilet.longitude));
-//                intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
-//                startActivity(intent);
             }
         });
+
+
 
 
 
@@ -1044,19 +1041,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                     }
 
 
-
-
-
-                    Log.i("IS THIS THE ERROR???","3");
-                    Log.i("BOOOL???","1");
-
-//
-
-
                     toilet.key = queryKey;
                     //Not sure about how to call key....
-
-
 
 
                     toilet.openAndCloseHours = (String) dataSnapshot.child("openAndCloseHours").getValue();
@@ -1684,9 +1670,6 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                     //reviewQuery(toilet.key);
 
 
-
-
-
                 }}
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -2169,6 +2152,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
          markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
          mMap.addMarker(markerOptions);
 
+
         //move map camera
          mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(toiletLocation,16));
         //Check UserInfo is not null
@@ -2270,13 +2254,6 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
             String postId = UUID.randomUUID().toString();
 
 
-
-//            DatabaseReference reviewProblemRef = FirebaseDatabase.getInstance().getReference().child("ToiletInfoProblems");
-//
-//            reviewProblemRef.child(postId).setValue(new ToiletProblem(
-//                    toilet.key ,uid, timeString, timeStampDouble, problemInt)
-//
-//            );
 
             Map<String, Object> updateInfo = new HashMap();
 
@@ -2398,20 +2375,6 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
 
             String postId = UUID.randomUUID().toString();
 
-            //DatabaseReference reviewProblemRef = FirebaseDatabase.getInstance().getReference().child("ReviewProblems");
-
-            //DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
-
-
-
-
-               // userWarningsListRef.child(suspiciosUserId).child(uid).setValue(true);
-                //userWarningCount();
-
-//            reviewProblemRef.child(postId).setValue(new ReviewReport(
-//                    rid,uid, timeString, timeStampDouble, problemInt)
-//
-//            );
 
             Map<String, Object> updateInfo = new HashMap();
 
@@ -2445,86 +2408,6 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
             Toast.makeText(this, "Report Is Done", Toast.LENGTH_SHORT).show();
         }
     }
-
-//    private void userWarningsListUpload(){
-//
-////        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-////        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
-////        if (user != null){
-////            String uid = user.getUid();
-////            userWarningsListRef.child(suspiciosUserId).child(uid).setValue(true);
-////            //userWarningCount();
-////        }
-//
-//    }
-
-//    private void userWarningCount(){
-//        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("UserWarningList");
-//
-//
-//        userWarningsListRef.child(suspiciosUserId).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                    //Call Once //Maybe I need boolean filter
-//                    Long warningCount = dataSnapshot.getChildrenCount();
-//                    userWarningCountUpload(warningCount);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
-
-//    private void userWarningCountUpload(Long warningCount){
-//        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("UserWarningCount");
-//
-//        userWarningsCountRef.child(suspiciosUserId).setValue(warningCount);
-//
-//    }
-
-//    private void reviewWarningsListUpload(){
-//
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
-//        if (user != null){
-//            String uid = user.getUid();
-//            userWarningsListRef.child(suspiciosReviewId).child(uid).setValue(true);
-//            //reviewWarningCount();
-//        }
-//
-//    }
-
-//    private void reviewWarningCount(){
-//        DatabaseReference userWarningsListRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningList");
-//
-//
-//        userWarningsListRef.child(suspiciosReviewId).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                    //Call Once //Maybe I need boolean filter
-//                    Long warningCount = dataSnapshot.getChildrenCount();
-//                    reviewWarningCountUpload(warningCount);
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
-
-//    private void reviewWarningCountUpload(Long warningCount){
-//        DatabaseReference userWarningsCountRef = FirebaseDatabase.getInstance().getReference().child("ReviewWarningCount");
-//
-//        userWarningsCountRef.child(suspiciosReviewId).setValue(warningCount);
-//
-//    }
-
 
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);

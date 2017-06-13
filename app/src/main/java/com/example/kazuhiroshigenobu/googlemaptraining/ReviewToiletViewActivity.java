@@ -471,7 +471,7 @@ public class ReviewToiletViewActivity extends AppCompatActivity implements Revie
 
 
             updateInfo.put("ReviewProblems/" + postId, problemData);
-            updateInfo.put("UserWarningList" + suspiciosUserId + "/" + uid, true);
+            updateInfo.put("UserWarningList/" + suspiciosUserId + "/" + uid, true);
 
 
             DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
