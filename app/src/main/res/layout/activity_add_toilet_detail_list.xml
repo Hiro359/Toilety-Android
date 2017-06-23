@@ -382,16 +382,37 @@
                         />
 
 
-                    <fragment
-                        xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        android:id="@+id/addCheckMap"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="180sp"
-                        android:background="@drawable/border"
-                        tools:context="com.example.kazuhiroshigenobu.googlemaptraining.AddToiletDetailActivity"
-                        />
+                        android:layout_height="180dp">
+
+                        <fragment
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            xmlns:tools="http://schemas.android.com/tools"
+                            android:id="@+id/addCheckMap"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="-50dp"
+                            android:layout_marginBottom="-50dp"
+                            android:background="@drawable/border"
+                            tools:context="com.example.kazuhiroshigenobu.googlemaptraining.DetailViewActivity"
+
+                            />
+
+                    </RelativeLayout>
+
+
+                    <!--<fragment-->
+                        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+                        <!--xmlns:tools="http://schemas.android.com/tools"-->
+                        <!--android:id="@+id/addCheckMap"-->
+                        <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="180sp"-->
+                        <!--android:background="@drawable/border"-->
+                        <!--tools:context="com.example.kazuhiroshigenobu.googlemaptraining.AddToiletDetailActivity"-->
+                        <!--/>-->
 
 
                 </LinearLayout>
