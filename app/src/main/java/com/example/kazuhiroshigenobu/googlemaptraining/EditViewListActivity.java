@@ -2396,14 +2396,17 @@ public class EditViewListActivity extends AppCompatActivity {
                         if (placeNumber == 0) {
                             Log.i("urlOne found", downloadUrl.toString());
                             urlOne = downloadUrl.toString();
+                            photoUrlMutlipleUpdate(0,urlOne);
                         }
                         if (placeNumber == 1) {
                             Log.i("urlTwo found", downloadUrl.toString());
                             urlTwo = downloadUrl.toString();
+                            photoUrlMutlipleUpdate(1,urlTwo);
                         }
                         if (placeNumber == 2) {
                             Log.i("urlThree found", downloadUrl.toString());
                             urlThree = downloadUrl.toString();
+                            photoUrlMutlipleUpdate(2,urlThree);
                         }
 
                         //changed urlOne to this downloadUrl...
@@ -2417,19 +2420,71 @@ public class EditViewListActivity extends AppCompatActivity {
 
     private void photoUrlMutlipleUpdate(Integer placeInteger, String photoUrl){
 
+
+        DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+
+
         if (placeInteger == 0) {
-            
+            //Multiple Update
+
+
+            Map<String, Object> updateData = new HashMap();
+
+
+            updateData.put("ToiletView/" + toilet.key + "/urlOne" , photoUrl);
+            updateData.put("NoFilter/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitOne/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitTwo/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitThree/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitFour/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitFive/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitSix/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitSeven/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitEight/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitNine/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitTen/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitEleven/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("UnitTwelve/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("GroupOne/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("GroupTwo/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("GroupThree/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("HalfOne/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("HalfTwo/" + toilet.key + "/urlOne", photoUrl);
+            updateData.put("AllFilter/" + toilet.key + "/urlOne", photoUrl);
+
+
+
+            firebaseRef.updateChildren(updateData,new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                    if (databaseError != null){
+                        Toast.makeText(EditViewListActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.i("url upload success", "444");
+                    }
+                }
+            });
+
 
         } else if (placeInteger == 1) {
+            Map<String, Object> updateData = new HashMap();
+            updateData.put("urlTwo", photoUrl);
+
+            firebaseRef.child("ToiletView").child(toilet.key).updateChildren(updateData);
+
+
 
         } else if (placeInteger == 2) {
+            Map<String, Object> updateData = new HashMap();
+            updateData.put("urlThree", photoUrl);
+            firebaseRef.child("ToiletView").child(toilet.key).updateChildren(updateData);
 
         }
 
 
-
-
     }
+
 
 
     @Override

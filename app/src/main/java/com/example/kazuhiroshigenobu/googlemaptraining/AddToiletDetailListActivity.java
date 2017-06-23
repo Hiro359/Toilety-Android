@@ -771,7 +771,7 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
 
                 } else if (photoSelected == 2) {
                     targetView = subImage2;
-                    uploadImageToDatabase(3, selectedImage);
+                    uploadImageToDatabase(2, selectedImage);
                     //subTwofilePath = selectedImage;
 
                 }
@@ -1945,14 +1945,17 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
                         if (placeNumber == 0) {
                             Log.i("urlOne found", downloadUrl.toString());
                             urlOne = downloadUrl.toString();
+                            photoUrlMutlipleUpdate(0,urlOne);
                         }
                         if (placeNumber == 1) {
                             Log.i("urlTwo found", downloadUrl.toString());
                             urlTwo = downloadUrl.toString();
+                            photoUrlMutlipleUpdate(0,urlTwo);
                         }
                         if (placeNumber == 2) {
                             Log.i("urlThree found", downloadUrl.toString());
                             urlThree = downloadUrl.toString();
+                            photoUrlMutlipleUpdate(0,urlThree);
                         }
 
                         //changed urlOne to this downloadUrl...
@@ -1963,6 +1966,79 @@ public class AddToiletDetailListActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void photoUrlMutlipleUpdate(Integer placeInteger, String photoUrl){
+
+
+        DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+
+
+        if (placeInteger == 0) {
+            //Multiple Update
+
+
+            Map<String, Object> updateData = new HashMap();
+
+
+            updateData.put("ToiletView/" + newTid + "/urlOne" , photoUrl);
+            updateData.put("NoFilter/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitOne/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitTwo/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitThree/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitFour/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitFive/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitSix/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitSeven/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitEight/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitNine/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitTen/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitEleven/" + newTid + "/urlOne", photoUrl);
+            updateData.put("UnitTwelve/" + newTid + "/urlOne", photoUrl);
+            updateData.put("GroupOne/" + newTid + "/urlOne", photoUrl);
+            updateData.put("GroupTwo/" + newTid + "/urlOne", photoUrl);
+            updateData.put("GroupThree/" + newTid + "/urlOne", photoUrl);
+            updateData.put("HalfOne/" + newTid + "/urlOne", photoUrl);
+            updateData.put("HalfTwo/" + newTid + "/urlOne", photoUrl);
+            updateData.put("AllFilter/" + newTid + "/urlOne", photoUrl);
+
+
+
+            firebaseRef.updateChildren(updateData,new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                    if (databaseError != null){
+                        Toast.makeText(AddToiletDetailListActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.i("url upload success", "444");
+                    }
+                }
+            });
+
+
+
+
+
+        } else if (placeInteger == 1) {
+            Map<String, Object> updateData = new HashMap();
+            updateData.put("urlTwo", photoUrl);
+
+            firebaseRef.child("ToiletView").child(newTid).updateChildren(updateData);
+
+
+
+        } else if (placeInteger == 2) {
+            Map<String, Object> updateData = new HashMap();
+            updateData.put("urlThree", photoUrl);
+            firebaseRef.child("ToiletView").child(newTid).updateChildren(updateData);
+
+        }
+
+
+    }
+
+
+
 
 
     public void onMapReadyCalled(GoogleMap googleMap) {
