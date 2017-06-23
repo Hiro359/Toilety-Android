@@ -489,10 +489,6 @@ public class EditPinLocationActivity extends AppCompatActivity implements OnMapR
     private void firebaseToiletLocationChildRenew(){
 
 
-
-
-
-
         //Atomic datebase update...
 
 
