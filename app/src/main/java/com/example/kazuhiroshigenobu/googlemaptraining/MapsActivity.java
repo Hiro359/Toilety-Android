@@ -307,8 +307,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 if (recyclertView != null)
                 {
-
-                    Log.i("recgetHeight()", String.valueOf(recyclertView.getHeight()));
+                    Log.i("listView ani", "777");
 
                     listViewAdjustAnimation();
 
@@ -318,6 +317,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
+
+
+
+        buttonMapCenter.setVisibility(View.VISIBLE);
+        buttonShowListview.setVisibility(View.VISIBLE);
+        //Added June 23
 
     }
 
@@ -427,12 +432,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 recycleViewHeight = 800;
                 //recycleViewHeight = 900;
-
                 //Changed for user interface June 2
-
                 listViewAdjustAnimation();
 
-                //Commented May 12
             }
 
         }
@@ -442,11 +444,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void listViewAdjustAnimation(){
 
-        Log.i("listViewAdjust 234", "");
-        Log.i("recyclertView 234", String.valueOf(recyclertView));
-        Log.i("recycleViewHeight 234", String.valueOf(recycleViewHeight));
-
-
+        Log.i("listViewAdjust", "777");
 
 
         ResizeAnimation resizeAnimation = new ResizeAnimation(
@@ -455,10 +453,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 0
         );
 
-
         resizeAnimation.setDuration(400);
         recyclertView.startAnimation(resizeAnimation);
-
 
 
         //Commented June 2
@@ -490,24 +486,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onMapClick(LatLng latLng) {
 
                         Toast.makeText(MapsActivity.this, "Map was touched", Toast.LENGTH_SHORT).show();
-                        if (recyclertView != null){
+                        listCloseDown();
 
-                            Log.i("recgetHeight()", String.valueOf(recyclertView.getHeight()));
-
-
-                            ResizeAnimation resizeAnimation = new ResizeAnimation(
-                                    recyclertView,
-                                    -recyclertView.getHeight(),
-                                    recyclertView.getHeight()
-                            );
-
-                            resizeAnimation.setDuration(400);
-                            recyclertView.startAnimation(resizeAnimation);
-
-                            buttonMapCenter.setVisibility(View.VISIBLE);
-                            buttonShowListview.setVisibility(View.VISIBLE);
-
-                        }
                     }
                 });
 
@@ -590,30 +570,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-//                if (lastKnownLocation != null) {
-//                    Log.i("HeyHey3334445556666", "locationManager.requestLocationUpdates");
-//
-//                    //LatLng userLatLng = new LatLng(LocationManager.GPS_PROVIDER., lastKnownLocation.getLongitude());
-//
-//
-//                    // mMap.clear();
-//                    LatLng userLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-//                    // mMap.addMarker(new MarkerOptions().position(userLatLng).title("Your Location222"));
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLng));
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 14.0f));
-//
-//                    UserInfo.latitude = lastKnownLocation.getLatitude();
-//                    UserInfo.longitude = lastKnownLocation.getLongitude();
-//                    toiletSearch(lastKnownLocation);
-//
-//                } else {
-//                    Log.i("LastLocation","NOT Found");
-//
-//                    //When you could not get the last known location...
-//
-//                //}
-//            }
-        //}
+    }
+
+    private void listCloseDown(){
+        if (recyclertView != null ){
+
+            Log.i("recgetHeight()", String.valueOf(recyclertView.getHeight()));
+
+            ResizeAnimation resizeAnimation = new ResizeAnimation(
+                    recyclertView,
+                    -recyclertView.getHeight(),
+                    recyclertView.getHeight()
+            );
+
+            resizeAnimation.setDuration(400);
+            recyclertView.startAnimation(resizeAnimation);
+
+            buttonMapCenter.setVisibility(View.VISIBLE);
+            buttonShowListview.setVisibility(View.VISIBLE);
+
+        }
 
 
     }
