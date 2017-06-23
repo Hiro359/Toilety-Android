@@ -2349,6 +2349,8 @@ public class EditViewListActivity extends AppCompatActivity {
 
     }
 
+    //Added visible for tests June 23
+    @SuppressWarnings("VisibleForTests")
     private void uploadImageToDatabase(final int placeNumber, Uri file) {
 
 
@@ -2385,9 +2387,9 @@ public class EditViewListActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // Handle successful uploads on complete
 
-                if (taskSnapshot.getMetadata() != null) {
+                if ( taskSnapshot.getMetadata() != null) {
 
-                    Uri downloadUrl = taskSnapshot.getMetadata().getDownloadUrl();
+                    @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getMetadata().getDownloadUrl();
 
                     if (downloadUrl != null) {
 
@@ -2411,6 +2413,22 @@ public class EditViewListActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void photoUrlMutlipleUpdate(Integer placeInteger, String photoUrl){
+
+        if (placeInteger == 0) {
+            
+
+        } else if (placeInteger == 1) {
+
+        } else if (placeInteger == 2) {
+
+        }
+
+
+
+
     }
 
 
