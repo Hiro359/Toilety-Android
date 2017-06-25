@@ -368,7 +368,7 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         Filter.babyToyFilter = buttonView.isChecked();
                     }
                     if (pos == 85) {
-                        Filter.fancy = buttonView.isChecked();
+                        Filter.babyRoomFancyFilter = buttonView.isChecked();
                     }
                     if (pos == 86) {
                         Filter.babyRoomSmellGoodFilter = buttonView.isChecked();
@@ -395,7 +395,9 @@ class FilterListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemCount() {
 
-        return 86;
+        return 87;
+
+        //June 25 changed from 86 to 87
 
 
     }

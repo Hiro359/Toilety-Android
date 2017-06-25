@@ -2409,6 +2409,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
         }
     }
 
+
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
 
@@ -2431,7 +2432,8 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
     }
 
 
-            private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
+
+    private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
                 Canvas canvas = new Canvas();
                 Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
                 canvas.setBitmap(bitmap);
@@ -2441,7 +2443,7 @@ public class DetailViewActivity extends AppCompatActivity implements ReviewListA
                 drawable.draw(canvas);
 
                 return BitmapDescriptorFactory.fromBitmap(bitmap);
-            }
+    }
 
 
     @Override

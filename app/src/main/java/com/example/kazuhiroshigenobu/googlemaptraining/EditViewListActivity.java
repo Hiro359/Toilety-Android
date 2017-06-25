@@ -2200,6 +2200,15 @@ public class EditViewListActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
+                    if (databaseError != null){
+                        Toast.makeText(EditViewListActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    } else {
+                        allBooleansValueToFalse();
+                        Toast.makeText(EditViewListActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
+
+                    }
+
 
                 }
             });
@@ -2484,6 +2493,116 @@ public class EditViewListActivity extends AppCompatActivity {
 
 
     }
+
+    private void allBooleansValueToFalse(){
+
+
+
+        AddDetailBooleans.available = true;
+        AddDetailBooleans.japanesetoilet = false;
+        AddDetailBooleans.westerntoilet = false;
+        AddDetailBooleans.onlyFemale = false;
+        AddDetailBooleans.unisex = false;
+
+        AddDetailBooleans.washlet = false;
+        AddDetailBooleans.warmSeat = false;
+        AddDetailBooleans.autoOpen = false;
+        AddDetailBooleans.noVirus = false;
+        AddDetailBooleans.paperForBenki = false;
+        AddDetailBooleans.cleanerForBenki = false;
+        AddDetailBooleans.autoToiletWash = false;
+
+        AddDetailBooleans.sensorHandWash = false;
+        AddDetailBooleans.handSoap = false;
+        AddDetailBooleans.autoHandSoap = false;
+        AddDetailBooleans.paperTowel = false;
+        AddDetailBooleans.handDrier = false;
+
+
+        AddDetailBooleans.fancy = false;
+        AddDetailBooleans.smell = false;
+        AddDetailBooleans.conforatableWide= false;
+        AddDetailBooleans.clothes = false;
+        AddDetailBooleans.baggageSpace = false;
+
+
+        AddDetailBooleans.noNeedAsk = false;
+        AddDetailBooleans.english = false;
+        AddDetailBooleans.parking = false;
+        AddDetailBooleans.airCondition = false;
+        AddDetailBooleans.wifi = false;
+
+
+
+
+
+
+        //For ladys
+        AddDetailBooleans.otohime = false;
+        AddDetailBooleans.napkinSelling = false;
+        AddDetailBooleans.makeuproom = false;
+        AddDetailBooleans.ladyOmutu = false;
+        AddDetailBooleans.ladyBabyChair = false;
+        AddDetailBooleans.ladyBabyChairGood = false;
+        AddDetailBooleans.ladyBabyCarAccess = false;
+
+        //For mens
+        AddDetailBooleans.maleOmutu = false;
+        AddDetailBooleans.maleBabyChair = false;
+        AddDetailBooleans.maleBabyChairGood = false;
+        AddDetailBooleans.maleBabyCarAccess = false;
+
+
+
+
+        AddDetailBooleans.wheelchair = false;
+        AddDetailBooleans.wheelchairAccess = false;
+        AddDetailBooleans.autoDoor = false;
+        AddDetailBooleans.callHelp = false;
+        AddDetailBooleans.ostomate = false;
+        AddDetailBooleans.braille = false;
+        AddDetailBooleans.voiceGuide = false;
+        AddDetailBooleans.familyOmutu = false;
+        AddDetailBooleans.familyBabyChair = false;
+
+
+
+
+
+
+
+        AddDetailBooleans.milkspace = false;
+        AddDetailBooleans.babyroomOnlyFemale = false;
+        AddDetailBooleans.babyroomManCanEnter = false;
+        AddDetailBooleans.babyPersonalSpace = false;
+        AddDetailBooleans.babyPersonalSpaceWithLock = false;
+        AddDetailBooleans.babyRoomWideSpace = false;
+        AddDetailBooleans.babyCarRental = false;
+        AddDetailBooleans.babyCarAccess = false;
+        AddDetailBooleans.omutu = false;
+        AddDetailBooleans.hipWashingStuff = false;
+        AddDetailBooleans.babyTrashCan = false;
+        AddDetailBooleans.omutuSelling = false;
+        AddDetailBooleans.babyFoddSelling = false;
+        AddDetailBooleans.babyRoomSink = false;
+        AddDetailBooleans.babyWashStand = false;
+        AddDetailBooleans.babyHotWater = false;
+        AddDetailBooleans.babyMicroWave = false;
+        AddDetailBooleans.babyWaterSelling = false;
+        AddDetailBooleans.babyEatingSpace = false;
+        AddDetailBooleans.babyChair = false;
+        AddDetailBooleans.babySoffa = false;
+        AddDetailBooleans.babyKidsToilet = false;
+        AddDetailBooleans.babyKidsSpace = false;
+        AddDetailBooleans.babyHeightMeasure = false;
+        AddDetailBooleans.babyWeightMeasure = false;
+        AddDetailBooleans.babyToy = false;
+        AddDetailBooleans.babyFancy = false;
+        AddDetailBooleans.babySmellGood = false;
+
+
+    }
+
 
 
 

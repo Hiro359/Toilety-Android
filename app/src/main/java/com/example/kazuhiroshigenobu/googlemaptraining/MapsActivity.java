@@ -1511,7 +1511,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
        // toilet.autoDoor = (Boolean) dataSnapshot.child("handrail").getValue();
         if (Filter.autoDoorFilter) { //Example
-            toilet.autoDoor = (Boolean) dataSnapshot.child("handrail").getValue();
+            toilet.autoDoor = (Boolean) dataSnapshot.child("autoDoor").getValue();
             if (!toilet.autoDoor) {
                 return;
             }
@@ -1619,7 +1619,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (Filter.babyRoomWideSpaceFilter) { //Example
             toilet.babyRoomWideSpace = (Boolean) dataSnapshot.child("babyRoomWideSpace").getValue();
 
-            if (toilet.babyRoomWideSpace) {
+            if (!toilet.babyRoomWideSpace) {
                 return;
             }
         }
@@ -1769,7 +1769,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
         //toilet.babyKidsToilet = (Boolean) dataSnapshot.child("kidsToilet").getValue();
-        if (Filter.babyKidsSpaceFilter) { //Example
+        if (Filter.babyToiletFilter) { //Example
             toilet.babyKidsToilet = (Boolean) dataSnapshot.child("kidsToilet").getValue();
 
             if (!toilet.babyKidsToilet) {
@@ -1782,7 +1782,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (Filter.babyKidsSpaceFilter) { //Example
             toilet.babyKidsSpace = (Boolean) dataSnapshot.child("kidsSpace").getValue();
 
-            if (!toilet.babyKidsToilet) {
+            if (!toilet.babyKidsSpace) {
                 return;
             }
         }

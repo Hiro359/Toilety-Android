@@ -354,7 +354,6 @@ class AddBooleansListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
 
 
-
                 }
 
             });
