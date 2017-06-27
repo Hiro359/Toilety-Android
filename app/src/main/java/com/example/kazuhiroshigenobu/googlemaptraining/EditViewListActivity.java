@@ -1848,7 +1848,7 @@ public class EditViewListActivity extends AppCompatActivity {
             halfTwoData.put("averageStar",toilet.averageStar);
             halfTwoData.put("reviewCount",1);
             halfTwoData.put("available",true);
-            halfTwoData.put("averageWait",toilet.averageStar);
+            halfTwoData.put("averageWait",toilet.averageWait);
             halfTwoData.put("toiletFloor",toilet.floor);
             halfTwoData.put("latitude",toilet.latitude);
             halfTwoData.put("longitude",toilet.longitude);
@@ -1924,7 +1924,7 @@ public class EditViewListActivity extends AppCompatActivity {
             allFilterData.put("averageStar",toilet.averageStar);
             allFilterData.put("reviewCount",1);
             allFilterData.put("available",true);
-            allFilterData.put("averageWait",toilet.averageStar);
+            allFilterData.put("averageWait",toilet.averageWait);
             allFilterData.put("toiletFloor",toilet.floor);
             allFilterData.put("japanesetoilet", AddDetailBooleans.japanesetoilet);
             allFilterData.put("westerntoilet",AddDetailBooleans.westerntoilet);
@@ -2053,6 +2053,7 @@ public class EditViewListActivity extends AppCompatActivity {
 
 
 
+
             toiletViewData.put("latitude",toilet.latitude);
             toiletViewData.put("longitude",toilet.longitude);
 
@@ -2160,6 +2161,7 @@ public class EditViewListActivity extends AppCompatActivity {
             toiletViewData.put("babySmellGood",AddDetailBooleans.babySmellGood);
 
 
+            Log.i("ToiletView Data 888", toiletViewData.toString());
 
 
 
@@ -2202,9 +2204,11 @@ public class EditViewListActivity extends AppCompatActivity {
 
                     if (databaseError != null){
                         Toast.makeText(EditViewListActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        Log.i("Permisssion Error Dayo","888");
                     } else {
-                        allBooleansValueToFalse();
+
                         Toast.makeText(EditViewListActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                        allBooleansValueToFalse();
 
 
                     }
