@@ -94,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/likeLabel"
-                        android:text="@string/get1"
+                        android:text="@string/getliked1"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
                         android:layout_gravity="center"/>
@@ -140,7 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/favoriteLabel"
-                        android:text="@string/get1"
+                        android:text="@string/getFavorite1"
                         android:textColor="@color/colorText"
                         android:textAlignment="center"
                         android:layout_gravity="center"/>

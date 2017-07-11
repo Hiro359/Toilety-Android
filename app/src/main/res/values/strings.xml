@@ -6,182 +6,185 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">ログイン </string>
-    <string name="action_register">登録</string>
-    <string name="createNewAccount">アカウント登録</string>
-    <string name="forgetPassword">パスワードを忘れましたか？</string>
-    <string name="serviceRule">ToiletDataサービス利用規約</string>
-    <string name="personalInfo">個人情報保護方針</string>
-    <string name="readDocument">ログインすることによりあなたはToilet Dataサービス利用規約と個人情報保護方針に同意することとします。</string>
+    <string name="action_sign_in">Log in </string>
+    <string name="action_register">Create Account</string>
+    <string name="createNewAccount">Create a New Account</string>
+    <string name="forgetPassword">Did you forget your password?</string>
+    <string name="serviceRule">ToiletData Service Policy</string>
+    <string name="personalInfo">Privacy Policy</string>
+    <string name="readDocument">By signing up you are agreeing to Toilet Data Service Policy and Privacy Policy</string>
 
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="error_user_exists">すでにユーザーが登録されています</string>
-    <string name="error_weak_password">パスワードが短すぎます</string>
+    <string name="error_user_exists">This user already exists</string>
+    <string name="error_weak_password">The password is too short</string>
 
     <!--Strings related to Setting View Activity-->
-    <string name="changeUserName">ユーザーネームを変える</string>
-    <string name="changeUserPhoto">プロフィール写真を変える</string>
-    <string name="aboutThisApp">このアプリについて</string>
-    <string name="privacyInfo">プライバシー</string>
-    <string name="showHelp">ヘルプ</string>
-    <string name="logout">ログアウト</string>
-    <string name="settingsButton">設定</string>
+    <string name="changeUserName">Change User Name</string>
+    <string name="changeUserPhoto">Change User Photo</string>
+    <string name="aboutThisApp">About Toilet Data</string>
+    <string name="privacyInfo">Privacy</string>
+    <string name="showHelp">Help</string>
+    <string name="logout">Log Out</string>
+    <string name="settingsButton">Settings</string>
 
     <!--Maps Activity -->
     <string name="str_atv_places">Enter Place Here</string>
-    <string name="backToOriginalPlace">現在地に戻る</string>
+    <string name="backToOriginalPlace">Search Near Me</string>
 
     <!--Search Location Activity-->
-    <string name="searchLocationAppBarTitle">目的地を検索</string>
-    <string name="enterPlaceHere">目的地を入力してください</string>
+    <string name="searchLocationAppBarTitle">Search Destination</string>
+    <string name="enterPlaceHere">Enter your destination</string>
 
-    <string name="searchStart">検索</string>
+    <string name="searchStart">Search</string>
 
 
     <!--Change User Photo Activity-->
-    <string name="choosePhoto">イメージを選ぶ</string>
+    <string name="choosePhoto">Choose Photo</string>
 
-    <string name="savePhoto">イメージを保存する</string>
+    <string name="savePhoto">Save Photo</string>
 
-    <string name="changePhoto">イメージを変更する</string>
+    <string name="changePhoto">Change Photo</string>
 
 
     <!--Change User Name Activity-->
-    <string name="saveString">保存する</string>
+    <string name="saveString">Save</string>
 
-    <string name="changeUserNameTitleBar">名前</string>
+    <string name="changeUserNameTitleBar">Name</string>
 
 
     <!--Marker Window-->
 
-    <string name="moreInfo">詳細を見る</string>
+    <string name="moreInfo">More Details</string>
 
 
     <!--Review Cutsom Row-->
     <string name="userName">user name</string>
-    <string name="reviewLikeCount">いいね３件</string>
-    <string name="waitingTime">分待ちました</string>
+    <string name="reviewLikeCount">like 3</string>
+    <string name="waitingTime">waiting time</string>
     <string name="one">1</string>
     <string name="dateString">2017/4/21</string>
-    <string name="reviewListTitle">全ての感想</string>
+    <string name="reviewListTitle">More Reviews</string>
 
 
     <!--FavoriteListActivity -->
-    <string name="favListTitle">お気に入りリスト</string>
+    <string name="favListTitle">Favorite List</string>
 
     <!--UserWentActivity-->
-    <string name="userWentTitle">以前利用したトイレ</string>
+    <string name="userWentTitle">Visited List</string>
 
     <!--CommentListView-->
     <string name="commentTime">4/3/2017</string>
-    <string name="thankYouComment">トイレが最高でした。ありがとうございます</string>
-    <string name="commentWaitingTime">3分待ちました</string>
+    <string name="thankYouComment">It was one of the best toilets I had ever seen in my life. It was awesome!!</string>
+    <string name="commentWaitingTime">3 minutes waited</string>
     <string name="distanceString">500m</string>
-    <string name="nameString">名前</string>
-    <string name="avereageWait">平均待ち　３分</string>
+    <string name="nameString">Name</string>
+    <string name="avereageWait">Ave Wait　３m</string>
     <string name="ratingValue">3.0</string>
 
     <!--AddToiletActivity-->
-    <string name="addPlaceHere">この位置でトイレを追加する</string>
-    <string name="addPinHere">地図上をタップしてください</string>
+    <string name="addPlaceHere">Add Place</string>
+    <string name="addPinHere">Set a Pin with a touch on the Map</string>
 
 
     <!--DetailViewActivity-->
-    <string name="mainDetailImage">メインイメージ</string>
-    <string name="detailName">名前</string>
-    <string name="detailDistance">コンビニエンスストア/ 500m</string>
-    <string name="detailAvailableTimes">ご利用時間12:00 - 18:00/ 平均待ち2分</string>
+    <string name="mainDetailImage">Main Image</string>
+    <string name="detailName">Name</string>
+    <string name="detailDistance">Convenience Store/ 500m</string>
+    <string name="detailAvailableTimes">12:00 〜 18:00/ Ave Wait 2m</string>
     <string name="detailStarStrings">3.0</string>
     <string name="detailRatingStrings">(45)</string>
-    <string name="detailAdreess">アドレス</string>
-    <string name="detailHowToAccess">具体的なアクセス方法</string>
-    <string name="goToThisPlace">この施設に行く</string>
-    <string name="firstPosterPlace">投稿者</string>
-    <string name="lastEditerPlace">最終編集者</string>
-    <string name="sendTroubles">報告</string>
-    <string name="userKansou">ユーザーの感想</string>
+    <string name="detailAdreess">Address</string>
+    <string name="detailHowToAccess">How to Access</string>
+    <string name="goToThisPlace">Go to this Place</string>
+    <string name="firstPosterPlace">First Poster</string>
+    <string name="lastEditerPlace">Last Editer</string>
+    <string name="sendTroubles">Report</string>
+    <string name="userKansou">Reviews</string>
     <string name="defaultCount">1</string>
     <string name="superCount">100000</string>
-    <string name="postKansouButton">感想</string>
-    <string name="startEditButton">編集</string>
-    <string name="showAllReviewsButton">全ての感想</string>
+    <string name="postKansouButton">Review</string>
+    <string name="startEditButton">Edit</string>
+    <string name="showAllReviewsButton">More Reviews</string>
 
 
-    <string name="image">イメージ</string>
+    <string name="image">Image</string>
 
 
     <!--FilterSearchActivity-->
-    <string name="text_distance">距離</string>
-    <string name="select_distance">距離を選択</string>
-    <string name="orderToilet">並び順</string>
-    <string name="category">分類</string>
-    <string name="searchWithFilter">条件検索</string>
-    <string name="detailToilet">トイレの詳細</string>
-    <string name="name_booleanValues">スイッチ</string>
+    <string name="text_distance">Distance</string>
+    <string name="select_distance">Choose Distance</string>
+    <string name="orderToilet">Order by</string>
+    <string name="category">Category</string>
+    <string name="searchWithFilter">Filter Search</string>
+    <string name="detailToilet">Detail Info</string>
+    <string name="name_booleanValues">Switch</string>
 
 
     <!--FilterSearchActivity-->
     <!--Type Sppiner Value-->
-    <string name="typeDefalutZero">全てのトイレ</string>
-    <string name="typeDefalutOne">公衆トイレ</string>
-    <string name="typeDefalutTwo">コンビニ</string>
-    <string name="typeDefalutThree">カフェ</string>
-    <string name="typeDefalutFour">レストラン</string>
-    <string name="typeDefalutFive">商業施設</string>
-    <string name="typeDefalutSix">観光地・スタジアム</string>
-    <string name="typeDefalutSeven">仮設トイレ</string>
-    <string name="typeDefalutEight">一般家庭(断水時のみ)</string>
+    <string name="typeDefalutZero">All Places</string>
+    <string name="typeDefalutOne">Public Restroom</string>
+    <string name="typeDefalutTwo">Convenience Store</string>
+    <string name="typeDefalutThree">Caffe</string>
+    <string name="typeDefalutFour">Restaurant</string>
+    <string name="typeDefalutFive">Shopping Mall</string>
+    <string name="typeDefalutSix">Tourist Place</string>
+    <string name="typeDefalutSeven">Stadium</string>
+    <string name="typeDefalutEight">Portable Toilet</string>
+    <string name="typeDefalutNine">Home Toilet (During Power Outage)</string>
+
+    <!--Added default six and seven July 11-->
 
 
-    <string name="typeDefalutZeroEdit">分類を選択してください</string>
+    <string name="typeDefalutZeroEdit">Select a category</string>
 
 
     <!--Strings related to boolean values-->
     <string name="name_available">Available</string>
-    <string name="name_japaneseToilet">和式トイレ</string>
-    <string name="name_westernToilet">洋式トイレ</string>
-    <string name="name_onlyFemale">女性専用トイレ</string>
-    <string name="name_unisex">男女兼用トイレ</string>
+    <string name="name_japaneseToilet">Squat Toilet</string>
+    <string name="name_westernToilet">Sitting Toilet</string>
+    <string name="name_onlyFemale">Female Toilet</string>
+    <string name="name_unisex">Unisex Toilet</string>
 
-    <string name="name_washlet">ウォシュレット</string>
-    <string name="name_warmSeat">暖房便座</string>
-    <string name="name_autoOpen">自動開閉便座</string>
-    <string name="name_noVirusBenki">抗菌便座</string>
-    <string name="name_paperForBenki">便座用シート</string>
-    <string name="name_cleanerForBenki">便座クリーナー</string>
-    <string name="name_nonTouchWash">自動洗浄</string>
+    <string name="name_washlet">Washlet</string>
+    <string name="name_warmSeat">Warm Toilet Seat</string>
+    <string name="name_autoOpen">Automatic Lid</string>
+    <string name="name_noVirusBenki">Antibacterial Toilet Seat</string>
+    <string name="name_paperForBenki">Toilet Seat Paper</string>
+    <string name="name_cleanerForBenki">Toilet Seat Cleaner</string>
+    <string name="name_nonTouchWash">Auto Toilet Flusher</string>
 
-    <string name="name_senser">センサー式手洗い</string>
-    <string name="name_sensorHandWash">センサー式お手洗い</string>
-    <string name="name_soap">ハンドソープ</string>
-    <string name="name_nonTouchSoap">自動ハンドソープ</string>
-    <string name="name_paperTowel">ペーパータオル</string>
-    <string name="name_handDrier">ハンドドライヤー</string>
+    <string name="name_senser">Sensor Hand Wash</string>
+    <string name="name_sensorHandWash">Sensor Hand Wash</string>
+    <string name="name_soap">Hand Soap</string>
+    <string name="name_nonTouchSoap">Sensor Hand Soap</string>
+    <string name="name_paperTowel">Paper Towel</string>
+    <string name="name_handDrier">Hand Drier</string>
 
     <!--others 1-->
 
-    <string name="name_clothes">洋服掛け</string>
-    <string name="name_baggageSpace">荷物置き</string>
+    <string name="name_clothes">Coat Hooks</string>
+    <string name="name_baggageSpace">Luggage Rack</string>
 
     <!--others two -->
 
-    <string name="name_englishWritten">英語表記</string>
-    <string name="name_noNeedAsk">声かけ不要</string>
-    <string name="name_parking">駐車場</string>
-    <string name="name_airCondition">冷暖房</string>
-    <string name="name_wifi">無料Wi-Fi</string>
+    <string name="name_englishWritten">Signs Written in English</string>
+    <string name="name_noNeedAsk">No Need to Ask</string>
+    <string name="name_parking">Parking</string>
+    <string name="name_airCondition">Air Conditioner</string>
+    <string name="name_wifi">Free Wi-Fi</string>
 
 
     <!--//For ladys-->
-    <string name="name_otohime">音姫</string>
-    <string name="name_napkinSelling">ナプキン販売機</string>
-    <string name="name_makeroom">メイクルーム</string>
-    <string name="omutu">おむつ交換台</string>
-    <string name="babyChairGoodPlace">安全なベビーチェア</string>
+    <string name="name_otohime">Toilet Flushing Sound Simulator</string>
+    <string name="name_napkinSelling">Sanitary Napkin Vending Machine</string>
+    <string name="name_makeroom">Powder Room</string>
+    <string name="omutu">Diaper Changing Table</string>
+    <string name="babyChairGoodPlace">Safe Baby Chair</string>
 
 
     <!--For mans-->
@@ -189,142 +192,143 @@
 
     <!--for family-->
 
-    <string name="name_wheelChair">車イス対応</string>
-    <string name="name_wheelChairAccess">車イスでアクセス可能</string>
-    <string name="name_handrail">手すり</string>
-    <string name="name_callHelp">呼び出しボタン</string>
-    <string name="name_ostomate">オストメイト対応</string>
-    <string name="braille">点字案内</string>
-    <string name="name_voiceGuide">音声案内</string>
+    <string name="name_wheelChair">Handicapped Toilet</string>
+    <string name="name_wheelChairAccess">Wheelchair Accessible</string>
+    <string name="name_handrail">Handrail</string>
+    <string name="name_callHelp">Emergency Button</string>
+    <string name="name_ostomate">Stoma Toilet</string>
+    <string name="braille">Braille Signs</string>
+    <string name="name_voiceGuide">Voice Guide</string>
 
 
-    <string name="name_fancy">おしゃれ</string>
-    <string name="name_smell">良い香り</string>
-    <string name="name_confortableWide">快適な広さ</string>
+    <string name="name_fancy">Stylish Room</string>
+    <string name="name_smell">Smells Good</string>
+    <string name="name_confortableWide">Large Room</string>
 
 
-    <string name="name_milk">授乳スペース</string>
-    <string name="name_milkOnlyFemale">女性限定</string>
-    <string name="name_milkMaleOkay">男性入室可能</string>
-    <string name="name_personalSpace">個室有り</string>
-    <string name="name_personalSpaceWithLock">鍵付き個室有り</string>
-    <string name="name_wideBabySpace">広いスペース</string>
-    <string name="name_rentalBabyCar">ベビーカー貸し出し</string>
-    <string name="name_babyCarAccess">ベビーカーでアクセス可能</string>
-    <string name="name_omutu">おむつ交換台</string>
-    <string name="name_hipCleanStuff">おしりふき</string>
-    <string name="name_omutuTrashCan">おむつ用ゴミ箱</string>
-    <string name="name_omutuSelling">おむつ販売機</string>
-    <string name="name_babyFood">ベビーフード</string>
-    <string name="name_babysink">シンク</string>
-    <string name="name_babyWashstand">洗面台</string>
-    <string name="name_babyHotWater">給湯器</string>
-    <string name="name_babyMicroWave">電子レンジ</string>
-    <string name="name_babySellingWater">飲料自販機</string>
-    <string name="name_foodForBabySelling">離乳食販売機</string>
-    <string name="name_spaceForEatingWithBaby">飲食スペース</string>
-    <string name="name_babyChair">ベビーチェア</string>
-    <string name="name_babySoffa">ソファ</string>
-    <string name="name_babyKidsToilet">キッズトイレ</string>
-    <string name="name_babyKidsSpace">キッズスペース</string>
-    <string name="name_heightMeasure">身長計</string>
-    <string name="name_weightMeasure">体重計</string>
-    <string name="name_babyPlayingToy">おもちゃ</string>
-    <string name="name_babyFancy">おしゃれ</string>
-    <string name="name_babySmellGood">良い香り</string>
+    <string name="name_milk">Breastfeeding Room</string>
+    <string name="name_milkOnlyFemale">Female Exclusive</string>
+    <string name="name_milkMaleOkay">Male Accessible</string>
+    <string name="name_personalSpace">Personal Room</string>
+    <string name="name_personalSpaceWithLock">Personal Room with Lock</string>
+    <string name="name_wideBabySpace">Large Room</string>
+    <string name="name_rentalBabyCar">Rental Baby Stroller</string>
+    <string name="name_babyCarAccess">Baby Stroller Accessible</string>
+    <string name="name_omutu">Diaper Changing Table</string>
+    <string name="name_hipCleanStuff">Baby Wipes</string>
+    <string name="name_omutuTrashCan">Trash Can for Diapers</string>
+    <string name="name_omutuSelling">Diaper Vending Machine</string>
+    <string name="name_babyFood">Sells Baby Food</string>
+    <string name="name_babysink">Sink</string>
+    <string name="name_babyWashstand">Washstand</string>
+    <string name="name_babyHotWater">Hot Water Supply</string>
+    <string name="name_babyMicroWave">Microwave</string>
+    <string name="name_babySellingWater">Vending Machine</string>
+    <string name="name_foodForBabySelling">Sells Baby Food</string>
+    <string name="name_spaceForEatingWithBaby">Dining Space</string>
+    <string name="name_babyChair">Baby Chair</string>
+    <string name="name_babySoffa">Soffa</string>
+    <string name="name_babyKidsToilet">Kids Toilet</string>
+    <string name="name_babyKidsSpace">Play Space</string>
+    <string name="name_heightMeasure">Height Measurer</string>
+    <string name="name_weightMeasure">Weight Measurer</string>
+    <string name="name_babyPlayingToy">Toys</string>
+    <string name="name_babyFancy">Stylish Room</string>
+    <string name="name_babySmellGood">Smells Good</string>
 
 
-    <string name="benkiWestern">洋式便器</string>
-    <string name="benkiJapanese">和式便器</string>
+    <string name="benkiWestern">Sitting Toilet</string>
+    <string name="benkiJapanese">Squat Toilet</string>
     <string name="benkiPee">小便器</string>
-    <string name="menToilet">男性トイレ</string>
-    <string name="womenToilet">女性トイレ</string>
-    <string name="setubi">設備</string>
-    <string name="basicInfo">基本情報</string>
-    <string name="howToAccess">アクセス方法</string>
-    <string name="writeFloor">トイレの階</string>
-    <string name="evaluation">評価</string>
-    <string name="kansou">感想</string>
-    <string name="changePin">ピンの位置を変更する</string>
-    <string name="layoutMap">マップ</string>
-    <string name="picture">写真</string>
-    <string name="addPicture">写真を追加する</string>
-    <string name="feedback">投稿</string>
-    <string name="sendFeedback">投稿する</string>
-    <string name="writeToiletName">トイレの名前</string>
-    <string name="pick_time">利用可能時間</string>
+    <string name="menToilet">Male Toilet</string>
+    <string name="womenToilet">Female Toilet</string>
+    <string name="setubi">General Features</string>
+    <string name="basicInfo">Basic Info</string>
+    <string name="howToAccess">How to Access</string>
+    <string name="writeFloor">Floor</string>
+    <string name="evaluation">Evaluation</string>
+    <string name="kansou">Review</string>
+    <string name="changePin">Change Pin</string>
+    <string name="layoutMap">Map</string>
+    <string name="picture">Picture</string>
+    <string name="addPicture">Add Picture</string>
+    <string name="feedback">Post</string>
+    <string name="sendFeedback">Post</string>
+    <string name="writeToiletName">Name of the Place</string>
+    <string name="pick_time">Available Time</string>
     <string name="default_time">0 : 00</string>
     <string name="timeDot"> : </string>
-    <string name="search"> 検索 </string>
+    <string name="search"> Search </string>
 
 
-    <string name="access">アクセス方法</string>
-    <string name="accessGo">具体的なアクセス方法</string>
+    <string name="access">How to Accuss</string>
+    <string name="accessGo">How to Access</string>
 
-    <string name="writeKansou">感想を記入してください</string>
-    <string name="look_detail">詳細の情報</string>
-    <string name="edit_detail">編集</string>
-    <string name="availableSwitch">利用可能</string>
+    <string name="writeKansou">Please write your feedback</string>
+    <string name="look_detail">More Detail</string>
+    <string name="edit_detail">Edit</string>
+    <string name="availableSwitch">Available</string>
 
 
     <string name="between">〜</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="post_kansou">感想を投稿する</string>
-    <string name="name_deleteFilters">検索条件を削除</string>
-    <string name="deletingFilters">条件削除</string>
-    <string name="openAllDay">24時間営業の場合は 0:00 〜 24:00</string>
+    <string name="post_kansou">Post Reviews</string>
+    <string name="name_deleteFilters">Remove Filters</string>
+    <string name="deletingFilters">Remove Filters</string>
+    <string name="openAllDay">If it opens All Day, then write 0:00 〜 24:00</string>
 
     <!--Search category booleans-->
-    <string name="basicFucation">基本設備</string>
-    <string name="searchBenkiFucation">機能</string>
-    <string name="searchSettings">洗面台設備</string>
-    <string name="searchForLadys">女性に優しい設備</string>
-    <string name="searchBarrierFree">バリアフリー</string>
-    <string name="searchOthers">その他</string>
-    <string name="papaMamaFriendly">ママ・パパに優しい</string>
-    <string name="aboutBabyRoomOne">ベビールームについて①</string>
-    <string name="aboutBabyRoomTwo">ベビールームについて②</string>
-    <string name="aboutBabyRoomThree">ベビールームについて③</string>
-    <string name="aboutBabyRoomFour">ベビールームについて④</string>
-    <string name="aboutBabyRoomFive">ベビールームについて⑤</string>
+    <string name="basicFucation">General Features</string>
+    <string name="searchBenkiFucation">Toilet Seat Function</string>
+    <string name="searchSettings">Washstand</string>
+    <string name="searchForLadys">Female Toilet</string>
+    <string name="searchBarrierFree">Barrier Free</string>
+    <string name="searchOthers">Miscellaneous</string>
+    <string name="papaMamaFriendly">For Parents</string>
+    <string name="aboutBabyRoomOne">1,Nursing Room</string>
+    <string name="aboutBabyRoomTwo">2,Nursing Room</string>
+    <string name="aboutBabyRoomThree">3,Nursing Room</string>
+    <string name="aboutBabyRoomFour">4,Nursing Room</string>
+    <string name="aboutBabyRoomFive">5,Nursing Room</string>
 
 
     <!--Related to App Bars-->
-    <string name="myPage">マイページ</string>
-    <string name="editPage">編集</string>
-    <string name="kansouPosting">感想を投稿</string>
-    <string name="changePinLocation">施設の位置を変更</string>
-    <string name="addNewToilet">施設を追加</string>
+    <string name="myPage">My Page</string>
+    <string name="editPage">Edit</string>
+    <string name="kansouPosting">Post Review</string>
+    <string name="changePinLocation">Change Location</string>
+    <string name="addNewToilet">Add Place</string>
 
 
     <!--Related to Account Activity-->
     <string name="countZero">0</string>
     <string name="notLogIn">User</string>
-    <string name="get1">もらった</string>
-    <string name="getliked2">いいね</string>
-    <string name="getFavorite2">お気に入り</string>
-    <string name="helped1">助けた</string>
-    <string name="helped2">人数</string>
-    <string name="postToiletButtonText">トイレを投稿する</string>
-    <string name="showYouFavoriteText">お気に入りリスト</string>
-    <string name="showYouPostedText">以前投稿したトイレ</string>
-    <string name="showYouWentText">以前利用したトイレ</string>
-    <string name="likeImage">いいね</string>
-    <string name="FavoriteImage">お気に入り</string>
-    <string name="HelpImage">助けた</string>
-    <string name="accountImage">アカウント</string>
+    <string name="getliked1">Liked</string>
+    <string name="getliked2">Count</string>
+    <string name="getFavorite1">Favorite</string>
+    <string name="getFavorite2">Count</string>
+    <string name="helped1">Helped</string>
+    <string name="helped2">Count</string>
+    <string name="postToiletButtonText">Add Place</string>
+    <string name="showYouFavoriteText">Favorite List</string>
+    <string name="showYouPostedText">Places You Have Added</string>
+    <string name="showYouWentText">Places You Have Been to</string>
+    <string name="likeImage">Like</string>
+    <string name="FavoriteImage">Favorite</string>
+    <string name="HelpImage">Help</string>
+    <string name="accountImage">Account</string>
 
 
     <!--Related to First Time Activity-->
-    <string name="appDescription">Toilet Dataへようこそ</string>
-    <string name="appDescription2">あなたにぴったりのトイレを</string>
-    <string name="appDescription3">お届けします。</string>
-    <string name="skipLogin">スキップ</string>
-    <string name="startLogin">ログイン</string>
-    <string name="startSignUp">サインアップ</string>
-    <string name="appLogoImage">ロゴ</string>
+    <string name="appDescription">Welcome to Toilet Data</string>
+    <string name="appDescription2">Find the best toilets near you</string>
+    <string name="appDescription3"></string>
+    <string name="skipLogin">Skip</string>
+    <string name="startLogin">Login</string>
+    <string name="startSignUp">Sign Up</string>
+    <string name="appLogoImage">Logo</string>
 
 
     <string name="permission_rationale">"Contacts permissions are needed for providing email

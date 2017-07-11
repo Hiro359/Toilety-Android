@@ -292,8 +292,9 @@
     <!--Related to Account Activity-->
     <string name="countZero">0</string>
     <string name="notLogIn">ユーザー</string>
-    <string name="get1">もらった</string>
+    <string name="getliked1">もらった</string>
     <string name="getliked2">いいね</string>
+    <string name="getFavorite1">もらった</string>
     <string name="getFavorite2">お気に入り</string>
     <string name="helped1">助けた</string>
     <string name="helped2">人数</string>

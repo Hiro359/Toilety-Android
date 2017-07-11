@@ -922,16 +922,19 @@ public class AddToiletDetailListActivity extends AppCompatActivity implements On
 //            DatabaseReference toiletReviewsRef = fireDatabase.getReference("ToiletReviews");
 //            DatabaseReference reviewListRef = fireDatabase.getReference("ReviewList");
 
-            ReviewPost newPost = new ReviewPost(
-                    true,
-                    textFeedback.getText().toString(),//String feedback,
-                    0,//Integer likedCount,
-                    avStar,//String star,
-                    newTid,
-                    dateString,//String time,
-                    timeNumbers,
-                    uid,
-                    waitingTime);
+//            ReviewPost newPost = new ReviewPost(
+//                    true,
+//                    textFeedback.getText().toString(),//String feedback,
+//                    0,//Integer likedCount,
+//                    avStar,//String star,
+//                    newTid,
+//                    dateString,//String time,
+//                    timeNumbers,
+//                    uid,
+//                    waitingTime);
+
+
+
 
 
 //            reviewInfoRef.child(newRid).setValue(newPost);
@@ -940,6 +943,20 @@ public class AddToiletDetailListActivity extends AppCompatActivity implements On
 //
 //            toiletReviewsRef.child(newTid).child(newRid).setValue(true);
 //.
+
+            Map<String, Object> reviewData = new HashMap();
+            reviewData.put("available",true);
+            reviewData.put("feedback",textFeedback.getText().toString());
+            reviewData.put("likedCount",0);
+            reviewData.put("star",avStar);
+            reviewData.put("tid",newTid);
+            reviewData.put("time",dateString);
+            reviewData.put("timeNumbers",timeNumbers);
+            reviewData.put("uid",uid);
+            reviewData.put("waitingtime",waitingTime);
+
+
+
 
 
             Map<String, Object> noFilterData = new HashMap();
@@ -1782,12 +1799,16 @@ public class AddToiletDetailListActivity extends AppCompatActivity implements On
             updateData.put("HalfOne/" + newTid, halfOneData);
             updateData.put("HalfTwo/" + newTid, halfTwoData);
             updateData.put("AllFilter/" + newTid, allFilterData);
-            updateData.put("ReviewInfo/" + newRid, newPost);
+            updateData.put("ReviewInfo/" + newRid, reviewData);
             updateData.put("ToiletReview/" + newTid + "/" + newRid, true);
             updateData.put("ReviewList/" + uid + "/" + newRid, true);
 
-            JSONObject json = new JSONObject(allFilterData); // Convert text to object
-            System.out.println(json);
+//            JSONObject json = new JSONObject(allFilterData); // Convert text to object
+//            System.out.println(json);
+
+
+            JSONObject json2 = new JSONObject(reviewData); // Convert text to object
+            System.out.println(json2);
 
 
 
