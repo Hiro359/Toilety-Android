@@ -104,17 +104,29 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    Log.i("task called", "3344");
 
-                    pointAllocation(33.579689, 130.260029, 33.631384, 130.425161);
-                    // 学研　箱崎
+//                    pointAllocation(33.579689, 130.260029, 33.631384, 130.425161);
+//                    // 学研　箱崎
 
                     //pointAllocation(33.590, 130.40, 35.689, 139.69); July 27 Fukuoka to Tokyo
 
                     //九大学研駅　33.579689, 130.260029
-
                     //九大箱崎キャンパス　33.631384, 130.425161
 
+                    pointAllocation(33.557257, 130.361023, 33.644188, 130.466080);
+                    //July 27 20;24
+
+                    //Shiraito 33.485670, 130.182696 (Bottom Left)
+                    //
+                    //Masarasho momonokawa (Bottom Left) 33.265348, 129.957357
+                    //Kobushi (Top Right) 33.718651, 130.597060
+
+                    //Saga  33.454112, 130.290568
+
                 } else {
+
+                    Log.i("task did not called", "3344");
 
                     Toast.makeText(DatabaseCreationActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     System.out.print("Error Found!!!!!!!!");
