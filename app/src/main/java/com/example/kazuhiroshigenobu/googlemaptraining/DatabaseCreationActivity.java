@@ -60,6 +60,7 @@ import javax.xml.parsers.SAXParserFactory;
 public class DatabaseCreationActivity extends AppCompatActivity {
 
 
+    //Google Api
 
 
 //    PlacesTaskDataBase placesTask;
@@ -104,8 +105,14 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
 
+                    pointAllocation(33.579689, 130.260029, 33.631384, 130.425161);
+                    // 学研　箱崎
 
-                    pointAllocation(33.590, 130.40, 35.689, 139.69);
+                    //pointAllocation(33.590, 130.40, 35.689, 139.69); July 27 Fukuoka to Tokyo
+
+                    //九大学研駅　33.579689, 130.260029
+
+                    //九大箱崎キャンパス　33.631384, 130.425161
 
                 } else {
 

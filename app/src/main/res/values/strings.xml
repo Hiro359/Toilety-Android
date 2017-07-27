@@ -406,40 +406,39 @@
 
 
     <string-array name="floorCount">
-        <item> 地下3階</item>
-        <item> 地下2階</item>
-        <item> 地下1階</item>
-        <item> 階なし</item>
-        <item> 1階</item>
-        <item> 2階</item>
-        <item> 3階</item>
-        <item> 4階</item>
-        <item> 5階</item>
-        <item> 6階</item>
-        <item> 7階</item>
-        <item> 8階</item>
-        <item> 9階</item>
-        <item> 10階</item>
-        <item> 11階</item>
-        <item> 12階</item>
-        <item> 13階</item>
-        <item> 14階</item>
-        <item> 15階</item>
-        <item> 16階</item>
-        <item> 17階</item>
-        <item> 18階</item>
-        <item> 19階</item>
-        <item> 20階</item>
-        <item> 21階</item>
-        <item> 22階</item>
-        <item> 23階</item>
-        <item> 24階</item>
-        <item> 25階</item>
-        <item> 26階</item>
-        <item> 27階</item>
-        <item> 28階</item>
-        <item> 29階</item>
-        <item> 30階</item>
+        <item> B3 </item>
+        <item> B2 </item>
+        <item> B1</item>
+        <item> 1F</item>
+        <item> 2F</item>
+        <item> 3F</item>
+        <item> 4F</item>
+        <item> 5F</item>
+        <item> 6F</item>
+        <item> 7F</item>
+        <item> 8F</item>
+        <item> 9F</item>
+        <item> 10F</item>
+        <item> 11F</item>
+        <item> 12F</item>
+        <item> 13F</item>
+        <item> 14F</item>
+        <item> 15F</item>
+        <item> 16F</item>
+        <item> 17F</item>
+        <item> 18F</item>
+        <item> 19F</item>
+        <item> 20F</item>
+        <item> 21F</item>
+        <item> 22F</item>
+        <item> 23F</item>
+        <item> 24F</item>
+        <item> 25F</item>
+        <item> 26F</item>
+        <item> 27F</item>
+        <item> 28F</item>
+        <item> 29F</item>
+        <item> 30F</item>
 
     </string-array>
 
@@ -529,41 +528,43 @@
     </string-array>
 
     <string-array name="order_names">
-        <item> 並び順を選択してください</item>
-        <item> 現在地から近い順</item>
-        <item> 評価が高い順</item>
-        <item> 感想が多い順</item>
+        <item> Choose the order</item>
+        <item> Distance</item>
+        <item> Stars</item>
+        <item> Reviews</item>
 
     </string-array>
 
     <string-array name="places_filters">
-        <item> 全てのトイレ</item>
-        <item> 公衆トイレ</item>
-        <item> コンビニ</item>
-        <item> カフェ</item>
-        <item> レストラン</item>
-        <item> 商業施設</item>
-        <item> 観光地・スタジアム</item>
-        <item> 仮設トイレ</item>
-        <item>一般家庭(断水時のみ)</item>
+        <item> All Places</item>
+        <item> Public Restroom</item>
+        <item> Convenience Store</item>
+        <item> Cafe</item>
+        <item> Restaurant</item>
+        <item> Shopping Mall</item>
+        <item> Tourist Place</item>
+        <item> Stadium</item>
+        <item> Portable Toilet</item>
+        <item> Home Toilet During Water Outage</item>
     </string-array>
 
 
     <string-array name="places_names">
-        <item> 分類を選択してください</item>
-        <item> 公衆トイレ</item>
-        <item> コンビニ</item>
-        <item> カフェ</item>
-        <item> レストラン</item>
-        <item> 商業施設</item>
-        <item> 観光地・スタジアム</item>
-        <item> 仮設トイレ</item>
-        <item>一般家庭(断水時のみ)</item>
+        <item> Choose Category</item>
+        <item> Public Restroom</item>
+        <item> Convenience Store</item>
+        <item> Cafe</item>
+        <item> Restaurant</item>
+        <item> Shopping Mall</item>
+        <item> Tourist Place</item>
+        <item> Stadium</item>
+        <item> Portable Toilet</item>
+        <item> Home Toilet During Water Outage</item>
     </string-array>
 
 
     <string-array name="star_numbers">
-        <item> 星の数を検索してください</item>
+        <item> The Number of Stars</item>
         <item> ★</item>
         <item> ★★</item>
         <item> ★★★</item>
