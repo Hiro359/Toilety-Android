@@ -114,7 +114,7 @@ public class DatabaseCreationActivity extends AppCompatActivity {
                     //九大学研駅　33.579689, 130.260029
                     //九大箱崎キャンパス　33.631384, 130.425161
 
-                    pointAllocation(33.557257, 130.361023, 33.644188, 130.466080);
+                    pointAllocation(33.575360, 130.378727,33.594600, 130.416069);
                     //July 27 20;24
 
                     //Shiraito 33.485670, 130.182696 (Bottom Left)
@@ -196,8 +196,9 @@ public class DatabaseCreationActivity extends AppCompatActivity {
         Log.i("heightTimes", String.valueOf(heightTimes));
 
 
-        widthTimes = 1;
-        heightTimes = 1;
+//        widthTimes = 1;
+//        heightTimes = 1;
+        //July 27
 
 
         for (int x = 0; x <= heightTimes;) {
@@ -208,8 +209,14 @@ public class DatabaseCreationActivity extends AppCompatActivity {
 
                 System.out.print("\n");
 
-                startLon = startLon + 0.02;
-                //put pointer per about 2km
+//                startLon = startLon + 0.02;
+//                //put pointer per about 2km
+
+                startLon = startLon + 0.005;
+                //put pointer per about 0.5km
+                //July 27 21;00
+
+
                 startLon = round(startLon,6);
 
                 System.out.print("lat,lon" + "(" + startLat  + "," +  startLon + ")");
@@ -229,8 +236,14 @@ public class DatabaseCreationActivity extends AppCompatActivity {
             }
             x = x + 1;
 
-            startLat = startLat + 0.02;
-            //put pointer per about 2km
+//            startLat = startLat + 0.02;
+//            //put pointer per about 2km
+
+            startLat = startLat + 0.005;
+            //put pointer per about 0.05km
+            //July 27 21;00
+
+
             startLat = round(startLat,6);
 
             //System.out.print("x,y" + "(" + x  + "," +  y + ")");
