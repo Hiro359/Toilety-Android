@@ -1,6 +1,7 @@
 package com.example.kazuhiroshigenobu.googlemaptraining;
 
 import android.content.res.XmlResourceParser;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,10 @@ import android.widget.Toast;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.core.GeoHash;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -38,6 +43,8 @@ public class ReadXmlActivity extends AppCompatActivity {
     private List<Toilet> geoFireArray = new ArrayList<>();
     private Integer databaseUploadCount = 0;
     private Integer successUpdateCount = 0;
+
+    private FirebaseAuth firebaseAuth;
     //Copy from database creation activity
 
 
@@ -48,7 +55,46 @@ public class ReadXmlActivity extends AppCompatActivity {
 
         Log.i("readXML loaded", "333");
 
-        readXmlData();
+
+        //readXmlData();
+        siginIn();
+        //later it reads xml file
+        //August 10
+
+    }
+
+    private void siginIn() {
+
+        String email = "database@gmail.com";
+        String password = "Database";
+        //String userName = userNameText.getText().toString();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+//        firebaseAuth.signInAnonymously();
+//        readXmlData();
+        //August 10
+//
+//        pointAllocation(33.590, 130.40, 35.689, 139.69);
+
+
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Log.i("task called", "3344");
+                    readXmlData();
+
+                } else {
+                    Log.i("task did not called", "3344");
+
+                    Toast.makeText(ReadXmlActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    System.out.print("Error Found!!!!!!!!");
+                    //Toast.makeText(StartLoginActivity.this, "UnSuccess", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     private void readXmlData(){
@@ -78,8 +124,8 @@ public class ReadXmlActivity extends AppCompatActivity {
 
                     String coordinate = getValue("coordinates", element2);
 
-                    String latitude = coordinate.split(",")[0];
-                    String longitude = coordinate.split(",")[1];
+                    String latitude = coordinate.split(",")[1];
+                    String longitude = coordinate.split(",")[0];
 
 
                     Double latDouble = Double.parseDouble(latitude);
@@ -90,9 +136,23 @@ public class ReadXmlActivity extends AppCompatActivity {
                     Log.i("lat 222",String.valueOf(latDouble));
                     Log.i("lon 222",String.valueOf(lonDouble));
 
-                    databaseUpload(name, latDouble, lonDouble);
 
 
+
+
+
+                    if ((latDouble.floatValue() > -90.0) && (latDouble.floatValue() < 90.0)) {
+                        //Latitude is a right value
+                        if ((lonDouble.floatValue() > -180.0) && (lonDouble.floatValue() < 180.0)) {
+                            //Longitude is a right value
+                            databaseUpload(name, latDouble, lonDouble);
+                        } else {
+                            Log.i("long error 6666",name + String.valueOf(lonDouble));
+                        }
+                    } else {
+                        Log.i("lat error 6666",name + String.valueOf(latDouble));
+                    }
+                      //July 30 7pm
 
 
 
@@ -125,6 +185,8 @@ public class ReadXmlActivity extends AppCompatActivity {
 
     private void databaseUpload(String name, Double lat, Double lng){
 
+
+        Log.i("First Upload", "23456");
         //String id =
 
         String id = UUID.randomUUID().toString();
@@ -1040,8 +1102,8 @@ public class ReadXmlActivity extends AppCompatActivity {
 
 
 
-        System.out.print("geoHash.getGeoHashString()" + geoHash.getGeoHashString());
-        System.out.print("Arrays.asList(AddLocations.latitude, AddLocations.longitude)" + Arrays.asList(AddLocations.latitude, AddLocations.longitude));
+//        System.out.print("geoHash.getGeoHashString()" + geoHash.getGeoHashString());
+//        System.out.print("Arrays.asList(AddLocations.latitude, AddLocations.longitude)" + Arrays.asList(AddLocations.latitude, AddLocations.longitude));
 
 
 
@@ -1052,17 +1114,25 @@ public class ReadXmlActivity extends AppCompatActivity {
 
         geoFireArray.add(toilet);
 
+        Log.i("Before Upload", "23456");
+
 
         DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
 
+        Log.i("Before 2 Upload", "23456");
+
 
         firebaseRef.updateChildren(updateData,new DatabaseReference.CompletionListener() {
+
+
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
+                Log.i("Try Upload", "23456");
+
                 if (databaseError != null){
                     Toast.makeText(ReadXmlActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                    Log.i("Database Sccess!", "234");
+                    Log.i("Error in Upload", "234567");
 
                 } else {
 
@@ -1072,7 +1142,7 @@ public class ReadXmlActivity extends AppCompatActivity {
 
                     if (successUpdateCount.equals(databaseUploadCount)) {
 
-                        Log.i("geoFireArrayStart", "Yeah");
+                        Log.i("geoFireArrayStart", "23456");
 
                         for (Toilet toilet : geoFireArray) {
                             // access foo here
@@ -1083,10 +1153,12 @@ public class ReadXmlActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(String key, DatabaseError error) {
                                     if (error != null) {
-                                        System.err.println("Error saving the location to GeoFire: " + error + "key" + key);
+                                        System.err.println("222 Error saving the location to GeoFire: " + error + "key" + key);
+                                        Log.i("Error Upload", "234567");
 
                                     } else {
                                         System.out.println("Location saved on server successfully!");
+                                        Log.i("Success Upload", "234568");
                                     }
 
                                 }
@@ -1097,8 +1169,18 @@ public class ReadXmlActivity extends AppCompatActivity {
                     }
 
                 }
+
+                Log.i("In end Upload", "23456");
             }
+
+
+
+
         });
+
+
+
+        Log.i("database end", "23456");
 //
 //
 //
